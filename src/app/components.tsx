@@ -46,10 +46,10 @@ export const HeroSearch: React.FC<{
     <section className="relative mb-25 bg-gray-50 px-4 py-3">
       <div className="mx-auto max-w-4xl text-center">
         <h1 className="mb-4 text-4xl font-extrabold tracking-tight text-gray-900 md:text-5xl lg:text-6xl">
-          GKH Country Profiles
+          National GEO Knowledge Hub
         </h1>
         <p className="mb-6 text-lg text-gray-700">
-          Search and discover applications and solutions tailored for your country.
+          Search and discover EO Applications and solutions tailored for your country.
         </p>
 
         {/* Search Bar */}

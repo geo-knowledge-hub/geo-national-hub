@@ -63,23 +63,8 @@ const CountryPage: React.FC<CountryPageProps> = ({ params }: CountryPageProps): 
           <div className="mb-4 rounded-full px-4 py-2 text-sm"></div>
 
           <h1 className="text-4xl leading-tight font-extrabold text-gray-900">
-            {countryData.title} Profile
+            {countryData.title} Knowledge Hub
           </h1>
-        </div>
-      </section>
-
-      {/* Country key facts */}
-      <section className="px-4 py-12">
-        <div className="mx-auto max-w-7xl text-center">
-          <h2 className="mb-6 text-2xl font-bold text-gray-900">Key facts</h2>
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-            {countryData.keyFacts.map((keyFactor, index) => (
-              <div key={index} className="rounded-lg border border-gray-200 bg-white p-6 shadow-md">
-                <h3 className="text-lg font-semibold">{keyFactor.type}</h3>
-                <p className="text-gray-700">{keyFactor.value}</p>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 

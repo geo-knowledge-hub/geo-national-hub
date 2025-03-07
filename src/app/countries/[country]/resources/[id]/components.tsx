@@ -41,7 +41,7 @@ const ResourceCard: React.FC<ResourceCardProps> = ({
   resource,
 }: ResourceCardProps): JSX.Element => {
   return (
-    <div className="flex items-center justify-between rounded-xl border border-gray-200 p-6 shadow-md transition hover:shadow-lg">
+    <div className="flex items-center justify-between rounded-xl border border-gray-200 p-6 shadow-md transition hover:shadow-lg bg-white">
       <div className="flex-1 space-y-3">
         <div className="mb-2 flex items-center space-x-2 text-sm">
           <span className="rounded-full bg-gray-900 px-3 py-1 text-xs font-medium text-white">

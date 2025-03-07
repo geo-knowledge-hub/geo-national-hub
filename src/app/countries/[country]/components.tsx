@@ -95,7 +95,7 @@ export const ResourcesSection: React.FC<ResourcesSectionProps> = ({
 
   // Rendering!
   return (
-    <section className="px-4 py-12">
+    <section className="px-4 py-12 mt-5">
       <div className="mx-auto max-w-7xl">
         {/* Title + Search Bar Container */}
         <div className="relative mb-6 flex flex-wrap items-center justify-center gap-3 lg:gap-0">

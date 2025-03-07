@@ -58,7 +58,7 @@ const ResourcePage: React.FC<ResourcePageProps> = async ({ params }) => {
           <BackButton href={`/countries/${countryData.id}`} className={'h-10 w-23'} />
 
           <h1 className="text-3xl leading-tight font-extrabold text-gray-900">
-            Resources related to {resourceData.title} in {countryData.title}
+            Resources related to {resourceData.title}
           </h1>
         </div>
       </section>
