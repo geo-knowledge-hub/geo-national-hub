@@ -47,8 +47,8 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps): JSX.Element =
 
             {/* Navigation Links - Responsive */}
             <nav className="absolute left-1/2 hidden -translate-x-1/2 transform space-x-8 font-medium text-gray-800 md:flex">
-              <Link href="/countries" className="transition hover:text-gray-600">
-                Country Profiles
+              <Link href="#" className="transition hover:text-gray-600">
+                National Knowledge Hub
               </Link>
               <Link
                 href="https://gkhub.earthobservations.org"
