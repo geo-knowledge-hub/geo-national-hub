@@ -435,22 +435,6 @@ const data: CountryProfileData = {
                 link: 'https://gkhub.earthobservations.org/packages/ka6hq-87x10',
                 icon: iconPackage,
               },
-              {
-                title: 'Big Data Ghana: Sustainable Agriculture with Digital Earth Africa',
-                type: 'User Story',
-                uploaded: 'January 4, 2023',
-                description: 'Using CHIRPS and NDVI data to improve agricultural sustainability.',
-                link: 'https://gkhub.earthobservations.org/records/ttr2j-qfq47',
-                icon: iconUserStory,
-              },
-              {
-                title: 'Space-based Data Advancement on Data Providers',
-                type: 'Presentation',
-                uploaded: 'October 7, 2024',
-                description: 'Focused on leveraging space-based data for pollution monitoring.',
-                link: 'https://gkhub.earthobservations.org/records/zgm2k-1tw39',
-                icon: iconPresentation,
-              },
             ],
             global: [
               {
@@ -460,16 +444,6 @@ const data: CountryProfileData = {
                 description: 'Detailed Knowledge Package about the UrbEm model',
                 link: 'https://doi.org/10.60566/t252k-rk431',
                 icon: iconPackage,
-              },
-              {
-                title:
-                  'e-shape pilot S2-P3 - EO-based pollution-health risks profiling in the urban environment',
-                type: 'Video',
-                uploaded: 'October 7, 2024',
-                description:
-                  'Detailed knowledge package addressing pollution-health risks in urban environments.',
-                link: 'https://doi.org/10.60566/jaf2d-7bj57',
-                icon: iconVideo,
               },
             ],
           },

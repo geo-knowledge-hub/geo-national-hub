@@ -121,21 +121,25 @@ export const ResourcesSection: React.FC<ResourcesSectionProps> = ({
         {/* Resources Grid */}
         <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {filteredResources.length > 0 ? (
-            filteredResources.map((resource, index) => (
-              <div
-                key={index}
-                className="rounded-lg border border-gray-200 bg-white p-6 shadow-md transition hover:shadow-lg"
-              >
-                <h5 className="mb-2 text-xl font-semibold text-gray-900">{resource.title}</h5>
-                <p className="text-gray-600">{resource.description}</p>
-                <Link
-                  href={`${countryData.id}/resources/${resource.link}`}
-                  className="mt-4 inline-flex items-center font-medium text-gray-600 transition hover:text-gray-800"
+            filteredResources.map((resource, index) => {
+              const resourceLink = resource.link !== "#" ? `${countryData.id}/resources/${resource.link}` : "#";
+
+              return (
+                <div
+                  key={index}
+                  className="rounded-lg border border-gray-200 bg-white p-6 shadow-md transition hover:shadow-lg"
                 >
-                  View Resources →
-                </Link>
-              </div>
-            ))
+                  <h5 className="mb-2 text-xl font-semibold text-gray-900">{resource.title}</h5>
+                  <p className="text-gray-600">{resource.description}</p>
+                  <Link
+                    href={resourceLink}
+                    className="mt-4 inline-flex items-center font-medium text-gray-600 transition hover:text-gray-800"
+                  >
+                    View Resources →
+                  </Link>
+                </div>
+              )
+            })
           ) : (
             <p className="col-span-full text-center text-gray-500">No resources found.</p>
           )}

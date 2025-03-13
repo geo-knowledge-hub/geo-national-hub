@@ -93,9 +93,11 @@ const HomePage: React.FC = (): JSX.Element => {
         {paginatedCountries.length > 0 ? (
           paginatedCountries.map((countryKey) => {
             const country = db.countries[countryKey];
+            const isGhana = countryKey === "ghana";
+            const countryLink = isGhana ? `/countries/${countryKey}` : "#";
 
             return (
-              <Link key={countryKey} href={`/countries/${countryKey}`} className="group block">
+              <Link key={countryKey} href={countryLink} className="group block">
                 <div className="rounded-lg border border-gray-200 bg-white shadow-sm transition hover:shadow-md">
                   <div className="relative h-40 w-full">
                     <Image
