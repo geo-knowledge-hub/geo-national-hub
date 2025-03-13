@@ -11,10 +11,7 @@ import { StaticImageData } from 'next/image';
 /**
  * Resource Icons
  */
-import iconVideo from '@public/content/resources/video.svg';
-import iconUserStory from '@public/content/resources/user-story.svg';
 import iconPackage from '@public/content/resources/knowledge-package.svg';
-import iconPresentation from '@public/content/resources/presentation.svg';
 
 /**
  * Placeholder icons
