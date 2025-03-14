@@ -99,14 +99,6 @@ const HomePage: React.FC = (): JSX.Element => {
             return (
               <Link key={countryKey} href={countryLink} className="group block">
                 <div className="rounded-lg border border-gray-200 bg-white shadow-sm transition hover:shadow-md">
-                  <div className="relative h-40 w-full">
-                    <Image
-                      src={country.flag}
-                      alt={`${country.title} flag`}
-                      fill
-                      className="rounded-t-lg"
-                    />
-                  </div>
                   <div className="flex items-center justify-between p-5">
                     <h5 className="text-md font-bold tracking-tight text-gray-900">
                       {country.title}
