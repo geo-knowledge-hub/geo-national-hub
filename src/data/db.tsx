@@ -727,26 +727,119 @@ const data: CountryProfileData = {
           value: 'Fact',
         },
       ],
-      resources: [],
+      resources: [
+        {
+          title: 'Agriculture and Food Security',
+          description: 'Learn about more about it.',
+          link: '#',
+          content: {
+            local: [],
+            global: [],
+          },
+        },
+        {
+          title: 'Circular Economy and Natural Resources Management',
+          description: 'Learn about more about it.',
+          link: '#',
+          content: {
+            local: [],
+            global: [],
+          },
+        },
+        {
+          title: 'Climate Action',
+          description: 'Learn about more about it.',
+          link: '#',
+          content: {
+            local: [],
+            global: [],
+          },
+        },
+        {
+          title: 'Earth Observations Infrastructure',
+          description: 'Learn about more about it.',
+          link: '#',
+          content: {
+            local: [],
+            global: [],
+          },
+        },
+        {
+          title: 'Data Governance',
+          description: 'Learn about more about it.',
+          link: '#',
+          content: {
+            local: [],
+            global: [],
+          },
+        },
+        {
+          title: 'Human settlements and spatial planning',
+          description: 'Learn about more about it.',
+          link: '#',
+          content: {
+            local: [],
+            global: [],
+          },
+        },
+        {
+          title: 'Natural capital accounting',
+          description: 'Learn about more about it.',
+          link: '#',
+          content: {
+            local: [],
+            global: [],
+          },
+        },
+      ],
       capacityBuildingActivities: [
         {
-          title: 'Example',
-          description: 'Example',
-          link: 'example',
+          title: 'Capacity build example A',
+          description:
+            'This placeholder text shows how capacity building can be presented on the country profile page.',
+          link: '#',
+        },
+        {
+          title: 'Capacity build example B',
+          description:
+            'This placeholder text shows how capacity building can be presented on the country profile page.',
+          link: '#',
+        },
+        {
+          title: 'Capacity build example C',
+          description:
+            'This placeholder text shows how capacity building can be presented on the country profile page.',
+          link: '#',
         },
       ],
       partners: [
         {
-          name: 'Example',
-          description: 'Example',
-          logo: '',
+          name: 'AfriGEO',
+          description: 'Supporting innovative initiatives across Africa.',
+          logo: ghanaPartnerAfriGEO,
+        },
+        {
+          name: 'Digital Earth Africa',
+          description:
+            'Fostering the development of innovative tools and capacity building in Africa.',
+          logo: ghanaPartnerDEAfrica,
         },
       ],
       representatives: [
         {
-          name: 'example',
-          email: 'example@example.org',
-          logo: '',
+          name: 'Representative Contact A',
+          email: 'email@mail.org',
+          logo: placeholderRepresentative,
+        },
+        {
+          name: 'Representative Contact B',
+          email: 'email@mail.org',
+          logo: placeholderRepresentative,
+        },
+        {
+          name: 'Representative Contact C',
+          email: 'email@mail.org',
+          logo: placeholderRepresentative,
         },
       ],
     },

@@ -92,8 +92,8 @@ const HomePage: React.FC = (): JSX.Element => {
         {paginatedCountries.length > 0 ? (
           paginatedCountries.map((countryKey) => {
             const country = db.countries[countryKey];
-            const isGhana = countryKey === "ghana";
-            const countryLink = isGhana ? `/countries/${countryKey}` : "#";
+            const isAllowed = countryKey === "ghana" || countryKey === "south-africa";
+            const countryLink = isAllowed ? `/countries/${countryKey}` : "#";
 
             return (
               <Link key={countryKey} href={countryLink} className="group block">
