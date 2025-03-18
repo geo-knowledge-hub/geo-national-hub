@@ -1,7 +1,8 @@
 {
   "name": "geo-country-profile",
   "version": "0.1.0",
-  "private": true,
+  "license": "MIT",
+  "author": "GEO Knowledge Hub contributors",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",

@@ -1,6 +1,6 @@
 # National GEO Knowledge Hub
 
-The National GEO Knowledge Hub module is part of the GEO Knowledge Hub ecosystem. It enables National and Regional GEOs to organize and share their knowledge in an issue-oriented environment, associating content with specific socio-environmental challenges. This module facilitates collaboration between countries by allowing them to contribute and access valuable insights, fostering a more integrated and informed approach to addressing global environmental issues.
+The National GEO Knowledge Hub module is part of the GEO Knowledge Hub ecosystem that enables National and Regional GEOs to organize and share their knowledge in an issue-oriented environment.
 
 ## Getting Started
 
