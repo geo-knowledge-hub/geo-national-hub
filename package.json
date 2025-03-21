@@ -1,6 +1,6 @@
 {
   "name": "geo-country-profile",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "license": "MIT",
   "author": "GEO Knowledge Hub contributors",
   "scripts": {
@@ -9,6 +9,14 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "keywords": [
+    "GEO Knowledge Hub",
+    "National GEO",
+    "Regional GEO",
+    "React",
+    "Typescript",
+    "Next"
+  ],
   "dependencies": {
     "@heroicons/react": "^2.2.0",
     "flowbite": "^3.1.2",
@@ -33,5 +41,16 @@
     "prettier-plugin-tailwindcss": "^0.6.11",
     "tailwindcss": "^4",
     "typescript": "^5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/geo-knowledge-hub/geo-national-hub"
+  },
+  "bugs": {
+    "url": "https://github.com/geo-knowledge-hub/geo-national-hub/issues"
+  },
+  "engines": {
+    "npm": ">= 10.0.0 <11.0.0",
+    "node": ">= 21.1.0 <22.0.0"
   }
 }
