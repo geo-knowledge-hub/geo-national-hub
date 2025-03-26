@@ -99,7 +99,7 @@ export const CapacityBuildingSection: React.FC<CapacityBuildingSectionProps> = (
     // Initialize MiniSearch
     const miniSearchInstance = new MiniSearch<CapacityBuildingActivity>({
       fields: ['id', 'title', 'description'],
-      storeFields: ['id', 'title', 'description', 'logo'],
+      storeFields: ['id', 'title', 'description', 'logo', 'link'],
       searchOptions: {
         fuzzy: 0.2,
         prefix: true,
