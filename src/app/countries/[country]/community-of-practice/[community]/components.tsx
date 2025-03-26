@@ -123,8 +123,8 @@ export const EngagementBlock = ({
       <p className="mb-3 text-sm text-gray-600">{description}</p>
       <a
         href={buttonLink}
-        target="_blank"
-        rel="noopener noreferrer"
+        // target="_blank"
+        // rel="noopener noreferrer"
         className="inline-block rounded-full bg-gray-900 px-4 py-2 text-sm text-white transition hover:bg-gray-800"
       >
         {buttonLabel}

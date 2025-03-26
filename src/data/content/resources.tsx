@@ -55,6 +55,9 @@ import southAfricaPartnerSANSA from '@public/content/partners/south-africa/sansa
  */
 import imageCommunityOfPracticeConcept from '@public/content/concepts/community-of-practice/concept.svg';
 
+import imageMechanismSAEOInfra from '@public/content/concepts/community-of-practice/south-africa/mechanism-eoi.svg';
+import imageMechanismSAEOGovernance from '@public/content/concepts/community-of-practice/south-africa/mechanism-governance.svg';
+
 import { HeroIcon } from './geo';
 
 /**
@@ -454,7 +457,22 @@ const data: CountryProfileData = {
       flag: flagSouthAfrica,
       focusAreas: [],
       challenges: [],
-      mechanisms: [],
+      mechanisms: [
+        {
+          name: 'Earth Observations Infrastructure',
+          description:
+            'This CoP is dedicated to promoting the current efforts and activities leading towards the integration, harmonisation, interoperability and dissemination of data, derived products and services and decision support systems activities, through utilization of relevant data infrastructures.',
+          link: 'https://neoss.co.za/sa-geo/earth-observations-infrastructure',
+          logo: imageMechanismSAEOInfra,
+        },
+        {
+          name: 'Data Governance',
+          description:
+            'This CoP is dedicated to promoting data governance and developing general principles for facilitating and enhancing access to and the uptake of earth observation data and formation by a wide range of user communities, in a coherent manner and provide guidance and best practices on standards such as data openness, transparency, stakeholder engagement, intellectual property rights (IPR).',
+          link: 'https://neoss.co.za/sa-geo/data-governance',
+          logo: imageMechanismSAEOGovernance,
+        },
+      ],
       communityOfPractice: [
         {
           name: 'NEOSS Community of Practice',

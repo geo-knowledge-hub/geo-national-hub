@@ -285,7 +285,7 @@ export const EnablingMechanisms: React.FC<EnablingMechanismsSectionProps> = ({
   useEffect(() => {
     const miniSearchInstance = new MiniSearch<Mechanism>({
       fields: ['name', 'description'],
-      storeFields: ['name', 'description', 'logo'],
+      storeFields: ['name', 'description', 'logo', 'link'],
       searchOptions: {
         fuzzy: 0.2,
         prefix: true,
@@ -294,7 +294,7 @@ export const EnablingMechanisms: React.FC<EnablingMechanismsSectionProps> = ({
 
     // Index records
     miniSearchInstance.addAll(
-      countryData.partners.map((mechanism, index) => ({ id: index, ...mechanism })),
+      countryData.mechanisms.map((mechanism, index) => ({ id: index, ...mechanism })),
     );
 
     setMiniSearch(miniSearchInstance);
