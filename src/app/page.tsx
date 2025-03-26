@@ -1,9 +1,9 @@
 /*
- * This file is part of GEO-Country-Profile.
+ * This file is part of GEO-National-Hub.
  *
  * Copyright (C) 2025 GEO Knowledge Hub contributors.
  *
- * GEO-Country-Profile is free software; you can redistribute it and/or modify it
+ * GEO-National-Hub is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
@@ -17,7 +17,8 @@ import MiniSearch from 'minisearch';
 
 import { HeroSearch } from './components';
 
-import db, { Country } from '@data/db';
+import db from '@data/db';
+import { Country } from '@data/content/resources';
 
 /**
  * Number of items displayed per page in the search results.
@@ -93,8 +94,8 @@ const HomePage: React.FC = (): JSX.Element => {
         {paginatedCountries.length > 0 ? (
           paginatedCountries.map((countryKey) => {
             const country = db.countries[countryKey];
-            const isAllowed = countryKey === "ghana" || countryKey === "south-africa";
-            const countryLink = isAllowed ? `/countries/${countryKey}` : "#";
+            const isAllowed = countryKey === 'ghana' || countryKey === 'south-africa';
+            const countryLink = isAllowed ? `/countries/${countryKey}` : '#';
 
             return (
               <Link key={countryKey} href={countryLink} className="group block">

@@ -7,7 +7,8 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "format": "prettier --write ."
   },
   "keywords": [
     "GEO Knowledge Hub",
@@ -20,6 +21,7 @@
   "dependencies": {
     "@heroicons/react": "^2.2.0",
     "flowbite": "^3.1.2",
+    "lodash": "^4.17.21",
     "lowdb": "^7.0.1",
     "minisearch": "^7.1.2",
     "next": "15.2.1",
@@ -30,6 +32,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
+    "@types/lodash": "^4.17.16",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

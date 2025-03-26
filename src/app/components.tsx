@@ -1,9 +1,9 @@
 /*
- * This file is part of GEO-Country-Profile.
+ * This file is part of GEO-National-Hub.
  *
  * Copyright (C) 2025 GEO Knowledge Hub contributors.
  *
- * GEO-Country-Profile is free software; you can redistribute it and/or modify it
+ * GEO-National-Hub is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
@@ -11,17 +11,25 @@
 
 import React, { JSX } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 /**
- * BackButtonProps - Define the properties for the ``BackButton`` component.
+ * Properties of the ``NavItem`` .
  */
-interface BackButtonProps {
-  /** The URL to navigate to when clicked */
+type NavItem = {
+  label: string;
   href: string;
-  /** The label text displayed on the button (default: "Back") */
-  label?: string;
-  /** Additional CSS classes for customization */
-  className?: string;
+  external?: boolean;
+};
+
+/**
+ * Properties expected for the ``Header`` component.
+ */
+interface HeaderProps {
+  logoSrc: string;
+  logoAlt: string;
+  navItems: NavItem[];
+  contactLink: string;
 }
 
 /**
@@ -92,38 +100,68 @@ export const HeroSearch: React.FC<{
 };
 
 /**
- * BackButton Component
+ * Common header for the GEO National Knowledge Hub.
  *
  * @component
- * @param {BackButtonProps} props - The properties for the ``BackButton`` component.
- * @param {string} props.href - The destination URL.
- * @param {string} [props.label="Back"] - The text label of the button.
- * @param {string} [props.className] - Optional additional CSS classes.
- * @returns {JSX.Element} The rendered ``BackButton`` component.
+ * @param {HeaderProps} props - Component props.
+ * @param {string} props.logoSrc - Logo image address.
+ * @param {string} props.logoAlt - Logo image alternative text.
+ * @param {NavItem} props.navItems - Navigation items.
+ * @param {string} props.contactLink - Contact link / email address.
+ * @returns {JSX.Element} The rendered Header component.
  */
-export const BackButton: React.FC<BackButtonProps> = ({
-  href,
-  label = 'Back',
-  className = '',
-}: BackButtonProps): JSX.Element => {
+export const Header: React.FC<HeaderProps> = ({
+  logoSrc,
+  logoAlt,
+  navItems,
+  contactLink,
+}: HeaderProps): JSX.Element => {
   return (
-    <Link
-      href={href}
-      className={`group flex items-center rounded-full border border-gray-400 bg-white/60 px-4 py-2 text-gray-800 shadow-md backdrop-blur-lg transition-all duration-300 hover:bg-white/80 ${className}`}
-    >
-      <svg
-        className="mr-2 h-5 w-5 text-gray-800 transition-all duration-300 group-hover:text-gray-600"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7"></path>
-      </svg>
-      <span className="font-medium text-gray-900 transition-all duration-300 group-hover:text-gray-700">
-        {label}
-      </span>
-    </Link>
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-gray-200 bg-white/70 backdrop-blur-md">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex h-23 items-center justify-between">
+          {/* Logo */}
+          <div className="flex items-center">
+            <Link href="/" passHref>
+              <div className="flex cursor-pointer items-center space-x-2">
+                <Image src={logoSrc} alt={logoAlt} height={64} />
+              </div>
+            </Link>
+          </div>
+
+          {/* Navigation */}
+          <nav className="hidden items-center space-x-10 md:flex">
+            {navItems.map((item, index) =>
+              item.external ? (
+                <a
+                  key={index}
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-medium text-gray-700 hover:text-gray-900"
+                >
+                  {item.label}
+                </a>
+              ) : (
+                <Link key={index} href={item.href} passHref>
+                  <span className="cursor-pointer font-medium text-gray-700 hover:text-gray-900">
+                    {item.label}
+                  </span>
+                </Link>
+              ),
+            )}
+          </nav>
+
+          <div className="flex items-center space-x-4">
+            <a
+              href={contactLink}
+              className="rounded-full bg-gray-900 px-4 py-2 text-white transition hover:bg-gray-800"
+            >
+              Contact
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
   );
 };

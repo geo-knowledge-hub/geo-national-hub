@@ -1,9 +1,9 @@
 /*
- * This file is part of GEO-Country-Profile.
+ * This file is part of GEO-National-Hub.
  *
  * Copyright (C) 2025 GEO Knowledge Hub contributors.
  *
- * GEO-Country-Profile is free software; you can redistribute it and/or modify it
+ * GEO-National-Hub is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
@@ -17,6 +17,8 @@ import './globals.css';
 
 import logoGEO from '@public/images/logo-geo-full.png';
 import logoGKH from '@public/images/logo-full-blue.svg';
+
+import { Header } from './components';
 
 /**
  * LayoutProps Interface - Defines the expected properties for the Layout component.
@@ -39,38 +41,21 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps): JSX.Element =
     <html lang="en">
       <body className="flex min-h-screen flex-col bg-gray-50 font-sans antialiased">
         {/* Header */}
-        <header className="absolute top-0 left-0 z-50 w-full bg-white px-6 py-5 shadow-md">
-          <div className="mx-auto flex max-w-7xl items-center justify-between">
-            {/* Logo on the left */}
-            <Link href="/" className="flex items-center font-bold text-gray-900">
-              <Image src={logoGKH} alt="GKH Logo" width={220} height={100} priority />
-            </Link>
-
-            {/* Navigation Links - Responsive */}
-            <nav className="absolute left-1/2 hidden -translate-x-1/2 transform space-x-8 font-medium text-gray-800 md:flex">
-              <Link href="#" className="transition hover:text-gray-600">
-                National Knowledge Hub
-              </Link>
-              <Link
-                href="https://gkhub.earthobservations.org"
-                className="transition hover:text-gray-600"
-              >
-                Knowledge
-              </Link>
-              <Link
-                href="https://gkhub.earthobservations.org/marketplace"
-                className="transition hover:text-gray-600"
-              >
-                Marketplace
-              </Link>
-            </nav>
-
-            {/* Login button on the right */}
-            <Link href="#" className="flex items-center text-gray-800 hover:text-gray-600">
-              Log in <span className="ml-1 transition-transform group-hover:translate-x-1">→</span>
-            </Link>
-          </div>
-        </header>
+        <Header
+          logoSrc={logoGKH}
+          logoAlt={'GEO Knowledge Hub logo'}
+          navItems={[
+            { label: 'Countries', href: '/' },
+            { label: 'Explore', href: '/explore' },
+            { label: 'Knowledge', href: 'https://gkhub.earthobservations.org', external: true },
+            {
+              label: 'Marketplace',
+              href: 'https://gkhub.earthobservations.org/marketplace',
+              external: true,
+            },
+          ]}
+          contactLink="/contact"
+        />
 
         {/* Main Content */}
         <main className="flex-1 pt-24 pb-10">
