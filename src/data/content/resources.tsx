@@ -53,8 +53,6 @@ import southAfricaPartnerSANSA from '@public/content/partners/south-africa/sansa
 /**
  * Community of practice
  */
-import imageCommunityOfPracticeConcept from '@public/content/concepts/community-of-practice/concept.svg';
-
 import imageMechanismSAEOInfra from '@public/content/concepts/community-of-practice/south-africa/mechanism-eoi.svg';
 import imageMechanismSAEOGovernance from '@public/content/concepts/community-of-practice/south-africa/mechanism-governance.svg';
 
@@ -143,7 +141,7 @@ export interface CommunityOfPractice {
   name: string;
   description: string;
   logo: StaticImageData | string;
-  representatives: Representative[];
+  link: string;
 }
 
 /**
@@ -158,7 +156,7 @@ export interface Country {
   capacityBuildingActivities: CapacityBuildingActivity[];
   partners: Partner[];
   representatives: Representative[];
-  communityOfPractice: CommunityOfPractice[];
+  communityOfPractice: CommunityOfPractice | null;
   mechanisms: Mechanism[];
   challenges: GEOFocusAreaChallenge[];
 }
@@ -174,7 +172,7 @@ export interface CountryProfileData {
  * Example country data
  */
 const exampleCountry = {
-  communityOfPractice: [],
+  communityOfPractice: null,
   resources: [],
   focusAreas: [],
   challenges: [],
@@ -292,7 +290,7 @@ const data: CountryProfileData = {
       id: 'ghana',
       title: 'Ghana',
       flag: flagGhana,
-      communityOfPractice: [],
+      communityOfPractice: null,
       focusAreas: [],
       challenges: [],
       mechanisms: [],
@@ -473,44 +471,17 @@ const data: CountryProfileData = {
           logo: imageMechanismSAEOGovernance,
         },
       ],
-      communityOfPractice: [
-        {
-          name: 'NEOSS Community of Practice',
-          description:
-            'A collaborative space where experts, stakeholders, and community members come together to share knowledge, learn, and drive innovation in EO',
-          logo: imageCommunityOfPracticeConcept,
-          representatives: [
-            {
-              name: 'Representative Contact A',
-              role: 'CoP member',
-              contact: 'email@mail.org',
-              avatar: placeholderRepresentative,
-            },
-            {
-              name: 'Representative Contact B',
-              role: 'CoP member',
-              contact: 'email@mail.org',
-              avatar: placeholderRepresentative,
-            },
-            {
-              name: 'Representative Contact C',
-              role: 'CoP member',
-              contact: 'email@mail.org',
-              avatar: placeholderRepresentative,
-            },
-            {
-              name: 'Representative Contact C',
-              role: 'CoP member',
-              contact: 'email@mail.org',
-              avatar: placeholderRepresentative,
-            },
-          ],
-        },
-      ],
+      communityOfPractice: {
+        name: 'NEOSS Community of Practice',
+        description:
+          'A collaborative space where experts, stakeholders, and community members come together to share knowledge, learn, and drive innovation in EO',
+        logo: flagSouthAfrica,
+        link: 'https://neoss.co.za/'
+      },
       resources: [
         {
           title: 'ARC Data Portal',
-          type: 'Platform',
+          type: 'Web Portal',
           icon: iconPlatform,
           uploaded: 'March 25, 2025',
           description: 'Data on agricultural research including crop yields and soil types.',
@@ -520,7 +491,7 @@ const data: CountryProfileData = {
         },
         {
           title: 'Greenbook',
-          type: 'Platform',
+          type: 'Web Portal',
           icon: iconPlatform,
           uploaded: 'March 25, 2025',
           description: 'Municipal risk profile',
@@ -533,7 +504,7 @@ const data: CountryProfileData = {
         },
         {
           title: 'Chief Directorate: National Geo-spatial Information',
-          type: 'Platform',
+          type: 'Web Portal',
           icon: iconPlatform,
           uploaded: 'March 25, 2025',
           description: 'Historical aerial photography, National digital aerial imagery coverage',
@@ -546,7 +517,7 @@ const data: CountryProfileData = {
         },
         {
           title: 'Climate Information Portal (CIP)',
-          type: 'Platform',
+          type: 'Web Portal',
           icon: iconPlatform,
           uploaded: 'March 25, 2025',
           description:
@@ -560,7 +531,7 @@ const data: CountryProfileData = {
         },
         {
           title: 'GIS Data',
-          type: 'Platform',
+          type: 'Web Portal',
           icon: iconPlatform,
           uploaded: 'March 25, 2025',
           description: 'Monitoring points, Rivers, Drainage regions, Ecoregions, Water resources',
@@ -573,7 +544,7 @@ const data: CountryProfileData = {
         },
         {
           title: 'South African Air Quality Information System (SAAQIS)',
-          type: 'Platform',
+          type: 'Web Portal',
           icon: iconPlatform,
           uploaded: 'March 25, 2025',
           description:
@@ -587,7 +558,7 @@ const data: CountryProfileData = {
         },
         {
           title: 'AFIS',
-          type: 'Platform',
+          type: 'Web Portal',
           icon: iconPlatform,
           uploaded: 'March 25, 2025',
           description:
@@ -598,7 +569,7 @@ const data: CountryProfileData = {
         },
         {
           title: 'SAEON Open Data Platform (ODP)',
-          type: 'Platform',
+          type: 'Web Portal',
           icon: iconPlatform,
           uploaded: 'March 25, 2025',
           description:
@@ -612,7 +583,7 @@ const data: CountryProfileData = {
         },
         {
           title: 'IBA Database',
-          type: 'Platform',
+          type: 'Web Portal',
           icon: iconPlatform,
           uploaded: 'March 25, 2025',
           description:
@@ -632,7 +603,7 @@ const data: CountryProfileData = {
         },
         {
           title: 'E-GIS Data Portal',
-          type: 'Platform',
+          type: 'Web Portal',
           icon: iconPlatform,
           uploaded: 'March 25, 2025',
           description:
@@ -652,7 +623,7 @@ const data: CountryProfileData = {
         },
         {
           title: 'Biodiversity GIS (BGIS)',
-          type: 'Platform',
+          type: 'Web Portal',
           icon: iconPlatform,
           uploaded: 'March 25, 2025',
           description:
@@ -672,7 +643,7 @@ const data: CountryProfileData = {
         },
         {
           title: 'Plants of Southern Africa (POSA) Database',
-          type: 'Platform',
+          type: 'Web Portal',
           icon: iconPlatform,
           uploaded: 'March 25, 2025',
           description:
@@ -692,7 +663,7 @@ const data: CountryProfileData = {
         },
         {
           title: 'SANBI Red List of SA Species',
-          type: 'Platform',
+          type: 'Web Portal',
           icon: iconPlatform,
           uploaded: 'March 25, 2025',
           description:
@@ -712,7 +683,7 @@ const data: CountryProfileData = {
         },
         {
           title: 'SARVA',
-          type: 'Platform',
+          type: 'Web Portal',
           icon: iconPlatform,
           uploaded: 'March 25, 2025',
           description:
@@ -732,7 +703,7 @@ const data: CountryProfileData = {
         },
         {
           title: 'PSV',
-          type: 'Platform',
+          type: 'Web Portal',
           icon: iconPlatform,
           uploaded: 'March 25, 2025',
           description: 'Land parcels with erf/stand numbers, SG diagrams',
@@ -745,7 +716,7 @@ const data: CountryProfileData = {
         },
         {
           title: 'Cape Town Open Data Portal & Map Viewer',
-          type: 'Platform',
+          type: 'Web Portal',
           icon: iconPlatform,
           uploaded: 'March 25, 2025',
           description:
@@ -759,7 +730,7 @@ const data: CountryProfileData = {
         },
         {
           title: 'Ekurhuleni GIS',
-          type: 'Platform',
+          type: 'Web Portal',
           icon: iconPlatform,
           uploaded: 'March 25, 2025',
           description:
@@ -770,7 +741,7 @@ const data: CountryProfileData = {
         },
         {
           title: 'Interactive Web Map',
-          type: 'Platform',
+          type: 'Web Portal',
           icon: iconPlatform,
           uploaded: 'March 25, 2025',
           description: 'Geological maps and polygons, Tectonic contact and fault lines, etc.',
@@ -780,7 +751,7 @@ const data: CountryProfileData = {
         },
         {
           title: 'CSIR Geospatial Data Portal',
-          type: 'Platform',
+          type: 'Web Portal',
           icon: iconPlatform,
           uploaded: 'March 25, 2025',
           description: 'Datasets for environmental monitoring and urban planning.',
@@ -793,7 +764,7 @@ const data: CountryProfileData = {
         },
         {
           title: 'CSG Cadastral Data Viewer',
-          type: 'Platform',
+          type: 'Web Portal',
           icon: iconPlatform,
           uploaded: 'March 25, 2025',
           description: 'Web tool for viewing cadastral parcel boundaries and survey data.',
@@ -806,7 +777,7 @@ const data: CountryProfileData = {
         },
         {
           title: 'DataFirst Open Data Portal',
-          type: 'Platform',
+          type: 'Web Portal',
           icon: iconPlatform,
           uploaded: 'March 25, 2025',
           description:
@@ -820,7 +791,7 @@ const data: CountryProfileData = {
         },
         {
           title: 'Eskom Data Portal',
-          type: 'Platform',
+          type: 'Web Portal',
           icon: iconPlatform,
           uploaded: 'March 25, 2025',
           description:
@@ -834,7 +805,7 @@ const data: CountryProfileData = {
         },
         {
           title: 'South Africa GeoPortal',
-          type: 'Platform',
+          type: 'Web Portal',
           icon: iconPlatform,
           uploaded: 'March 25, 2025',
           description:
@@ -848,7 +819,7 @@ const data: CountryProfileData = {
         },
         {
           title: 'GCR Observatory',
-          type: 'Platform',
+          type: 'Web Portal',
           icon: iconPlatform,
           uploaded: 'March 25, 2025',
           description:
@@ -862,7 +833,7 @@ const data: CountryProfileData = {
         },
         {
           title: 'Integrated Geospatial Data Platform',
-          type: 'Platform',
+          type: 'Web Portal',
           icon: iconPlatform,
           uploaded: 'March 25, 2025',
           description:
@@ -873,7 +844,7 @@ const data: CountryProfileData = {
         },
         {
           title: 'MDB Spatial Data Portal',
-          type: 'Platform',
+          type: 'Web Portal',
           icon: iconPlatform,
           uploaded: 'March 25, 2025',
           description:
@@ -884,7 +855,7 @@ const data: CountryProfileData = {
         },
         {
           title: 'Data Portal',
-          type: 'Platform',
+          type: 'Web Portal',
           icon: iconPlatform,
           uploaded: 'March 25, 2025',
           description: 'District municipality, Local municipality, Wards',
@@ -894,7 +865,7 @@ const data: CountryProfileData = {
         },
         {
           title: 'SuperWEB Interactive Data Service',
-          type: 'Platform',
+          type: 'Web Portal',
           icon: iconPlatform,
           uploaded: 'March 25, 2025',
           description: 'Web interface to generate custom tables and maps from census/survey data.',
@@ -904,7 +875,7 @@ const data: CountryProfileData = {
         },
         {
           title: 'Open Data Portal',
-          type: 'Platform',
+          type: 'Web Portal',
           icon: iconPlatform,
           uploaded: 'March 25, 2025',
           description:
@@ -918,7 +889,7 @@ const data: CountryProfileData = {
         },
         {
           title: 'OCIMS',
-          type: 'Platform',
+          type: 'Web Portal',
           icon: iconPlatform,
           uploaded: 'March 25, 2025',
           description: 'No featured datasets specified',
@@ -931,7 +902,7 @@ const data: CountryProfileData = {
         },
         {
           title: 'CSIR ArcGIS REST Services Directory',
-          type: 'Platform',
+          type: 'Web Portal',
           icon: iconPlatform,
           uploaded: 'March 25, 2025',
           description: 'Climate, socio-economic, agriculture, energy, mining data',
