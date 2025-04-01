@@ -14,7 +14,6 @@ import MiniSearch from 'minisearch';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
 
 import imageCapacityBuildingConcept from '@public/content/concepts/capacity-building/concept.svg';
-import imageCommunityOfPracticeConcept from '@public/content/concepts/community-of-practice/concept.svg';
 
 import { FeatureCard, CallToActionCard, RepresentativesTable } from '@components/global';
 
@@ -224,12 +223,11 @@ export const CapacityBuildingSection: React.FC<CapacityBuildingSectionProps> = (
 export const CommunityOfPracticeSection: React.FC<CapacityBuildingSectionProps> = ({
   countryData,
 }: ResourcesSectionProps): JSX.Element => {
-  // Build link
-  const communityOfPracticePageLink = `${countryData.id}/community-of-practice/example`;
+  // Get community of practice data
+  const communityOfPracticeData = countryData?.communityOfPractice;
 
   // Only show countries with capacity building activities
-  const showCommunityOfPractice =
-    countryData?.communityOfPractice && countryData.communityOfPractice.length > 0;
+  const showCommunityOfPractice = communityOfPracticeData !== null;
 
   // Rendering!
   return (
@@ -249,12 +247,12 @@ export const CommunityOfPracticeSection: React.FC<CapacityBuildingSectionProps> 
 
             <div className="mt-2">
               <CallToActionCard
-                title={`Community of Practice in ${countryData.title}`}
+                title={communityOfPracticeData.name}
                 subtitle={'Join us'}
-                description={`Collaborate with experts, tech leaders, and EO researchers. Together, we advance.`}
+                description={communityOfPracticeData.description}
                 buttonText={'Access'}
-                buttonLink={communityOfPracticePageLink}
-                illustration={imageCommunityOfPracticeConcept}
+                buttonLink={communityOfPracticeData.link}
+                illustration={communityOfPracticeData.logo}
               />
             </div>
           </div>
