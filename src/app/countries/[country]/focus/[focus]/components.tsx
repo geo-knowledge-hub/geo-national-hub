@@ -102,7 +102,7 @@ export const ChallengeSection: React.FC<ContentSectionProps> = ({
     // Initialize MiniSearch
     const miniSearchInstance = new MiniSearch<GEOFocusAreaChallenge>({
       fields: ['id', 'title', 'description'],
-      storeFields: ['id', 'title', 'description'],
+      storeFields: ['id', 'title', 'description', 'logo'],
       searchOptions: {
         fuzzy: 0.2,
         prefix: true,

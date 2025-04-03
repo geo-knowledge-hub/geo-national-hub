@@ -252,6 +252,7 @@ export const CommunityOfPracticeSection: React.FC<CapacityBuildingSectionProps> 
                 description={communityOfPracticeData.description}
                 buttonText={'Access'}
                 buttonLink={communityOfPracticeData.link}
+                buttonLinkTarget={'_blank'}
                 illustration={communityOfPracticeData.logo}
               />
             </div>

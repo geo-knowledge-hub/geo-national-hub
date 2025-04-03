@@ -28,6 +28,7 @@ interface CallToActionCardProps {
   description: string;
   buttonText: string;
   buttonLink: string;
+  buttonLinkTarget?: string;
   illustration?: StaticImageData | string;
   illustrationAlt?: string;
 }
@@ -79,6 +80,7 @@ export const CallToActionCard: React.FC<CallToActionCardProps> = ({
   description,
   buttonText,
   buttonLink,
+  buttonLinkTarget,
   illustration,
   illustrationAlt,
 }) => {
@@ -95,7 +97,7 @@ export const CallToActionCard: React.FC<CallToActionCardProps> = ({
           <p className="mt-4 text-gray-700">{description}</p>
           <a
             href={buttonLink}
-            target={'_blank'}
+            target={buttonLinkTarget}
             className="mt-6 inline-block rounded-full bg-gray-900 px-6 py-3 text-white shadow-lg transition hover:bg-gray-800"
           >
             {buttonText}

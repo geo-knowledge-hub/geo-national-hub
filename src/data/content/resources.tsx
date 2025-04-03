@@ -316,13 +316,6 @@ const data: CountryProfileData = {
           link: '#',
           logo: BookOpenIcon,
         },
-        {
-          title: 'Capacity build example D',
-          description:
-            'This placeholder text shows how capacity building can be presented on the country profile page.',
-          link: '#',
-          logo: BookOpenIcon,
-        },
       ],
       partners: [
         {
