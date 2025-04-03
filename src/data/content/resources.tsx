@@ -82,7 +82,7 @@ export interface ResourceContent {
  * Represents a resource with detailed information.
  */
 export interface Resource {
-  id?: number;
+  id?: number | string;
   title: string;
   description: string;
   link: string;
@@ -177,36 +177,7 @@ const exampleCountry = {
   focusAreas: [],
   challenges: [],
   mechanisms: [],
-  capacityBuildingActivities: [
-    {
-      title: 'Capacity build example A',
-      description:
-        'This placeholder text shows how capacity building can be presented on the country profile page.',
-      link: '#',
-      logo: BookOpenIcon,
-    },
-    {
-      title: 'Capacity build example B',
-      description:
-        'This placeholder text shows how capacity building can be presented on the country profile page.',
-      link: '#',
-      logo: BookOpenIcon,
-    },
-    {
-      title: 'Capacity build example C',
-      description:
-        'This placeholder text shows how capacity building can be presented on the country profile page.',
-      link: '#',
-      logo: BookOpenIcon,
-    },
-    {
-      title: 'Capacity build example D',
-      description:
-        'This placeholder text shows how capacity building can be presented on the country profile page.',
-      link: '#',
-      logo: BookOpenIcon,
-    },
-  ],
+  capacityBuildingActivities: [],
   partners: [],
   representatives: [
     {
@@ -914,13 +885,6 @@ const data: CountryProfileData = {
         },
         {
           title: 'Capacity build example C',
-          description:
-            'This placeholder text shows how capacity building can be presented on the country profile page.',
-          link: '#',
-          logo: BookOpenIcon,
-        },
-        {
-          title: 'Capacity build example D',
           description:
             'This placeholder text shows how capacity building can be presented on the country profile page.',
           link: '#',

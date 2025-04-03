@@ -15,6 +15,11 @@ import _entries from 'lodash/entries';
 import _uniqBy from 'lodash/uniqBy';
 import _set from 'lodash/set';
 
+import iconAcademic from '@public/content/resources/academic.svg';
+import iconUsers from '@public/content/resources/user-story.svg';
+
+import { Resource } from '@data/content/resources';
+
 const initDatabase = () => {
   // Organize the database to facilitate indexing / search
   _map(_entries(data.countries), ([, countryData]) => {
@@ -57,18 +62,61 @@ const initDatabase = () => {
 export const initResourcesDatabase = () => {
   const data = initDatabase();
 
-  const resources = _map(_entries(data.countries), ([, countryData]) => {
-    return _map(countryData.resources, (resource) => {
-      resource['country'] = countryData.title;
+  // Initialize resources data (from all countries)
+  const resources: Resource[][] = _map(_entries(data.countries), ([, countryData]) => {
+    // This definition is provisional until we transfer content to a proper database.
+    const countryCapacityBuildingActivities = _map(
+      countryData.capacityBuildingActivities,
+      (activity) => {
+        return {
+          id: crypto.randomUUID(),
+          title: activity['title'],
+          description: activity['description'],
+          country: countryData.title,
+          type: 'Training material',
+          icon: iconAcademic,
+          uploaded: 'April 1, 2025',
+          challenges: [],
+          extras: ['Capacity building Activity'],
+        };
+      },
+    );
 
-      return resource;
+    // Initialize country community of practice data
+    let communityOfPractice: Resource[] = [];
+
+    if (countryData?.communityOfPractice?.name) {
+      // This definition is provisional until we transfer content to a proper database.
+      communityOfPractice = [
+        {
+          id: crypto.randomUUID(),
+          title: countryData.communityOfPractice.name,
+          description: countryData.communityOfPractice.description,
+          icon: iconUsers,
+          type: 'Community Activity',
+          uploaded: 'April 3, 2025',
+          challenges: [],
+          link: countryData.communityOfPractice.link,
+          country: countryData.title,
+          extras: ['Capacity building Activity', 'Community of Practice'],
+        },
+      ];
+    }
+
+    // Initialize country resources data
+    const countryResources: Resource[] = _map(countryData.resources, (resource) => {
+      return {
+        ...resource,
+        id: crypto.randomUUID(),
+        country: countryData.title,
+      };
     });
+
+    // @ts-expect-error `_flatten` is applied to avoid shape error
+    return _flatten([countryResources, communityOfPractice, countryCapacityBuildingActivities]);
   });
 
-  return _map(_flatten(resources), (resource, index) => {
-    resource['id'] = index;
-    return resource;
-  });
+  return _flatten(resources);
 };
 
 export default initDatabase();
