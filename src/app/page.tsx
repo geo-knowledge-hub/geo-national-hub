@@ -90,7 +90,7 @@ const HomePage: React.FC = (): JSX.Element => {
       <HeroSearch searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 
       {/* Country Grid */}
-      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <div className="mx-auto mt-10 grid max-w-6xl grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {paginatedCountries.length > 0 ? (
           paginatedCountries.map((countryKey) => {
             const country = db.countries[countryKey];
