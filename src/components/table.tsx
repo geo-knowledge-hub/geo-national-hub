@@ -25,7 +25,7 @@ export const RepresentativesTable: React.FC<RepresentativesTableProps> = ({ memb
             <tr>
               <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Name</th>
               <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Role</th>
-              <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Contact</th>
+              <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Profile</th>
             </tr>
           </thead>
           <tbody>
@@ -40,10 +40,11 @@ export const RepresentativesTable: React.FC<RepresentativesTableProps> = ({ memb
                 <td className="px-6 py-4 text-sm text-gray-600">{member.role}</td>
                 <td className="px-6 py-4">
                   <a
-                    href={`mailto:${member.contact}`}
+                    href={`${member.profile}`}
+                    target={'_blank'}
                     className="inline-block rounded-full bg-gray-900 px-4 py-1.5 text-sm text-white transition hover:bg-gray-800"
                   >
-                    Contact
+                    View
                   </a>
                 </td>
               </tr>

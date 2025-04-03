@@ -510,8 +510,8 @@ export const KeyRepresentativesSection: React.FC<KeyRepresentativesSectionProps>
    */
   useEffect(() => {
     const miniSearchInstance = new MiniSearch<Representative>({
-      fields: ['name', 'description'],
-      storeFields: ['name', 'description', 'logo'],
+      fields: ['name', 'role'],
+      storeFields: ['name', 'role', 'profile', 'avatar'],
       searchOptions: {
         fuzzy: 0.2,
         prefix: true,

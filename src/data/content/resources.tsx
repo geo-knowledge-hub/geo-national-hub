@@ -129,7 +129,7 @@ export interface Mechanism {
  */
 export interface Representative {
   name: string;
-  contact: string;
+  profile: string;
   role: string;
   avatar: StaticImageData | string;
 }
@@ -212,49 +212,49 @@ const exampleCountry = {
     {
       name: 'Representative Contact A',
       role: 'Capacity Building manager in Ghana',
-      contact: 'email@mail.org',
+      profile: '#',
       avatar: placeholderRepresentative,
     },
     {
       name: 'Representative Contact B',
       role: 'Manager in Ghana',
-      contact: 'email@mail.org',
+      profile: '#',
       avatar: placeholderRepresentative,
     },
     {
       name: 'Representative Contact C',
       role: 'Manager in Ghana',
-      contact: 'email@mail.org',
+      profile: '#',
       avatar: placeholderRepresentative,
     },
     {
       name: 'Representative Contact C',
       role: 'Manager in Ghana',
-      contact: 'email@mail.org',
+      profile: '#',
       avatar: placeholderRepresentative,
     },
     {
       name: 'Representative Contact C',
       role: 'Manager in Ghana',
-      contact: 'email@mail.org',
+      profile: '#',
       avatar: placeholderRepresentative,
     },
     {
       name: 'Representative Contact C',
       role: 'Manager in Ghana',
-      contact: 'email@mail.org',
+      profile: '#',
       avatar: placeholderRepresentative,
     },
     {
       name: 'Representative Contact C',
       role: 'Manager in Ghana',
-      contact: 'email@mail.org',
+      profile: '#',
       avatar: placeholderRepresentative,
     },
     {
       name: 'Representative Contact C',
       role: 'Manager in Ghana',
-      contact: 'email@mail.org',
+      profile: '#',
       avatar: placeholderRepresentative,
     },
   ],
@@ -376,52 +376,25 @@ const data: CountryProfileData = {
       ],
       representatives: [
         {
-          name: 'Representative Contact A',
-          role: 'Capacity Building manager in Ghana',
-          contact: 'email@mail.org',
+          name: 'Joseph Bremang Tandoh',
+          role: 'GEO Principal',
+          profile: 'https://earthobservations.org/profile/13885',
           avatar: placeholderRepresentative,
         },
         {
-          name: 'Representative Contact B',
-          role: 'Manager in Ghana',
-          contact: 'email@mail.org',
-          avatar: placeholderRepresentative,
+          name: 'Amos Kabo-Bah',
+          role: 'GEO Principal Alternate',
+          profile: 'https://earthobservations.org/profile/14390',
+          avatar:
+            'https://earthobservations.org/storage/app/resources/resize/700_0_0_0_auto/img_27e065dd50b7d4137c8cd3e312aaa246.webp',
         },
+
         {
-          name: 'Representative Contact C',
-          role: 'Manager in Ghana',
-          contact: 'email@mail.org',
-          avatar: placeholderRepresentative,
-        },
-        {
-          name: 'Representative Contact C',
-          role: 'Manager in Ghana',
-          contact: 'email@mail.org',
-          avatar: placeholderRepresentative,
-        },
-        {
-          name: 'Representative Contact C',
-          role: 'Manager in Ghana',
-          contact: 'email@mail.org',
-          avatar: placeholderRepresentative,
-        },
-        {
-          name: 'Representative Contact C',
-          role: 'Manager in Ghana',
-          contact: 'email@mail.org',
-          avatar: placeholderRepresentative,
-        },
-        {
-          name: 'Representative Contact C',
-          role: 'Manager in Ghana',
-          contact: 'email@mail.org',
-          avatar: placeholderRepresentative,
-        },
-        {
-          name: 'Representative Contact C',
-          role: 'Manager in Ghana',
-          contact: 'email@mail.org',
-          avatar: placeholderRepresentative,
+          name: 'Kofi Asare',
+          role: 'GEO Principal Alternate and GEO Focal Point',
+          profile: 'https://earthobservations.org/profile/13056',
+          avatar:
+            'https://earthobservations.org/storage/app/resources/resize/700_0_0_0_auto/img_fbafa07e9ef623d7e1e8db60a3e77a1d.webp',
         },
       ],
     },
@@ -476,7 +449,7 @@ const data: CountryProfileData = {
         description:
           'A collaborative space where experts, stakeholders, and community members come together to share knowledge, learn, and drive innovation in EO',
         logo: flagSouthAfrica,
-        link: 'https://neoss.co.za/'
+        link: 'https://neoss.co.za/',
       },
       resources: [
         {
@@ -983,51 +956,22 @@ const data: CountryProfileData = {
       ],
       representatives: [
         {
-          name: 'Representative Contact A',
-          role: 'Capacity Building manager in South Africa',
-          contact: 'email@mail.org',
+          name: 'Lulu Makapela',
+          role: 'Strategic Programmes contracts manager',
+          profile: 'https://earthobservations.org/profile/3891',
+          avatar:
+            'https://earthobservations.org/storage/app/resources/resize/700_0_0_0_auto/img_927fdc7195756418532d29143da32dd1.webp',
+        },
+        {
+          name: 'Christelle Taylor',
+          role: 'Group Assistant',
+          profile: '#',
           avatar: placeholderRepresentative,
         },
         {
-          name: 'Representative Contact B',
-          role: 'Manager in South Africa',
-          contact: 'email@mail.org',
-          avatar: placeholderRepresentative,
-        },
-        {
-          name: 'Representative Contact C',
-          role: 'Manager in South Africa',
-          contact: 'email@mail.org',
-          avatar: placeholderRepresentative,
-        },
-        {
-          name: 'Representative Contact C',
-          role: 'Manager in South Africa',
-          contact: 'email@mail.org',
-          avatar: placeholderRepresentative,
-        },
-        {
-          name: 'Representative Contact C',
-          role: 'Manager in South Africa',
-          contact: 'email@mail.org',
-          avatar: placeholderRepresentative,
-        },
-        {
-          name: 'Representative Contact C',
-          role: 'Manager in South Africa',
-          contact: 'email@mail.org',
-          avatar: placeholderRepresentative,
-        },
-        {
-          name: 'Representative Contact C',
-          role: 'Manager in South Africa',
-          contact: 'email@mail.org',
-          avatar: placeholderRepresentative,
-        },
-        {
-          name: 'Representative Contact C',
-          role: 'Manager in South Africa',
-          contact: 'email@mail.org',
+          name: 'Kwanele Ngongoma',
+          role: 'Junior System Administrator',
+          profile: '#',
           avatar: placeholderRepresentative,
         },
       ],
