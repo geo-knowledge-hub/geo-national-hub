@@ -13,6 +13,8 @@ import React, { JSX } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
+import logoGKH from '@public/images/logo-blue.svg';
+
 /**
  * Properties of the ``NavItem`` .
  */
@@ -52,48 +54,59 @@ export const HeroSearch: React.FC<{
   setSearchTerm: (value: string) => void;
 }): JSX.Element => {
   return (
-    <section className="relative mb-25 bg-gray-50 px-4 py-3">
-      <div className="mx-auto max-w-4xl text-center">
-        <h1 className="mb-4 text-4xl font-extrabold tracking-tight text-gray-900 md:text-5xl lg:text-6xl">
-          National GEO Knowledge Hub
-        </h1>
-        <p className="mb-6 text-lg text-gray-700">
-          Search and discover EO Applications and solutions tailored for your country.
-        </p>
+    <section className="bg-gray-50">
+      <div className="relative isolate overflow-hidden pt-5 pb-12">
+        <div className="mx-auto max-w-screen-xl px-4">
+          <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-12">
+            <div className="lg:col-span-7">
+              <h1 className="mb-4 text-4xl font-extrabold tracking-tight text-gray-900 md:text-5xl lg:text-4xl">
+                National GEO Knowledge Hub
+              </h1>
+              <p className="mb-6 text-lg text-gray-700">
+                Search and discover EO Applications and solutions tailored for your country.
+              </p>
 
-        {/* Search Bar */}
-        <form className="relative mx-auto w-full max-w-md">
-          <label htmlFor="search-input" className="sr-only">
-            Search for a country
-          </label>
-          <div className="relative">
-            <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-              <svg
-                className="h-5 w-5 text-gray-500"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 20 20"
-              >
-                <path
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M19 19l-4-4m2-6A7 7 0 1 1 3 10a7 7 0 0 1 14 0Z"
-                />
-              </svg>
+              <div className="mt-6 flex flex-col gap-4 sm:flex-row">
+                <a
+                  href={'https://gkhub.earthobservations.org/'}
+                  target={'_blank'}
+                  className="font-small inline-flex items-center rounded-lg border border-gray-300 bg-white px-5 py-1 text-base text-gray-900 hover:bg-gray-100"
+                >
+                  <Image src={logoGKH} alt="Global GKH icon" className="mr-2 h-5 w-5" />
+                  Global GKH
+                </a>
+              </div>
             </div>
-            <input
-              type="text"
-              id="search-input"
-              className="block w-full rounded-lg border border-gray-300 bg-white p-4 pl-10 text-sm shadow-sm transition-all focus:border-blue-500 focus:ring-blue-500"
-              placeholder="Search for a country..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
+
+            <div className="hidden justify-end lg:col-span-5 lg:flex">
+              <Image src={logoGKH} alt="Megaphone illustration" width={240} height={240} />
+            </div>
           </div>
-        </form>
+        </div>
+
+        <div className="mt-12">
+          <div className="mx-auto max-w-screen-xl px-4">
+            <div className="relative mx-auto w-full rounded-lg bg-white sm:w-1/2">
+              <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                <svg className="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fillRule="evenodd"
+                    d="M12.9 14.32a8 8 0 111.414-1.414l4.387 4.387a1 1 0 01-1.414 1.414l-4.387-4.387zM14 8a6 6 0 11-12 0 6 6 0 0112 0z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </div>
+              <input
+                type="text"
+                id="search-input"
+                className="block w-full rounded-lg border border-gray-300 bg-white p-4 pl-10 text-sm shadow-sm transition-all focus:border-blue-500 focus:ring-blue-500"
+                placeholder="Search for a country..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );
