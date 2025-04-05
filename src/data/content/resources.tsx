@@ -409,11 +409,11 @@ const data: CountryProfileData = {
         },
       ],
       communityOfPractice: {
-        name: 'NEOSS Community of Practice',
+        name: 'SA-GEO Community of Practice',
         description:
-          'A collaborative space where experts, stakeholders, and community members come together to share knowledge, learn, and drive innovation in EO',
+          'The South African Group on Earth Observations (SA-GEO) is a forum which aims to mobilise the South African observations communities to advocate the use of Earth observations for societal benefit.',
         logo: flagSouthAfrica,
-        link: 'https://neoss.co.za/',
+        link: 'https://neoss.co.za/sa-geo',
       },
       resources: [
         {
