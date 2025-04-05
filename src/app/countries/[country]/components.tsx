@@ -444,9 +444,9 @@ export const PartnersSection: React.FC<PartnersSectionProps> = ({
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
           {/* Header & Description */}
           <div>
-            <h2 className="mb-2 text-3xl font-bold text-gray-900">Partners</h2>
+            <h2 className="mb-2 text-3xl font-bold text-gray-900">Stakeholders</h2>
             <p className="mb-4 text-gray-600">
-              Partners supporting EO Data and Knowledge in {countryData.title}
+              Stakeholders supporting EO Data and Knowledge in {countryData.title}
             </p>
           </div>
 
@@ -481,7 +481,7 @@ export const PartnersSection: React.FC<PartnersSectionProps> = ({
               );
             })
           ) : (
-            <p className="col-span-full text-center text-gray-500">No partners found.</p>
+            <p className="col-span-full text-center text-gray-500">No stakeholders found.</p>
           )}
         </div>
       </div>
@@ -561,7 +561,7 @@ export const KeyRepresentativesSection: React.FC<KeyRepresentativesSectionProps>
           <div>
             <h2 className="mb-2 text-3xl font-bold text-gray-900">Key Representatives</h2>
             <p className="mb-4 text-gray-600">
-              Meet the people facilitating activities in Ghana and feel free to reach out
+              Meet the people facilitating activities in {countryData.title} and feel free to reach out
             </p>
           </div>
 
