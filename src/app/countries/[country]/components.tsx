@@ -561,7 +561,8 @@ export const KeyRepresentativesSection: React.FC<KeyRepresentativesSectionProps>
           <div>
             <h2 className="mb-2 text-3xl font-bold text-gray-900">Key Representatives</h2>
             <p className="mb-4 text-gray-600">
-              Meet the people facilitating activities in {countryData.title} and feel free to reach out
+              Meet the people facilitating activities in {countryData.title} and feel free to reach
+              out
             </p>
           </div>
 

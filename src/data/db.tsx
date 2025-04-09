@@ -90,7 +90,7 @@ export const initResourcesDatabase = () => {
       communityOfPractice = [
         {
           id: crypto.randomUUID(),
-          title: countryData.communityOfPractice.name,
+          name: countryData.communityOfPractice.name,
           description: countryData.communityOfPractice.description,
           icon: iconUsers,
           type: 'Community Activity',
@@ -99,6 +99,10 @@ export const initResourcesDatabase = () => {
           link: countryData.communityOfPractice.link,
           country: countryData.title,
           extras: ['Capacity building Activity', 'Community of Practice'],
+          overview: '',
+          license: '',
+          subjects: '',
+          locations: '',
         },
       ];
     }

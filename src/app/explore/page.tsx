@@ -47,7 +47,7 @@ interface Challenge {
 }
 
 interface ResourceItem {
-  title: string;
+  name: string;
   type: string;
   country: string;
   uploaded: string;
@@ -70,17 +70,33 @@ export default function ExplorePage() {
   const miniSearch = useMemo(() => {
     const ms = new MiniSearch({
       fields: [
-        'title',
+        'name',
         'description',
+        'overview',
+        'license',
+        'contributors',
+        'subjects',
         'type',
+        'targetAudiences',
+        'geoThemes',
+        'organization',
         'country',
+        'extras',
         'challenges.title',
         'challenges.tags.name',
       ],
       storeFields: [
-        'title',
-        'description',
+        'name',
+        'overview',
+        'license',
+        'contributors',
+        'subjects',
         'type',
+        'targetAudiences',
+        'geoThemes',
+        'organization',
+        'country',
+        'extras',
         'country',
         'uploaded',
         'link',
@@ -291,7 +307,7 @@ export default function ExplorePage() {
 
                     <h3 className="text-lg font-semibold text-gray-900 transition hover:text-gray-700">
                       <a href={item.link} target="_blank">
-                        {item.title}
+                        {item.name}
                       </a>
                     </h3>
                     <p className="mt-1 text-sm text-gray-600">{item.description}</p>
