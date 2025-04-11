@@ -70,7 +70,7 @@ export const initResourcesDatabase = () => {
       (activity) => {
         return {
           id: crypto.randomUUID(),
-          title: activity['title'],
+          name: activity['title'],
           description: activity['description'],
           country: countryData.title,
           type: 'Training material',
@@ -90,7 +90,7 @@ export const initResourcesDatabase = () => {
       communityOfPractice = [
         {
           id: crypto.randomUUID(),
-          title: countryData.communityOfPractice.name,
+          name: countryData.communityOfPractice.name,
           description: countryData.communityOfPractice.description,
           icon: iconUsers,
           type: 'Community Activity',
@@ -99,6 +99,10 @@ export const initResourcesDatabase = () => {
           link: countryData.communityOfPractice.link,
           country: countryData.title,
           extras: ['Capacity building Activity', 'Community of Practice'],
+          overview: '',
+          license: '',
+          subjects: '',
+          locations: '',
         },
       ];
     }
