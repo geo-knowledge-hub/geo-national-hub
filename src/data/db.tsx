@@ -70,7 +70,7 @@ export const initResourcesDatabase = () => {
       (activity) => {
         return {
           id: crypto.randomUUID(),
-          title: activity['title'],
+          name: activity['title'],
           description: activity['description'],
           country: countryData.title,
           type: 'Training material',

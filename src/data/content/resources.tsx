@@ -47,6 +47,15 @@ import ghanaPartnerGSA from '@public/content/partners/ghana/gsa.jpeg';
 import ghanaPartnerAfriGEO from '@public/content/partners/ghana/afrigeo.png';
 import ghanaPartnerDEAfrica from '@public/content/partners/ghana/deafrica.png';
 
+import southAfricaPartnerARC from '@public/content/partners/south-africa/arc.png';
+import southAfricaPartnerSAEON from '@public/content/partners/south-africa/saeon.png';
+import southAfricaPartnerCFG from '@public/content/partners/south-africa/cfg.png';
+import southAfricaPartnerSSA from '@public/content/partners/south-africa/statsa.png';
+import southAfricaPartnerWRC from '@public/content/partners/south-africa/wrc.jpg';
+import southAfricaPartnerSTSA from '@public/content/partners/south-africa/stepsa.jpg';
+import southAfricaPartnerSANBI from '@public/content/partners/south-africa/sanbi.jpg';
+import southAfricaPartnerGB from '@public/content/partners/south-africa/greenbook.svg';
+
 import southAfricaPartnerCSIR from '@public/content/partners/south-africa/csir.jpg';
 import southAfricaPartnerSANSA from '@public/content/partners/south-africa/sansa.png';
 
@@ -437,6 +446,58 @@ const data: CountryProfileData = {
       },
       resources: [
         {
+          name: 'Water Detection with Sentinel-1 Using Digital Earth Africa Data Cube',
+          type: 'Knowledge Package',
+          uploaded: 'October 19, 2022',
+          description:
+            "This knowledge package includes the necessary data, computational resources, and instructions required to reproduce the methodology used in Digital Earth Africa's 'Water Detection with Sentinel-1' Jupyter Notebook.",
+          link: 'https://doi.org/10.60566/x119v-vfp64',
+          icon: iconPackage,
+          challenges: [
+            FocusAreasChallenges.LandDegradation,
+            FocusAreasChallenges.Drought,
+            FocusAreasChallenges.Flood,
+          ],
+          extras: [],
+          overview: '',
+          license: '',
+          subjects: '',
+          organization: '',
+          locations: '',
+        },
+        {
+          name: 'Vegetation Change Detection using Digital Earth Africa Data Cube',
+          type: 'Knowledge Package',
+          uploaded: 'December 13, 2022',
+          description:
+            "This knowledge package includes the necessary data, computational resources, and instructions required to reproduce the methodology used in Digital Earth Africa's ' Vegetation Change Detection Jupyter Notebook.",
+          link: 'https://doi.org/10.60566/9z3th-kac25',
+          icon: iconPackage,
+          challenges: [FocusAreasChallenges.LandDegradation],
+          extras: [],
+          overview: '',
+          license: '',
+          subjects: '',
+          organization: '',
+          locations: '',
+        },
+        {
+          name: 'WaPOR (Water Productivity through Open access of Remotely sensed derived data)',
+          type: 'Knowledge Package',
+          uploaded: 'December 13, 2022',
+          description:
+            'This Knowledge Package presents the WaPOR (Water Productivity through Open access of Remotely sensed derived data), its concepts, resources and methodology.',
+          link: 'https://doi.org/10.60566/4dkpz-75t98',
+          icon: iconPackage,
+          challenges: [FocusAreasChallenges.LandDegradation, FocusAreasChallenges.Overfishing],
+          extras: [],
+          overview: '',
+          license: '',
+          subjects: '',
+          organization: '',
+          locations: '',
+        },
+        {
           name: 'ARC Data Portal',
           type: 'Web Portal',
           uploaded: 'April 09, 2025',
@@ -465,7 +526,7 @@ const data: CountryProfileData = {
             'Municipal risk profiles for agriculture, forestry, and fisheries, providing environmental risk data for local planning.',
           overview:
             'The GreenBook Risk Profile Tool is a dynamic, interactive online planning support tool developed by the CSIR to help local municipalities in South Africa adapt to climate change. The tool provides scientific evidence on the likely risks each municipality will face under changing climate conditions. It includes risk profiles that showcase information through an interactive dashboard. The platform is designed to support decision-makers in planning and prioritizing adaptation actions to build long-term resilience. Additionally, the tool offers future projections for population growth and the likely impacts of climate change on water resources, the economy, and agriculture.\n\nThe types of datasets available on the GreenBook Risk Profile Tool include, Socio-Economic Vulnerability, Development Trajectories. Climate Change Projections, Hydro-Meteorological Hazards, Water Resources. Economic Impact, Agricultural Impact',
-          license: 'Not defined',
+          license: 'Not specified',
           contributors: ['CSIR'],
           link: 'https://riskprofiles.greenbook.co.za/',
           subjects: 'Agriculture, forestry, risk profiles',
@@ -488,7 +549,7 @@ const data: CountryProfileData = {
             'Historical and current aerial imagery and geospatial data for agricultural and land use planning in South Africa.',
           overview:
             'The CDNGI Geospatial Portal is an online platform provided by the Chief Directorate: National Geo-spatial Information (CDNGI) of South Africa. Users can search, view, and download various datasets, which are available in formats such as FileGeodatabase and GeoPackage. The portal supports spatial analysis and mapping through tools like Web Map Services (WMS) and Web Feature Services (WFS). Additionally, the platform provides high-quality, up-to-date geographic information to support research, planning, and decision-making in various fields.\n\nThe types of datasets available on the CDNGI Geospatial Portal include, Topographical Data, Aerial Photography, Geodetic Data, Raster Data, Ancillary Data\n',
-          license: 'Not defined',
+          license: 'Not specified',
           contributors: ['DALRRD'],
           link: 'http://www.cdngiportal.co.za/cdngiportal/',
           subjects: 'Aerial photography, geospatial, land use',
@@ -578,7 +639,7 @@ const data: CountryProfileData = {
             'Satellite-based tool providing near real-time global fire information for disaster management.',
           overview:
             'The Advanced Fire Information System (AFIS) is a satellite-based fire information tool that provides near real-time fire information to users across the globe. Developed by the CSIR, AFIS offers various features to help manage and monitor wildfire incidents. Users can receive notifications whenever an active fire is detected within their designated areas, enhancing situational awareness and safety. Additionally, AFIS integrates data from multiple satellite sources to deliver near-instantaneous updates on fire incidents, ensuring users are always informed of potential threats.\n\nThe types of datasets available on AFIS include, AFIS Map Viewer, AFIS Alert System, Windy Viewer, AFIS API ',
-          license: 'Not defined',
+          license: 'Not specified',
           link: 'https://www.afis.co.za/',
           subjects: 'Fire data, satellite, real-time',
           geoGWP: 'GEO Disasters ',
@@ -619,7 +680,7 @@ const data: CountryProfileData = {
             'Directory and maps of key bird and biodiversity areas in SA for conservation planning.',
           overview:
             "The BirdLife DataZone page for South Africa provides comprehensive information on the country's bird species and their conservation status. It highlights key statistics and data, including the total number of bird species, endemic species, and globally threatened species. Additionally, it outlines ongoing threats to bird species and the conservation actions needed to protect them. The DataZone serves as a vital resource for researchers, conservationists, and policymakers, offering insights into the state of bird populations and the effectiveness of conservation efforts.\nThe BirdLife DataZone offers a variety of datasets, including, Species Data, Endemic Species Data, Threatened Species Data, IBA DataHabitat Data",
-          license: 'Not defined',
+          license: 'Not specified',
           contributors: ['BirdLife SA'],
           link: 'https://datazone.birdlife.org/country/factsheet/south-africa',
           subjects: 'Bird areas, species, habitats',
@@ -758,7 +819,7 @@ const data: CountryProfileData = {
           contributors: ['SAEON'],
           link: 'https://sarva.saeon.ac.za',
           subjects: 'Flood, drought, vulnerability',
-          geoGWP: 'Not defined',
+          geoGWP: 'Not specified',
           targetAudiences: ['Planners', 'researchers'],
           geoThemes: ['SDG 13: Climate Action / Ecosystems, Biodiversity'],
           organization: 'South African Risk & Vulnerability Atlas',
@@ -781,7 +842,7 @@ const data: CountryProfileData = {
             'Land parcel data and survey diagrams for cadastral and urban planning in South Africa.',
           overview:
             "The Chief Surveyor General's GIS Portal provides access to spatial data and information about land parcels, administrative boundaries, and surveyed rights in South Africa. This portal is part of the Department of Rural Development and Land Reform's efforts to make geospatial information readily available to the public and professionals. It aims to promote an equitable and sustainable land dispensation that fosters socio-economic development.\n\nTypes of Land Parcel Data Available: Spatial Data, Surveyed Real Rights, Document Images, Alphanumeric Data, Approval Data",
-          license: 'Not defined',
+          license: 'Not specified',
           contributors: ['Chief Surveyor General (DALRRD)'],
           link: 'https://csggis.drdlr.gov.za/psv/',
           subjects: 'Cadastral, land parcels, SG diagrams',
@@ -865,7 +926,7 @@ const data: CountryProfileData = {
             'Geological maps and data for energy and urban planning, including tectonic features.',
           overview:
             "The Council for Geoscience Interactive Web Map provides access to a wide range of geological data and maps. This portal is designed to support the discovery, analysis, and download of geospatial data related to geoscience. It aims to enhance decision-making processes and improve service delivery by providing accurate and up-to-date geoscientific information. The portal is part of the Council for Geoscience's mission to be the national custodian of all geoscientific information and its dissemination to stakeholders and clients.\n\nKey Features:\nData Downloads, API Links, Analysis Tools, Interactive Map Viewer.\nTypes of Geological Data Available, Minerals, Coal and Core Boreholes, Geochemistry, Geological Resources, Geophysics, Geohazards",
-          license: 'Not defined',
+          license: 'Not specified',
           contributors: ['Council for Geoscience'],
           link: 'https://maps.geoscience.org.za/portal/apps/sites/?fromEdit=true#/interactivewebmap',
           subjects: 'Geology, tectonics, faults',
@@ -885,7 +946,7 @@ const data: CountryProfileData = {
             'Datasets for environmental monitoring and urban planning from CSIR\u2019s geospatial research.',
           overview:
             "The CSIR ArcGIS Web Application provides access to various geographic information and mapping services. This portal is designed to support the exploration and analysis of spatial data, facilitating efficient decision-making and planning. It aims to enhance research, development, and innovation by providing accurate and up-to-date geospatial information. The portal is part of the Council for Scientific and Industrial Research's (CSIR) mission to improve the quality of life in South Africa through multidisciplinary research and technological innovation.\n\nKey Features: Interactive Map Viewer, Data Analysis Tools, Customizable Dashboards\nTypes of GIS Layers Available: Feature Layers, Imagery Layers, Elevation Layers, Thematic Layers, Basemap Layers",
-          license: 'Not defined',
+          license: 'Not specified',
           contributors: ['CSIR'],
           link: 'https://pta-gis-2-web1.csir.co.za/portal2/',
           subjects: 'Environmental, urban, geospatial',
@@ -905,7 +966,7 @@ const data: CountryProfileData = {
             'Web tool for viewing cadastral boundaries and survey data for urban management.',
           overview:
             "The Chief Surveyor General website provides access to a national cadastral survey management system in South Africa. This portal supports the Department of Rural Development and Land Reform's mission to provide an equitable and sustainable land dispensation that promotes socio-economic development. The website aims to be a recognized world leader in the provision of cadastral survey management. It offers a comprehensive suite of tools and resources.\nKey Features: Spatial Data, Surveyed Real Rights, Document Images, Alphanumeric Data, Approval Data",
-          license: 'Not defined',
+          license: 'Not specified',
           contributors: ['DALRRD'],
           link: 'http://csg.drdlr.gov.za',
           subjects: 'Cadastral, boundaries, survey',
@@ -949,7 +1010,7 @@ const data: CountryProfileData = {
             'Operational performance data, including spatial energy infrastructure insights.',
           overview:
             "The Eskom Data Portal provides up-to-date insights into the operational performance of South Africa's national electricity grid. This portal supports Eskom's mission to ensure the stability of the national electricity grid by balancing the supply and demand for electricity. The portal also includes a data request form for users to obtain specific datasets.\n\nKey Features: Generation Performance, Demand History and Forecasts, OCGT Usage, Renewable Energy Contributions, Outage Performance, Load Shedding",
-          license: 'Not defined',
+          license: 'Not specified',
           contributors: ['Eskom'],
           link: 'https://www.eskom.co.za/dataportal/',
           subjects: 'Energy, power stations, networks',
@@ -1109,7 +1170,7 @@ const data: CountryProfileData = {
             'REST services with climate, socio-economic, and energy data for infrastructure planning.',
           overview:
             "The CSIR's ArcGIS REST Services Directory is a comprehensive platform that provides access to a variety of geographic information system (GIS) services and datasets. Users can view and interact with these datasets through different ArcGIS platforms like ArcGIS Online, ArcGIS Earth, ArcMap, and ArcGIS Pro. The platform supports various operations such as exporting maps, identifying features, querying data, and generating dynamic legends. It is designed to facilitate spatial analysis, decision-making, and research by providing high-quality, up-to-date geographic information.\n\nThe types of datasets available include, Agriculture, Climate, Demographics, Economy, Education, Energy, Environment, Health, Infrastructure, Land Use, Transportation",
-          license: 'Not defined',
+          license: 'Not specified',
           contributors: ['CSIR'],
           link: 'https://pta-gis-2-web1.csir.co.za/server2/rest/services',
           subjects: 'Climate, energy, socio-economic',
@@ -1167,6 +1228,54 @@ const data: CountryProfileData = {
           description: 'World-class African research and development organisation',
           logo: southAfricaPartnerCSIR,
           link: 'https://www.csir.co.za/',
+        },
+        {
+          name: 'Agricultural Research Council',
+          description: '',
+          logo: southAfricaPartnerARC,
+          link: 'https://www.arc.agric.za/Pages/Home.aspx',
+        },
+        {
+          name: 'SAEON',
+          description: '',
+          logo: southAfricaPartnerSAEON,
+          link: 'https://www.saeon.ac.za/',
+        },
+        {
+          name: 'Council for Geoscience',
+          description: '',
+          logo: southAfricaPartnerCFG,
+          link: 'https://www.geoscience.org.za/',
+        },
+        {
+          name: 'Stats SA',
+          description: '',
+          logo: southAfricaPartnerSSA,
+          link: 'https://www.statssa.gov.za/',
+        },
+        {
+          name: 'Water Research Commission',
+          description: '',
+          logo: southAfricaPartnerWRC,
+          link: 'https://www.wrc.org.za/',
+        },
+        {
+          name: 'stepSA',
+          description: '',
+          logo: southAfricaPartnerSTSA,
+          link: 'http://www.stepsa.co.za/',
+        },
+        {
+          name: 'Sanbi',
+          description: '',
+          logo: southAfricaPartnerSANBI,
+          link: 'https://www.sanbi.org/biodiversity/',
+        },
+        {
+          name: 'Greenbook',
+          description: '',
+          logo: southAfricaPartnerGB,
+          link: 'https://greenbook.co.za/',
         },
         {
           name: 'AfriGEO',

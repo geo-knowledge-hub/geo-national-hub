@@ -21,6 +21,8 @@ import { Resource } from '@data/content/resources';
 
 import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
 
+import { ResourceMetadataModal } from '@components/global';
+
 /**
  * Properties expected for the ``ContentSection`` component.
  */
@@ -34,94 +36,6 @@ interface ContentSectionProps {
  */
 interface ResourceCardProps {
   resource: Resource;
-}
-
-interface ResourceMetadataModalProps {
-  open: boolean;
-  onClose: () => void;
-  data: Resource;
-}
-
-export default function ResourceMetadataModal({ open, onClose, data }: ResourceMetadataModalProps) {
-  if (!open) return null;
-
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm">
-      <div className="relative mx-auto max-h-full w-full max-w-4xl">
-        <div className="relative rounded-lg bg-white p-6 shadow md:p-8">
-          <div className="mb-6 flex items-start justify-between">
-            <h3 className="text-2xl font-semibold text-gray-900">Overview - {data.name}</h3>
-            <button
-              onClick={onClose}
-              className="rounded-lg p-1.5 text-gray-400 hover:bg-gray-100 hover:text-gray-900"
-            >
-              <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
-          </div>
-
-          <div className="grid grid-cols-1 gap-6 text-sm text-gray-800 md:grid-cols-2">
-            <div>
-              <h4 className="mb-1 font-semibold text-gray-700">Name</h4>
-              <p>{data.name}</p>
-            </div>
-
-            <div>
-              <h4 className="mb-1 font-semibold text-gray-700">License</h4>
-              <p>{data.license}</p>
-            </div>
-
-            <div className="md:col-span-2">
-              <h4 className="mb-1 font-semibold text-gray-700">Overview</h4>
-              <p>{data.overview}</p>
-            </div>
-
-            <div>
-              <h4 className="mb-1 font-semibold text-gray-700">Contributors</h4>
-              <p>{data?.contributors !== undefined && <>{data?.contributors.join(',')}</>}</p>
-            </div>
-
-            <div>
-              <h4 className="mb-1 font-semibold text-gray-700">Subjects</h4>
-              <p>{data.subjects}</p>
-            </div>
-
-            <div>
-              <h4 className="mb-1 font-semibold text-gray-700">
-                Associated GEO Work Programme Activity
-              </h4>
-              <p>{data.geoGWP !== undefined && data.geoGWP}</p>
-            </div>
-
-            <div>
-              <h4 className="mb-1 font-semibold text-gray-700">Target Audience</h4>
-              <p>
-                {data?.targetAudiences !== undefined && <>{data?.targetAudiences.join(', ')}</>}
-              </p>
-            </div>
-
-            <div className="md:col-span-2">
-              <h4 className="mb-1 font-semibold text-gray-700">SDGs / GEO Focus Areas</h4>
-              <div className="mt-2 flex flex-wrap gap-4">
-                {data?.geoThemes &&
-                  data.geoThemes.map((theme, idx) => (
-                    <div key={idx} className="flex items-center space-x-2">
-                      <span>{theme}</span>
-                    </div>
-                  ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
 }
 
 /**
@@ -150,7 +64,7 @@ const ResourceCard: React.FC<ResourceCardProps> = ({
             <span className="rounded-full bg-gray-200 px-3 py-1 text-xs font-medium text-gray-700">
               {resource.uploaded}
             </span>
-            <span className="rounded-full bg-gray-300 px-3 py-1 text-xs font-medium text-gray-800">
+            <span className="rounded-full bg-gray-200 px-3 py-1 text-xs font-medium text-gray-700">
               {resource.type}
             </span>
           </div>
@@ -161,13 +75,14 @@ const ResourceCard: React.FC<ResourceCardProps> = ({
           <p className="mt-1 text-sm text-gray-600">{resource.description}</p>
 
           <div className="mt-4 flex items-center gap-4">
-            <button
-              onClick={() => setIsOpen(true)}
-              className="cursor-pointer text-sm font-medium text-gray-700 transition hover:text-blue-600 focus:outline-none"
-            >
-              Overview
-            </button>
-
+            {resource.overview && (
+              <button
+                onClick={() => setIsOpen(true)}
+                className="cursor-pointer text-sm font-medium text-gray-700 transition hover:text-blue-600 focus:outline-none"
+              >
+                Overview
+              </button>
+            )}
             <Link
               href={resource.link}
               target="_blank"
@@ -215,8 +130,21 @@ export const ContentSection: React.FC<ContentSectionProps> = ({
   useEffect(() => {
     // Initialize MiniSearch
     const miniSearchInstance = new MiniSearch<Resource>({
-      fields: ['title', 'description', 'type', 'uploaded'],
-      storeFields: ['title', 'description', 'type', 'uploaded', 'link', 'icon'],
+      fields: ['name', 'description', 'type', 'uploaded'],
+      storeFields: [
+        'name',
+        'description',
+        'type',
+        'uploaded',
+        'link',
+        'icon',
+        'license',
+        'overview',
+        'contributors',
+        'subjects',
+        'geoGWP',
+        'targetAudiences',
+      ],
       searchOptions: {
         fuzzy: 0.2,
         prefix: true,

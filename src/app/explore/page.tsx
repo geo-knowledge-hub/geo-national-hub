@@ -11,7 +11,7 @@
 
 import React, { useState, useMemo } from 'react';
 
-import Image, { StaticImageData } from 'next/image';
+import Image from 'next/image';
 
 import _uniq from 'lodash/uniq';
 import _some from 'lodash/some';
@@ -22,44 +22,31 @@ import _compact from 'lodash/compact';
 
 import MiniSearch from 'minisearch';
 
-import { HeroTopic } from '@components/global';
+import { HeroTopic, ResourceMetadataModal } from '@components/global';
+
 import { initResourcesDatabase } from '@data/db';
 
-import { FacetGroup } from './components';
-
 import logoExplorer from '@public/content/concepts/explorer/explore.svg';
+import { FacetGroup } from './components';
+import { Resource } from '@data/content/resources';
 
 /**
  * Constants - Pagination - Number of results per page.
  */
 const RESULTS_PER_PAGE = 6;
 
-interface ChallengeTag {
-  id: string;
-  name: string;
-}
-
-interface Challenge {
-  id: string;
-  title: string;
-  description: string;
-  tags: ChallengeTag[];
-}
-
-interface ResourceItem {
-  name: string;
-  type: string;
-  country: string;
-  uploaded: string;
-  description: string;
-  link: string;
-  challenges: Challenge[];
-  icon: StaticImageData | string;
-}
-
 export default function ExplorePage() {
   const data = initResourcesDatabase();
 
+  /**
+   * State to manage the metadata modal.
+   */
+  const [isOpen, setIsOpen] = useState(false);
+  const [resource, setResource] = useState<Resource | null>(null);
+
+  /**
+   * States to manage search
+   */
   const [query, setQuery] = useState('');
   const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
   const [selectedChallenges, setSelectedChallenges] = useState<string[]>([]);
@@ -87,6 +74,7 @@ export default function ExplorePage() {
       ],
       storeFields: [
         'name',
+        'description',
         'overview',
         'license',
         'contributors',
@@ -122,9 +110,7 @@ export default function ExplorePage() {
 
   const filteredResults = useMemo(() => {
     const results = query.trim()
-      ? miniSearch
-          .search(query, { prefix: true, fuzzy: 0.2 })
-          .map((r) => r as unknown as ResourceItem)
+      ? miniSearch.search(query, { prefix: true, fuzzy: 0.2 }).map((r) => r as unknown as Resource)
       : data;
 
     return results.filter((r) => {
@@ -300,7 +286,7 @@ export default function ExplorePage() {
                       <span className="rounded-full bg-gray-200 px-3 py-1 text-xs font-medium text-gray-700">
                         {item.uploaded}
                       </span>
-                      <span className="rounded-full bg-gray-300 px-3 py-1 text-xs font-medium text-gray-800">
+                      <span className="rounded-full bg-gray-200 px-3 py-1 text-xs font-medium text-gray-700">
                         {item.type}
                       </span>
                     </div>
@@ -312,13 +298,27 @@ export default function ExplorePage() {
                     </h3>
                     <p className="mt-1 text-sm text-gray-600">{item.description}</p>
 
-                    <a
-                      href={item.link}
-                      target="_blank"
-                      className="mt-2 inline-block font-medium text-gray-800 transition hover:text-gray-900"
-                    >
-                      Access →
-                    </a>
+                    <div className="mt-4 flex items-center gap-4">
+                      {item.overview && (
+                        <button
+                          onClick={() => {
+                            setResource(item);
+                            setIsOpen(true);
+                          }}
+                          className="cursor-pointer text-sm font-medium text-gray-700 transition hover:text-blue-600 focus:outline-none"
+                        >
+                          Overview
+                        </button>
+                      )}
+
+                      <a
+                        href={item.link}
+                        target="_blank"
+                        className="text-sm font-medium text-gray-700 transition hover:text-blue-600 focus:outline-none"
+                      >
+                        Access →
+                      </a>
+                    </div>
                   </div>
                   <div className={'rounded-md bg-gray-100 p-5'}>
                     <Image
@@ -353,6 +353,10 @@ export default function ExplorePage() {
           </section>
         </div>
       </div>
+
+      {resource !== null && (
+        <ResourceMetadataModal open={isOpen} onClose={() => setIsOpen(false)} data={resource} />
+      )}
     </div>
   );
 }
