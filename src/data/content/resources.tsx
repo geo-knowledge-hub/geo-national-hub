@@ -1295,9 +1295,8 @@ const data: CountryProfileData = {
         {
           name: 'Lulu Makapela',
           role: 'Strategic Programmes contracts manager',
-          profile: 'https://earthobservations.org/profile/3891',
-          avatar:
-            'https://earthobservations.org/storage/app/resources/resize/700_0_0_0_auto/img_927fdc7195756418532d29143da32dd1.webp',
+          profile: '#',
+          avatar: 'https://earthobservations.org/storage/profile-photos/653bedbda5c58977907361.jpg',
         },
         {
           name: 'Christelle Taylor',
