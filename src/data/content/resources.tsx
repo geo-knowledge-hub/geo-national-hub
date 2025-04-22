@@ -371,23 +371,21 @@ const data: CountryProfileData = {
         {
           name: 'Joseph Bremang Tandoh',
           role: 'GEO Principal',
-          profile: 'https://earthobservations.org/profile/13885',
+          profile: '#',
           avatar: placeholderRepresentative,
         },
         {
           name: 'Amos Kabo-Bah',
           role: 'GEO Principal Alternate',
-          profile: 'https://earthobservations.org/profile/14390',
-          avatar:
-            'https://earthobservations.org/storage/app/resources/resize/700_0_0_0_auto/img_27e065dd50b7d4137c8cd3e312aaa246.webp',
+          profile: '#',
+          avatar: 'https://earthobservations.org/storage/profile-photos/653bedbacb6a3604700075.jpg',
         },
 
         {
           name: 'Kofi Asare',
           role: 'GEO Principal Alternate and GEO Focal Point',
           profile: 'https://earthobservations.org/profile/13056',
-          avatar:
-            'https://earthobservations.org/storage/app/resources/resize/700_0_0_0_auto/img_fbafa07e9ef623d7e1e8db60a3e77a1d.webp',
+          avatar: placeholderRepresentative
         },
       ],
     },
