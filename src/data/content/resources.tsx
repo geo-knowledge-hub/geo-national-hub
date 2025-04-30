@@ -60,6 +60,17 @@ import southAfricaPartnerCSIR from '@public/content/partners/south-africa/csir.j
 import southAfricaPartnerSANSA from '@public/content/partners/south-africa/sansa.png';
 
 /**
+ * Representatives
+ */
+import southAfricaRepresentativeA from '@public/content/representative/south-africa/bolelang-sibolla.jpg';
+import southAfricaRepresentativeB from '@public/content/representative/south-africa/christelle-taylor.jpg';
+import southAfricaRepresentativeC from '@public/content/representative/south-africa/elhadi-adam.jpg';
+import southAfricaRepresentativeD from '@public/content/representative/south-africa/kwanele-ngongoma.jpg';
+import southAfricaRepresentativeE from '@public/content/representative/south-africa/lulu-makapela.jpg';
+import southAfricaRepresentativeF from '@public/content/representative/south-africa/phila-sibandze.jpg';
+import southAfricaRepresentativeG from '@public/content/representative/south-africa/tshisikhawe-mphaphuli.jpg';
+
+/**
  * Community of practice
  */
 import imageMechanismSAEOInfra from '@public/content/concepts/community-of-practice/south-africa/mechanism-eoi.svg';
@@ -385,7 +396,7 @@ const data: CountryProfileData = {
           name: 'Kofi Asare',
           role: 'GEO Principal Alternate and GEO Focal Point',
           profile: 'https://earthobservations.org/profile/13056',
-          avatar: placeholderRepresentative
+          avatar: placeholderRepresentative,
         },
       ],
     },
@@ -1292,21 +1303,45 @@ const data: CountryProfileData = {
       representatives: [
         {
           name: 'Lulu Makapela',
-          role: 'Strategic Programmes contracts manager',
-          profile: '#',
-          avatar: 'https://earthobservations.org/storage/profile-photos/653bedbda5c58977907361.jpg',
+          role: 'Key representative',
+          profile: 'https://www.linkedin.com/in/lulu-makapela-35a91214/',
+          avatar: southAfricaRepresentativeE,
         },
         {
-          name: 'Christelle Taylor',
-          role: 'Group Assistant',
-          profile: '#',
-          avatar: placeholderRepresentative,
+          name: 'Bolelang Sibolla',
+          role: 'Key representative',
+          profile: 'https://www.linkedin.com/in/bolelang-sibolla-55015bb0/',
+          avatar: southAfricaRepresentativeA,
         },
         {
           name: 'Kwanele Ngongoma',
-          role: 'Junior System Administrator',
-          profile: '#',
-          avatar: placeholderRepresentative,
+          role: 'Key representative',
+          profile: 'https://www.linkedin.com/in/kwanele-n-ngongoma-38ab04247/',
+          avatar: southAfricaRepresentativeD,
+        },
+        {
+          name: 'Christelle Taylor',
+          role: 'Key representative',
+          profile: 'https://www.linkedin.com/in/christelle-taylor-42644224b/',
+          avatar: southAfricaRepresentativeB,
+        },
+        {
+          name: 'Elhadi Adam',
+          role: 'Key representative',
+          profile: 'https://www.linkedin.com/in/elhadi-adam-22642938/',
+          avatar: southAfricaRepresentativeC,
+        },
+        {
+          name: 'Phila Sibandze',
+          role: 'Key representative',
+          profile: 'https://www.linkedin.com/in/phila-sibandze-b06376235/',
+          avatar: southAfricaRepresentativeF,
+        },
+        {
+          name: 'Tshisikhawe Mphaphuli',
+          role: 'Key representative',
+          profile: 'https://www.linkedin.com/in/tshisikhawe-mphaphuli-02b60196/',
+          avatar: southAfricaRepresentativeG,
         },
       ],
     },
