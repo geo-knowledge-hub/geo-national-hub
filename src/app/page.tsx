@@ -97,16 +97,21 @@ const HomePage: React.FC = (): JSX.Element => {
             const isAllowed = countryKey === 'ghana' || countryKey === 'south-africa';
             const countryLink = isAllowed ? `/countries/${countryKey}` : '#';
 
+            const buttonBorder = isAllowed
+              ? 'shadow-sm transition hover:shadow-md border-blue-300'
+              : 'border-gray-200  cursor-not-allowed';
+            const buttonAnimation = isAllowed
+              ? 'transition duration-200 group-hover:translate-x-1 group-hover:text-blue-600'
+              : '';
+
             return (
               <Link key={countryKey} href={countryLink} className="group block">
-                <div className="rounded-lg border border-gray-200 bg-white shadow-sm transition hover:shadow-md">
+                <div className={`rounded-lg border bg-white ${buttonBorder}`}>
                   <div className="flex items-center justify-between p-5">
                     <h5 className="text-md font-bold tracking-tight text-gray-900">
                       {country.title}
                     </h5>
-                    <span className="text-gray-600 transition duration-200 group-hover:translate-x-1 group-hover:text-blue-600">
-                      →
-                    </span>
+                    <span className={`text-gray-600 ${buttonAnimation}`}>→</span>
                   </div>
                 </div>
               </Link>
