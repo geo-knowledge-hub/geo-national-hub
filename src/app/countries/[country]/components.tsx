@@ -177,7 +177,7 @@ export const CapacityBuildingSection: React.FC<CapacityBuildingSectionProps> = (
   countryData,
 }: ResourcesSectionProps): JSX.Element => {
   // Build link
-  const capacityBuildingPageLink = `${countryData.id}/capacity-building/example`;
+  const capacityBuildingPageLink = `${countryData.id}/capacity-building/activities`;
 
   // Only show countries with capacity building activities
   const showCapacityBuildingBlock = countryData.capacityBuildingActivities.length > 0;
