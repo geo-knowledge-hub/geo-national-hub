@@ -58,7 +58,7 @@ const ActivityItem: React.FC<ActivityItemProps> = ({
           href={activity.link}
           className="mt-2 inline-block font-medium text-gray-800 transition hover:text-gray-900"
         >
-          Explore resources →
+          Explore →
         </Link>
       </div>
       <div className={'rounded-md bg-gray-100 p-5'}>
