@@ -85,7 +85,7 @@ const ResourcePage: React.FC<ResourcePageProps> = ({ params }: ResourcePageProps
         title={`${challengeMetadata.title}`}
         description={`EO Applications in ${countryData.title}`}
         ctaLabel="Explore more content"
-        ctaLink="/explore"
+        ctaLink="/national/explore"
         ctaMessage="Interested in other countries?"
       />
 
