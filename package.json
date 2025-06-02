@@ -24,7 +24,7 @@
     "lodash": "^4.17.21",
     "lowdb": "^7.0.1",
     "minisearch": "^7.1.2",
-    "next": "15.2.1",
+    "next": ">=15.2.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "sharp": "^0.33.5"
@@ -40,6 +40,7 @@
     "eslint-config-next": "15.2.1",
     "eslint-config-prettier": "^10.0.2",
     "eslint-plugin-prettier": "^5.2.3",
+    "picomatch": "^4.0.2",
     "prettier": "^3.5.3",
     "prettier-plugin-tailwindcss": "^0.6.11",
     "tailwindcss": "^4",

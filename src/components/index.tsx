@@ -12,3 +12,4 @@ export { BackButton } from './button';
 export { HeroCountry, HeroTopic } from './hero';
 export { RepresentativesTable } from './table';
 export { FeatureCard, CallToActionCard } from './card';
+export { ResourceMetadataModal } from './modal';

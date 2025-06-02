@@ -1,0 +1,6 @@
+# Ignore all Markdown files
+*.md
+
+# You can also ignore specific files or folders
+docs/
+README.md

@@ -21,6 +21,8 @@ import { Resource } from '@data/content/resources';
 
 import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
 
+import { ResourceMetadataModal } from '@components/global';
+
 /**
  * Properties expected for the ``ContentSection`` component.
  */
@@ -46,42 +48,61 @@ interface ResourceCardProps {
 const ResourceCard: React.FC<ResourceCardProps> = ({
   resource,
 }: ResourceCardProps): JSX.Element => {
+  /**
+   * State to manage the metadata modal.
+   */
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <div className="flex items-center justify-between rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition hover:shadow-md">
-      <div className="flex-1 space-y-3">
-        <div className="mb-2 flex items-center space-x-2 text-sm">
-          <span className="rounded-full bg-gray-900 px-3 py-1 text-xs font-medium text-white">
-            Open
-          </span>
-          <span className="rounded-full bg-gray-200 px-3 py-1 text-xs font-medium text-gray-700">
-            {resource.uploaded}
-          </span>
-          <span className="rounded-full bg-gray-300 px-3 py-1 text-xs font-medium text-gray-800">
-            {resource.type}
-          </span>
+    <>
+      <div className="flex items-center justify-between rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition hover:shadow-md">
+        <div className="flex-1 space-y-3">
+          <div className="mb-2 flex items-center space-x-2 text-sm">
+            <span className="rounded-full bg-gray-900 px-3 py-1 text-xs font-medium text-white">
+              Open
+            </span>
+            <span className="rounded-full bg-gray-200 px-3 py-1 text-xs font-medium text-gray-700">
+              {resource.uploaded}
+            </span>
+            <span className="rounded-full bg-gray-200 px-3 py-1 text-xs font-medium text-gray-700">
+              {resource.type}
+            </span>
+          </div>
+
+          <h3 className="text-lg font-semibold text-gray-900 transition hover:text-gray-700">
+            <Link href={resource.link}>{resource.name}</Link>
+          </h3>
+          <p className="mt-1 text-sm text-gray-600">{resource.description}</p>
+
+          <div className="mt-4 flex items-center gap-4">
+            {resource.overview && (
+              <button
+                onClick={() => setIsOpen(true)}
+                className="cursor-pointer text-sm font-medium text-gray-700 transition hover:text-blue-600 focus:outline-none"
+              >
+                Overview
+              </button>
+            )}
+            <Link
+              href={resource.link}
+              target="_blank"
+              className="text-sm font-medium text-gray-700 transition hover:text-blue-600 focus:outline-none"
+            >
+              Access →
+            </Link>
+          </div>
         </div>
-
-        <h3 className="text-lg font-semibold text-gray-900 transition hover:text-gray-700">
-          <Link href={resource.link}>{resource.title}</Link>
-        </h3>
-        <p className="mt-1 text-sm text-gray-600">{resource.description}</p>
-
-        <Link
-          href={resource.link}
-          target="_blank"
-          className="mt-2 inline-block font-medium text-gray-800 transition hover:text-gray-900"
-        >
-          Access →
-        </Link>
+        <div className={'rounded-md bg-gray-100 p-5'}>
+          <Image
+            src={resource.icon}
+            alt="Resource icon"
+            className="flex h-6 w-6 items-center justify-center rounded-lg"
+          />
+        </div>
       </div>
-      <div className={'rounded-md bg-gray-100 p-5'}>
-        <Image
-          src={resource.icon}
-          alt="Resource icon"
-          className="flex h-6 w-6 items-center justify-center rounded-lg"
-        />
-      </div>
-    </div>
+
+      <ResourceMetadataModal open={isOpen} onClose={() => setIsOpen(false)} data={resource} />
+    </>
   );
 };
 
@@ -109,8 +130,21 @@ export const ContentSection: React.FC<ContentSectionProps> = ({
   useEffect(() => {
     // Initialize MiniSearch
     const miniSearchInstance = new MiniSearch<Resource>({
-      fields: ['title', 'description', 'type', 'uploaded'],
-      storeFields: ['title', 'description', 'type', 'uploaded', 'link', 'icon'],
+      fields: ['name', 'description', 'type', 'uploaded'],
+      storeFields: [
+        'name',
+        'description',
+        'type',
+        'uploaded',
+        'link',
+        'icon',
+        'license',
+        'overview',
+        'contributors',
+        'subjects',
+        'geoGWP',
+        'targetAudiences',
+      ],
       searchOptions: {
         fuzzy: 0.2,
         prefix: true,

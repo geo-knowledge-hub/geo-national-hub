@@ -1,8 +1,12 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  basePath: '/national',
+  assetPrefix: '/national',
   output: 'standalone',
+  images: {
+    domains: ['earthobservations.org'],
+  },
 };
 
 export default nextConfig;

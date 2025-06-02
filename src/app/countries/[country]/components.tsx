@@ -14,7 +14,6 @@ import MiniSearch from 'minisearch';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
 
 import imageCapacityBuildingConcept from '@public/content/concepts/capacity-building/concept.svg';
-import imageCommunityOfPracticeConcept from '@public/content/concepts/community-of-practice/concept.svg';
 
 import { FeatureCard, CallToActionCard, RepresentativesTable } from '@components/global';
 
@@ -178,7 +177,7 @@ export const CapacityBuildingSection: React.FC<CapacityBuildingSectionProps> = (
   countryData,
 }: ResourcesSectionProps): JSX.Element => {
   // Build link
-  const capacityBuildingPageLink = `${countryData.id}/capacity-building/example`;
+  const capacityBuildingPageLink = `${countryData.id}/capacity-building/activities`;
 
   // Only show countries with capacity building activities
   const showCapacityBuildingBlock = countryData.capacityBuildingActivities.length > 0;
@@ -224,12 +223,11 @@ export const CapacityBuildingSection: React.FC<CapacityBuildingSectionProps> = (
 export const CommunityOfPracticeSection: React.FC<CapacityBuildingSectionProps> = ({
   countryData,
 }: ResourcesSectionProps): JSX.Element => {
-  // Build link
-  const communityOfPracticePageLink = `${countryData.id}/community-of-practice/example`;
+  // Get community of practice data
+  const communityOfPracticeData = countryData?.communityOfPractice;
 
   // Only show countries with capacity building activities
-  const showCommunityOfPractice =
-    countryData?.communityOfPractice && countryData.communityOfPractice.length > 0;
+  const showCommunityOfPractice = communityOfPracticeData !== null;
 
   // Rendering!
   return (
@@ -249,12 +247,13 @@ export const CommunityOfPracticeSection: React.FC<CapacityBuildingSectionProps> 
 
             <div className="mt-2">
               <CallToActionCard
-                title={`Community of Practice in ${countryData.title}`}
+                title={communityOfPracticeData.name}
                 subtitle={'Join us'}
-                description={`Collaborate with experts, tech leaders, and EO researchers. Together, we advance.`}
+                description={communityOfPracticeData.description}
                 buttonText={'Access'}
-                buttonLink={communityOfPracticePageLink}
-                illustration={imageCommunityOfPracticeConcept}
+                buttonLink={communityOfPracticeData.link}
+                buttonLinkTarget={'_blank'}
+                illustration={communityOfPracticeData.logo}
               />
             </div>
           </div>
@@ -388,16 +387,14 @@ export const EnablingMechanisms: React.FC<EnablingMechanismsSectionProps> = ({
 export const PartnersSection: React.FC<PartnersSectionProps> = ({
   countryData,
 }: ResourcesSectionProps): JSX.Element => {
-  /**
-   * States
-   */
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [filteredPartners, setFilteredPartners] = useState<Partner[]>(countryData.partners);
   const [miniSearch, setMiniSearch] = useState<MiniSearch<Partner> | null>(null);
 
-  /**
-   * Side effects - Initialize MiniSearch
-   */
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const itemsPerPage = 6;
+
   useEffect(() => {
     const miniSearchInstance = new MiniSearch<Partner>({
       fields: ['name', 'description'],
@@ -408,7 +405,6 @@ export const PartnersSection: React.FC<PartnersSectionProps> = ({
       },
     });
 
-    // Index records
     miniSearchInstance.addAll(
       countryData.partners.map((partner, index) => ({ id: index, ...partner })),
     );
@@ -416,9 +412,6 @@ export const PartnersSection: React.FC<PartnersSectionProps> = ({
     setMiniSearch(miniSearchInstance);
   }, [countryData]);
 
-  /**
-   * Side effects - Search content.
-   */
   useEffect(() => {
     if (!miniSearch || searchTerm.trim() === '') {
       setFilteredPartners(countryData.partners);
@@ -427,31 +420,31 @@ export const PartnersSection: React.FC<PartnersSectionProps> = ({
       // @ts-expect-error Convertion error
       setFilteredPartners(results);
     }
+
+    // Reset pagination on new search
+    setCurrentPage(1);
   }, [searchTerm, miniSearch, countryData]);
 
-  /**
-   * Base validation - Is to show component ?
-   */
   const showComponent = countryData.partners.length > 0;
+  const totalPages = Math.ceil(filteredPartners.length / itemsPerPage);
 
-  if (!showComponent) {
-    return <></>;
-  }
+  const paginatedPartners = filteredPartners.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage,
+  );
 
-  // Rendering!
+  if (!showComponent) return <></>;
+
   return (
     <section className="px-4 py-12">
       <div className="mx-auto max-w-7xl">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
-          {/* Header & Description */}
           <div>
-            <h2 className="mb-2 text-3xl font-bold text-gray-900">Partners</h2>
+            <h2 className="mb-2 text-3xl font-bold text-gray-900">Stakeholders</h2>
             <p className="mb-4 text-gray-600">
-              Partners supporting EO Data and Knowledge in {countryData.title}
+              Stakeholders supporting EO Data and Knowledge in {countryData.title}
             </p>
           </div>
-
-          {/* Search Bar aligned with header */}
           <div className="mt-4 lg:mt-0">
             <div className="relative w-full lg:w-72">
               <MagnifyingGlassIcon className="absolute top-1/2 left-3 h-5 w-5 -translate-y-1/2 transform text-gray-500" />
@@ -467,24 +460,67 @@ export const PartnersSection: React.FC<PartnersSectionProps> = ({
         </div>
 
         {/* Partners Grid */}
-        <div className="mt-2 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {filteredPartners.length > 0 ? (
-            filteredPartners.map((partner, index) => {
-              return (
-                <FeatureCard
-                  key={index}
-                  image={partner.logo}
-                  imageAlt={partner.name}
-                  title={partner.name}
-                  href={partner.link}
-                  external={true}
-                />
-              );
-            })
+        <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {paginatedPartners.length > 0 ? (
+            paginatedPartners.map((partner, index) => (
+              <FeatureCard
+                key={index}
+                image={partner.logo}
+                imageAlt={partner.name}
+                imageClass="mb-6 h-32 w-32"
+                title={partner.name}
+                href={partner.link}
+                external={true}
+              />
+            ))
           ) : (
-            <p className="col-span-full text-center text-gray-500">No partners found.</p>
+            <p className="col-span-full text-center text-gray-500">No stakeholders found.</p>
           )}
         </div>
+
+        {/* Pagination */}
+        {totalPages > 1 && (
+          <div className="mt-10 flex justify-center">
+            <nav className="flex items-center space-x-4 text-sm font-medium text-gray-600">
+              {/* Previous Button */}
+              <button
+                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                disabled={currentPage === 1}
+                className={`transition hover:text-gray-900 ${
+                  currentPage === 1 ? 'cursor-not-allowed text-gray-300' : ''
+                }`}
+              >
+                Previous
+              </button>
+
+              {/* Page Numbers */}
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                <button
+                  key={page}
+                  onClick={() => setCurrentPage(page)}
+                  className={`border-b-2 px-1 pb-0.5 transition ${
+                    currentPage === page
+                      ? 'border-gray-600 text-gray-900'
+                      : 'border-transparent hover:border-gray-300 hover:text-gray-800'
+                  }`}
+                >
+                  {page}
+                </button>
+              ))}
+
+              {/* Next Button */}
+              <button
+                onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                disabled={currentPage === totalPages}
+                className={`transition hover:text-gray-900 ${
+                  currentPage === totalPages ? 'cursor-not-allowed text-gray-300' : ''
+                }`}
+              >
+                Next
+              </button>
+            </nav>
+          </div>
+        )}
       </div>
     </section>
   );
@@ -512,8 +548,8 @@ export const KeyRepresentativesSection: React.FC<KeyRepresentativesSectionProps>
    */
   useEffect(() => {
     const miniSearchInstance = new MiniSearch<Representative>({
-      fields: ['name', 'description'],
-      storeFields: ['name', 'description', 'logo'],
+      fields: ['name', 'role'],
+      storeFields: ['name', 'role', 'profile', 'avatar'],
       searchOptions: {
         fuzzy: 0.2,
         prefix: true,
@@ -562,7 +598,8 @@ export const KeyRepresentativesSection: React.FC<KeyRepresentativesSectionProps>
           <div>
             <h2 className="mb-2 text-3xl font-bold text-gray-900">Key Representatives</h2>
             <p className="mb-4 text-gray-600">
-              Meet the people facilitating activities in Ghana and feel free to reach out
+              Meet the people facilitating activities in {countryData.title} and feel free to reach
+              out
             </p>
           </div>
 
