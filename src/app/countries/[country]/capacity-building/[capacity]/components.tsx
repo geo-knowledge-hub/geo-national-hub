@@ -56,6 +56,8 @@ const ActivityItem: React.FC<ActivityItemProps> = ({
 
         <Link
           href={activity.link}
+          target="_blank"
+          rel="noopener noreferrer"
           className="mt-2 inline-block font-medium text-gray-800 transition hover:text-gray-900"
         >
           Explore →
@@ -92,6 +94,10 @@ export const CapacityBuildingSection: React.FC<CapacityBuildingSectionProps> = (
   );
   const [miniSearch, setMiniSearch] = useState<MiniSearch<CapacityBuildingActivity> | null>(null);
 
+  // Pagination state
+  const itemsPerPage = 6;
+  const [currentPage, setCurrentPage] = useState<number>(1);
+
   /**
    * Side effects - Initialize MiniSearch
    */
@@ -125,7 +131,17 @@ export const CapacityBuildingSection: React.FC<CapacityBuildingSectionProps> = (
       // @ts-expect-error Convertion error
       setFilteredChallenges(results);
     }
+
+    // Reset pagination on new search
+    setCurrentPage(1);
   }, [searchTerm, miniSearch, capacityBuildingActivities]);
+
+  const totalPages = Math.ceil(filteredChallenges.length / itemsPerPage);
+
+  const paginatedActivities = filteredChallenges.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage,
+  );
 
   // Rendering!
   return (
@@ -157,14 +173,58 @@ export const CapacityBuildingSection: React.FC<CapacityBuildingSectionProps> = (
 
         {/* Challenges List */}
         <div className="mt-2 space-y-5 rounded-lg">
-          {filteredChallenges.length > 0 ? (
-            filteredChallenges.map((activity, index) => (
+          {paginatedActivities.length > 0 ? (
+            paginatedActivities.map((activity, index) => (
               <ActivityItem key={index} activity={activity} />
             ))
           ) : (
             <p className="text-center text-gray-500">No activites found.</p>
           )}
         </div>
+
+        {/* Pagination */}
+        {totalPages > 1 && (
+          <div className="mt-10 flex justify-center">
+            <nav className="flex items-center space-x-4 text-sm font-medium text-gray-600">
+              {/* Previous Button */}
+              <button
+                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                disabled={currentPage === 1}
+                className={`transition hover:text-gray-900 ${
+                  currentPage === 1 ? 'cursor-not-allowed text-gray-300' : ''
+                }`}
+              >
+                Previous
+              </button>
+
+              {/* Page Numbers */}
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                <button
+                  key={page}
+                  onClick={() => setCurrentPage(page)}
+                  className={`border-b-2 px-1 pb-0.5 transition ${
+                    currentPage === page
+                      ? 'border-gray-600 text-gray-900'
+                      : 'border-transparent hover:border-gray-300 hover:text-gray-800'
+                  }`}
+                >
+                  {page}
+                </button>
+              ))}
+
+              {/* Next Button */}
+              <button
+                onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                disabled={currentPage === totalPages}
+                className={`transition hover:text-gray-900 ${
+                  currentPage === totalPages ? 'cursor-not-allowed text-gray-300' : ''
+                }`}
+              >
+                Next
+              </button>
+            </nav>
+          </div>
+        )}
       </div>
     </section>
   );

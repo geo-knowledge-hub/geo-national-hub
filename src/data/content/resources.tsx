@@ -52,9 +52,7 @@ import southAfricaPartnerSAEON from '@public/content/partners/south-africa/saeon
 import southAfricaPartnerCFG from '@public/content/partners/south-africa/cfg.png';
 import southAfricaPartnerSSA from '@public/content/partners/south-africa/statsa.png';
 import southAfricaPartnerWRC from '@public/content/partners/south-africa/wrc.jpg';
-import southAfricaPartnerSTSA from '@public/content/partners/south-africa/stepsa.jpg';
 import southAfricaPartnerSANBI from '@public/content/partners/south-africa/sanbi.jpg';
-import southAfricaPartnerGB from '@public/content/partners/south-africa/greenbook.svg';
 
 import southAfricaPartnerCSIR from '@public/content/partners/south-africa/csir.jpg';
 import southAfricaPartnerSANSA from '@public/content/partners/south-africa/sansa.png';
@@ -63,11 +61,9 @@ import southAfricaPartnerSANSA from '@public/content/partners/south-africa/sansa
  * Representatives
  */
 import southAfricaRepresentativeA from '@public/content/representative/south-africa/bolelang-sibolla.jpg';
-import southAfricaRepresentativeB from '@public/content/representative/south-africa/christelle-taylor.jpg';
 import southAfricaRepresentativeC from '@public/content/representative/south-africa/elhadi-adam.jpg';
 import southAfricaRepresentativeD from '@public/content/representative/south-africa/kwanele-ngongoma.jpg';
 import southAfricaRepresentativeE from '@public/content/representative/south-africa/lulu-makapela.jpg';
-import southAfricaRepresentativeF from '@public/content/representative/south-africa/phila-sibandze.jpg';
 import southAfricaRepresentativeG from '@public/content/representative/south-africa/tshisikhawe-mphaphuli.jpg';
 
 /**
@@ -1565,6 +1561,135 @@ const data: CountryProfileData = {
           link: 'https://doi.org/10.60566/qb27f-93m16',
           logo: BookOpenIcon,
         },
+        {
+          title: 'Human Settlement and Spatial Planning Community of Practice (CoP) Webinar',
+          description: 'Community of Practice Webinar',
+          link: 'https://neoss.co.za/events/human-settlement-and-spatial-planning-community-practice-cop-webinar',
+          logo: BookOpenIcon,
+        },
+        {
+          title:
+            'Data Governance and Earth Observations Infrastructure Community of Practice (CoP) Meeting',
+          description: 'Community of Practice Webinar',
+          link: 'https://neoss.co.za/events/data-governance-and-earth-observations-infrastructure-community-practice-cop-meeting',
+          logo: BookOpenIcon,
+        },
+        {
+          title: '3rd National Space Conference (NSC) 2025',
+          description: 'National Space Conference',
+          link: 'https://neoss.co.za/events/3rd-national-space-conference-nsc-2025',
+          logo: BookOpenIcon,
+        },
+        {
+          title: 'Communities of Practice (CoP) Integrated Workshop 2025',
+          description: 'Community of Practice Workshop',
+          link: 'https://neoss.co.za/events/communities-practice-cop-integrated-workshop-2025',
+          logo: BookOpenIcon,
+        },
+        {
+          title:
+            'Data Governance and Earth Observations Infrastructure Communities of Practice (CoPs) Meeting',
+          description: 'Community of Practice Meeting',
+          link: 'https://neoss.co.za/events/data-governance-and-earth-observations-infrastructure-communities-practice-cops-meeting',
+          logo: BookOpenIcon,
+        },
+        {
+          title: '2nd National Space Conference (NSC) 2024',
+          description: 'National Space Conference',
+          link: 'https://neoss.co.za/events/2nd-national-space-conference-nsc-2024',
+          logo: BookOpenIcon,
+        },
+        {
+          title: '8th AfriGEO Symposium 2024',
+          description: 'AfriGEO Symposium',
+          link: 'https://neoss.co.za/events/8th-afrigeo-symposium-2024',
+          logo: BookOpenIcon,
+        },
+        {
+          title:
+            'Communities of Practice (CoP) Integrated Workshop and Capacity Building Training 2024',
+          description: 'Community of Practice Workshop',
+          link: 'https://neoss.co.za/events/communities-practice-cop-integrated-workshop-and-capacity-building-training-2024',
+          logo: BookOpenIcon,
+        },
+        {
+          title: 'Earth Observations Stakeholder Workshop 2024',
+          description: 'Stakeholder Workshop',
+          link: 'https://neoss.co.za/events/earth-observations-stakeholder-workshop-2024',
+          logo: BookOpenIcon,
+        },
+        {
+          title: 'GEO Week & Ministerial Summit 2023',
+          description: 'GEO Week event',
+          link: 'https://neoss.co.za/events/geo-week-ministerial-summit-2023',
+          logo: BookOpenIcon,
+        },
+        {
+          title: '7th AfriGEO Symposium',
+          description: 'AfriGEO Symposium',
+          link: 'https://neoss.co.za/events/7th-afrigeo-symposium',
+          logo: BookOpenIcon,
+        },
+        {
+          title: '1st National Space Conference',
+          description: 'National Space Conference',
+          link: 'https://neoss.co.za/events/1st-national-space-conference',
+          logo: BookOpenIcon,
+        },
+        {
+          title: 'Communities of Practice (CoP) Integrated Workshop 2023',
+          description: 'Community of Practice Workshop',
+          link: 'https://neoss.co.za/events/communities-practice-cop-integrated-workshop-2023',
+          logo: BookOpenIcon,
+        },
+        {
+          title: 'NEOSS Management Committee meeting (Participation by invitation only)',
+          description: 'Management Committee Meeting',
+          link: 'https://neoss.co.za/events/neoss-management-committee-meeting-participation-invitation-only-1',
+          logo: BookOpenIcon,
+        },
+        {
+          title: 'SA-GEO, SA-GSN and SA-GSC Communities of Practice (CoP) Meetings',
+          description: 'Community of Practice Meetings',
+          link: 'https://neoss.co.za/events/sa-geo-sa-gsn-and-sa-gsc-communities-practice-cop-meetings-2',
+          logo: BookOpenIcon,
+        },
+        {
+          title: 'NEOSS Management Committee meeting (Participation by invitation only)',
+          description: 'Management Committee Meeting',
+          link: 'https://neoss.co.za/events/neoss-management-committee-meeting-participation-invitation-only-0',
+          logo: BookOpenIcon,
+        },
+        {
+          title: 'GEO WEEK 2022',
+          description: 'GEO Week event',
+          link: 'https://neoss.co.za/events/geo-week-2022',
+          logo: BookOpenIcon,
+        },
+        {
+          title: '6th AfriGEO Symposium',
+          description: 'AfriGEO Symposium',
+          link: 'https://neoss.co.za/events/6th-afrigeo-symposium',
+          logo: BookOpenIcon,
+        },
+        {
+          title: 'SA-GEO, SA-GSN and SA-GSC Communities of Practice (CoP) Meetings',
+          description: 'Community of Practice Meeting',
+          link: 'https://neoss.co.za/events/sa-geo-sa-gsn-and-sa-gsc-communities-practice-cop-meetings-1',
+          logo: BookOpenIcon,
+        },
+        {
+          title: 'SA-GEO, SA-GSN and SA-GSC Communities of Practice (CoP) Meetings',
+          description: 'Community of Practice Meeting',
+          link: 'https://neoss.co.za/events/sa-geo-sa-gsn-and-sa-gsc-communities-practice-cop-meetings',
+          logo: BookOpenIcon,
+        },
+        {
+          title: '4th SA-GEO symposium and 3rd Space for National Development (SND)',
+          description: 'GEO Week event',
+          link: 'https://neoss.co.za/events/4th-sa-geo-symposium-and-3rd-space-national-development-snd',
+          logo: BookOpenIcon,
+        },
       ],
       partners: [
         {
@@ -1610,22 +1735,10 @@ const data: CountryProfileData = {
           link: 'https://www.wrc.org.za/',
         },
         {
-          name: 'stepSA',
-          description: '',
-          logo: southAfricaPartnerSTSA,
-          link: 'http://www.stepsa.co.za/',
-        },
-        {
           name: 'Sanbi',
           description: '',
           logo: southAfricaPartnerSANBI,
           link: 'https://www.sanbi.org/biodiversity/',
-        },
-        {
-          name: 'Greenbook',
-          description: '',
-          logo: southAfricaPartnerGB,
-          link: 'https://greenbook.co.za/',
         },
         {
           name: 'AfriGEO',
@@ -1661,22 +1774,10 @@ const data: CountryProfileData = {
           avatar: southAfricaRepresentativeD,
         },
         {
-          name: 'Christelle Taylor',
-          role: 'Key representative',
-          profile: 'https://www.linkedin.com/in/christelle-taylor-42644224b/',
-          avatar: southAfricaRepresentativeB,
-        },
-        {
           name: 'Elhadi Adam',
           role: 'Key representative',
           profile: 'https://www.linkedin.com/in/elhadi-adam-22642938/',
           avatar: southAfricaRepresentativeC,
-        },
-        {
-          name: 'Phila Sibandze',
-          role: 'Key representative',
-          profile: 'https://www.linkedin.com/in/phila-sibandze-b06376235/',
-          avatar: southAfricaRepresentativeF,
         },
         {
           name: 'Tshisikhawe Mphaphuli',

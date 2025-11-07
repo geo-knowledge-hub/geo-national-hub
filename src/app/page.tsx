@@ -75,9 +75,12 @@ const HomePage: React.FC = (): JSX.Element => {
       const results = miniSearch.search(searchTerm).map((res) => res.id);
       setFilteredCountries(results);
     }
+    // Reset to first page when search changes
+    setCurrentPage(1);
   }, [searchTerm, miniSearch]);
 
   // Pagination
+  const totalPages = Math.ceil(filteredCountries.length / ITEMS_PER_PAGE);
   const paginatedCountries = filteredCountries.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
     currentPage * ITEMS_PER_PAGE,
@@ -85,59 +88,163 @@ const HomePage: React.FC = (): JSX.Element => {
 
   // Rendering!
   return (
-    <div className="mt-10 min-h-screen bg-gray-50 p-6">
+    <div className="min-h-screen bg-gray-50">
       {/* Page Title */}
       <HeroSearch searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 
-      {/* Country Grid */}
-      <div className="mx-auto mt-10 grid max-w-6xl grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      {/* Results Section */}
+      <div className="mx-auto max-w-7xl px-6 pb-12">
+        {/* Country Grid */}
         {paginatedCountries.length > 0 ? (
-          paginatedCountries.map((countryKey) => {
-            const country = db.countries[countryKey];
-            const isAllowed = countryKey === 'ghana' || countryKey === 'south-africa';
-            const countryLink = isAllowed ? `/countries/${countryKey}` : '#';
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            {paginatedCountries.map((countryKey) => {
+              const country = db.countries[countryKey];
+              const isAllowed = countryKey === 'ghana' || countryKey === 'south-africa';
+              const countryLink = isAllowed ? `/countries/${countryKey}` : '#';
 
-            const buttonBorder = isAllowed
-              ? 'shadow-sm transition hover:shadow-md border-blue-300'
-              : 'border-gray-200  cursor-not-allowed';
-            const buttonAnimation = isAllowed
-              ? 'transition duration-200 group-hover:translate-x-1 group-hover:text-blue-600'
-              : '';
+              return (
+                <Link
+                  key={countryKey}
+                  href={countryLink}
+                  className={`group block transition-transform duration-200 hover:scale-[1.02] ${
+                    !isAllowed ? 'cursor-not-allowed' : ''
+                  }`}
+                >
+                  <div
+                    className={`relative h-full overflow-hidden rounded-xl border bg-white shadow-sm transition-all duration-200 ${
+                      isAllowed
+                        ? 'border-gray-200 hover:border-blue-300 hover:shadow-lg'
+                        : 'border-gray-200 opacity-75'
+                    }`}
+                  >
+                    {/* Card Content */}
+                    <div className="p-6">
+                      <div className="flex items-center justify-between">
+                        <h5 className="text-lg font-bold tracking-tight text-gray-900">
+                          {country.title}
+                        </h5>
+                        {isAllowed && (
+                          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-50 text-blue-600 transition-all duration-200 group-hover:translate-x-1 group-hover:bg-blue-100">
+                            →
+                          </span>
+                        )}
+                      </div>
+                      {isAllowed ? (
+                        <p className="mt-3 text-xs font-medium text-blue-600">Already available</p>
+                      ) : (
+                        <p className="mt-3 text-xs text-gray-500">Coming soon</p>
+                      )}
+                    </div>
 
-            return (
-              <Link key={countryKey} href={countryLink} className="group block">
-                <div className={`rounded-lg border bg-white ${buttonBorder}`}>
-                  <div className="flex items-center justify-between p-5">
-                    <h5 className="text-md font-bold tracking-tight text-gray-900">
-                      {country.title}
-                    </h5>
-                    <span className={`text-gray-600 ${buttonAnimation}`}>→</span>
+                    {/* Hover Overlay Effect */}
+                    {isAllowed && (
+                      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-blue-50/0 to-blue-50/0 transition-all duration-200 group-hover:from-blue-50/50 group-hover:to-transparent" />
+                    )}
                   </div>
-                </div>
-              </Link>
-            );
-          })
+                </Link>
+              );
+            })}
+          </div>
         ) : (
-          <p className="col-span-full text-center text-gray-500">No countries found.</p>
+          <div className="flex flex-col items-center justify-center py-20">
+            <div className="rounded-full bg-gray-100 p-6">
+              <svg
+                className="h-12 w-12 text-gray-400"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+              </svg>
+            </div>
+            <p className="mt-4 text-lg font-semibold text-gray-900">No countries found</p>
+            <p className="mt-2 text-sm text-gray-600">
+              Try adjusting your search terms or{' '}
+              <button
+                onClick={() => setSearchTerm('')}
+                className="font-medium text-blue-600 hover:text-blue-700"
+              >
+                clear your search
+              </button>
+            </p>
+          </div>
         )}
-      </div>
 
-      {/* Pagination Controls */}
-      <div className="mt-10 flex justify-center space-x-4">
-        <button
-          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-          disabled={currentPage === 1}
-          className="rounded-lg bg-gray-200 px-4 py-2 text-gray-700 transition hover:bg-gray-300 disabled:cursor-not-allowed disabled:opacity-50"
-        >
-          Prev
-        </button>
-        <button
-          onClick={() => setCurrentPage((prev) => prev + 1)}
-          disabled={currentPage * ITEMS_PER_PAGE >= filteredCountries.length}
-          className="rounded-lg bg-gray-200 px-4 py-2 text-gray-700 transition hover:bg-gray-300 disabled:cursor-not-allowed disabled:opacity-50"
-        >
-          Next
-        </button>
+        {/* Pagination Controls */}
+        {totalPages > 1 && (
+          <div className="mt-12 flex justify-center">
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                disabled={currentPage === 1}
+                className="flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition-all hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-white"
+              >
+                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15 19l-7-7 7-7"
+                  />
+                </svg>
+                Previous
+              </button>
+
+              {/* Page Numbers */}
+              <div className="flex items-center gap-1">
+                {Array.from({ length: totalPages }, (_, i) => i + 1)
+                  .filter((page) => {
+                    // Show first page, last page, current page, and pages around current
+                    return (
+                      page === 1 ||
+                      page === totalPages ||
+                      (page >= currentPage - 1 && page <= currentPage + 1)
+                    );
+                  })
+                  .map((page, index, array) => {
+                    // Add ellipsis if there's a gap
+                    const showEllipsisBefore = index > 0 && page - array[index - 1] > 1;
+                    return (
+                      <React.Fragment key={page}>
+                        {showEllipsisBefore && <span className="px-2 text-gray-400">...</span>}
+                        <button
+                          onClick={() => setCurrentPage(page)}
+                          className={`h-10 w-10 rounded-lg text-sm font-medium transition-all ${
+                            currentPage === page
+                              ? 'bg-gray-900 text-white'
+                              : 'bg-white text-gray-700 hover:bg-gray-100'
+                          }`}
+                        >
+                          {page}
+                        </button>
+                      </React.Fragment>
+                    );
+                  })}
+              </div>
+
+              <button
+                onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                disabled={currentPage >= totalPages}
+                className="flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition-all hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-white"
+              >
+                Next
+                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
