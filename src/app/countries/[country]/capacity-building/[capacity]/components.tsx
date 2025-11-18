@@ -9,15 +9,18 @@
 
 'use client';
 
-import React, { useState, useEffect, JSX } from 'react';
+import React, { useState, useEffect, useMemo, JSX } from 'react';
 
 import Link from 'next/link';
+import Image, { StaticImageData } from 'next/image';
 
 import MiniSearch from 'minisearch';
 
 import { Country, CapacityBuildingActivity } from '@data/content/resources';
 
 import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
+
+import { Badge } from '@components/global';
 
 /**
  * Properties expected for the ``ContentSection`` component.
@@ -43,15 +46,56 @@ interface ActivityItemProps {
 const ActivityItem: React.FC<ActivityItemProps> = ({
   activity,
 }: ActivityItemProps): JSX.Element => {
-  // Define challenge icon (in this early-stage version, we are using icons. We will change this soon)
-  const ActivityLogo = activity.logo;
+  // Check if logo is an image (StaticImageData) or a component (HeroIcon)
+  const isImageLogo = typeof activity.logo === 'object' && 'src' in activity.logo;
+  const ActivityLogo = isImageLogo
+    ? null
+    : (activity.logo as React.ComponentType<React.SVGProps<SVGSVGElement>>);
+
+  // Format date for display
+  const formatDate = (dateString?: string): string | null => {
+    if (!dateString) return null;
+    try {
+      const date = new Date(dateString);
+      return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+    } catch {
+      return null;
+    }
+  };
+
+  // Check if event is in the future
+  const isFutureEvent = (dateString?: string): boolean => {
+    if (!dateString) return false;
+    try {
+      const eventDate = new Date(dateString);
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      return eventDate >= today;
+    } catch {
+      return false;
+    }
+  };
+
+  const formattedDate = formatDate(activity.date);
+  const isFuture = isFutureEvent(activity.date);
 
   return (
     <div className="flex items-center justify-between rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition hover:shadow-md">
       <div className="flex-1 space-y-3">
-        <h3 className="text-lg font-semibold text-gray-900 transition hover:text-gray-700">
-          <Link href={activity.link}>{activity.title}</Link>
-        </h3>
+        {/* Badges */}
+        <div className="flex flex-wrap items-center gap-2">
+          {formattedDate && <Badge color="gray-900" textColor="white" label={formattedDate} />}
+          {activity.recurring && (
+            <Badge color="purple-100" textColor="purple-800" label="Recurring" />
+          )}
+          {isFuture && <Badge color="green-100" textColor="green-800" label="Upcoming" />}
+        </div>
+
+        <div className="flex items-start justify-between gap-4">
+          <h3 className="text-lg font-semibold text-gray-900 transition hover:text-gray-700">
+            <Link href={activity.link}>{activity.title}</Link>
+          </h3>
+        </div>
         <p className="mt-1 text-sm text-gray-600">{activity.description}</p>
 
         <Link
@@ -64,7 +108,19 @@ const ActivityItem: React.FC<ActivityItemProps> = ({
         </Link>
       </div>
       <div className={'rounded-md bg-gray-100 p-5'}>
-        <ActivityLogo className="flex h-6 w-6 items-center justify-center rounded-lg" />
+        {isImageLogo ? (
+          <Image
+            src={activity.logo as StaticImageData}
+            alt="Activity icon"
+            className="flex h-6 w-6 items-center justify-center rounded-lg"
+            width={24}
+            height={24}
+          />
+        ) : (
+          ActivityLogo && (
+            <ActivityLogo className="flex h-6 w-6 items-center justify-center rounded-lg" />
+          )
+        )}
       </div>
     </div>
   );
@@ -81,17 +137,32 @@ export const CapacityBuildingSection: React.FC<CapacityBuildingSectionProps> = (
   countryData,
 }: CapacityBuildingSectionProps): JSX.Element => {
   /**
-   * Extract base data
+   * Extract base data and sort by date (most recent first)
    */
-  const capacityBuildingActivities = countryData.capacityBuildingActivities;
+  const sortedActivities = useMemo(() => {
+    return [...countryData.capacityBuildingActivities].sort((a, b) => {
+      // If both have dates, sort by date (most recent first)
+      if (a.date && b.date) {
+        const dateA = new Date(a.date).getTime();
+        const dateB = new Date(b.date).getTime();
+        return dateB - dateA; // Most recent first
+      }
+
+      // If only one has a date, prioritize it
+      if (a.date && !b.date) return -1;
+      if (!a.date && b.date) return 1;
+
+      // If neither has a date, maintain original order
+      return 0;
+    });
+  }, [countryData.capacityBuildingActivities]);
 
   /**
    * States
    */
   const [searchTerm, setSearchTerm] = useState<string>('');
-  const [filteredChallenges, setFilteredChallenges] = useState<CapacityBuildingActivity[]>(
-    capacityBuildingActivities,
-  );
+  const [filteredChallenges, setFilteredChallenges] =
+    useState<CapacityBuildingActivity[]>(sortedActivities);
   const [miniSearch, setMiniSearch] = useState<MiniSearch<CapacityBuildingActivity> | null>(null);
 
   // Pagination state
@@ -105,7 +176,7 @@ export const CapacityBuildingSection: React.FC<CapacityBuildingSectionProps> = (
     // Initialize MiniSearch
     const miniSearchInstance = new MiniSearch<CapacityBuildingActivity>({
       fields: ['id', 'title', 'description'],
-      storeFields: ['id', 'title', 'description', 'logo', 'link'],
+      storeFields: ['id', 'title', 'description', 'logo', 'link', 'date', 'recurring'],
       searchOptions: {
         fuzzy: 0.2,
         prefix: true,
@@ -114,18 +185,18 @@ export const CapacityBuildingSection: React.FC<CapacityBuildingSectionProps> = (
 
     // Index records
     miniSearchInstance.addAll(
-      capacityBuildingActivities.map((resource, index) => ({ id: index, ...resource })),
+      sortedActivities.map((resource, index) => ({ id: index, ...resource })),
     );
 
     setMiniSearch(miniSearchInstance);
-  }, [capacityBuildingActivities]);
+  }, [sortedActivities]);
 
   /**
    * Side effects - Search content.
    */
   useEffect(() => {
     if (!miniSearch || searchTerm.trim() === '') {
-      setFilteredChallenges(capacityBuildingActivities);
+      setFilteredChallenges(sortedActivities);
     } else {
       const results = miniSearch.search(searchTerm).map((result) => result);
       // @ts-expect-error Convertion error
@@ -134,7 +205,7 @@ export const CapacityBuildingSection: React.FC<CapacityBuildingSectionProps> = (
 
     // Reset pagination on new search
     setCurrentPage(1);
-  }, [searchTerm, miniSearch, capacityBuildingActivities]);
+  }, [searchTerm, miniSearch, sortedActivities]);
 
   const totalPages = Math.ceil(filteredChallenges.length / itemsPerPage);
 

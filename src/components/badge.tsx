@@ -19,6 +19,30 @@ interface BadgeProps {
 }
 
 /**
+ * Background color mapping for Tailwind CSS classes
+ */
+const bgColorMap: Record<string, string> = {
+  'gray-100': 'bg-gray-100',
+  'gray-200': 'bg-gray-200',
+  'gray-900': 'bg-gray-900',
+  'blue-100': 'bg-blue-100',
+  'purple-100': 'bg-purple-100',
+  'green-100': 'bg-green-100',
+};
+
+/**
+ * Text color mapping for Tailwind CSS classes
+ */
+const textColorMap: Record<string, string> = {
+  'gray-700': 'text-gray-700',
+  'gray-800': 'text-gray-800',
+  white: 'text-white',
+  'blue-800': 'text-blue-800',
+  'purple-800': 'text-purple-800',
+  'green-800': 'text-green-800',
+};
+
+/**
  * Badge component.
  *
  * @component
@@ -32,6 +56,13 @@ export const Badge: React.FC<BadgeProps> = ({
   color,
   textColor,
   label,
-}: BadgeProps): JSX.Element => (
-  <span className={`bg-${color} text-${textColor} rounded-full px-3 py-1 text-xs`}>{label}</span>
-);
+}: BadgeProps): JSX.Element => {
+  const bgClass = bgColorMap[color] || 'bg-gray-100';
+  const textClass = textColorMap[textColor] || 'text-gray-800';
+
+  return (
+    <span className={`${bgClass} ${textClass} rounded-full px-3 py-1 text-xs font-medium`}>
+      {label}
+    </span>
+  );
+};

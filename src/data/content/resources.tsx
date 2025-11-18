@@ -126,7 +126,10 @@ export interface CapacityBuildingActivity {
   title: string;
   description: string;
   link: string;
-  logo: HeroIcon;
+  logo: HeroIcon | StaticImageData;
+  date?: string;
+  recurring?: boolean;
+  source?: string;
 }
 
 /**
@@ -664,31 +667,31 @@ const data: CountryProfileData = {
           title: 'Open Data and Open Knowledge Workshop (2023)',
           description: 'Open Data and Open Knowledge Workshop 2023 sessions recordings.',
           link: 'https://doi.org/10.60566/sh0h7-efa36',
-          logo: BookOpenIcon,
+          logo: iconPackage,
         },
         {
           title: 'Open Data and Open Knowledge Workshop (2024)',
           description: 'Open Data and Open Knowledge Workshop 2024 sessions recordings.',
           link: 'https://doi.org/10.60566/zzeer-fet81',
-          logo: BookOpenIcon,
+          logo: iconPackage,
         },
         {
           title: 'Open Data and Open Knowledge Workshop (2025)',
           description: 'Open Data and Open Knowledge Workshop 2025 sessions recordings.',
           link: 'https://doi.org/10.60566/57855-8ah13',
-          logo: BookOpenIcon,
+          logo: iconPackage,
         },
         {
           title: 'Digital Earth Africa: applications showcase (Webinar series)',
           description: 'Webinar series showcasing Digital Earth Africa Open EO Applications.',
           link: 'https://doi.org/10.60566/897as-w7e89',
-          logo: BookOpenIcon,
+          logo: iconPackage,
         },
         {
           title: 'Open EO Applications for Food Security (Webinar series)',
           description: 'Webinar series showcasing GEOGLAM Open EO Applications.',
           link: 'https://doi.org/10.60566/qb27f-93m16',
-          logo: BookOpenIcon,
+          logo: iconPackage,
         },
       ],
       partners: [
@@ -1541,31 +1544,38 @@ const data: CountryProfileData = {
           title: 'Open Data and Open Knowledge Workshop (2024)',
           description: 'Open Data and Open Knowledge Workshop 2025 sessions recordings.',
           link: 'https://doi.org/10.60566/zzeer-fet81',
-          logo: BookOpenIcon,
+          logo: iconPackage,
+          date: '2024-09-30',
         },
         {
           title: 'Open Data and Open Knowledge Workshop (2025)',
           description: 'Open Data and Open Knowledge Workshop 2025 sessions recordings.',
           link: 'https://doi.org/10.60566/57855-8ah13',
-          logo: BookOpenIcon,
+          logo: iconPackage,
+          date: '2025-05-19',
+          source: 'gkh',
         },
         {
           title: 'Digital Earth Africa: applications showcase (Webinar series)',
           description: 'Webinar series showcasing Digital Earth Africa Open EO Applications.',
           link: 'https://doi.org/10.60566/897as-w7e89',
-          logo: BookOpenIcon,
+          logo: iconPackage,
+          source: 'gkh',
         },
         {
           title: 'Open EO Applications for Food Security (Webinar series)',
           description: 'Webinar series showcasing GEOGLAM Open EO Applications.',
           link: 'https://doi.org/10.60566/qb27f-93m16',
-          logo: BookOpenIcon,
+          logo: iconPackage,
+          date: '2024-01-31',
+          source: 'gkh',
         },
         {
           title: 'Human Settlement and Spatial Planning Community of Practice (CoP) Webinar',
           description: 'Community of Practice Webinar',
           link: 'https://neoss.co.za/events/human-settlement-and-spatial-planning-community-practice-cop-webinar',
           logo: BookOpenIcon,
+          date: '2025-11-27',
         },
         {
           title:
@@ -1573,18 +1583,23 @@ const data: CountryProfileData = {
           description: 'Community of Practice Webinar',
           link: 'https://neoss.co.za/events/data-governance-and-earth-observations-infrastructure-community-practice-cop-meeting',
           logo: BookOpenIcon,
+          date: '2025-10-24',
         },
         {
           title: '3rd National Space Conference (NSC) 2025',
           description: 'National Space Conference',
           link: 'https://neoss.co.za/events/3rd-national-space-conference-nsc-2025',
           logo: BookOpenIcon,
+          date: '2025-08-20',
+          recurring: true,
         },
         {
           title: 'Communities of Practice (CoP) Integrated Workshop 2025',
           description: 'Community of Practice Workshop',
           link: 'https://neoss.co.za/events/communities-practice-cop-integrated-workshop-2025',
           logo: BookOpenIcon,
+          date: '2025-06-23',
+          recurring: true,
         },
         {
           title:
@@ -1592,18 +1607,23 @@ const data: CountryProfileData = {
           description: 'Community of Practice Meeting',
           link: 'https://neoss.co.za/events/data-governance-and-earth-observations-infrastructure-communities-practice-cops-meeting',
           logo: BookOpenIcon,
+          date: '2025-02-27',
         },
         {
           title: '2nd National Space Conference (NSC) 2024',
           description: 'National Space Conference',
           link: 'https://neoss.co.za/events/2nd-national-space-conference-nsc-2024',
           logo: BookOpenIcon,
+          date: '2024-08-28',
+          recurring: true,
         },
         {
           title: '8th AfriGEO Symposium 2024',
           description: 'AfriGEO Symposium',
           link: 'https://neoss.co.za/events/8th-afrigeo-symposium-2024',
           logo: BookOpenIcon,
+          date: '2024-08-12',
+          recurring: true,
         },
         {
           title:
@@ -1611,84 +1631,103 @@ const data: CountryProfileData = {
           description: 'Community of Practice Workshop',
           link: 'https://neoss.co.za/events/communities-practice-cop-integrated-workshop-and-capacity-building-training-2024',
           logo: BookOpenIcon,
+          date: '2024-06-04',
+          recurring: true,
         },
         {
           title: 'Earth Observations Stakeholder Workshop 2024',
           description: 'Stakeholder Workshop',
           link: 'https://neoss.co.za/events/earth-observations-stakeholder-workshop-2024',
           logo: BookOpenIcon,
+          date: '2024-02-15',
         },
         {
           title: 'GEO Week & Ministerial Summit 2023',
           description: 'GEO Week event',
           link: 'https://neoss.co.za/events/geo-week-ministerial-summit-2023',
           logo: BookOpenIcon,
+          date: '2023-11-06',
         },
         {
           title: '7th AfriGEO Symposium',
           description: 'AfriGEO Symposium',
           link: 'https://neoss.co.za/events/7th-afrigeo-symposium',
           logo: BookOpenIcon,
+          date: '2023-09-18',
+          recurring: true,
         },
         {
           title: '1st National Space Conference',
           description: 'National Space Conference',
           link: 'https://neoss.co.za/events/1st-national-space-conference',
           logo: BookOpenIcon,
+          date: '2023-08-30',
+          recurring: true,
         },
         {
           title: 'Communities of Practice (CoP) Integrated Workshop 2023',
           description: 'Community of Practice Workshop',
           link: 'https://neoss.co.za/events/communities-practice-cop-integrated-workshop-2023',
           logo: BookOpenIcon,
+          date: '2023-05-30',
+          recurring: true,
         },
         {
           title: 'NEOSS Management Committee meeting (Participation by invitation only)',
           description: 'Management Committee Meeting',
           link: 'https://neoss.co.za/events/neoss-management-committee-meeting-participation-invitation-only-1',
           logo: BookOpenIcon,
+          date: '2023-03-17',
         },
         {
           title: 'SA-GEO, SA-GSN and SA-GSC Communities of Practice (CoP) Meetings',
           description: 'Community of Practice Meetings',
           link: 'https://neoss.co.za/events/sa-geo-sa-gsn-and-sa-gsc-communities-practice-cop-meetings-2',
           logo: BookOpenIcon,
+          date: '2023-02-02',
         },
         {
           title: 'NEOSS Management Committee meeting (Participation by invitation only)',
           description: 'Management Committee Meeting',
           link: 'https://neoss.co.za/events/neoss-management-committee-meeting-participation-invitation-only-0',
           logo: BookOpenIcon,
+          date: '2022-12-15',
         },
         {
           title: 'GEO WEEK 2022',
           description: 'GEO Week event',
           link: 'https://neoss.co.za/events/geo-week-2022',
           logo: BookOpenIcon,
+          date: '2022-10-31',
         },
         {
           title: '6th AfriGEO Symposium',
           description: 'AfriGEO Symposium',
           link: 'https://neoss.co.za/events/6th-afrigeo-symposium',
           logo: BookOpenIcon,
+          date: '2022-10-24',
+          recurring: true,
         },
         {
           title: 'SA-GEO, SA-GSN and SA-GSC Communities of Practice (CoP) Meetings',
           description: 'Community of Practice Meeting',
           link: 'https://neoss.co.za/events/sa-geo-sa-gsn-and-sa-gsc-communities-practice-cop-meetings-1',
           logo: BookOpenIcon,
+          date: '2022-10-06',
         },
         {
           title: 'SA-GEO, SA-GSN and SA-GSC Communities of Practice (CoP) Meetings',
           description: 'Community of Practice Meeting',
           link: 'https://neoss.co.za/events/sa-geo-sa-gsn-and-sa-gsc-communities-practice-cop-meetings',
           logo: BookOpenIcon,
+          date: '2022-09-30',
         },
         {
           title: '4th SA-GEO symposium and 3rd Space for National Development (SND)',
           description: 'GEO Week event',
           link: 'https://neoss.co.za/events/4th-sa-geo-symposium-and-3rd-space-national-development-snd',
           logo: BookOpenIcon,
+          date: '2022-03-15',
         },
       ],
       partners: [
