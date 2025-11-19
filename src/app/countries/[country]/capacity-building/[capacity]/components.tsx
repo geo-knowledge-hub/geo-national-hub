@@ -56,7 +56,9 @@ const ActivityItem: React.FC<ActivityItemProps> = ({
   const formatDate = (dateString?: string): string | null => {
     if (!dateString) return null;
     try {
-      const date = new Date(dateString);
+      const [year, month, day] = dateString.split('-').map(Number);
+      const date = new Date(year, month - 1, day);
+
       return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
     } catch {
       return null;
@@ -67,9 +69,12 @@ const ActivityItem: React.FC<ActivityItemProps> = ({
   const isFutureEvent = (dateString?: string): boolean => {
     if (!dateString) return false;
     try {
-      const eventDate = new Date(dateString);
+      const [year, month, day] = dateString.split('-').map(Number);
+      const eventDate = new Date(year, month - 1, day);
       const today = new Date();
+
       today.setHours(0, 0, 0, 0);
+
       return eventDate >= today;
     } catch {
       return false;

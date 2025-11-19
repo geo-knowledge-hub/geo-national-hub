@@ -1560,6 +1560,7 @@ const data: CountryProfileData = {
           description: 'Webinar series showcasing Digital Earth Africa Open EO Applications.',
           link: 'https://doi.org/10.60566/897as-w7e89',
           logo: iconPackage,
+          date: '2025-03-31',
           source: 'gkh',
         },
         {
