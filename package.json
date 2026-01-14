@@ -54,7 +54,7 @@
     "url": "https://github.com/geo-knowledge-hub/geo-national-hub/issues"
   },
   "engines": {
-    "npm": ">= 10.0.0",
-    "node": ">= 21.1.0"
+    "npm": ">= 11.0.0",
+    "node": ">= 24.0.0"
   }
 }
