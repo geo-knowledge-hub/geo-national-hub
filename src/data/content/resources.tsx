@@ -1572,6 +1572,13 @@ const data: CountryProfileData = {
           source: 'gkh',
         },
         {
+          title: 'Agriculture and Food Security Community of Practice ( AFS CoP) Meeting',
+          description: 'Community of Practice Webinar',
+          link: 'https://neoss.co.za/events/agriculture-and-food-security-community-practice-afs-cop-meeting',
+          logo: BookOpenIcon,
+          date: '2025-12-05',
+        },
+        {
           title: 'Human Settlement and Spatial Planning Community of Practice (CoP) Webinar',
           description: 'Community of Practice Webinar',
           link: 'https://neoss.co.za/events/human-settlement-and-spatial-planning-community-practice-cop-webinar',
