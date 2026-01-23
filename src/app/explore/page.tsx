@@ -22,11 +22,12 @@ import _compact from 'lodash/compact';
 
 import MiniSearch from 'minisearch';
 
-import { HeroTopic, ResourceMetadataModal } from '@components/global';
+import { ResourceMetadataModal } from '@components/global';
 
 import { initResourcesDatabase } from '@data/db';
 
 import logoExplorer from '@public/content/concepts/explorer/explore.svg';
+
 import { FacetGroup } from './components';
 import { Resource } from '@data/content/resources';
 
@@ -237,192 +238,103 @@ export default function ExplorePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-2">
-      <div className="mx-auto max-w-7xl px-4">
-        <HeroTopic
-          title={'Content explorer'}
-          description={'Discover and explore content from diverse countries'}
-          imageSrc={logoExplorer}
-          imageAlt={'Explorer logo'}
-          imageClass="h-50 w-full object-fit"
-          enableBackButton={false}
-        />
-
-        {/* Enhanced Search Bar */}
-        <div className="mb-6">
-          <div className="relative w-full">
-            <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
-              <svg
-                className="h-5 w-5 text-gray-400"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1010.5 18a7.5 7.5 0 006.15-3.35z"
-                />
-              </svg>
-            </div>
-            <input
-              ref={searchInputRef}
-              type="text"
-              placeholder="Search by title, description, or tags..."
-              value={query}
-              onChange={(e) => {
-                setQuery(e.target.value);
-                setCurrentPage(1);
-              }}
-              className="w-full rounded-xl border border-gray-300 bg-white py-3.5 pr-12 pl-12 text-base shadow-sm transition-all outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
-            />
-            {query && (
-              <button
-                onClick={clearSearch}
-                className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-400 hover:text-gray-600"
-                aria-label="Clear search"
-              >
-                <svg
-                  className="h-5 w-5"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            )}
-          </div>
-
-          {/* Active Filters & Results Count */}
-          <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
-            <div className="flex flex-wrap items-center gap-2">
-              {hasActiveFilters && (
-                <>
-                  {selectedTypes.map((type) => (
-                    <button
-                      key={`type-${type}`}
-                      onClick={() => removeFilter('type', type)}
-                      className="group flex items-center gap-1.5 rounded-full bg-gray-900 px-3 py-1.5 text-xs font-medium text-white transition hover:bg-gray-800"
-                    >
-                      <span>Type: {type}</span>
-                      <svg
-                        className="h-3.5 w-3.5 transition group-hover:scale-110"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M6 18L18 6M6 6l12 12"
-                        />
-                      </svg>
-                    </button>
-                  ))}
-                  {selectedCountries.map((country) => (
-                    <button
-                      key={`country-${country}`}
-                      onClick={() => removeFilter('country', country)}
-                      className="group flex items-center gap-1.5 rounded-full bg-gray-900 px-3 py-1.5 text-xs font-medium text-white transition hover:bg-gray-800"
-                    >
-                      <span>Country: {country}</span>
-                      <svg
-                        className="h-3.5 w-3.5 transition group-hover:scale-110"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M6 18L18 6M6 6l12 12"
-                        />
-                      </svg>
-                    </button>
-                  ))}
-                  {selectedChallenges.map((challenge) => (
-                    <button
-                      key={`challenge-${challenge}`}
-                      onClick={() => removeFilter('challenge', challenge)}
-                      className="group flex items-center gap-1.5 rounded-full bg-gray-900 px-3 py-1.5 text-xs font-medium text-white transition hover:bg-gray-800"
-                    >
-                      <span>Challenge: {challenge}</span>
-                      <svg
-                        className="h-3.5 w-3.5 transition group-hover:scale-110"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M6 18L18 6M6 6l12 12"
-                        />
-                      </svg>
-                    </button>
-                  ))}
-                  {selectedTags.map((tag) => (
-                    <button
-                      key={`tag-${tag}`}
-                      onClick={() => removeFilter('tag', tag)}
-                      className="group flex items-center gap-1.5 rounded-full bg-gray-900 px-3 py-1.5 text-xs font-medium text-white transition hover:bg-gray-800"
-                    >
-                      <span>Tag: {tag}</span>
-                      <svg
-                        className="h-3.5 w-3.5 transition group-hover:scale-110"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M6 18L18 6M6 6l12 12"
-                        />
-                      </svg>
-                    </button>
-                  ))}
-                  {hasActiveFilters && (
-                    <button
-                      onClick={clearAllFilters}
-                      className="rounded-full border border-gray-300 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 transition hover:bg-gray-50"
-                    >
-                      Clear all
-                    </button>
-                  )}
-                </>
-              )}
-            </div>
-            {filteredResults.length > 0 && (
-              <div className="text-sm text-gray-600">
-                <span className="font-medium text-gray-900">{filteredResults.length}</span>{' '}
-                {filteredResults.length === 1 ? 'result' : 'results'}
-                {totalPages > 1 && (
-                  <span className="text-gray-500">
-                    {' '}
-                    (page {currentPage} of {totalPages})
-                  </span>
-                )}
-              </div>
-            )}
-          </div>
+    <div className="min-h-screen bg-gray-50">
+      <section className="relative min-h-[60vh] overflow-hidden bg-gradient-to-br from-blue-50 via-white to-gray-50">
+        <div className="pointer-events-none fixed inset-0 h-full w-screen" style={{ zIndex: 0 }}>
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] opacity-40"></div>
         </div>
 
-        <div className="grid gap-10 md:grid-cols-[230px_1fr]">
+        <div className="relative mx-auto max-w-7xl px-6 py-10 lg:py-20" style={{ zIndex: 1 }}>
+          <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
+            <div className="relative z-10 space-y-6">
+              <div className="space-y-4">
+                <h1 className="font-bold tracking-tight">
+                  <span
+                    className="mt-2 block text-5xl md:text-3xl lg:text-4xl"
+                    style={{ color: '#526479' }}
+                  >
+                    Content Explorer
+                  </span>
+                </h1>
+                <p className="text-xl text-gray-600 md:text-2xl lg:max-w-2xl">
+                  Discover and explore content from diverse countries
+                </p>
+              </div>
+            </div>
+
+            <div className="relative hidden items-center lg:flex lg:justify-end">
+              <div className="relative">
+                <div className="animate-pulse-glow absolute inset-0 rounded-2xl bg-blue-200/40"></div>
+                <div className="relative rounded-2xl bg-white/90 p-8 shadow-2xl ring-1 ring-gray-200/50 backdrop-blur-sm">
+                  <Image src={logoExplorer} alt="Content Explorer logo" width={180} height={180} />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Search bar */}
+          <div className="relative z-10 mt-16 flex w-full flex-col items-center">
+            <div className="w-full">
+              <div className="relative rounded-2xl bg-white/95 p-1.5 shadow-xl ring-2 ring-gray-200/60 backdrop-blur-md transition-all hover:shadow-2xl hover:ring-[#526479]/40">
+                <input
+                  ref={searchInputRef}
+                  type="text"
+                  placeholder="Search by title, description, or tags..."
+                  value={query}
+                  onChange={(e) => {
+                    setQuery(e.target.value);
+                    setCurrentPage(1);
+                  }}
+                  className="text-md block w-full rounded-xl border-0 bg-transparent p-4 pr-14 pl-4 font-medium text-gray-900 placeholder:text-gray-400 focus:ring-0 focus:outline-none"
+                />
+                {query ? (
+                  <button
+                    onClick={clearSearch}
+                    className="absolute inset-y-0 right-0 flex items-center pr-6 text-gray-400 transition-colors hover:text-[#526479]"
+                    aria-label="Clear search"
+                  >
+                    <svg
+                      className="h-5 w-5"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                ) : (
+                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-6">
+                    <svg
+                      className="h-6 w-6 text-gray-400"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                      />
+                    </svg>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div className="results-section mx-auto -mt-16 max-w-7xl px-6 pb-12">
+        <div className="mt-8 grid gap-10 md:grid-cols-[230px_1fr]">
           {/* Facets */}
-          <aside className="h-fit rounded-2xl bg-white p-6 shadow-md">
+          <aside className="h-fit rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
             <div className="mb-4 flex items-center justify-between">
               <h2 className="text-lg font-semibold text-gray-900">Filters</h2>
               <button
                 onClick={clearAllFilters}
-                className="text-sm text-gray-500 hover:text-gray-700"
+                className="text-sm text-gray-500 transition hover:text-[#526479]"
               >
                 Clear
               </button>
@@ -484,7 +396,14 @@ export default function ExplorePage() {
                       Try adjusting your search terms or{' '}
                       <button
                         onClick={clearAllFilters}
-                        className="font-medium text-blue-600 hover:text-blue-700"
+                        className="font-medium transition"
+                        style={{ color: '#526479' }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.color = '#3d4d5f';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.color = '#526479';
+                        }}
                       >
                         clear all filters
                       </button>
@@ -501,7 +420,7 @@ export default function ExplorePage() {
                 {paginatedResults.map((item, idx) => (
                   <div
                     key={idx}
-                    className="flex items-center justify-between rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition hover:shadow-md"
+                    className="group flex items-center justify-between rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition-all hover:border-[#526479] hover:shadow-lg"
                   >
                     <div className="flex-1 space-y-3">
                       <div className="mb-2 flex items-center space-x-2 text-sm">
@@ -516,8 +435,8 @@ export default function ExplorePage() {
                         </span>
                       </div>
 
-                      <h3 className="text-lg font-semibold text-gray-900 transition hover:text-gray-700">
-                        <a href={item.link} target="_blank">
+                      <h3 className="text-lg font-semibold text-gray-900 transition hover:text-[#526479]">
+                        <a href={item.link} target="_blank" rel="noopener noreferrer">
                           {item.name}
                         </a>
                       </h3>
@@ -530,7 +449,7 @@ export default function ExplorePage() {
                               setResource(item);
                               setIsOpen(true);
                             }}
-                            className="cursor-pointer text-sm font-medium text-gray-700 transition hover:text-blue-600 focus:outline-none"
+                            className="cursor-pointer text-sm font-medium text-gray-700 transition hover:text-[#526479] focus:outline-none"
                           >
                             Overview
                           </button>
@@ -539,13 +458,14 @@ export default function ExplorePage() {
                         <a
                           href={item.link}
                           target="_blank"
-                          className="text-sm font-medium text-gray-700 transition hover:text-blue-600 focus:outline-none"
+                          rel="noopener noreferrer"
+                          className="text-sm font-medium text-gray-700 transition hover:text-[#526479] focus:outline-none"
                         >
                           Access →
                         </a>
                       </div>
                     </div>
-                    <div className={'rounded-md bg-gray-100 p-5'}>
+                    <div className="rounded-md bg-gray-100 p-5 transition group-hover:bg-[#526479]/10">
                       <Image
                         src={item.icon}
                         alt={`${item.type} icon`}
@@ -597,9 +517,12 @@ export default function ExplorePage() {
                             onClick={() => handlePageChange(page)}
                             className={`h-10 w-10 rounded-lg text-sm font-medium transition-all ${
                               currentPage === page
-                                ? 'bg-gray-900 text-white'
+                                ? 'text-white'
                                 : 'bg-white text-gray-700 hover:bg-gray-100'
                             }`}
+                            style={
+                              currentPage === page ? { backgroundColor: '#526479' } : undefined
+                            }
                           >
                             {page}
                           </button>

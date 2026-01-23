@@ -12,7 +12,7 @@
 import React, { JSX, use } from 'react';
 import { notFound } from 'next/navigation';
 
-import { HeroCountry } from '@components/global';
+import { HeroCountry, HeroSouthAfrica } from '@components/global';
 
 import db from '@data/db';
 
@@ -49,12 +49,14 @@ const CountryPage: React.FC<CountryPageProps> = ({ params }: CountryPageProps): 
     return notFound();
   }
 
+  // Use special hero for South Africa
+  const HeroComponent = country === 'south-africa' ? HeroSouthAfrica : HeroCountry;
+
   return (
     <div className={'mt-10'}>
-      {/* Country presentation - flag / name */}
-      <HeroCountry
+      <HeroComponent
         title={`${countryData.title} Knowledge Hub`}
-        description={`Discover the resources available in ${countryData.title}`}
+        description={`Discover the EO solutions available in ${countryData.title}`}
         imageSrc={countryData.flag}
         imageAlt={`${countryData.flag} flag`}
       />

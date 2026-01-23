@@ -241,7 +241,7 @@ export const CapacityBuildingSection: React.FC<CapacityBuildingSectionProps> = (
                 placeholder="Search..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full rounded-md border border-gray-300 bg-white py-2 pr-3 pl-10 text-sm outline-none focus:border-gray-400 focus:shadow-sm"
+                className="w-full rounded-md border border-gray-300 bg-white py-2 pr-3 pl-10 text-sm outline-none focus:border-[#526479] focus:shadow-sm focus:ring-1 focus:ring-[#526479]/20"
               />
             </div>
           </div>

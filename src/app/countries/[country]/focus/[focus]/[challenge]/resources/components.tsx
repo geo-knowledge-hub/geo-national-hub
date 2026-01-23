@@ -180,7 +180,7 @@ export const ContentSection: React.FC<ContentSectionProps> = ({
           <div>
             <h2 className="mb-2 text-3xl font-bold text-gray-900">Resources available</h2>
             <p className="mb-4 text-gray-600">
-              Discover resources addressing {challenge.title} challenges.
+              Discover EO solutions addressing {challenge.title} challenges.
             </p>
           </div>
 
@@ -193,7 +193,7 @@ export const ContentSection: React.FC<ContentSectionProps> = ({
                 placeholder="Search..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full rounded-md border border-gray-300 bg-white py-2 pr-3 pl-10 text-sm outline-none focus:border-gray-400 focus:shadow-sm"
+                className="w-full rounded-md border border-gray-300 bg-white py-2 pr-3 pl-10 text-sm outline-none focus:border-[#526479] focus:shadow-sm focus:ring-1 focus:ring-[#526479]/20"
               />
             </div>
           </div>

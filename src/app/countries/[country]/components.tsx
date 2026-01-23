@@ -123,7 +123,7 @@ export const GEOFocusAreaSection: React.FC<ResourcesSectionProps> = ({
           <div>
             <h2 className="mb-2 text-3xl font-bold text-gray-900">Explore</h2>
             <p className="mb-4 text-gray-600">
-              Find solutions in {countryData.title} tackling the challenges of GEO Focus Areas
+              Find EO solutions in {countryData.title} tackling the challenges of GEO Focus Areas
             </p>
           </div>
 
@@ -136,7 +136,7 @@ export const GEOFocusAreaSection: React.FC<ResourcesSectionProps> = ({
                 placeholder="Search..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full rounded-md border border-gray-300 bg-white py-2 pr-3 pl-10 text-sm outline-none focus:border-gray-400 focus:shadow-sm"
+                className="w-full rounded-md border border-gray-300 bg-white py-2 pr-3 pl-10 text-sm outline-none focus:border-[#526479] focus:shadow-sm focus:ring-1 focus:ring-[#526479]/20"
               />
             </div>
           </div>
@@ -345,7 +345,7 @@ export const EnablingMechanisms: React.FC<EnablingMechanismsSectionProps> = ({
                     placeholder="Search..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full rounded-md border border-gray-300 bg-white py-2 pr-3 pl-10 text-sm outline-none focus:border-gray-400 focus:shadow-sm"
+                    className="w-full rounded-md border border-gray-300 bg-white py-2 pr-3 pl-10 text-sm outline-none focus:border-[#526479] focus:shadow-sm focus:ring-1 focus:ring-[#526479]/20"
                   />
                 </div>
               </div>
@@ -453,7 +453,7 @@ export const PartnersSection: React.FC<PartnersSectionProps> = ({
                 placeholder="Search..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full rounded-md border border-gray-300 bg-white py-2 pr-3 pl-10 text-sm outline-none focus:border-gray-400 focus:shadow-sm"
+                className="w-full rounded-md border border-gray-300 bg-white py-2 pr-3 pl-10 text-sm outline-none focus:border-[#526479] focus:shadow-sm focus:ring-1 focus:ring-[#526479]/20"
               />
             </div>
           </div>
@@ -612,7 +612,7 @@ export const KeyRepresentativesSection: React.FC<KeyRepresentativesSectionProps>
                 placeholder="Search..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full rounded-md border border-gray-300 bg-white py-2 pr-3 pl-10 text-sm outline-none focus:border-gray-400 focus:shadow-sm"
+                className="w-full rounded-md border border-gray-300 bg-white py-2 pr-3 pl-10 text-sm outline-none focus:border-[#526479] focus:shadow-sm focus:ring-1 focus:ring-[#526479]/20"
               />
             </div>
           </div>

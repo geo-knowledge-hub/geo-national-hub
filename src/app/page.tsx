@@ -93,7 +93,7 @@ const HomePage: React.FC = (): JSX.Element => {
       <HeroSearch searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 
       {/* Results Section */}
-      <div className="mx-auto max-w-7xl px-6 pb-12">
+      <div className="results-section mx-auto max-w-7xl px-6 pb-12">
         {/* Country Grid */}
         {paginatedCountries.length > 0 ? (
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
@@ -113,7 +113,7 @@ const HomePage: React.FC = (): JSX.Element => {
                   <div
                     className={`relative h-full overflow-hidden rounded-xl border bg-white shadow-sm transition-all duration-200 ${
                       isAllowed
-                        ? 'border-gray-200 hover:border-blue-300 hover:shadow-lg'
+                        ? 'border-gray-200 hover:border-[#526479] hover:shadow-lg'
                         : 'border-gray-200 opacity-75'
                     }`}
                   >
@@ -124,13 +124,13 @@ const HomePage: React.FC = (): JSX.Element => {
                           {country.title}
                         </h5>
                         {isAllowed && (
-                          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-50 text-blue-600 transition-all duration-200 group-hover:translate-x-1 group-hover:bg-blue-100">
+                          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#526479]/10 text-[#526479] transition-all duration-200 group-hover:translate-x-1 group-hover:bg-[#526479]/20">
                             →
                           </span>
                         )}
                       </div>
                       {isAllowed ? (
-                        <p className="mt-3 text-xs font-medium text-blue-600">Already available</p>
+                        <p className="mt-3 text-xs font-medium text-[#526479]">Already available</p>
                       ) : (
                         <p className="mt-3 text-xs text-gray-500">Coming soon</p>
                       )}
@@ -138,7 +138,7 @@ const HomePage: React.FC = (): JSX.Element => {
 
                     {/* Hover Overlay Effect */}
                     {isAllowed && (
-                      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-blue-50/0 to-blue-50/0 transition-all duration-200 group-hover:from-blue-50/50 group-hover:to-transparent" />
+                      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-[#526479]/0 to-[#526479]/0 transition-all duration-200 group-hover:from-[#526479]/10 group-hover:to-transparent" />
                     )}
                   </div>
                 </Link>
