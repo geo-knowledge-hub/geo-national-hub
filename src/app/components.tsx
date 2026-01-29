@@ -12,9 +12,9 @@
 import React, { JSX, useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 
 import logoGKH from '@public/images/logo-blue.svg';
-import db from '@data/db';
 
 /**
  * Properties of the ``NavItem`` .
@@ -32,7 +32,6 @@ interface HeaderProps {
   logoSrc: string;
   logoAlt: string;
   navItems: NavItem[];
-  contactLink: string;
 }
 
 /**
@@ -101,16 +100,21 @@ export const HeroSearch: React.FC<{
                 href={'https://gkhub.earthobservations.org/'}
                 target={'_blank'}
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm transition-all hover:bg-gray-50 hover:shadow-md"
+                className="glass-button inline-flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-gray-700 transition-all hover:scale-105"
               >
                 <Image src={logoGKH} alt="Global GKH icon" className="h-4 w-4" />
                 Global GKH
               </a>
               <button
                 onClick={() => setShowInfo(!showInfo)}
-                className="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm transition-all hover:bg-gray-50 hover:shadow-md"
+                className="glass-button inline-flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-gray-700 transition-all hover:scale-105"
               >
-                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg
+                  className="h-4 w-4 text-gray-500"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -411,7 +415,7 @@ export const HeroSearch: React.FC<{
         {/* Search bar */}
         <div className="search-section relative z-10 mt-32 flex flex-col items-center">
           <div className="w-full max-w-4xl">
-            <div className="hover:shadow-3xl relative rounded-2xl bg-white/95 p-1.5 shadow-2xl ring-2 ring-gray-200/60 backdrop-blur-md transition-all hover:ring-[#526479]/40">
+            <div className="relative rounded-2xl border border-gray-200/80 bg-white p-1.5 shadow-sm transition-all hover:border-gray-300 hover:shadow-md">
               <input
                 type="text"
                 id="search-input"
@@ -451,15 +455,37 @@ export const HeroSearch: React.FC<{
  * @param {string} props.logoSrc - Logo image address.
  * @param {string} props.logoAlt - Logo image alternative text.
  * @param {NavItem} props.navItems - Navigation items.
- * @param {string} props.contactLink - Contact link / email address.
  * @returns {JSX.Element} The rendered Header component.
  */
 export const Header: React.FC<HeaderProps> = ({
   logoSrc,
   logoAlt,
   navItems,
-  contactLink,
 }: HeaderProps): JSX.Element => {
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+  const pathname = usePathname();
+
+  // Check authentication status on mount and route changes
+  useEffect(() => {
+    async function checkAuth() {
+      try {
+        const response = await fetch('/national/api/admin/me', {
+          method: 'GET',
+          credentials: 'include',
+        });
+        if (response.ok) {
+          const data = await response.json();
+          setIsAuthenticated(data.authenticated === true);
+        } else {
+          setIsAuthenticated(false);
+        }
+      } catch {
+        setIsAuthenticated(false);
+      }
+    }
+    checkAuth();
+  }, [pathname]);
+
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-gray-200 bg-white/70 backdrop-blur-md">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -496,13 +522,44 @@ export const Header: React.FC<HeaderProps> = ({
             )}
           </nav>
 
+          {/* Auth Button */}
           <div className="flex items-center space-x-4">
-            <a
-              href={contactLink}
-              className="rounded-full bg-gray-900 px-4 py-2 text-white transition hover:bg-gray-800"
-            >
-              Contact
-            </a>
+            {isAuthenticated === null ? (
+              // Loading state
+              <div className="h-10 w-20 animate-pulse rounded-full bg-gray-200" />
+            ) : isAuthenticated ? (
+              // Logged in
+              <a
+                href="/national/admin/logout"
+                className="flex items-center gap-2 rounded-full bg-gray-900 px-4 py-2 text-white transition hover:bg-gray-800"
+              >
+                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                  />
+                </svg>
+                Logout
+              </a>
+            ) : (
+              // Not logged in - show Login
+              <Link
+                href="/admin/login"
+                className="flex items-center gap-2 rounded-full bg-gray-900 px-4 py-2 text-white transition hover:bg-gray-800"
+              >
+                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
+                  />
+                </svg>
+                Login
+              </Link>
+            )}
           </div>
         </div>
       </div>

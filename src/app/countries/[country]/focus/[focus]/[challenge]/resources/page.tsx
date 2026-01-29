@@ -7,92 +7,49 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-'use client';
-
-import React, { JSX, use } from 'react';
 import { notFound } from 'next/navigation';
-
-import _map from 'lodash/map';
-import _head from 'lodash/head';
-import _includes from 'lodash/includes';
-
-import { HeroTopic } from '@components/global';
-
-import { ContentSection } from './components';
-
-import db from '@data/db';
-import { Country } from '@data/content/resources';
+import { getCountry, getChallenge, getResourcesByCountryAndChallenge } from '@lib/typesense';
+import { ResourcePageContent } from './content';
 
 /**
  * Resource page props
  */
 interface ResourcePageProps {
-  params: Promise<{ id: string; country: string; challenge: string }>;
+  params: Promise<{ country: string; focus: string; challenge: string }>;
 }
 
 /**
- * ResourcePage Component
+ * ResourcePage Component - Server component that fetches resources for a challenge
  *
  * @component
  * @param {ResourcePageProps} props - Component props.
- * @returns {JSX.Element} The rendered HeroSearch component.
+ * @returns {Promise<JSX.Element>} The rendered ResourcePage component.
  */
-const ResourcePage: React.FC<ResourcePageProps> = ({ params }: ResourcePageProps): JSX.Element => {
-  /**
-   * Params
-   */
-  // Get selected content
-  const { country, challenge } = use(params);
+export default async function ResourcePage({ params }: ResourcePageProps) {
+  const { country, challenge } = await params;
 
-  /**
-   * Get data of the selected country
-   */
-  const countryData: Country = db.countries[country];
+  // Fetch data from Typesense
+  const [countryData, challengeData, resources] = await Promise.all([
+    getCountry(country),
+    getChallenge(challenge),
+    getResourcesByCountryAndChallenge(country, challenge),
+  ]);
 
-  if (!countryData) {
+  // Return not found page if country or challenge is not found
+  if (!countryData || !challengeData) {
     return notFound();
   }
 
-  /**
-   * Get resource
-   */
-  const resourcesData = countryData.resources.filter((resource) => {
-    // Get all challenges IDs
-    const challenges = _map(resource.challenges, 'id');
-
-    // Filter ones with the selected challenge
-    return _includes(challenges, challenge);
-  });
-
-  // Return not found page if no resource is found
-  if (!resourcesData) {
-    return notFound();
-  }
-
-  // Get challenge metadata
-  const challengeMetadata = _head(
-    resourcesData[0].challenges.filter((obj) => obj.id === challenge),
-  );
-
-  // Return not found page if no challenge is found
-  if (!challengeMetadata) {
+  // Return not found page if no resources found
+  if (resources.length === 0) {
     return notFound();
   }
 
   return (
-    <div className={'mt-10'}>
-      <HeroTopic
-        title={`${challengeMetadata.title}`}
-        description={`EO Applications in ${countryData.title}`}
-        ctaLabel="Explore more content"
-        ctaLink="/national/explore"
-        ctaMessage="Interested in other countries?"
-      />
-
-      {/* Resources */}
-      <ContentSection resources={resourcesData} challenge={challengeMetadata} />
-    </div>
+    <ResourcePageContent
+      countryData={countryData}
+      challengeData={challengeData}
+      resources={resources}
+    />
   );
-};
-
-export default ResourcePage;
+}

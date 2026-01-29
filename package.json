@@ -8,7 +8,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "typesense:seed": "npx tsx scripts/typesense-seed.ts",
+    "typesense:reset": "npx tsx scripts/typesense-seed.ts --reset"
   },
   "keywords": [
     "GEO Knowledge Hub",
@@ -25,12 +27,16 @@
     "lowdb": "^7.0.1",
     "minisearch": "^7.1.2",
     "next": ">=15.2.3",
+    "next-safe-action": "^8.0.11",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "sharp": "^0.33.5"
+    "sharp": "^0.33.5",
+    "typesense": "^2.1.0",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "tsx": "^4.19.0",
     "@tailwindcss/postcss": "^4",
     "@types/lodash": "^4.17.16",
     "@types/node": "^20",

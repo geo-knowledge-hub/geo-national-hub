@@ -54,17 +54,16 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps): JSX.Element =
               external: true,
             },
           ]}
-          contactLink="/contact"
         />
 
         {/* Main Content */}
-        <main className="flex-1 pt-24 pb-10">
+        <main className="flex-1 pt-24">
           <div className="mx-auto max-w-7xl px-6">{children}</div>
         </main>
 
         {/* Footer */}
         <footer className="bg-gray-900 py-10 text-white">
-          <div className="mx-auto flex max-w-7xl flex-col justify-between gap-12 lg:flex-row">
+          <div className="mx-auto flex max-w-7xl flex-col justify-between gap-12 px-6 lg:flex-row">
             {/* Footer Links */}
             <div className="grid grid-cols-2 gap-12 md:grid-cols-3 lg:grid-cols-4">
               {/* About */}
