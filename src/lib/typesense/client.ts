@@ -35,34 +35,38 @@ interface TypesenseConfig {
  * Called at runtime to ensure env vars are available (important for Next.js standalone builds)
  */
 function getTypesenseConfig(): TypesenseConfig {
+  const apiKey = process.env.TYPESENSE_API_KEY || 'xyz';
+  const host = process.env.TYPESENSE_HOST || 'localhost';
+  const port = parseInt(process.env.TYPESENSE_PORT || '8108', 10);
+  const protocol = (process.env.TYPESENSE_PROTOCOL || 'http') as 'http' | 'https';
+
+  // Log warning in production if using default values (helps with debugging)
+  if (process.env.NODE_ENV === 'production' && (apiKey === 'xyz' || host === 'localhost')) {
+    console.warn(
+      '[Typesense] Warning: Using default configuration values. ' +
+        'Ensure TYPESENSE_API_KEY, TYPESENSE_HOST, TYPESENSE_PORT, and TYPESENSE_PROTOCOL are set in environment variables.',
+    );
+  }
+
   return {
     nodes: [
       {
-        host: process.env.TYPESENSE_HOST || 'localhost',
-        port: parseInt(process.env.TYPESENSE_PORT || '8108', 10),
-        protocol: (process.env.TYPESENSE_PROTOCOL || 'http') as 'http' | 'https',
+        host,
+        port,
+        protocol,
       },
     ],
-    apiKey: process.env.TYPESENSE_API_KEY || 'xyz',
+    apiKey,
     connectionTimeoutSeconds: 10,
   };
 }
 
 /**
- * Singleton Typesense client instance
- */
-let typesenseClient: Client | null = null;
-
-/**
- * Gets the Typesense client instance (singleton pattern)
- * Reads environment variables at runtime to ensure they're available in all deployment scenarios
+ * Gets the Typesense client instance
  */
 export function getTypesenseClient(): Client {
-  if (!typesenseClient) {
-    const config = getTypesenseConfig();
-    typesenseClient = new Typesense.Client(config);
-  }
-  return typesenseClient;
+  const config = getTypesenseConfig();
+  return new Typesense.Client(config);
 }
 
 /**
