@@ -47,12 +47,6 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps): JSX.Element =
           navItems={[
             { label: 'Countries', href: '/' },
             { label: 'Explore', href: '/explore' },
-            { label: 'Knowledge', href: 'https://gkhub.earthobservations.org', external: true },
-            {
-              label: 'Marketplace',
-              href: 'https://gkhub.earthobservations.org/marketplace',
-              external: true,
-            },
           ]}
         />
 
@@ -65,20 +59,30 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps): JSX.Element =
         <footer className="bg-gray-900 py-10 text-white">
           <div className="mx-auto flex max-w-7xl flex-col justify-between gap-12 px-6 lg:flex-row">
             {/* Footer Links */}
-            <div className="grid grid-cols-2 gap-12 md:grid-cols-3 lg:grid-cols-4">
-              {/* About */}
-              <div className="flex flex-col">
-                <h4 className="mb-3 text-lg font-semibold">Documentation</h4>
-                <Link
-                  href="https://gkhub.earthobservations.org/doc"
+            <div className="grid grid-cols-2 gap-16 md:grid-cols-3 lg:grid-cols-4">
+              {/* Global GKH */}
+              <div className="flex flex-col gap-2">
+                <h4 className="mb-3 text-lg font-semibold">Global GKH</h4>
+                <a
+                  href="https://gkhub.earthobservations.org"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-sm hover:text-gray-300"
                 >
-                  About
-                </Link>
+                  Access Knowledge
+                </a>
+                <a
+                  href="https://gkhub.earthobservations.org/marketplace"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm hover:text-gray-300"
+                >
+                  Marketplace
+                </a>
               </div>
 
               {/* Communication */}
-              <div className="flex flex-col">
+              <div className="flex flex-col gap-2">
                 <h4 className="mb-3 text-lg font-semibold">Communication</h4>
                 <Link
                   href="https://www.linkedin.com/company/geo-knowledge-hub"
@@ -95,16 +99,19 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps): JSX.Element =
               </div>
 
               {/* Help */}
-              <div className="flex flex-col">
+              <div className="flex flex-col gap-2">
                 <h4 className="mb-3 text-lg font-semibold">Help</h4>
+                <Link
+                  href="https://gkhub.earthobservations.org/doc"
+                  className="text-sm hover:text-gray-300"
+                >
+                  About
+                </Link>
                 <Link
                   href="https://gkhub.earthobservations.org/doc/docs/why"
                   className="text-sm hover:text-gray-300"
                 >
                   FAQ
-                </Link>
-                <Link href="https://discord.gg/wfPQHWNRkV" className="text-sm hover:text-gray-300">
-                  Forum
                 </Link>
                 <Link
                   href="https://gkhub.earthobservations.org/doc/docs/introduction/"
@@ -113,30 +120,13 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps): JSX.Element =
                   Documentation
                 </Link>
               </div>
-
-              {/* Developers */}
-              <div className="flex flex-col">
-                <h4 className="mb-3 text-lg font-semibold">Developers</h4>
-                <Link
-                  href="https://github.com/geo-knowledge-hub"
-                  className="text-sm hover:text-gray-300"
-                >
-                  GitHub
-                </Link>
-                <Link
-                  href="https://gkhub.earthobservations.org/doc/development/introduction"
-                  className="text-sm hover:text-gray-300"
-                >
-                  REST API
-                </Link>
-              </div>
             </div>
 
             {/* Footer Logo */}
             <div className="flex flex-col items-center lg:items-end">
               <h4 className="mb-3 text-lg font-semibold">Brought to you by</h4>
               <Link href="https://earthobservations.org/">
-                <Image src={logoGEO} alt="GEO Logo" width={210} height={80} priority />
+                <Image src={logoGEO} alt="GEO Logo" width={230} height={80} priority />
               </Link>
             </div>
           </div>
