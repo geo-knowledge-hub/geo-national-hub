@@ -18,19 +18,35 @@ import Typesense from 'typesense';
 import type { Client } from 'typesense';
 
 /**
- * Typesense client configuration from environment variables
+ * Typesense client configuration type
  */
-const typesenseConfig = {
-  nodes: [
-    {
-      host: process.env.TYPESENSE_HOST || 'localhost',
-      port: parseInt(process.env.TYPESENSE_PORT || '8108', 10),
-      protocol: (process.env.TYPESENSE_PROTOCOL || 'http') as 'http' | 'https',
-    },
-  ],
-  apiKey: process.env.TYPESENSE_API_KEY || 'xyz',
-  connectionTimeoutSeconds: 10,
-};
+interface TypesenseConfig {
+  nodes: Array<{
+    host: string;
+    port: number;
+    protocol: 'http' | 'https';
+  }>;
+  apiKey: string;
+  connectionTimeoutSeconds: number;
+}
+
+/**
+ * Gets Typesense configuration from environment variables
+ * Called at runtime to ensure env vars are available (important for Next.js standalone builds)
+ */
+function getTypesenseConfig(): TypesenseConfig {
+  return {
+    nodes: [
+      {
+        host: process.env.TYPESENSE_HOST || 'localhost',
+        port: parseInt(process.env.TYPESENSE_PORT || '8108', 10),
+        protocol: (process.env.TYPESENSE_PROTOCOL || 'http') as 'http' | 'https',
+      },
+    ],
+    apiKey: process.env.TYPESENSE_API_KEY || 'xyz',
+    connectionTimeoutSeconds: 10,
+  };
+}
 
 /**
  * Singleton Typesense client instance
@@ -39,10 +55,12 @@ let typesenseClient: Client | null = null;
 
 /**
  * Gets the Typesense client instance (singleton pattern)
+ * Reads environment variables at runtime to ensure they're available in all deployment scenarios
  */
 export function getTypesenseClient(): Client {
   if (!typesenseClient) {
-    typesenseClient = new Typesense.Client(typesenseConfig);
+    const config = getTypesenseConfig();
+    typesenseClient = new Typesense.Client(config);
   }
   return typesenseClient;
 }
@@ -50,9 +68,10 @@ export function getTypesenseClient(): Client {
 /**
  * Creates a new Typesense client instance (for testing or custom config)
  */
-export function createTypesenseClient(config?: Partial<typeof typesenseConfig>): Client {
+export function createTypesenseClient(config?: Partial<TypesenseConfig>): Client {
+  const baseConfig = getTypesenseConfig();
   return new Typesense.Client({
-    ...typesenseConfig,
+    ...baseConfig,
     ...config,
   });
 }
