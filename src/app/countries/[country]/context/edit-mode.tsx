@@ -11,8 +11,7 @@
 
 import React, { createContext, useContext, useState, ReactNode, useCallback } from 'react';
 
-import type { CountryComponentConfig, CountryTheme } from '@content-types/content';
-import { getDefaultTheme } from '../utils/theme';
+import type { CountryComponentConfig } from '@content-types/content';
 
 /**
  * Represents a temporary preview variant - used when hovering over options
@@ -40,17 +39,9 @@ interface EditModeContextValue {
   previewVariant: PreviewVariant | null;
   setPreviewVariant: (variant: PreviewVariant | null) => void;
 
-  // Preview theme - temporary state for real-time color preview on hover
-  previewTheme: Partial<CountryTheme> | null;
-  setPreviewTheme: (theme: Partial<CountryTheme> | null) => void;
-
   // Saved configurations
   componentConfigs: CountryComponentConfig[];
   setComponentConfigs: (configs: CountryComponentConfig[]) => void;
-
-  // Theme
-  theme: CountryTheme | null;
-  setTheme: (theme: CountryTheme | null) => void;
 
   // Country ID
   countryId: string | null;
@@ -58,9 +49,6 @@ interface EditModeContextValue {
 
   // Helper to get effective variant for a component (preview or saved)
   getEffectiveVariant: (componentId: string, defaultVariant: string) => string;
-
-  // Helper to get effective theme (preview merged with saved, or default)
-  getEffectiveTheme: () => CountryTheme;
 }
 
 const EditModeContext = createContext<EditModeContextValue | undefined>(undefined);
@@ -70,9 +58,7 @@ export function EditModeProvider({ children }: { children: ReactNode }) {
   const [editingComponent, setEditingComponent] = useState<string | null>(null);
   const [isEditingTheme, setIsEditingTheme] = useState(false);
   const [previewVariant, setPreviewVariant] = useState<PreviewVariant | null>(null);
-  const [previewTheme, setPreviewTheme] = useState<Partial<CountryTheme> | null>(null);
   const [componentConfigs, setComponentConfigs] = useState<CountryComponentConfig[]>([]);
-  const [theme, setTheme] = useState<CountryTheme | null>(null);
   const [countryId, setCountryId] = useState<string | null>(null);
 
   // Helper function to get the effective variant for a component
@@ -90,21 +76,6 @@ export function EditModeProvider({ children }: { children: ReactNode }) {
     [previewVariant, componentConfigs],
   );
 
-  // Helper function to get the effective theme
-  // Priority: preview theme (merged) > saved theme > default theme
-  const getEffectiveTheme = useCallback((): CountryTheme => {
-    const baseTheme = theme || getDefaultTheme();
-
-    if (previewTheme) {
-      return {
-        ...baseTheme,
-        ...previewTheme,
-      };
-    }
-
-    return baseTheme;
-  }, [theme, previewTheme]);
-
   return (
     <EditModeContext.Provider
       value={{
@@ -116,16 +87,11 @@ export function EditModeProvider({ children }: { children: ReactNode }) {
         setIsEditingTheme,
         previewVariant,
         setPreviewVariant,
-        previewTheme,
-        setPreviewTheme,
         componentConfigs,
         setComponentConfigs,
-        theme,
-        setTheme,
         countryId,
         setCountryId,
         getEffectiveVariant,
-        getEffectiveTheme,
       }}
     >
       {children}

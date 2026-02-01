@@ -13,6 +13,7 @@ import React, { useState, useEffect } from 'react';
 
 import { ComponentRegistryEntry } from '../types/component-registry';
 import { useEditMode } from '../context/edit-mode';
+import { useTheme } from '../context/theme-context';
 import { saveCountryConfig } from '@lib/api/admin';
 
 interface EditVariantPanelProps {
@@ -30,10 +31,12 @@ export function EditVariantPanel({ component, onClose }: EditVariantPanelProps) 
     componentConfigs,
     setComponentConfigs,
     setPreviewVariant,
-    theme,
     countryId,
     setEditingComponent,
   } = useEditMode();
+
+  // Get theme from ThemeContext
+  const { theme } = useTheme();
 
   const currentConfig = componentConfigs.find((c) => c.componentId === component.componentId);
   const savedVariant = currentConfig?.variantId || component.defaultVariant;

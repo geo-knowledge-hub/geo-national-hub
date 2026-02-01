@@ -12,6 +12,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { useEditMode } from '../context/edit-mode';
+import { useTheme } from '../context/theme-context';
 import { colorPresets, findPresetByPrimaryColor, type ColorPreset } from '../utils/color-presets';
 import { saveCountryTheme } from '@lib/api/admin';
 
@@ -24,7 +25,11 @@ interface EditThemePanelProps {
  * Hovering over colors updates the page in real-time (Stripe-like UX)
  */
 export function EditThemePanel({ onClose }: EditThemePanelProps) {
-  const { theme, setTheme, setPreviewTheme, countryId, setIsEditingTheme } = useEditMode();
+  // Get edit mode state
+  const { countryId, setIsEditingTheme } = useEditMode();
+
+  // Get theme state from ThemeContext
+  const { theme, setTheme, setPreviewTheme } = useTheme();
 
   // Find current preset based on saved theme
   const savedPreset = theme?.primary_color
@@ -108,8 +113,11 @@ export function EditThemePanel({ onClose }: EditThemePanelProps) {
 
       // Update local state on success
       setTheme(updatedTheme);
+
       setPreviewTheme(null); // Clear preview, saved theme takes over
+
       setShowSuccess(true);
+
       setTimeout(() => {
         setIsEditingTheme(false);
         onClose();

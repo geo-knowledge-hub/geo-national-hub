@@ -369,7 +369,7 @@ export const HeroTopic: React.FC<HeroTopicProps> = ({
 
       <div className="mx-auto grid max-w-7xl items-center gap-10 px-6 md:grid-cols-[2fr_1fr]">
         <div>
-          <h1 className="mb-4 text-4xl font-extrabold text-gray-900 md:text-5xl">{title}</h1>
+          <h1 className="themed-title mb-4 text-4xl font-extrabold md:text-5xl">{title}</h1>
           <p className="text-2xl text-gray-600">{description}</p>
         </div>
         <div className="flex justify-end md:justify-center">

@@ -65,7 +65,7 @@ export function ContentSection({ challenge, resources }: ContentSectionProps): J
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
           {/* Header & Description */}
           <div>
-            <h2 className="mb-2 text-3xl font-bold text-gray-900">Resources available</h2>
+            <h2 className="themed-title mb-2 text-3xl font-bold">Resources available</h2>
             <p className="mb-4 text-gray-600">
               Discover EO solutions addressing {challenge.title} challenges.
             </p>

@@ -17,6 +17,7 @@ import { BackButton } from '@components/global';
 
 import type { Country } from '@content-types/content';
 
+import { useTheme } from '../../context/theme-context';
 import { CapacityBuildingSection } from './components';
 
 import imageCapacityBuildingConcept from '@public/content/concepts/capacity-building/concept.svg';
@@ -38,8 +39,10 @@ interface CapacityBuildingPageContentProps {
 export function CapacityBuildingPageContent({
   countryData,
 }: CapacityBuildingPageContentProps): JSX.Element {
+  const { theme } = useTheme();
+
   return (
-    <div className="bg-gray-50">
+    <div>
       <div className="mx-auto max-w-7xl px-6 py-16">
         <div className="mb-20">
           <BackButton />
@@ -49,10 +52,10 @@ export function CapacityBuildingPageContent({
         <section className="mb-20">
           <div className="grid items-center gap-10 md:grid-cols-[2fr_1fr]">
             <div>
-              <h1 className="mb-4 text-4xl font-extrabold text-gray-900 md:text-5xl">
+              <h1 className="themed-title mb-4 text-4xl font-extrabold md:text-5xl">
                 Capacity building activities
               </h1>
-              <p className="mb-6 text-lg text-gray-600">
+              <p className="mb-6 text-lg">
                 Explore capacity building activities in {countryData.title}
               </p>
             </div>

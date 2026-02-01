@@ -167,12 +167,12 @@ export function HeroConnections({
                               <path
                                 key={`line-${index}`}
                                 d={`M 0 0 Q ${controlX + offsetX} ${controlY + offsetY} ${pos.x} ${pos.y}`}
-                                stroke="#cbd5e1"
                                 strokeWidth="1.5"
                                 strokeOpacity="0.4"
                                 fill="none"
                                 className="animate-pulse"
                                 style={{
+                                  stroke: 'var(--theme-accent, #cbd5e1)',
                                   animationDelay: `${index * 0.2}s`,
                                 }}
                               />

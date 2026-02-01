@@ -14,7 +14,7 @@ import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
 
 import { useEditMode } from '../context/edit-mode';
-import { getThemeOrDefault } from '../utils/theme';
+import { useTheme } from '../context/theme-context';
 import { checkAdminAuth } from '@lib/api/admin';
 import { EditThemePanel } from './edit-theme-panel';
 import type { Country, CountryComponentConfig } from '@content-types/content';
@@ -36,14 +36,15 @@ export function EditModeToggle({ countryId, countryTheme, componentConfig }: Edi
     isEditMode,
     setIsEditMode,
     setCountryId,
-    setTheme,
     setComponentConfigs,
     setEditingComponent,
     setPreviewVariant,
     isEditingTheme,
     setIsEditingTheme,
-    setPreviewTheme,
   } = useEditMode();
+
+  // Get preview theme setter from ThemeContext
+  const { setPreviewTheme } = useTheme();
 
   // Strip basePath from pathname for URL manipulation
   // usePathname returns path WITH basePath, but router.push/replace auto-prepends it
@@ -87,9 +88,6 @@ export function EditModeToggle({ countryId, countryTheme, componentConfig }: Edi
     if (countryId) {
       setCountryId(countryId);
 
-      // Set theme (already in snake_case format from Typesense)
-      setTheme(getThemeOrDefault(countryTheme));
-
       // Set component configs if available
       if (componentConfig) {
         setComponentConfigs(componentConfig);
@@ -103,11 +101,9 @@ export function EditModeToggle({ countryId, countryTheme, componentConfig }: Edi
     }
   }, [
     countryId,
-    countryTheme,
     componentConfig,
     searchParams,
     setCountryId,
-    setTheme,
     setComponentConfigs,
     setIsEditMode,
     isEditMode,

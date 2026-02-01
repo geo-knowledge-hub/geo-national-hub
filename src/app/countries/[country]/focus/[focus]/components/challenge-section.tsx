@@ -116,7 +116,7 @@ export function ChallengeSection({
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
           {/* Header & Description */}
           <div>
-            <h2 className="mb-2 text-3xl font-bold text-gray-900">List of challenges</h2>
+            <h2 className="themed-title mb-2 text-3xl font-bold">List of challenges</h2>
             <p className="mb-4 text-gray-600">
               Explore challenges in {countryData.title} and the Open EO resources tackling them.
             </p>

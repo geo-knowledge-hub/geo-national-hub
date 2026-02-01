@@ -12,9 +12,9 @@
 import React, { JSX, Suspense } from 'react';
 
 import { useEditMode } from './context/edit-mode';
+import { useTheme } from './context/theme-context';
 import { componentRegistry } from './registry/components';
 import { renderHeroComponent } from './utils/hero-renderer';
-import { applyThemeStyles } from './utils/theme';
 
 import type { Country, Resource, FocusArea, FocusAreaChallenge } from '@content-types/content';
 
@@ -54,7 +54,8 @@ export function CountryPageContent({
   focusAreas,
   challenges,
 }: CountryPageContentProps): JSX.Element {
-  const { componentConfigs, previewVariant, getEffectiveTheme } = useEditMode();
+  const { componentConfigs, previewVariant } = useEditMode();
+  const { getEffectiveTheme } = useTheme();
 
   // Get the effective theme (preview > saved > default)
   const effectiveTheme = getEffectiveTheme();
@@ -82,13 +83,7 @@ export function CountryPageContent({
   });
 
   return (
-    <div
-      className="relative -mt-24 -ml-[calc(50vw-50%)] min-h-screen w-screen pt-24"
-      style={{
-        ...applyThemeStyles(effectiveTheme),
-        backgroundColor: 'var(--theme-background, #ffffff)',
-      }}
-    >
+    <div className="relative -mt-24 -ml-[calc(50vw-50%)] min-h-screen w-screen pt-24">
       <div className="mx-auto max-w-7xl px-6 pt-10">
         <Suspense fallback={null}>
           <EditModeToggle

@@ -10,12 +10,14 @@
 import React, { JSX } from 'react';
 
 /**
- * HeaderProps - Define the properties accepted in the ``Badge`` component.
+ * BadgeProps - Define the properties accepted in the ``Badge`` component.
  */
 interface BadgeProps {
   color: string;
   textColor: string;
   label: string;
+  /** When "themed", uses theme accent for background (for use on country pages) */
+  variant?: 'default' | 'themed';
 }
 
 /**
@@ -56,9 +58,11 @@ export const Badge: React.FC<BadgeProps> = ({
   color,
   textColor,
   label,
+  variant = 'default',
 }: BadgeProps): JSX.Element => {
-  const bgClass = bgColorMap[color] || 'bg-gray-100';
-  const textClass = textColorMap[textColor] || 'text-gray-800';
+  const isThemed = variant === 'themed';
+  const bgClass = isThemed ? 'themed-bg-accent' : bgColorMap[color] || 'bg-gray-100';
+  const textClass = isThemed ? 'text-white' : textColorMap[textColor] || 'text-gray-800';
 
   return (
     <span className={`${bgClass} ${textClass} rounded-full px-3 py-1 text-xs font-medium`}>

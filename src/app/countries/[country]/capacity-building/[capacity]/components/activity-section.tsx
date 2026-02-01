@@ -106,10 +106,8 @@ export function CapacityBuildingSection({
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
           {/* Header & Description */}
           <div>
-            <h2 className="mb-2 text-3xl font-bold text-gray-900">List of activities</h2>
-            <p className="mb-4 text-gray-600">
-              Explore capacity building activities in {countryData.title}.
-            </p>
+            <h2 className="themed-title mb-2 text-3xl font-bold">List of activities</h2>
+            <p className="mb-4">Explore capacity building activities in {countryData.title}.</p>
           </div>
 
           {/* Search Bar aligned with header */}
@@ -121,7 +119,7 @@ export function CapacityBuildingSection({
                 placeholder="Search..."
                 value={searchTerm}
                 onChange={handleSearchChange}
-                className="w-full rounded-md border border-gray-300 bg-white py-2 pr-3 pl-10 text-sm outline-none focus:border-[#526479] focus:shadow-sm focus:ring-1 focus:ring-[#526479]/20"
+                className="themed-input w-full rounded-md border bg-white py-2 pr-3 pl-10 text-sm outline-none"
               />
             </div>
           </div>
@@ -134,19 +132,19 @@ export function CapacityBuildingSection({
               <ActivityItem key={index} activity={activity} />
             ))
           ) : (
-            <p className="text-center text-gray-500">No activities found.</p>
+            <p className="text-center">No activities found.</p>
           )}
         </div>
 
         {/* Pagination */}
         {totalPages > 1 && (
           <div className="mt-10 flex justify-center">
-            <nav className="flex items-center space-x-4 text-sm font-medium text-gray-600">
+            <nav className="flex items-center space-x-4 text-sm font-medium">
               {/* Previous Button */}
               <button
                 onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
                 disabled={currentPage === 1}
-                className={`transition hover:text-gray-900 ${
+                className={`themed-link transition ${
                   currentPage === 1 ? 'cursor-not-allowed text-gray-300' : ''
                 }`}
               >
@@ -160,8 +158,8 @@ export function CapacityBuildingSection({
                   onClick={() => setCurrentPage(page)}
                   className={`border-b-2 px-1 pb-0.5 transition ${
                     currentPage === page
-                      ? 'border-gray-600 text-gray-900'
-                      : 'border-transparent hover:border-gray-300 hover:text-gray-800'
+                      ? 'themed-pagination-active'
+                      : 'themed-link border-transparent hover:border-gray-300'
                   }`}
                 >
                   {page}
@@ -172,7 +170,7 @@ export function CapacityBuildingSection({
               <button
                 onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
                 disabled={currentPage === totalPages}
-                className={`transition hover:text-gray-900 ${
+                className={`themed-link transition ${
                   currentPage === totalPages ? 'cursor-not-allowed text-gray-300' : ''
                 }`}
               >

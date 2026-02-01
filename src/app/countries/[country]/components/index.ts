@@ -12,6 +12,7 @@ export { EditModeToggle } from './edit-toggle';
 export { EditableSection } from './edit-section';
 export { EditVariantPanel } from './edit-variant-panel';
 export { EditThemePanel } from './edit-theme-panel';
+export { ThemeWrapper } from './theme-wrapper';
 
 // Hero variants
 export { HeroClassic, HeroConnections } from './hero';
