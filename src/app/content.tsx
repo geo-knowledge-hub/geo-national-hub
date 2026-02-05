@@ -9,7 +9,7 @@
 
 'use client';
 
-import React, { useState, useEffect, useRef, JSX } from 'react';
+import React, { useState, useEffect, useRef, useMemo, JSX } from 'react';
 import Link from 'next/link';
 
 import { searchCountriesAction } from '@lib/typesense/actions';
@@ -26,6 +26,36 @@ const ITEMS_PER_PAGE = 12;
  * Debounce delay in milliseconds
  */
 const DEBOUNCE_DELAY = 400;
+
+/**
+ * IDs of countries that are currently available (have content)
+ */
+const AVAILABLE_COUNTRY_IDS = new Set(['ghana', 'south-africa']);
+
+/**
+ * Checks if a country is available (has content)
+ * ToDo: Replace with API call to check if country has content
+ */
+function isCountryAvailable(countryId: string): boolean {
+  return AVAILABLE_COUNTRY_IDS.has(countryId);
+}
+
+/**
+ * Sorts countries with available ones first, maintaining alphabetical order within groups
+ */
+function sortCountriesAvailableFirst(countries: Country[]): Country[] {
+  return [...countries].sort((a, b) => {
+    const aAvailable = isCountryAvailable(a.id);
+    const bAvailable = isCountryAvailable(b.id);
+
+    // Available countries come first
+    if (aAvailable && !bAvailable) return -1;
+    if (!aAvailable && bAvailable) return 1;
+
+    // Within same group, sort alphabetically by title
+    return a.title.localeCompare(b.title);
+  });
+}
 
 /**
  * Props for HomePageContent component
@@ -103,9 +133,12 @@ export function HomePageContent({ initialCountries }: HomePageContentProps): JSX
     setCurrentPage(1);
   }, [searchTerm]);
 
+  // Sort countries with available ones first
+  const sortedCountries = useMemo(() => sortCountriesAvailableFirst(countries), [countries]);
+
   // Pagination
-  const totalPages = Math.ceil(countries.length / ITEMS_PER_PAGE);
-  const paginatedCountries = countries.slice(
+  const totalPages = Math.ceil(sortedCountries.length / ITEMS_PER_PAGE);
+  const paginatedCountries = sortedCountries.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
     currentPage * ITEMS_PER_PAGE,
   );
@@ -126,18 +159,18 @@ export function HomePageContent({ initialCountries }: HomePageContentProps): JSX
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {paginatedCountries.map((country) => {
               const countryKey = country.id;
-              const isAllowed = countryKey === 'ghana' || countryKey === 'south-africa';
-              const countryLink = isAllowed ? `/countries/${countryKey}` : '#';
+              const isAvailable = isCountryAvailable(countryKey);
+              const countryLink = isAvailable ? `/countries/${countryKey}` : '#';
 
               return (
                 <Link
                   key={countryKey}
                   href={countryLink}
-                  className={`group block ${!isAllowed ? 'cursor-not-allowed' : ''}`}
+                  className={`group block ${!isAvailable ? 'cursor-not-allowed' : ''}`}
                 >
                   <div
                     className={`glass-card relative h-full overflow-hidden ${
-                      !isAllowed ? 'opacity-75' : ''
+                      isAvailable ? 'animate-pulse-border' : 'opacity-60'
                     }`}
                   >
                     {/* Card Content */}
@@ -146,13 +179,13 @@ export function HomePageContent({ initialCountries }: HomePageContentProps): JSX
                         <h5 className="text-lg font-bold tracking-tight text-gray-900">
                           {country.title}
                         </h5>
-                        {isAllowed && (
+                        {isAvailable && (
                           <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#526479]/10 text-[#526479] transition-all duration-200 group-hover:translate-x-1 group-hover:bg-[#526479]/20">
                             →
                           </span>
                         )}
                       </div>
-                      {isAllowed ? (
+                      {isAvailable ? (
                         <p className="mt-3 text-xs font-medium text-[#526479]">Already available</p>
                       ) : (
                         <p className="mt-3 text-xs text-gray-500">Coming soon</p>

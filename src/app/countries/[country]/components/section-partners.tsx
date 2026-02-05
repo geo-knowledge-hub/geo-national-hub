@@ -75,7 +75,7 @@ export function PartnersSection({ countryData }: PartnersSectionProps): JSX.Elem
   if (!showComponent) return <></>;
 
   return (
-    <section className="px-4 py-12">
+    <section id="stakeholders" className="px-4 py-12">
       <div className="mx-auto max-w-7xl">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
           <div>

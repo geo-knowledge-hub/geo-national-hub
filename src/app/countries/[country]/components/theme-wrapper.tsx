@@ -25,10 +25,7 @@ interface ThemeWrapperProps {
 /**
  * ThemeWrapper Component - Applies country theme CSS variables to all child routes
  *
- * Renders a full-viewport background layer so the theme background covers the
- * entire page (height and width), and a wrapper that sets CSS variables for
- * descendants. The background uses fixed positioning to escape any parent
- * width constraints (e.g. root layout's max-w-7xl).
+ * Renders a themed container that sets CSS variables for all descendants.
  *
  * @component
  * @param {ThemeWrapperProps} props - Component props.
@@ -37,20 +34,17 @@ interface ThemeWrapperProps {
 export function ThemeWrapper({ children }: ThemeWrapperProps) {
   const { getEffectiveTheme } = useTheme();
   const effectiveTheme = getEffectiveTheme();
-  const themeStyles = {
-    ...applyThemeStyles(effectiveTheme),
+  const themeStyles = applyThemeStyles(effectiveTheme);
+
+  // Combined styles with background
+  const wrapperStyles = {
+    ...themeStyles,
     backgroundColor: 'var(--theme-background, #ffffff)',
   };
 
   return (
-    <>
-      {/* Full viewport theme background - fixed so it covers entire page */}
-      <div aria-hidden className="fixed inset-0 z-0 min-h-screen w-screen" style={themeStyles} />
-      {/* Wrapper for CSS variable inheritance (themed classes use these) */}
-      <div className="relative z-10" style={themeStyles}>
-        {/* relative z-10 so content is above the fixed background */}
-        {children}
-      </div>
-    </>
+    <div className="relative -ml-[calc(50vw-50%)] w-screen" style={wrapperStyles}>
+      {children}
+    </div>
   );
 }

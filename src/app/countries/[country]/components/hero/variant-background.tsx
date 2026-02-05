@@ -50,6 +50,7 @@ export function HeroBackground({
     }
 
     // Try jpg first (rect suffix for rectangular/portrait-friendly images)
+    // Assuming those are the supported formats - it will be replaced with upload in future
     const jpgPath = getAssetPath(`/content/background/${countryId}-rect.jpg`);
     const pngPath = getAssetPath(`/content/background/${countryId}-rect.png`);
 

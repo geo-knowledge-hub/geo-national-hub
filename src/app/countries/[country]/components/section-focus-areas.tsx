@@ -92,7 +92,7 @@ export function GEOFocusAreaSection({
 
   // Rendering!
   return (
-    <section className="mt-5 px-4 py-12">
+    <section id="explore" className="px-4 py-12">
       <div className="mx-auto max-w-7xl">
         {/* Title + Search Bar Container */}
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">

@@ -65,7 +65,7 @@ export function EnablingMechanisms({ countryData }: EnablingMechanismsSectionPro
   return (
     <>
       {showComponent && (
-        <section className="px-4 py-12">
+        <section id="mechanisms" className="px-4 py-12">
           <div className="mx-auto max-w-7xl">
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
               {/* Header & Description */}

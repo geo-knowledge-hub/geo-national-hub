@@ -92,6 +92,25 @@
   animation: fade-in 0.3s ease-out;
 }
 
+@keyframes pulse-border {
+  0%,
+  100% {
+    box-shadow:
+      0 1px 3px rgba(0, 0, 0, 0.04),
+      0 0 0 1px rgba(82, 100, 121, 0.08);
+  }
+  50% {
+    box-shadow:
+      0 1px 3px rgba(0, 0, 0, 0.04),
+      0 0 0 2px rgba(82, 100, 121, 0.12),
+      0 0 8px rgba(82, 100, 121, 0.06);
+  }
+}
+
+.animate-pulse-border {
+  animation: pulse-border 3.5s ease-in-out infinite;
+}
+
 /* Theme-aware utility classes */
 .themed-input:focus {
   border-color: var(--theme-primary, #526479);
@@ -138,9 +157,13 @@
    Standardized UI for non-themed elements
    ======================================== */
 
-/* Glass Input - for search fields and text inputs */
+/* Glass Input - for search fields and text inputs (uses theme-derived gradient) */
 .glass-input {
-  background-color: #ffffff;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--theme-primary, #526479) 4%, var(--theme-surface, #ffffff)) 0%,
+    var(--theme-surface, #ffffff) 100%
+  );
   border: 1px solid rgba(229, 231, 235, 0.8);
   border-radius: 0.625rem;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
@@ -153,9 +176,13 @@
   outline: none;
 }
 
-/* Glass Button - for system UI buttons */
+/* Glass Button - for system UI buttons (uses theme-derived gradient) */
 .glass-button {
-  background-color: #ffffff;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--theme-primary, #526479) 4%, var(--theme-surface, #ffffff)) 0%,
+    var(--theme-surface, #ffffff) 100%
+  );
   border: 1px solid rgba(229, 231, 235, 0.8);
   border-radius: 0.625rem;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
@@ -175,9 +202,13 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
-/* Glass Card - for feature cards and content cards (uses theme surface on darker backgrounds) */
+/* Glass Card - for feature cards and content cards (uses theme-derived gradient) */
 .glass-card {
-  background-color: var(--theme-surface, #ffffff);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--theme-primary, #526479) 4%, var(--theme-surface, #ffffff)) 0%,
+    var(--theme-surface, #ffffff) 100%
+  );
   border: 1px solid rgba(229, 231, 235, 0.8);
   border-radius: 0.75rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);

@@ -15,6 +15,7 @@ import { useEditMode } from './context/edit-mode';
 import { useTheme } from './context/theme-context';
 import { componentRegistry } from './registry/components';
 import { renderHeroComponent } from './utils/hero-renderer';
+import { getAvailableSections } from './utils/sections';
 
 import type { Country, Resource, FocusArea, FocusAreaChallenge } from '@content-types/content';
 
@@ -27,6 +28,7 @@ import {
   CommunityOfPracticeSection,
   KeyRepresentativesSection,
   EnablingMechanisms,
+  StickyNavBar,
 } from './components';
 
 /**
@@ -67,6 +69,13 @@ export function CountryPageContent({
   const heroPreviewVariant =
     previewVariant?.componentId === 'hero' ? previewVariant.variantId : undefined;
 
+  // Calculate available sections for quick access navigation
+  const hasResources = resources.length > 0;
+  const quickAccessSections = getAvailableSections(countryData, hasResources);
+
+  // Get theme primary color for sticky nav
+  const primaryColor = effectiveTheme?.primary_color || '#526479';
+
   // Render hero based on configuration or preview variant
   // The overrideVariant takes precedence when user is hovering over options
   const heroComponent = renderHeroComponent({
@@ -83,7 +92,7 @@ export function CountryPageContent({
   });
 
   return (
-    <div className="relative -mt-24 -ml-[calc(50vw-50%)] min-h-screen w-screen pt-24">
+    <div className="relative -mt-24 min-h-screen pt-24">
       <div className="mx-auto max-w-7xl px-6 pt-10">
         <Suspense fallback={null}>
           <EditModeToggle
@@ -100,6 +109,9 @@ export function CountryPageContent({
         >
           {heroComponent}
         </EditableSection>
+
+        {/* Quick Access Navigation Bar */}
+        <StickyNavBar sections={quickAccessSections} primaryColor={primaryColor} />
 
         {/* GEO Focus Areas section */}
         <GEOFocusAreaSection
@@ -123,6 +135,9 @@ export function CountryPageContent({
 
         {/* Key GEO representatives in the country */}
         <KeyRepresentativesSection countryData={countryData} />
+
+        {/* Bottom spacing to ensure last section can be scrolled to properly */}
+        <div className="h-28" aria-hidden="true" />
       </div>
     </div>
   );
