@@ -39,8 +39,6 @@ interface CapacityBuildingPageContentProps {
 export function CapacityBuildingPageContent({
   countryData,
 }: CapacityBuildingPageContentProps): JSX.Element {
-  const { theme } = useTheme();
-
   return (
     <div>
       <div className="mx-auto max-w-7xl px-6 py-16">
