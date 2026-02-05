@@ -248,7 +248,7 @@
           "title": "Open Data and Open Knowledge Workshop (2024)",
           "description": "Open Data and Open Knowledge Workshop 2025 sessions recordings.",
           "link": "https://doi.org/10.60566/zzeer-fet81",
-          "logo": "/content/resources/knowledge-package.svg",
+          "logo": "/content/resources/presentation.svg",
           "date": "2024-09-30"
         },
         {
@@ -276,12 +276,167 @@
           "source": "gkh"
         },
         {
+          "title": "Agriculture and Food Security Community of Practice ( AFS CoP) Meeting",
+          "description": "Community of Practice Webinar",
+          "link": "https://neoss.co.za/events/agriculture-and-food-security-community-practice-afs-cop-meeting",
+          "logo": "/content/resources/presentation.svg",
+          "date": "2025-12-05"
+        },
+        {
+          "title": "Human Settlement and Spatial Planning Community of Practice (CoP) Webinar",
+          "description": "Community of Practice Webinar",
+          "link": "https://neoss.co.za/events/human-settlement-and-spatial-planning-community-practice-cop-webinar",
+          "logo": "/content/resources/presentation.svg",
+          "date": "2025-11-27"
+        },
+        {
+          "title": "Data Governance and Earth Observations Infrastructure Community of Practice (CoP) Meeting",
+          "description": "Community of Practice Webinar",
+          "link": "https://neoss.co.za/events/data-governance-and-earth-observations-infrastructure-community-practice-cop-meeting",
+          "logo": "/content/resources/presentation.svg",
+          "date": "2025-10-24"
+        },
+        {
           "title": "3rd National Space Conference (NSC) 2025",
           "description": "National Space Conference",
           "link": "https://neoss.co.za/events/3rd-national-space-conference-nsc-2025",
-          "logo": "",
+          "logo": "/content/resources/presentation.svg",
           "date": "2025-08-20",
           "recurring": true
+        },
+        {
+          "title": "Communities of Practice (CoP) Integrated Workshop 2025",
+          "description": "Community of Practice Workshop",
+          "link": "https://neoss.co.za/events/communities-practice-cop-integrated-workshop-2025",
+          "logo": "/content/resources/presentation.svg",
+          "date": "2025-06-23",
+          "recurring": true
+        },
+        {
+          "title": "Data Governance and Earth Observations Infrastructure Communities of Practice (CoPs) Meeting",
+          "description": "Community of Practice Meeting",
+          "link": "https://neoss.co.za/events/data-governance-and-earth-observations-infrastructure-communities-practice-cops-meeting",
+          "logo": "/content/resources/presentation.svg",
+          "date": "2025-02-27"
+        },
+        {
+          "title": "2nd National Space Conference (NSC) 2024",
+          "description": "National Space Conference",
+          "link": "https://neoss.co.za/events/2nd-national-space-conference-nsc-2024",
+          "logo": "/content/resources/presentation.svg",
+          "date": "2024-08-28",
+          "recurring": true
+        },
+        {
+          "title": "8th AfriGEO Symposium 2024",
+          "description": "AfriGEO Symposium",
+          "link": "https://neoss.co.za/events/8th-afrigeo-symposium-2024",
+          "logo": "/content/resources/presentation.svg",
+          "date": "2024-08-12",
+          "recurring": true
+        },
+        {
+          "title": "Communities of Practice (CoP) Integrated Workshop and Capacity Building Training 2024",
+          "description": "Community of Practice Workshop",
+          "link": "https://neoss.co.za/events/communities-practice-cop-integrated-workshop-and-capacity-building-training-2024",
+          "logo": "/content/resources/icon",
+          "date": "2024-06-04",
+          "recurring": true
+        },
+        {
+          "title": "Earth Observations Stakeholder Workshop 2024",
+          "description": "Stakeholder Workshop",
+          "link": "https://neoss.co.za/events/earth-observations-stakeholder-workshop-2024",
+          "logo": "/content/resources/presentation.svg",
+          "date": "2024-02-15"
+        },
+        {
+          "title": "GEO Week & Ministerial Summit 2023",
+          "description": "GEO Week event",
+          "link": "https://neoss.co.za/events/geo-week-ministerial-summit-2023",
+          "logo": "/content/resources/presentation.svg",
+          "date": "2023-11-06"
+        },
+        {
+          "title": "7th AfriGEO Symposium",
+          "description": "AfriGEO Symposium",
+          "link": "https://neoss.co.za/events/7th-afrigeo-symposium",
+          "logo": "/content/resources/presentation.svg",
+          "date": "2023-09-18",
+          "recurring": true
+        },
+        {
+          "title": "1st National Space Conference",
+          "description": "National Space Conference",
+          "link": "https://neoss.co.za/events/1st-national-space-conference",
+          "logo": "/content/resources/presentation.svg",
+          "date": "2023-08-30",
+          "recurring": true
+        },
+        {
+          "title": "Communities of Practice (CoP) Integrated Workshop 2023",
+          "description": "Community of Practice Workshop",
+          "link": "https://neoss.co.za/events/communities-practice-cop-integrated-workshop-2023",
+          "logo": "/content/resources/presentation.svg",
+          "date": "2023-05-30",
+          "recurring": true
+        },
+        {
+          "title": "NEOSS Management Committee meeting (Participation by invitation only)",
+          "description": "Management Committee Meeting",
+          "link": "https://neoss.co.za/events/neoss-management-committee-meeting-participation-invitation-only-1",
+          "logo": "/content/resources/presentation.svg",
+          "date": "2023-03-17"
+        },
+        {
+          "title": "SA-GEO, SA-GSN and SA-GSC Communities of Practice (CoP) Meetings",
+          "description": "Community of Practice Meetings",
+          "link": "https://neoss.co.za/events/sa-geo-sa-gsn-and-sa-gsc-communities-practice-cop-meetings-2",
+          "logo": "/content/resources/presentation.svg",
+          "date": "2023-02-02"
+        },
+        {
+          "title": "NEOSS Management Committee meeting (Participation by invitation only)",
+          "description": "Management Committee Meeting",
+          "link": "https://neoss.co.za/events/neoss-management-committee-meeting-participation-invitation-only-0",
+          "logo": "/content/resources/presentation.svg",
+          "date": "2022-12-15"
+        },
+        {
+          "title": "GEO WEEK 2022",
+          "description": "GEO Week event",
+          "link": "https://neoss.co.za/events/geo-week-2022",
+          "logo": "/content/resources/presentation.svg",
+          "date": "2022-10-31"
+        },
+        {
+          "title": "6th AfriGEO Symposium",
+          "description": "AfriGEO Symposium",
+          "link": "https://neoss.co.za/events/6th-afrigeo-symposium",
+          "logo": "/content/resources/presentation.svg",
+          "date": "2022-10-24",
+          "recurring": true
+        },
+        {
+          "title": "SA-GEO, SA-GSN and SA-GSC Communities of Practice (CoP) Meetings",
+          "description": "Community of Practice Meeting",
+          "link": "https://neoss.co.za/events/sa-geo-sa-gsn-and-sa-gsc-communities-practice-cop-meetings-1",
+          "logo": "/content/resources/presentation.svg",
+          "date": "2022-10-06"
+        },
+        {
+          "title": "SA-GEO, SA-GSN and SA-GSC Communities of Practice (CoP) Meetings",
+          "description": "Community of Practice Meeting",
+          "link": "https://neoss.co.za/events/sa-geo-sa-gsn-and-sa-gsc-communities-practice-cop-meetings",
+          "logo": "/content/resources/presentation.svg",
+          "date": "2022-09-30"
+        },
+        {
+          "title": "4th SA-GEO symposium and 3rd Space for National Development (SND)",
+          "description": "GEO Week event",
+          "link": "https://neoss.co.za/events/4th-sa-geo-symposium-and-3rd-space-national-development-snd",
+          "logo": "/content/resources/presentation.svg",
+          "date": "2022-03-15"
         }
       ],
       "partners": [
