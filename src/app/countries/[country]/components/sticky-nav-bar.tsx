@@ -38,6 +38,7 @@ export function StickyNavBar({ sections, primaryColor }: StickyNavBarProps): JSX
   const [activeSection, setActiveSection] = useState<string | null>(null);
   const barRef = useRef<HTMLDivElement>(null);
   const placeholderRef = useRef<HTMLDivElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   // Header height (h-23 = 92px, so using 96px for safety)
   const headerHeight = 96;
@@ -85,6 +86,23 @@ export function StickyNavBar({ sections, primaryColor }: StickyNavBarProps): JSX
     return () => window.removeEventListener('scroll', handleScroll);
   }, [sections]);
 
+  // Auto-scroll the active button into view within the horizontal nav
+  useEffect(() => {
+    if (!activeSection || !scrollContainerRef.current) {
+      return;
+    }
+
+    // get active button
+    const activeBtn = scrollContainerRef.current.querySelector(
+      `[data-section-id="${activeSection}"]`,
+    ) as HTMLElement | null;
+
+    if (activeBtn) {
+      // scroll active button
+      activeBtn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    }
+  }, [activeSection]);
+
   /**
    * Handles button click - smoothly scrolls to the target section
    */
@@ -123,16 +141,20 @@ export function StickyNavBar({ sections, primaryColor }: StickyNavBarProps): JSX
           borderBottom: isSticky ? '1px solid rgba(0, 0, 0, 0.05)' : 'none',
         }}
       >
-        <div className="mx-auto max-w-7xl px-6">
-          <div className="flex flex-wrap items-center justify-center gap-2 py-3">
+        <div className="mx-auto max-w-7xl px-2 md:px-6">
+          <div
+            ref={scrollContainerRef}
+            className="no-scrollbar flex items-center gap-2 overflow-x-auto py-3 md:flex-wrap md:justify-center md:overflow-x-visible"
+          >
             {sections.map((section) => {
               const isActive = activeSection === section.id;
 
               return (
                 <button
                   key={section.id}
+                  data-section-id={section.id}
                   onClick={() => handleClick(section.id)}
-                  className={`group relative rounded-full px-5 py-2 text-sm font-medium transition-all duration-200 hover:scale-[1.02] ${
+                  className={`group relative shrink-0 rounded-full px-5 py-2 text-sm font-medium whitespace-nowrap transition-all duration-200 hover:scale-[1.02] ${
                     isActive
                       ? 'text-white shadow-md'
                       : 'border border-gray-200/80 bg-white/80 text-gray-700 hover:border-gray-300 hover:bg-white hover:shadow-sm'
