@@ -45,7 +45,7 @@ export function FocusPageContent({
   const pathname = usePathname();
 
   return (
-    <div className={'mt-10'}>
+    <div className="relative -mt-24 min-h-screen pt-34">
       <HeroTopic
         title={`${focusAreaData.name}`}
         description={`Challenges in ${countryData.title}`}

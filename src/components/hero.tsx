@@ -356,15 +356,9 @@ export const HeroTopic: React.FC<HeroTopicProps> = ({
   return (
     <section className="py-5">
       {enableBackButton && (
-        <>
-          {ctaLabel && ctaLink ? (
-            <div className="mb-20">
-              <BackButton />
-            </div>
-          ) : (
-            <BackButton />
-          )}
-        </>
+        <div className="mx-auto mb-8 max-w-7xl px-6">
+          <BackButton />
+        </div>
       )}
 
       <div className="mx-auto grid max-w-7xl items-center gap-10 px-6 md:grid-cols-[2fr_1fr]">
@@ -372,8 +366,10 @@ export const HeroTopic: React.FC<HeroTopicProps> = ({
           <h1 className="themed-title mb-4 text-4xl font-extrabold md:text-5xl">{title}</h1>
           <p className="text-2xl text-gray-600">{description}</p>
         </div>
-        <div className="flex justify-end md:justify-center">
-          {ctaLabel && ctaLink ? (
+
+        {/* CTA — desktop only */}
+        {ctaLabel && ctaLink ? (
+          <div className="hidden md:flex md:justify-end">
             <div className="flex flex-col items-center space-y-3 text-center">
               <p className="text-sm text-gray-600">{ctaMessage}</p>
 
@@ -392,21 +388,26 @@ export const HeroTopic: React.FC<HeroTopicProps> = ({
                 </svg>
               </Link>
             </div>
-          ) : imageIcon ? (
-            // @ts-expect-error temporary solution
-            <ImageIcon className="h-32 w-32 overflow-hidden rounded-md" />
-          ) : imageSrc && imageAlt ? (
-            <div className="h-64 w-64 overflow-hidden rounded-md md:h-48 md:w-72">
-              <Image
-                src={typeof imageSrc === 'string' ? getAssetPath(imageSrc) : imageSrc}
-                alt={imageAlt}
-                width={imageWidth}
-                height={imageHeight}
-                className={imageClass}
-              />
-            </div>
-          ) : null}
-        </div>
+          </div>
+        ) : (
+          /* Image/icon — desktop only */
+          <div className="hidden md:flex md:justify-end">
+            {imageIcon ? (
+              // @ts-expect-error temporary solution
+              <ImageIcon className="h-32 w-32 overflow-hidden rounded-md" />
+            ) : imageSrc && imageAlt ? (
+              <div className="h-48 w-72 overflow-hidden rounded-md">
+                <Image
+                  src={typeof imageSrc === 'string' ? getAssetPath(imageSrc) : imageSrc}
+                  alt={imageAlt}
+                  width={imageWidth}
+                  height={imageHeight}
+                  className={imageClass}
+                />
+              </div>
+            ) : null}
+          </div>
+        )}
       </div>
     </section>
   );

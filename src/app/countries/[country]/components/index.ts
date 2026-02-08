@@ -17,9 +17,11 @@ export { ThemeWrapper } from './theme-wrapper';
 // Hero variants
 export { HeroClassic, HeroConnections } from './hero';
 
+// Capacity building variants
+export { CapacityBuildingClassic, CapacityBuildingShowcase } from './capacity-building';
+
 // Section components
 export { GEOFocusAreaSection } from './section-focus-areas';
-export { CapacityBuildingSection } from './section-capacity-building';
 export { CommunityOfPracticeSection } from './section-community';
 export { EnablingMechanisms } from './section-mechanisms';
 export { PartnersSection } from './section-partners';

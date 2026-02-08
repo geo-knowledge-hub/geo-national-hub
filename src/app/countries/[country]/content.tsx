@@ -15,6 +15,7 @@ import { useEditMode } from './context/edit-mode';
 import { useTheme } from './context/theme-context';
 import { componentRegistry } from './registry/components';
 import { renderHeroComponent } from './utils/hero-renderer';
+import { renderCapacityBuildingComponent } from './utils/capacity-building-renderer';
 import { getAvailableSections } from './utils/sections';
 
 import type { Country, Resource, FocusArea, FocusAreaChallenge } from '@content-types/content';
@@ -23,7 +24,6 @@ import {
   EditableSection,
   EditModeToggle,
   GEOFocusAreaSection,
-  CapacityBuildingSection,
   PartnersSection,
   CommunityOfPracticeSection,
   KeyRepresentativesSection,
@@ -69,6 +69,10 @@ export function CountryPageContent({
   const heroPreviewVariant =
     previewVariant?.componentId === 'hero' ? previewVariant.variantId : undefined;
 
+  // Get preview variant for capacity building if it's being previewed
+  const cbPreviewVariant =
+    previewVariant?.componentId === 'capacity-building' ? previewVariant.variantId : undefined;
+
   // Calculate available sections for quick access navigation
   const hasResources = resources.length > 0;
   const quickAccessSections = getAvailableSections(countryData, hasResources);
@@ -89,6 +93,14 @@ export function CountryPageContent({
     overrideVariant: heroPreviewVariant,
     managedBy: countryData.managed_by?.name,
     managedByLink: countryData.managed_by?.url,
+  });
+
+  const capacityBuildingComponent = renderCapacityBuildingComponent({
+    countryId,
+    countryTitle: countryData.title,
+    activities: countryData.capacity_building_activities,
+    componentConfigs: activeComponentConfigs,
+    overrideVariant: cbPreviewVariant,
   });
 
   return (
@@ -131,7 +143,15 @@ export function CountryPageContent({
         <CommunityOfPracticeSection countryData={countryData} />
 
         {/* Capacity building activities in the country */}
-        <CapacityBuildingSection countryData={countryData} />
+        {countryData.capacity_building_activities?.length > 0 && (
+          <EditableSection
+            componentId="capacity-building"
+            componentName="Capacity Building"
+            componentRegistry={componentRegistry['capacity-building']}
+          >
+            {capacityBuildingComponent}
+          </EditableSection>
+        )}
 
         {/* Key GEO representatives in the country */}
         <KeyRepresentativesSection countryData={countryData} />

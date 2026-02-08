@@ -14,6 +14,7 @@ import { ComponentType } from 'react';
  */
 export type ComponentCategory =
   | 'hero'
+  | 'capacity-building'
   | 'explore'
   | 'stakeholders'
   | 'mechanisms'

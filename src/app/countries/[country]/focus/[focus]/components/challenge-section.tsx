@@ -78,12 +78,12 @@ function ChallengeCard({ challenge, basePath }: ChallengeCardProps): JSX.Element
 
         <Link
           href={linkForResources}
-          className="mt-2 inline-block font-medium text-gray-800 transition hover:text-gray-900"
+          className="themed-link mt-2 inline-block font-medium text-gray-700 transition"
         >
           Explore resources →
         </Link>
       </div>
-      <div className="rounded-md bg-gray-100 p-5 transition group-hover:bg-gray-200/80">
+      <div className="hidden rounded-md bg-gray-100 p-5 transition group-hover:bg-gray-200/80 md:block">
         <ChallengeIcon className="flex h-6 w-6 items-center justify-center rounded-lg" />
       </div>
     </div>
@@ -111,8 +111,8 @@ export function ChallengeSection({
 
   // Rendering!
   return (
-    <section className="mt-10 px-4 py-12">
-      <div className="mx-auto max-w-7xl">
+    <section className="mt-10 py-12">
+      <div className="mx-auto max-w-7xl px-6">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
           {/* Header & Description */}
           <div>

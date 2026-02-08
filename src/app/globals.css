@@ -122,6 +122,10 @@
   color: var(--theme-primary, #1f2937);
 }
 
+.themed-muted {
+  color: color-mix(in srgb, var(--theme-primary, #526479) 60%, #6b7280);
+}
+
 .themed-link:hover {
   color: var(--theme-primary, #526479);
 }

@@ -79,6 +79,12 @@ export function ExplorePageContent({
   const [isSearching, setIsSearching] = useState(false);
   const [currentFacets, setCurrentFacets] = useState<FacetsResult>(facets);
 
+  // Preserve initial country facets so they never disappear when filtering
+  const [initialCountryFacets] = useState<FacetItem[]>(facets.country || []);
+
+  // Mobile filters toggle
+  const [showMobileFilters, setShowMobileFilters] = useState(false);
+
   // Suggestions state
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -112,8 +118,12 @@ export function ExplorePageContent({
   }, [currentFacets]);
 
   const countryFacetItems: FacetItem[] = useMemo(() => {
-    return currentFacets.country || [];
-  }, [currentFacets]);
+    const dynamicMap = new Map((currentFacets.country || []).map((f) => [f.value, f.count]));
+    return initialCountryFacets.map((f) => ({
+      value: f.value,
+      count: dynamicMap.get(f.value) ?? 0,
+    }));
+  }, [currentFacets, initialCountryFacets]);
 
   // Map challenge ID facets to titles for display
   const challengeFacetItems: FacetItem[] = useMemo(() => {
@@ -328,6 +338,12 @@ export function ExplorePageContent({
     selectedTags.length > 0 ||
     selectedCountries.length > 0;
 
+  const activeFilterCount =
+    selectedTypes.length +
+    selectedChallenges.length +
+    selectedTags.length +
+    selectedCountries.length;
+
   // Keyboard shortcut: Cmd/Ctrl+K to focus search
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -348,18 +364,21 @@ export function ExplorePageContent({
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <section className="relative min-h-[60vh] overflow-hidden bg-gradient-to-br from-blue-50 via-white to-gray-50">
+      <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-gray-50 lg:min-h-[60vh]">
         <div className="pointer-events-none fixed inset-0 h-full w-screen" style={{ zIndex: 0 }}>
           <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] opacity-40"></div>
         </div>
 
-        <div className="relative mx-auto max-w-7xl px-6 py-10 lg:py-20" style={{ zIndex: 1 }}>
+        <div
+          className="relative mx-auto max-w-7xl px-1 py-10 md:px-6 lg:py-20"
+          style={{ zIndex: 1 }}
+        >
           <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
             <div className="relative z-10 space-y-6">
               <div className="space-y-4">
                 <h1 className="font-bold tracking-tight">
                   <span
-                    className="mt-2 block text-5xl md:text-3xl lg:text-4xl"
+                    className="mt-2 block text-3xl md:text-4xl lg:text-5xl"
                     style={{ color: '#526479' }}
                   >
                     Content Explorer
@@ -382,7 +401,7 @@ export function ExplorePageContent({
           </div>
 
           {/* Search bar with suggestions */}
-          <div className="relative z-20 mt-16 flex w-full flex-col items-center">
+          <div className="relative z-20 mt-8 flex w-full flex-col items-center md:mt-16">
             <div className="relative w-full">
               <div className="relative rounded-2xl border border-gray-200/80 bg-white p-1.5 shadow-sm transition-all hover:border-gray-300 hover:shadow-md">
                 <input
@@ -470,10 +489,51 @@ export function ExplorePageContent({
         </div>
       </section>
 
-      <div className="results-section mx-auto -mt-16 max-w-7xl px-6 pb-12">
+      <div className="results-section mx-auto -mt-16 max-w-7xl px-1 pb-12 md:px-6">
         <div className="mt-8 grid gap-10 md:grid-cols-[230px_1fr]">
+          {/* Mobile filter toggle */}
+          <div className="md:hidden">
+            <button
+              onClick={() => setShowMobileFilters(!showMobileFilters)}
+              className="flex w-full items-center justify-between rounded-xl border border-gray-200 bg-white px-4 py-3 shadow-sm transition hover:border-gray-300"
+            >
+              <div className="flex items-center gap-2">
+                <svg
+                  className="h-5 w-5 text-gray-500"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"
+                  />
+                </svg>
+                <span className="text-sm font-semibold text-gray-900">Filters</span>
+                {activeFilterCount > 0 && (
+                  <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-gray-900 px-1.5 text-xs font-medium text-white">
+                    {activeFilterCount}
+                  </span>
+                )}
+              </div>
+              <svg
+                className={`h-5 w-5 text-gray-400 transition-transform ${showMobileFilters ? 'rotate-180' : ''}`}
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+          </div>
+
           {/* Facets */}
-          <aside className="h-fit rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+          <aside
+            className={`h-fit rounded-xl border border-gray-200 bg-white p-6 shadow-sm ${showMobileFilters ? 'block' : 'hidden'} md:block`}
+          >
             <div className="mb-4 flex items-center justify-between">
               <h2 className="text-lg font-semibold text-gray-900">Filters</h2>
               <button
@@ -590,7 +650,7 @@ export function ExplorePageContent({
                 {resources.map((item) => (
                   <div
                     key={item.id}
-                    className="glass-card group flex items-center justify-between p-6"
+                    className="glass-card group flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:justify-between"
                   >
                     <div className="flex-1 space-y-3">
                       <div className="mb-2 flex items-center space-x-2 text-sm">
@@ -610,7 +670,7 @@ export function ExplorePageContent({
                           {item.name}
                         </a>
                       </h3>
-                      <p className="mt-1 text-sm text-gray-600">{item.description}</p>
+                      <p className="mt-1 line-clamp-3 text-sm text-gray-600">{item.description}</p>
 
                       <div className="mt-4 flex items-center gap-4">
                         {item.overview && (
@@ -635,7 +695,7 @@ export function ExplorePageContent({
                         </a>
                       </div>
                     </div>
-                    <div className="rounded-md bg-gray-100 p-5 transition group-hover:bg-gray-200/80">
+                    <div className="hidden shrink-0 rounded-md bg-gray-100 p-5 transition group-hover:bg-gray-200/80 sm:block">
                       {item.icon && (
                         <Image
                           src={getAssetPath(item.icon)}
@@ -653,11 +713,11 @@ export function ExplorePageContent({
 
             {/* Enhanced Pagination */}
             {totalPages > 1 && (
-              <div className="mt-10 flex items-center justify-center gap-2">
+              <div className="mt-10 flex items-center justify-center gap-1 sm:gap-2">
                 <button
                   disabled={currentPage === 1}
                   onClick={() => handlePageChange(currentPage - 1)}
-                  className="flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition-all hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-white"
+                  className="flex items-center gap-1 rounded-lg border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-700 transition-all hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-white sm:gap-2 sm:px-4"
                 >
                   <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path
@@ -667,11 +727,11 @@ export function ExplorePageContent({
                       d="M15 19l-7-7 7-7"
                     />
                   </svg>
-                  Previous
+                  <span className="hidden sm:inline">Previous</span>
                 </button>
 
                 {/* Page Numbers */}
-                <div className="flex items-center gap-1">
+                <div className="flex items-center gap-0.5 sm:gap-1">
                   {Array.from({ length: totalPages }, (_, i) => i + 1)
                     .filter((page) => {
                       // Show first page, last page, current page, and pages around current
@@ -686,10 +746,12 @@ export function ExplorePageContent({
                       const showEllipsisBefore = index > 0 && page - array[index - 1] > 1;
                       return (
                         <React.Fragment key={page}>
-                          {showEllipsisBefore && <span className="px-2 text-gray-400">...</span>}
+                          {showEllipsisBefore && (
+                            <span className="px-1 text-gray-400 sm:px-2">...</span>
+                          )}
                           <button
                             onClick={() => handlePageChange(page)}
-                            className={`h-10 w-10 rounded-lg text-sm font-medium transition-all ${
+                            className={`h-8 w-8 rounded-lg text-sm font-medium transition-all sm:h-10 sm:w-10 ${
                               currentPage === page
                                 ? 'text-white'
                                 : 'bg-white text-gray-700 hover:bg-gray-100'
@@ -708,9 +770,9 @@ export function ExplorePageContent({
                 <button
                   disabled={currentPage >= totalPages}
                   onClick={() => handlePageChange(currentPage + 1)}
-                  className="flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition-all hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-white"
+                  className="flex items-center gap-1 rounded-lg border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-700 transition-all hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-white sm:gap-2 sm:px-4"
                 >
-                  Next
+                  <span className="hidden sm:inline">Next</span>
                   <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path
                       strokeLinecap="round"

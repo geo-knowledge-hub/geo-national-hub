@@ -49,11 +49,13 @@ export const FacetGroup: React.FC<FacetGroupProps> = ({
     <div className="flex flex-col gap-1">
       {items.map((item) => {
         const isSelected = selected.includes(item.value);
+        const isEmpty = item.count === 0 && !isSelected;
+
         return (
           <button
             key={item.value}
             onClick={() => onToggle(item.value)}
-            className="group flex w-full items-center gap-2.5 rounded-lg px-2 py-2 text-left transition-colors hover:bg-gray-50"
+            className={`group flex w-full items-center gap-2.5 rounded-lg px-2 py-2 text-left transition-colors hover:bg-gray-50 ${isEmpty ? 'opacity-40' : ''}`}
           >
             {/* Checkbox indicator */}
             <div

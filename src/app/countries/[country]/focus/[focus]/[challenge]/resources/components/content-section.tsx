@@ -59,8 +59,8 @@ export function ContentSection({ challenge, resources }: ContentSectionProps): J
 
   // Rendering!
   return (
-    <section className="mt-10 px-4 py-12">
-      <div className="mx-auto max-w-7xl">
+    <section className="mt-10 py-12">
+      <div className="mx-auto max-w-7xl px-6">
         {/* Title + Search Bar Container */}
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
           {/* Header & Description */}

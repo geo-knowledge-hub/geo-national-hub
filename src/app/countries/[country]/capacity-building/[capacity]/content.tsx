@@ -18,6 +18,10 @@ import { BackButton } from '@components/global';
 import type { Country } from '@content-types/content';
 
 import { useTheme } from '../../context/theme-context';
+import { useEditMode } from '../../context/edit-mode';
+import { componentRegistry } from '../../registry/components';
+import { renderCapacityBuildingComponent } from '../../utils/capacity-building-renderer';
+import { EditableSection } from '../../components';
 import { CapacityBuildingSection } from './components';
 
 import imageCapacityBuildingConcept from '@public/content/concepts/capacity-building/concept.svg';
@@ -39,35 +43,43 @@ interface CapacityBuildingPageContentProps {
 export function CapacityBuildingPageContent({
   countryData,
 }: CapacityBuildingPageContentProps): JSX.Element {
+  const { theme } = useTheme();
+  const { componentConfigs, previewVariant } = useEditMode();
+  const activeComponentConfigs = componentConfigs.length > 0 ? componentConfigs : undefined;
+
+  // Get preview variant for capacity building if it's being previewed
+  const cbPreviewVariant =
+    previewVariant?.componentId === 'capacity-building' ? previewVariant.variantId : undefined;
+
+  // Define hero component
+  const capacityBuildingComponent = renderCapacityBuildingComponent({
+    countryId: countryData.id,
+    countryTitle: countryData.title,
+    activities: countryData.capacity_building_activities,
+    componentConfigs: activeComponentConfigs,
+    overrideVariant: cbPreviewVariant,
+    showExploreLink: false,
+  });
+
   return (
-    <div>
-      <div className="mx-auto max-w-7xl px-6 py-16">
-        <div className="mb-20">
-          <BackButton />
+    <div className="relative -mt-24 min-h-screen pt-24">
+      <div className="mx-auto max-w-7xl px-6 py-10">
+        <div className="mb-8">
+          <BackButton variant="hero" accentColor={theme.primary_color} />
         </div>
 
-        {/* Goal (Hero block) */}
-        <section className="mb-20">
-          <div className="grid items-center gap-10 md:grid-cols-[2fr_1fr]">
-            <div>
-              <h1 className="themed-title mb-4 text-4xl font-extrabold md:text-5xl">
-                Capacity building activities
-              </h1>
-              <p className="mb-6 text-lg">
-                Explore capacity building activities in {countryData.title}
-              </p>
-            </div>
-            <div className="hidden justify-center md:flex">
-              <Image
-                src={imageCapacityBuildingConcept}
-                alt="Capacity Building logo"
-                width={250}
-                height={250}
-              />
-            </div>
-          </div>
-        </section>
+        {/* Customizable capacity building hero section */}
+        {countryData.capacity_building_activities?.length > 0 && (
+          <EditableSection
+            componentId="capacity-building"
+            componentName="Capacity Building"
+            componentRegistry={componentRegistry['capacity-building']}
+          >
+            {capacityBuildingComponent}
+          </EditableSection>
+        )}
 
+        {/* Activities list */}
         <CapacityBuildingSection countryData={countryData} />
       </div>
     </div>

@@ -61,7 +61,7 @@ export const HeroSearch: React.FC<{
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] opacity-40"></div>
       </div>
 
-      <div className="relative mx-auto max-w-7xl px-6 py-10 lg:py-20" style={{ zIndex: 1 }}>
+      <div className="relative mx-auto max-w-7xl px-2 py-10 md:px-6 lg:py-20" style={{ zIndex: 1 }}>
         <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
           {/* Left side  */}
           <div className="relative z-10 space-y-8">

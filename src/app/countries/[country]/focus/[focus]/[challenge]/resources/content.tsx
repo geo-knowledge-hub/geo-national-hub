@@ -11,6 +11,8 @@
 
 import React, { JSX } from 'react';
 
+import Link from 'next/link';
+
 import { HeroTopic } from '@components/global';
 
 import type { Country, FocusAreaChallenge, Resource } from '@content-types/content';
@@ -39,7 +41,7 @@ export function ResourcePageContent({
   resources,
 }: ResourcePageContentProps): JSX.Element {
   return (
-    <div className={'mt-10'}>
+    <div className="relative -mt-24 min-h-screen pt-34">
       <HeroTopic
         title={`${challengeData.title}`}
         description={`EO Applications in ${countryData.title}`}
@@ -50,6 +52,25 @@ export function ResourcePageContent({
 
       {/* Resources */}
       <ContentSection resources={resources} challenge={challengeData} />
+
+      {/* Bottom CTA — mobile only */}
+      <div className="mx-auto max-w-7xl px-6 py-10 text-center md:hidden">
+        <p className="mb-3 text-sm text-gray-600">Interested in other countries?</p>
+        <Link
+          href="/explore"
+          className="glass-button inline-flex items-center gap-2 rounded-xl border border-gray-300 px-5 py-2.5 text-sm font-medium shadow-sm transition-all hover:border-gray-400 hover:shadow-md"
+        >
+          Explore more content
+          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M14 5l7 7m0 0l-7 7m7-7H3"
+            />
+          </svg>
+        </Link>
+      </div>
     </div>
   );
 }

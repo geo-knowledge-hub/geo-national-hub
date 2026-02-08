@@ -9,6 +9,7 @@
 
 import type { ComponentRegistry, ComponentRegistryEntry } from '../types/component-registry';
 import { HeroClassic, HeroConnections, HeroBackground, HeroWide } from '../components/hero';
+import { CapacityBuildingClassic, CapacityBuildingShowcase } from '../components/capacity-building';
 
 /**
  * Hero component registry entry
@@ -52,10 +53,38 @@ export const heroRegistry: ComponentRegistryEntry = {
 };
 
 /**
+ * Capacity building component registry entry
+ * Contains all capacity building variants with their actual component references
+ */
+export const capacityBuildingRegistry: ComponentRegistryEntry = {
+  componentId: 'capacity-building',
+  componentName: 'Capacity Building',
+  category: 'capacity-building',
+  defaultVariant: 'classic',
+  variants: [
+    {
+      id: 'classic',
+      name: 'Classic',
+      description: 'CTA card with illustration linking to activities page',
+      category: 'capacity-building',
+      component: CapacityBuildingClassic,
+    },
+    {
+      id: 'showcase',
+      name: 'Showcase',
+      description: 'Hexagonal image grid showcasing activity logos',
+      category: 'capacity-building',
+      component: CapacityBuildingShowcase,
+    },
+  ],
+};
+
+/**
  * Main component registry
  */
 export const componentRegistry: ComponentRegistry = {
   hero: heroRegistry,
+  'capacity-building': capacityBuildingRegistry,
 };
 
 /**

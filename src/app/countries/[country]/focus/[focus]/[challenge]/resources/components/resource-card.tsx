@@ -43,7 +43,7 @@ export function ResourceCard({ resource }: ResourceCardProps): JSX.Element {
     <>
       <div className="glass-card group flex items-center justify-between p-6">
         <div className="flex-1 space-y-3">
-          <div className="mb-2 flex items-center space-x-2 text-sm">
+          <div className="mb-2 flex flex-wrap items-center gap-2 text-sm">
             <span className="rounded-full bg-gray-900 px-3 py-1 text-xs font-medium text-white">
               Open
             </span>
@@ -60,13 +60,13 @@ export function ResourceCard({ resource }: ResourceCardProps): JSX.Element {
               {resource.name}
             </Link>
           </h3>
-          <p className="mt-1 text-sm text-gray-600">{resource.description}</p>
+          <p className="mt-1 line-clamp-3 text-sm text-gray-600">{resource.description}</p>
 
           <div className="mt-4 flex items-center gap-4">
             {resource.overview && (
               <button
                 onClick={() => setIsOpen(true)}
-                className="cursor-pointer text-sm font-medium text-gray-700 transition hover:text-gray-900 focus:outline-none"
+                className="themed-link cursor-pointer text-sm font-medium text-gray-700 transition focus:outline-none"
               >
                 Overview
               </button>
@@ -74,13 +74,13 @@ export function ResourceCard({ resource }: ResourceCardProps): JSX.Element {
             <Link
               href={resource.link}
               target="_blank"
-              className="text-sm font-medium text-gray-700 transition hover:text-gray-900 focus:outline-none"
+              className="themed-link text-sm font-medium text-gray-700 transition focus:outline-none"
             >
               Access →
             </Link>
           </div>
         </div>
-        <div className="rounded-md bg-gray-100 p-5 transition group-hover:bg-gray-200/80">
+        <div className="hidden rounded-md bg-gray-100 p-5 transition group-hover:bg-gray-200/80 md:block">
           {resource.icon && (
             <Image
               src={getAssetPath(resource.icon)}
