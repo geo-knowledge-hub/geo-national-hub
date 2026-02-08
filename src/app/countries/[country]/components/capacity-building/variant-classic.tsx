@@ -52,7 +52,7 @@ export function CapacityBuildingClassic({
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
           <div>
             <h2 className="themed-title mb-2 text-3xl font-bold">Learn</h2>
-            <p className="themed-muted mb-4">
+            <p className="text-gray-600 mb-4">
               Learn more and grow with capacity building content from {countryTitle}
             </p>
           </div>
