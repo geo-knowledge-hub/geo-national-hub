@@ -8,7 +8,7 @@
  */
 
 import React, { JSX } from 'react';
-import { Resource } from '@data/content/resources';
+import type { Resource } from '@content-types/content';
 
 /**
  * Define the properties for the ``ResourceMetadataModal`` component.
@@ -29,12 +29,16 @@ interface ResourceMetadataModalProps {
  * @param {Resource} props.data - Modal content.
  * @returns {JSX.Element} The rendered Badge component.
  */
-export const ResourceMetadataModal: React.FC<ResourceMetadataModalProps> = ({
+export function ResourceMetadataModal({
   open,
   onClose,
   data,
-}: ResourceMetadataModalProps): JSX.Element | null => {
+}: ResourceMetadataModalProps): JSX.Element | null {
   if (!open) return null;
+
+  const geoGWP = data.geo_gwp;
+  const targetAudiences = data.target_audiences;
+  const geoThemes = data.geo_themes;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm">
@@ -93,14 +97,14 @@ export const ResourceMetadataModal: React.FC<ResourceMetadataModalProps> = ({
               <h4 className="mb-1 font-semibold text-gray-700">
                 Associated GEO Work Programme Activity
               </h4>
-              <p>{data.geoGWP || 'Not specified'}</p>
+              <p>{geoGWP || 'Not specified'}</p>
             </div>
 
             <div>
               <h4 className="mb-1 font-semibold text-gray-700">Target Audience</h4>
               <p>
-                {data?.targetAudiences !== undefined ? (
-                  <>{data?.targetAudiences.join(', ')}</>
+                {targetAudiences !== undefined ? (
+                  <>{targetAudiences.join(', ')}</>
                 ) : (
                   'Not specified'
                 )}
@@ -110,8 +114,8 @@ export const ResourceMetadataModal: React.FC<ResourceMetadataModalProps> = ({
             <div className="md:col-span-2">
               <h4 className="mb-1 font-semibold text-gray-700">SDGs / GEO Focus Areas</h4>
               <div className="mt-2 flex flex-wrap gap-4">
-                {data?.geoThemes
-                  ? data.geoThemes.map((theme, idx) => (
+                {geoThemes
+                  ? geoThemes.map((theme, idx) => (
                       <div key={idx} className="flex items-center space-x-2">
                         <span>{theme}</span>
                       </div>
@@ -124,4 +128,4 @@ export const ResourceMetadataModal: React.FC<ResourceMetadataModalProps> = ({
       </div>
     </div>
   );
-};
+}

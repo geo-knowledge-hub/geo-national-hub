@@ -91,3 +91,135 @@
 .animate-fade-in {
   animation: fade-in 0.3s ease-out;
 }
+
+@keyframes pulse-border {
+  0%,
+  100% {
+    box-shadow:
+      0 1px 3px rgba(0, 0, 0, 0.04),
+      0 0 0 1px rgba(82, 100, 121, 0.08);
+  }
+  50% {
+    box-shadow:
+      0 1px 3px rgba(0, 0, 0, 0.04),
+      0 0 0 2px rgba(82, 100, 121, 0.12),
+      0 0 8px rgba(82, 100, 121, 0.06);
+  }
+}
+
+.animate-pulse-border {
+  animation: pulse-border 3.5s ease-in-out infinite;
+}
+
+/* Theme-aware utility classes */
+.themed-input:focus {
+  border-color: var(--theme-primary, #526479);
+  box-shadow: 0 0 0 1px rgba(82, 100, 121, 0.2);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--theme-primary, #526479) 20%, transparent);
+}
+
+.themed-title {
+  color: var(--theme-primary, #1f2937);
+}
+
+.themed-muted {
+  color: color-mix(in srgb, var(--theme-primary, #526479) 60%, #6b7280);
+}
+
+.themed-link:hover {
+  color: var(--theme-primary, #526479);
+}
+
+.themed-border {
+  border-color: var(--theme-primary, #526479);
+}
+
+.themed-border-accent {
+  border-color: var(--theme-accent, #6b7d9a);
+}
+
+.themed-bg {
+  background-color: var(--theme-primary, #526479);
+}
+
+.themed-bg-accent {
+  background-color: var(--theme-accent, #6b7d9a);
+}
+
+.themed-pagination-active {
+  border-color: var(--theme-primary, #526479);
+  color: var(--theme-primary, #1f2937);
+}
+
+/* Group hover for cards */
+.group:hover .themed-link {
+  color: var(--theme-primary, #526479);
+}
+
+/* ========================================
+   Glass Effect Utility Classes
+   Standardized UI for non-themed elements
+   ======================================== */
+
+/* Glass Input - for search fields and text inputs (uses theme-derived gradient) */
+.glass-input {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--theme-primary, #526479) 4%, var(--theme-surface, #ffffff)) 0%,
+    var(--theme-surface, #ffffff) 100%
+  );
+  border: 1px solid rgba(229, 231, 235, 0.8);
+  border-radius: 0.625rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s ease;
+}
+
+.glass-input:focus {
+  border-color: var(--theme-primary, #526479);
+  box-shadow: 0 0 0 2px rgba(82, 100, 121, 0.08);
+  outline: none;
+}
+
+/* Glass Button - for system UI buttons (uses theme-derived gradient) */
+.glass-button {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--theme-primary, #526479) 4%, var(--theme-surface, #ffffff)) 0%,
+    var(--theme-surface, #ffffff) 100%
+  );
+  border: 1px solid rgba(229, 231, 235, 0.8);
+  border-radius: 0.625rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s ease;
+}
+
+.glass-button:hover {
+  border-color: rgba(209, 213, 219, 1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+}
+
+/* Glass Panel - for floating panels and modals */
+.glass-panel {
+  background-color: #ffffff;
+  border: 1px solid rgba(229, 231, 235, 0.8);
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Glass Card - for feature cards and content cards (uses theme-derived gradient) */
+.glass-card {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--theme-primary, #526479) 4%, var(--theme-surface, #ffffff)) 0%,
+    var(--theme-surface, #ffffff) 100%
+  );
+  border: 1px solid rgba(229, 231, 235, 0.8);
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s ease;
+}
+
+.glass-card:hover {
+  border-color: rgba(209, 213, 219, 1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}

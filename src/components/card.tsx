@@ -13,6 +13,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { StaticImageData } from 'next/image';
 
+import { getAssetPath } from '@lib/utils';
+
 interface FeatureCardProps {
   image: StaticImageData | string;
   imageAlt: string;
@@ -42,11 +44,17 @@ export const FeatureCard: React.FC<FeatureCardProps> = ({
   imageClass = 'mb-6 h-28 w-28',
 }) => {
   const content = (
-    <div className="flex h-full w-full cursor-pointer flex-col items-center justify-between rounded-xl bg-white p-8 shadow-sm transition hover:shadow-md">
+    <div className="glass-card group flex h-full w-full cursor-pointer flex-col items-center justify-between p-8">
       <div className={imageClass}>
-        <Image src={image} alt={imageAlt} className="h-full w-full object-contain" />
+        <Image
+          src={typeof image === 'string' ? getAssetPath(image) : image}
+          alt={imageAlt}
+          width={112}
+          height={112}
+          className="h-full w-full object-contain"
+        />
       </div>
-      <h3 className="flex items-center gap-2 text-center text-sm font-semibold text-gray-900">
+      <h3 className="themed-link flex items-center gap-2 text-center text-sm font-semibold text-gray-900 transition-colors">
         {title}
       </h3>
     </div>
@@ -85,20 +93,18 @@ export const CallToActionCard: React.FC<CallToActionCardProps> = ({
   illustrationAlt,
 }) => {
   return (
-    <div
-      className={`flex h-full w-full flex-col items-center justify-between rounded-xl bg-white p-8 shadow-sm transition hover:shadow-md`}
-    >
+    <div className="glass-card flex h-full w-full flex-col items-center justify-between p-8">
       <div className="grid w-full items-center gap-8 md:grid-cols-[2fr_1fr]">
         <div>
           {subtitle && (
-            <span className="text-sm font-semibold text-pink-500 uppercase">{subtitle}</span>
+            <span className="themed-title text-sm font-semibold uppercase">{subtitle}</span>
           )}
           <h2 className="mt-2 text-2xl font-bold text-gray-900 md:text-2xl">{title}</h2>
           <p className="mt-4 text-gray-700">{description}</p>
           <a
             href={buttonLink}
             target={buttonLinkTarget}
-            className="mt-6 inline-block rounded-full bg-gray-900 px-6 py-3 text-white shadow-lg transition hover:bg-gray-800"
+            className="themed-bg mt-6 inline-block rounded-xl px-6 py-3 text-white shadow-md transition hover:opacity-90"
           >
             {buttonText}
           </a>
@@ -106,7 +112,7 @@ export const CallToActionCard: React.FC<CallToActionCardProps> = ({
         <div className="flex items-center justify-end">
           {illustration && (
             <Image
-              src={illustration}
+              src={typeof illustration === 'string' ? getAssetPath(illustration) : illustration}
               alt={illustrationAlt || ''}
               width={320}
               height={320}

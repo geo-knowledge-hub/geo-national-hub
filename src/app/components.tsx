@@ -12,9 +12,9 @@
 import React, { JSX, useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 
 import logoGKH from '@public/images/logo-blue.svg';
-import db from '@data/db';
 
 /**
  * Properties of the ``NavItem`` .
@@ -32,7 +32,6 @@ interface HeaderProps {
   logoSrc: string;
   logoAlt: string;
   navItems: NavItem[];
-  contactLink: string;
 }
 
 /**
@@ -62,7 +61,7 @@ export const HeroSearch: React.FC<{
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] opacity-40"></div>
       </div>
 
-      <div className="relative mx-auto max-w-7xl px-6 py-10 lg:py-20" style={{ zIndex: 1 }}>
+      <div className="relative mx-auto max-w-7xl px-2 py-10 md:px-6 lg:py-20" style={{ zIndex: 1 }}>
         <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
           {/* Left side  */}
           <div className="relative z-10 space-y-8">
@@ -101,16 +100,21 @@ export const HeroSearch: React.FC<{
                 href={'https://gkhub.earthobservations.org/'}
                 target={'_blank'}
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm transition-all hover:bg-gray-50 hover:shadow-md"
+                className="glass-button inline-flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-gray-700 transition-all hover:scale-105"
               >
                 <Image src={logoGKH} alt="Global GKH icon" className="h-4 w-4" />
                 Global GKH
               </a>
               <button
                 onClick={() => setShowInfo(!showInfo)}
-                className="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm transition-all hover:bg-gray-50 hover:shadow-md"
+                className="glass-button inline-flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-gray-700 transition-all hover:scale-105"
               >
-                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg
+                  className="h-4 w-4 text-gray-500"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -411,7 +415,7 @@ export const HeroSearch: React.FC<{
         {/* Search bar */}
         <div className="search-section relative z-10 mt-32 flex flex-col items-center">
           <div className="w-full max-w-4xl">
-            <div className="hover:shadow-3xl relative rounded-2xl bg-white/95 p-1.5 shadow-2xl ring-2 ring-gray-200/60 backdrop-blur-md transition-all hover:ring-[#526479]/40">
+            <div className="relative rounded-2xl border border-gray-200/80 bg-white p-1.5 shadow-sm transition-all hover:border-gray-300 hover:shadow-md">
               <input
                 type="text"
                 id="search-input"
@@ -451,15 +455,51 @@ export const HeroSearch: React.FC<{
  * @param {string} props.logoSrc - Logo image address.
  * @param {string} props.logoAlt - Logo image alternative text.
  * @param {NavItem} props.navItems - Navigation items.
- * @param {string} props.contactLink - Contact link / email address.
  * @returns {JSX.Element} The rendered Header component.
  */
 export const Header: React.FC<HeaderProps> = ({
   logoSrc,
   logoAlt,
   navItems,
-  contactLink,
 }: HeaderProps): JSX.Element => {
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
+
+  // Check authentication status on mount and route changes
+  useEffect(() => {
+    async function checkAuth() {
+      try {
+        const response = await fetch('/national/api/admin/me', {
+          method: 'GET',
+          credentials: 'include',
+        });
+        if (response.ok) {
+          const data = await response.json();
+          setIsAuthenticated(data.authenticated === true);
+        } else {
+          setIsAuthenticated(false);
+        }
+      } catch {
+        setIsAuthenticated(false);
+      }
+    }
+    checkAuth();
+  }, [pathname]);
+
+  // Close mobile menu when route changes
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [pathname]);
+
+  // Check if a link is active
+  const isActive = (href: string) => {
+    if (href === '/') {
+      return pathname === '/';
+    }
+    return pathname.startsWith(href);
+  };
+
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-gray-200 bg-white/70 backdrop-blur-md">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -468,43 +508,121 @@ export const Header: React.FC<HeaderProps> = ({
           <div className="flex items-center">
             <Link href="/" passHref>
               <div className="flex cursor-pointer items-center space-x-2">
-                <Image src={logoSrc} alt={logoAlt} height={64} />
+                <Image src={logoSrc} alt={logoAlt} height={72} />
               </div>
             </Link>
           </div>
 
-          {/* Navigation */}
-          <nav className="hidden items-center space-x-10 md:flex">
-            {navItems.map((item, index) =>
-              item.external ? (
-                <a
-                  key={index}
-                  href={item.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-medium text-gray-700 hover:text-gray-900"
+          {/* Desktop Navigation */}
+          <nav className="hidden items-center gap-2 md:flex">
+            {navItems.map((item, index) => (
+              <Link key={index} href={item.href} passHref>
+                <span
+                  className={`relative cursor-pointer rounded-md px-4 py-2 text-base font-medium transition-colors ${
+                    isActive(item.href)
+                      ? 'bg-gray-100 text-gray-900'
+                      : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
+                  }`}
                 >
                   {item.label}
-                </a>
+                  {isActive(item.href) && (
+                    <span className="absolute bottom-0 left-1/2 h-0.5 w-8 -translate-x-1/2 rounded-full bg-gray-900" />
+                  )}
+                </span>
+              </Link>
+            ))}
+          </nav>
+
+          {/* Mobile Menu Button */}
+          <div className="flex items-center gap-4 md:hidden">
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="rounded-md p-2 text-gray-700 hover:bg-gray-100"
+              aria-label="Toggle menu"
+            >
+              {isMobileMenuOpen ? (
+                <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
               ) : (
+                <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                </svg>
+              )}
+            </button>
+          </div>
+
+          {/* Auth Button */}
+          <div className="flex items-center space-x-4">
+            {isAuthenticated === null ? (
+              // Loading state
+              <div className="h-10 w-20 animate-pulse rounded-full bg-gray-200" />
+            ) : isAuthenticated ? (
+              // Logged in
+              <a
+                href="/national/admin/logout"
+                className="flex items-center gap-2 rounded-full bg-gray-900 px-4 py-2 text-white transition hover:bg-gray-800"
+              >
+                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                  />
+                </svg>
+                Logout
+              </a>
+            ) : (
+              // Not logged in - show Login
+              <Link
+                href="/admin/login"
+                className="flex items-center gap-2 rounded-full bg-gray-900 px-4 py-2 text-white transition hover:bg-gray-800"
+              >
+                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
+                  />
+                </svg>
+                Login
+              </Link>
+            )}
+          </div>
+        </div>
+
+        {/* Mobile Menu */}
+        {isMobileMenuOpen && (
+          <div className="border-t border-gray-200 bg-white md:hidden">
+            <div className="space-y-1 px-2 pt-2 pb-4">
+              {navItems.map((item, index) => (
                 <Link key={index} href={item.href} passHref>
-                  <span className="cursor-pointer font-medium text-gray-700 hover:text-gray-900">
+                  <span
+                    className={`block cursor-pointer rounded-md px-3 py-2 text-sm font-medium ${
+                      isActive(item.href)
+                        ? 'bg-gray-100 text-gray-900'
+                        : 'text-gray-700 hover:bg-gray-50'
+                    }`}
+                  >
                     {item.label}
                   </span>
                 </Link>
-              ),
-            )}
-          </nav>
-
-          <div className="flex items-center space-x-4">
-            <a
-              href={contactLink}
-              className="rounded-full bg-gray-900 px-4 py-2 text-white transition hover:bg-gray-800"
-            >
-              Contact
-            </a>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </header>
   );
