@@ -138,38 +138,3 @@ export async function getCountryChallengesAction(
     };
   }
 }
-
-/**
- * Gets search suggestions based on prefix matching (autocomplete)
- */
-export async function getSuggestionsAction(
-  prefix: string,
-  limit: number = 5,
-): Promise<ActionResponse<string[]>> {
-  try {
-    const suggestions = await getSuggestions(prefix, limit);
-    return { success: true, data: suggestions };
-  } catch (error) {
-    return {
-      success: false,
-      error: error instanceof Error ? error.message : 'Failed to fetch suggestions',
-    };
-  }
-}
-
-/**
- * Gets typo-corrected query suggestion when original search has no results
- */
-export async function getTypoCorrectionAction(
-  query: string,
-): Promise<ActionResponse<string | null>> {
-  try {
-    const correctedQuery = await getTypoCorrectedQuery(query);
-    return { success: true, data: correctedQuery };
-  } catch (error) {
-    return {
-      success: false,
-      error: error instanceof Error ? error.message : 'Failed to get typo correction',
-    };
-  }
-}

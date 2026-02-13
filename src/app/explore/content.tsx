@@ -15,11 +15,7 @@ import Image from 'next/image';
 
 import { ResourceMetadataModal } from '@components/global';
 
-import {
-  searchResourcesAction,
-  getSuggestionsAction,
-  getTypoCorrectionAction,
-} from '@lib/typesense/actions';
+import { searchResourcesAction } from '@lib/typesense/actions';
 
 import logoExplorer from '@public/content/concepts/explorer/explore.svg';
 
@@ -85,14 +81,8 @@ export function ExplorePageContent({
   // Mobile filters toggle
   const [showMobileFilters, setShowMobileFilters] = useState(false);
 
-  // Suggestions state
-  const [suggestions, setSuggestions] = useState<string[]>([]);
-  const [showSuggestions, setShowSuggestions] = useState(false);
-  const [suggestedQuery, setSuggestedQuery] = useState<string | null>(null);
-
   const searchInputRef = useRef<HTMLInputElement>(null);
   const debounceRef = useRef<NodeJS.Timeout | null>(null);
-  const suggestionsRef = useRef<NodeJS.Timeout | null>(null);
 
   // Build challenge title to ID map for filtering - memoized to prevent recreation
   const challengeMap = useMemo(() => {
@@ -219,67 +209,6 @@ export function ExplorePageContent({
     challengeIdsFromTags,
   ]);
 
-  /**
-   * Fetch suggestions as user types (autocomplete)
-   */
-  useEffect(() => {
-    // Clear previous timeout
-    if (suggestionsRef.current) {
-      clearTimeout(suggestionsRef.current);
-    }
-
-    // Don't fetch suggestions if query is too short
-    if (query.trim().length < 2) {
-      setSuggestions([]);
-      setShowSuggestions(false);
-      return;
-    }
-
-    // Debounce suggestions fetch (shorter delay than search)
-    suggestionsRef.current = setTimeout(async () => {
-      try {
-        const response = await getSuggestionsAction(query, 5);
-        if (response.success && response.data) {
-          setSuggestions(response.data);
-          setShowSuggestions(response.data.length > 0);
-        }
-      } catch (error) {
-        console.error('Suggestions error:', error);
-      }
-    }, 150);
-
-    return () => {
-      if (suggestionsRef.current) {
-        clearTimeout(suggestionsRef.current);
-      }
-    };
-  }, [query]);
-
-  /**
-   * Fetch typo correction when search returns no results
-   */
-  useEffect(() => {
-    // Only check for typo correction when there are no results and we have a query
-    if (totalFound === 0 && query.trim().length >= 2 && !isSearching) {
-      const fetchTypoCorrection = async () => {
-        try {
-          const response = await getTypoCorrectionAction(query);
-          if (response.success && response.data) {
-            setSuggestedQuery(response.data);
-          } else {
-            setSuggestedQuery(null);
-          }
-        } catch (error) {
-          console.error('Typo correction error:', error);
-          setSuggestedQuery(null);
-        }
-      };
-      fetchTypoCorrection();
-    } else {
-      setSuggestedQuery(null);
-    }
-  }, [totalFound, query, isSearching]);
-
   const toggleSelection = (
     value: string,
     state: string[],
@@ -304,31 +233,11 @@ export function ExplorePageContent({
     setSelectedTags([]);
     setSelectedCountries([]);
     setCurrentPage(1);
-    setSuggestions([]);
-    setShowSuggestions(false);
-    setSuggestedQuery(null);
   };
 
   const clearSearch = () => {
     setQuery('');
     setCurrentPage(1);
-    setSuggestions([]);
-    setShowSuggestions(false);
-  };
-
-  const selectSuggestion = (suggestion: string) => {
-    setQuery(suggestion);
-    setShowSuggestions(false);
-    setSuggestions([]);
-    setCurrentPage(1);
-  };
-
-  const applyTypoCorrection = () => {
-    if (suggestedQuery) {
-      setQuery(suggestedQuery);
-      setSuggestedQuery(null);
-      setCurrentPage(1);
-    }
   };
 
   const hasActiveFilters =
@@ -364,7 +273,7 @@ export function ExplorePageContent({
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-gray-50 lg:min-h-[60vh]">
+      <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-gray-50 lg:min-h-[40vh]">
         <div className="pointer-events-none fixed inset-0 h-full w-screen" style={{ zIndex: 0 }}>
           <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] opacity-40"></div>
         </div>
@@ -400,7 +309,7 @@ export function ExplorePageContent({
             </div>
           </div>
 
-          {/* Search bar with suggestions */}
+          {/* Search bar */}
           <div className="relative z-20 mt-8 flex w-full flex-col items-center md:mt-16">
             <div className="relative w-full">
               <div className="relative rounded-2xl border border-gray-200/80 bg-white p-1.5 shadow-sm transition-all hover:border-gray-300 hover:shadow-md">
@@ -412,13 +321,6 @@ export function ExplorePageContent({
                   onChange={(e) => {
                     setQuery(e.target.value);
                     setCurrentPage(1);
-                  }}
-                  onFocus={() => {
-                    if (suggestions.length > 0) setShowSuggestions(true);
-                  }}
-                  onBlur={() => {
-                    // Delay hiding to allow click on suggestion
-                    setTimeout(() => setShowSuggestions(false), 200);
                   }}
                   className="text-md block w-full rounded-xl border-0 bg-transparent p-4 pr-14 pl-4 font-medium text-gray-900 placeholder:text-gray-400 focus:ring-0 focus:outline-none"
                 />
@@ -456,34 +358,6 @@ export function ExplorePageContent({
                   </div>
                 )}
               </div>
-
-              {/* Suggestions dropdown */}
-              {showSuggestions && suggestions.length > 0 && (
-                <div className="absolute top-full right-0 left-0 z-50 mt-2 rounded-xl border border-gray-200 bg-white py-2 shadow-lg">
-                  {suggestions.map((suggestion, index) => (
-                    <button
-                      key={index}
-                      onClick={() => selectSuggestion(suggestion)}
-                      className="flex w-full items-center gap-3 px-4 py-2.5 text-left text-sm text-gray-700 transition-colors hover:bg-gray-50"
-                    >
-                      <svg
-                        className="h-4 w-4 text-gray-400"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                        />
-                      </svg>
-                      <span>{suggestion}</span>
-                    </button>
-                  ))}
-                </div>
-              )}
             </div>
           </div>
         </div>
@@ -586,22 +460,6 @@ export function ExplorePageContent({
 
             {resources.length === 0 && !isSearching && (
               <div className="mt-12 flex flex-col items-center justify-center py-16">
-                {/* Did you mean suggestion */}
-                {suggestedQuery && (
-                  <div className="mb-6 rounded-xl border border-blue-200 bg-blue-50 px-6 py-4">
-                    <p className="text-sm text-blue-800">
-                      Did you mean:{' '}
-                      <button
-                        onClick={applyTypoCorrection}
-                        className="font-semibold underline transition-colors hover:text-blue-600"
-                      >
-                        {suggestedQuery}
-                      </button>
-                      ?
-                    </p>
-                  </div>
-                )}
-
                 <div className="rounded-full bg-gray-100 p-6">
                   <svg
                     className="h-12 w-12 text-gray-400"

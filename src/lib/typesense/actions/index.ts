@@ -21,8 +21,6 @@ export {
   getResourceFacetsAction,
   getResourceCountAction,
   getCountryChallengesAction,
-  getSuggestionsAction,
-  getTypoCorrectionAction,
 } from './resources';
 
 // Reference data actions
