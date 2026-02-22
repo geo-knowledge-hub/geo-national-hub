@@ -65,7 +65,7 @@ export function CapacityBuildingPageContent({
     <div className="relative -mt-24 min-h-screen pt-24">
       <div className="mx-auto max-w-7xl px-6 py-10">
         <div className="mb-8">
-          <BackButton variant="hero" accentColor={theme.primary_color} />
+          <BackButton />
         </div>
 
         {/* Customizable capacity building hero section */}

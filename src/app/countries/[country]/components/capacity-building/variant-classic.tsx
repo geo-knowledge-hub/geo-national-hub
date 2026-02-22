@@ -42,7 +42,10 @@ export function CapacityBuildingClassic({
   activities,
   showExploreLink = true,
 }: CapacityBuildingClassicProps) {
-  if (!activities || activities.length === 0) return null;
+  // If no activities, return null
+  if (!activities || activities.length === 0) {
+    return null;
+  }
 
   const capacityBuildingPageLink = `${countryId}/capacity-building/activities`;
 

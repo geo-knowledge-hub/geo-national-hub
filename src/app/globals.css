@@ -233,3 +233,171 @@
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
+
+/* ========================================
+   Marketplace Utility Classes
+   Scoped design tokens for marketplace pages
+   ======================================== */
+
+/* Marketplace CSS custom properties — derived from country theme */
+.mp-wrapper {
+  --mp-accent: var(--theme-accent, var(--theme-primary, #526479));
+  --mp-accent-light: color-mix(in srgb, var(--mp-accent) 10%, #ffffff);
+  --mp-surface-alt: color-mix(in srgb, var(--theme-primary, #526479) 5%, #f8f9fb);
+  --mp-border: color-mix(in srgb, var(--theme-primary, #526479) 12%, #e5e7eb);
+}
+
+/* Marketplace accent colors */
+.mp-accent-bg {
+  background-color: var(--mp-accent);
+}
+
+.mp-accent-text {
+  color: var(--mp-accent);
+}
+
+.mp-accent-light-bg {
+  background-color: var(--mp-accent-light);
+}
+
+/* Marketplace card - extends glass-card with marketplace-specific hover */
+.mp-card {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--theme-primary, #526479) 3%, var(--theme-surface, #ffffff)) 0%,
+    var(--theme-surface, #ffffff) 100%
+  );
+  border: 1px solid rgba(229, 231, 235, 0.8);
+  border-left: 4px solid transparent;
+  border-radius: 0.75rem;
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.04),
+    0 1px 2px rgba(0, 0, 0, 0.02);
+  transition: all 220ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mp-card:hover {
+  border-left-color: var(--mp-accent);
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.08),
+    0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+/* Featured business banner */
+.mp-featured-banner {
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--theme-primary, #526479) 6%, #ffffff) 0%,
+    color-mix(in srgb, var(--theme-accent, #526479) 8%, #f8f9fb) 100%
+  );
+  border: 1px solid color-mix(in srgb, var(--theme-primary, #526479) 10%, #e5e7eb);
+  transition: all 220ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mp-featured-banner:hover {
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.06),
+    0 2px 6px rgba(0, 0, 0, 0.03);
+  border-color: color-mix(in srgb, var(--theme-primary, #526479) 20%, #e5e7eb);
+}
+
+/* Business detail hero */
+.mp-business-hero {
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--theme-primary, #526479) 6%, #ffffff) 0%,
+    color-mix(in srgb, var(--theme-accent, #526479) 10%, #f8f9fb) 50%,
+    color-mix(in srgb, var(--theme-primary, #526479) 4%, #ffffff) 100%
+  );
+  border: 1px solid color-mix(in srgb, var(--theme-primary, #526479) 10%, #e5e7eb);
+}
+
+/* Application modal */
+.mp-modal {
+  animation: mp-modal-enter 280ms ease-out;
+}
+
+@keyframes mp-modal-enter {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile bottom sheet for modal */
+@media (max-width: 767px) {
+  .mp-modal {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    max-height: 90vh;
+    max-width: 100%;
+    border-radius: 20px 20px 0 0;
+    animation: mp-modal-sheet-enter 280ms ease-out;
+  }
+
+  @keyframes mp-modal-sheet-enter {
+    from {
+      opacity: 0;
+      transform: translateY(100%);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+/* ========================================
+   Feedback Widget Utility Classes
+   ======================================== */
+
+/* Feedback confirmation modal */
+.feedback-modal {
+  animation: feedback-modal-enter 0.28s ease-out;
+}
+
+@keyframes feedback-modal-enter {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile bottom sheet for feedback modal */
+@media (max-width: 767px) {
+  .feedback-modal {
+    animation: feedback-sheet-enter 0.28s ease-out;
+  }
+
+  @keyframes feedback-sheet-enter {
+    from {
+      opacity: 0;
+      transform: translateY(100%);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .mp-card,
+  .mp-featured-banner,
+  .mp-modal,
+  .feedback-modal {
+    transition: none;
+    animation: none;
+  }
+}

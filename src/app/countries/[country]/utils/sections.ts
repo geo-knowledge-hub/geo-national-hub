@@ -33,6 +33,7 @@ export const sectionConfig: Record<string, SectionInfo> = {
   community: { id: 'community', label: 'Community', order: 4 },
   learn: { id: 'learn', label: 'Learn', order: 5 },
   representatives: { id: 'representatives', label: 'Representatives', order: 6 },
+  marketplace: { id: 'marketplace', label: 'Marketplace', order: 7 },
 };
 
 /**
@@ -71,6 +72,11 @@ export function getAvailableSections(countryData: Country, hasResources: boolean
     countryData.capacity_building_activities.length > 0
   ) {
     available.push(sectionConfig.learn);
+  }
+
+  // Marketplace
+  if (countryData.marketplace?.businesses && countryData.marketplace.businesses.length > 0) {
+    available.push(sectionConfig.marketplace);
   }
 
   // Key Representatives

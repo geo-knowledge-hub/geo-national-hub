@@ -28,8 +28,14 @@ interface CapacityBuildingSectionProps {
  * Simple search filter function
  */
 function filterBySearch<T>(items: T[], searchTerm: string, fields: (keyof T)[]): T[] {
-  if (!searchTerm.trim()) return items;
+  if (!searchTerm.trim()) {
+    return items;
+  }
+
+  // prepare search term
   const term = searchTerm.toLowerCase();
+
+  // filter items
   return items.filter((item) =>
     fields.some((field) => {
       const value = item[field];
@@ -51,6 +57,7 @@ function filterBySearch<T>(items: T[], searchTerm: string, fields: (keyof T)[]):
 export function CapacityBuildingSection({
   countryData,
 }: CapacityBuildingSectionProps): JSX.Element {
+  // State - Search
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [currentPage, setCurrentPage] = useState<number>(1);
   const itemsPerPage = 6;

@@ -26,9 +26,11 @@ import {
   GEOFocusAreaSection,
   PartnersSection,
   CommunityOfPracticeSection,
+  MarketplaceSection,
   KeyRepresentativesSection,
   EnablingMechanisms,
   StickyNavBar,
+  FeedbackWidget,
 } from './components';
 
 /**
@@ -105,6 +107,9 @@ export function CountryPageContent({
 
   return (
     <div className="relative -mt-24 min-h-screen pt-24">
+      {/* Feedback widget */}
+      <FeedbackWidget feedbackUrl={countryData.feedback_url} countryName={countryData.title} />
+
       <div className="mx-auto max-w-7xl px-6 pt-10">
         <Suspense fallback={null}>
           <EditModeToggle
@@ -155,6 +160,9 @@ export function CountryPageContent({
 
         {/* Key GEO representatives in the country */}
         <KeyRepresentativesSection countryData={countryData} />
+
+        {/* Marketplace section */}
+        <MarketplaceSection countryId={countryId} countryData={countryData} />
 
         {/* Bottom spacing to ensure last section can be scrolled to properly */}
         <div className="h-28" aria-hidden="true" />

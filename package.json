@@ -10,7 +10,8 @@
     "lint": "next lint",
     "format": "prettier --write .",
     "typesense:seed": "npx tsx scripts/typesense-seed.ts",
-    "typesense:reset": "npx tsx scripts/typesense-seed.ts --reset"
+    "typesense:reset": "npx tsx scripts/typesense-seed.ts --reset",
+    "sync:trigger": "npx tsx scripts/sync-trigger.ts"
   },
   "keywords": [
     "GEO Knowledge Hub",

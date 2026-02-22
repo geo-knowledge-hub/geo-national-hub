@@ -37,9 +37,7 @@ export function QuickAccessButtons({
   sections,
   primaryColor,
 }: QuickAccessButtonsProps): JSX.Element | null {
-  /**
-   * Handles button click - smoothly scrolls to the target section
-   */
+  // Function - Handles button click
   const handleClick = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -48,7 +46,9 @@ export function QuickAccessButtons({
   };
 
   // Don't render if no sections available
-  if (sections.length === 0) return null;
+  if (sections.length === 0) {
+    return null;
+  }
 
   return (
     <div className="mt-6 flex flex-wrap gap-3">

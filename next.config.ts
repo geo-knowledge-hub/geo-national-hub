@@ -4,7 +4,7 @@ const nextConfig: NextConfig = {
   basePath: '/national',
   assetPrefix: '/national',
   images: {
-    domains: ['gkhub.earthobservations.org'],
+    domains: ['earthobservations.org', 'gkhub.earthobservations.org'],
   },
   experimental: {
     serverActions: {

@@ -11,7 +11,6 @@
 
 import React, { useEffect, useState } from 'react';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
-import Link from 'next/link';
 
 import { useEditMode } from '../context/edit-mode';
 import { useTheme } from '../context/theme-context';
@@ -114,36 +113,15 @@ export function EditModeToggle({ countryId, countryTheme, componentConfig }: Edi
     return null;
   }
 
-  // Show login link if not authenticated
+  // Non-authenticated users don't see edit controls
+  // (Admin login is available via the navbar instead)
   if (!isAuthenticated) {
-    return (
-      <div className="fixed right-6 bottom-6 z-[60]">
-        <Link
-          href={`/admin/login?redirect=${encodeURIComponent(redirectPath)}`}
-          className="glass-button flex items-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold text-gray-700 transition-all hover:scale-105"
-        >
-          <svg
-            className="h-4 w-4 text-gray-500"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
-            />
-          </svg>
-          Admin Login
-        </Link>
-      </div>
-    );
+    return null;
   }
 
   return (
     <>
-      <div className="fixed right-6 bottom-6 z-[60]">
+      <div className="fixed right-6 bottom-6 z-60">
         {/* Edit mode help tooltip */}
         {isEditMode && !isEditingTheme && (
           <div className="absolute right-0 bottom-full mb-3 w-56 rounded-lg bg-gray-900 p-3 text-xs text-white shadow-xl">

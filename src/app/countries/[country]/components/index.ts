@@ -25,8 +25,12 @@ export { GEOFocusAreaSection } from './section-focus-areas';
 export { CommunityOfPracticeSection } from './section-community';
 export { EnablingMechanisms } from './section-mechanisms';
 export { PartnersSection } from './section-partners';
+export { MarketplaceSection } from './section-marketplace';
 export { KeyRepresentativesSection } from './section-representatives';
 
 // Navigation components
 export { QuickAccessButtons } from './quick-access-buttons';
 export { StickyNavBar } from './sticky-nav-bar';
+
+// Feedback widget
+export { FeedbackWidget } from './feedback-widget';

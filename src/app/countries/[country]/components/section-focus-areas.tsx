@@ -12,7 +12,6 @@ import React, { useState, useMemo, JSX } from 'react';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
 
 import { FeatureCard } from '@components/global';
-
 import type { Country, FocusArea, FocusAreaChallenge, Resource } from '@content-types/content';
 
 /**
@@ -44,6 +43,8 @@ function filterBySearch<T>(items: T[], searchTerm: string, fields: (keyof T)[]):
 
 /**
  * GEO Focus Area section component
+ *
+ * @component
  * @param {GEOFocusAreaSectionProps} props - The properties containing country data.
  * @returns {JSX.Element} - A JSX element displaying the list of focus areas.
  */
@@ -78,9 +79,13 @@ export function GEOFocusAreaSection({
     return focusAreas.filter((fa) => activeFocusAreaIds.has(fa.id));
   }, [focusAreas, activeFocusAreaIds]);
 
-  // Apply search filter
+  // Apply search filter + sort by name
   const filteredFocusAreas = useMemo(() => {
-    return filterBySearch(availableFocusAreas, searchTerm, ['id', 'name']);
+    return filterBySearch(availableFocusAreas, searchTerm, ['id', 'name'])
+      .slice()
+      .sort((a, b) => {
+        return a.name.localeCompare(b.name, undefined, { sensitivity: 'base' });
+      });
   }, [availableFocusAreas, searchTerm]);
 
   // Base validation - Is to show component?
@@ -104,7 +109,7 @@ export function GEOFocusAreaSection({
             </p>
           </div>
 
-          {/* Search Bar aligned with header */}
+          {/* Search Bar */}
           <div className="mt-4 lg:mt-0">
             <div className="relative w-full lg:w-72">
               <MagnifyingGlassIcon className="absolute top-1/2 left-3 h-5 w-5 -translate-y-1/2 transform text-gray-400" />
@@ -119,7 +124,7 @@ export function GEOFocusAreaSection({
           </div>
         </div>
 
-        {/* Resources Grid */}
+        {/* Resources grid */}
         <div className="mt-2 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {filteredFocusAreas.length > 0 ? (
             filteredFocusAreas.map((focusArea, index) => {

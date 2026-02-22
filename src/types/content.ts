@@ -15,6 +15,35 @@
  */
 
 /**
+ * Metadata synced from GKH for a Knowledge Package or Knowledge Resource.
+ */
+export interface SyncMetadata {
+  package?: Record<string, unknown>;
+  resources?: Record<string, unknown>[];
+  record?: Record<string, unknown>;
+}
+
+/**
+ * Sync field stored alongside each resource in Typesense.
+ */
+export interface SyncField {
+  metadata: SyncMetadata;
+  metadata_hash: string;
+  synced_at: string;
+  sync_status: 'ok' | 'error' | 'partial';
+  sync_error?: string;
+}
+
+/**
+ * Health status returned by the GKH health check.
+ */
+export interface HealthStatus {
+  online: boolean;
+  latency_ms: number;
+  checked_at: string;
+}
+
+/**
  * Resource item representing knowledge packages, platforms, etc.
  */
 export interface Resource {
@@ -38,6 +67,8 @@ export interface Resource {
   contributors?: string[];
   target_audiences?: string[];
   organization?: string;
+  source?: string;
+  sync?: SyncField;
 }
 
 /**
@@ -125,6 +156,60 @@ export interface ManagedBy {
 }
 
 /**
+ * Marketplace application offered by a business
+ */
+export interface MarketplaceApplication {
+  id: string;
+  title: string;
+  description: string;
+  icon: string;
+  access_url: string;
+  website_url?: string;
+  focus_areas: string[];
+  app_type: 'Web App' | 'Mobile' | 'API' | 'Dataset' | 'Other';
+  access_model: 'Free' | 'Open' | 'Free (with subscription)' | 'Subscription';
+  version?: string;
+  last_updated?: string;
+  data_formats?: string[];
+  screenshots?: string[];
+}
+
+/**
+ * Marketplace business / organization
+ */
+export interface MarketplaceBusiness {
+  id: string;
+  name: string;
+  tagline: string;
+  description: string;
+  logo: string;
+  website_url?: string;
+  established?: string;
+  focus_areas: string[];
+  applications: MarketplaceApplication[];
+  featured?: boolean;
+}
+
+/**
+ * Marketplace configuration
+ */
+export interface MarketplaceConfig {
+  section_title?: string;
+  intro_text?: string;
+  featured_business?: string;
+  visible_columns?: string[];
+  app_sort_order?: 'manual' | 'alphabetical';
+}
+
+/**
+ * Marketplace data embedded in a country record
+ */
+export interface Marketplace {
+  businesses: MarketplaceBusiness[];
+  config?: MarketplaceConfig;
+}
+
+/**
  * Full country document
  */
 export interface Country {
@@ -139,6 +224,8 @@ export interface Country {
   mechanisms: Mechanism[];
   capacity_building_activities: CapacityBuildingActivity[];
   component_configs?: CountryComponentConfig[];
+  marketplace?: Marketplace;
+  feedback_url?: string;
 }
 
 /**
