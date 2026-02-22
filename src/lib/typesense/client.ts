@@ -7,13 +7,6 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-/**
- * Typesense Client Configuration
- *
- * Provides a configured Typesense client for server-side usage.
- * Environment variables are used for configuration to support different environments.
- */
-
 import Typesense from 'typesense';
 import type { Client } from 'typesense';
 
@@ -32,7 +25,6 @@ interface TypesenseConfig {
 
 /**
  * Gets Typesense configuration from environment variables
- * Called at runtime to ensure env vars are available (important for Next.js standalone builds)
  */
 function getTypesenseConfig(): TypesenseConfig {
   const apiKey = process.env.TYPESENSE_API_KEY || 'xyz';
@@ -88,6 +80,7 @@ export const COLLECTIONS = {
   RESOURCES: 'resources',
   FOCUS_AREAS: 'focus_areas',
   FOCUS_AREA_CHALLENGES: 'focus_area_challenges',
+  HEALTH: 'health',
 } as const;
 
 export type CollectionName = (typeof COLLECTIONS)[keyof typeof COLLECTIONS];

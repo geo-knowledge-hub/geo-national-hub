@@ -94,6 +94,104 @@ export const countriesSchema = {
     { name: 'component_configs.variantId', type: 'string[]' as const, optional: true },
     { name: 'component_configs.enabled', type: 'bool[]' as const, optional: true },
     { name: 'component_configs.order', type: 'int32[]' as const, optional: true },
+
+    // Marketplace (embedded object with nested businesses and applications)
+    { name: 'marketplace', type: 'object' as const, optional: true },
+    { name: 'marketplace.businesses', type: 'object[]' as const, optional: true },
+    { name: 'marketplace.businesses.id', type: 'string[]' as const, optional: true },
+    { name: 'marketplace.businesses.name', type: 'string[]' as const, optional: true },
+    { name: 'marketplace.businesses.tagline', type: 'string[]' as const, optional: true },
+    { name: 'marketplace.businesses.description', type: 'string[]' as const, optional: true },
+    {
+      name: 'marketplace.businesses.logo',
+      type: 'string[]' as const,
+      index: false,
+      optional: true,
+    },
+    {
+      name: 'marketplace.businesses.website_url',
+      type: 'string[]' as const,
+      index: false,
+      optional: true,
+    },
+    { name: 'marketplace.businesses.established', type: 'string[]' as const, optional: true },
+    { name: 'marketplace.businesses.focus_areas', type: 'string[]' as const, optional: true },
+    { name: 'marketplace.businesses.featured', type: 'bool[]' as const, optional: true },
+    { name: 'marketplace.businesses.applications', type: 'object[]' as const, optional: true },
+    {
+      name: 'marketplace.businesses.applications.id',
+      type: 'string[]' as const,
+      optional: true,
+    },
+    {
+      name: 'marketplace.businesses.applications.title',
+      type: 'string[]' as const,
+      optional: true,
+    },
+    {
+      name: 'marketplace.businesses.applications.description',
+      type: 'string[]' as const,
+      optional: true,
+    },
+    {
+      name: 'marketplace.businesses.applications.icon',
+      type: 'string[]' as const,
+      index: false,
+      optional: true,
+    },
+    {
+      name: 'marketplace.businesses.applications.access_url',
+      type: 'string[]' as const,
+      index: false,
+      optional: true,
+    },
+    {
+      name: 'marketplace.businesses.applications.website_url',
+      type: 'string[]' as const,
+      index: false,
+      optional: true,
+    },
+    {
+      name: 'marketplace.businesses.applications.focus_areas',
+      type: 'string[]' as const,
+      optional: true,
+    },
+    {
+      name: 'marketplace.businesses.applications.app_type',
+      type: 'string[]' as const,
+      optional: true,
+    },
+    {
+      name: 'marketplace.businesses.applications.access_model',
+      type: 'string[]' as const,
+      optional: true,
+    },
+    {
+      name: 'marketplace.businesses.applications.version',
+      type: 'string[]' as const,
+      optional: true,
+    },
+    {
+      name: 'marketplace.businesses.applications.last_updated',
+      type: 'string[]' as const,
+      optional: true,
+    },
+    {
+      name: 'marketplace.businesses.applications.data_formats',
+      type: 'string[]' as const,
+      optional: true,
+    },
+    {
+      name: 'marketplace.businesses.applications.screenshots',
+      type: 'string[]' as const,
+      index: false,
+      optional: true,
+    },
+    { name: 'marketplace.config', type: 'object' as const, optional: true },
+    { name: 'marketplace.config.section_title', type: 'string' as const, optional: true },
+    { name: 'marketplace.config.intro_text', type: 'string' as const, optional: true },
+    { name: 'marketplace.config.featured_business', type: 'string' as const, optional: true },
+    { name: 'marketplace.config.app_sort_order', type: 'string' as const, optional: true },
   ],
 };
 
@@ -102,6 +200,7 @@ export const countriesSchema = {
  */
 export const resourcesSchema = {
   name: 'resources',
+  enable_nested_fields: true,
   fields: [
     { name: 'id', type: 'string' as const },
     { name: 'country_id', type: 'string' as const, facet: true },
@@ -123,6 +222,24 @@ export const resourcesSchema = {
     { name: 'contributors', type: 'string[]' as const, optional: true },
     { name: 'target_audiences', type: 'string[]' as const, facet: true, optional: true },
     { name: 'organization', type: 'string' as const, facet: true, optional: true },
+    { name: 'source', type: 'string' as const, facet: true, optional: true },
+    { name: 'sync', type: 'object' as const, optional: true },
+    { name: 'sync.synced_at', type: 'string' as const, optional: true },
+    { name: 'sync.sync_status', type: 'string' as const, optional: true, facet: true },
+    { name: 'sync.metadata_hash', type: 'string' as const, optional: true },
+  ],
+};
+
+/**
+ * Health status collection schema
+ */
+export const healthSchema = {
+  name: 'health',
+  fields: [
+    { name: 'id', type: 'string' as const },
+    { name: 'online', type: 'bool' as const },
+    { name: 'latency_ms', type: 'int32' as const },
+    { name: 'checked_at', type: 'string' as const },
   ],
 };
 

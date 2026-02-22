@@ -14,6 +14,7 @@ import React, { useState, useMemo, JSX } from 'react';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
 
 import type { FocusAreaChallenge, Resource } from '@content-types/content';
+import { useGkhHealth } from '@lib/hooks/use-gkh-health';
 
 import { ResourceCard } from './resource-card';
 
@@ -29,8 +30,14 @@ interface ContentSectionProps {
  * Simple search filter function
  */
 function filterBySearch<T>(items: T[], searchTerm: string, fields: (keyof T)[]): T[] {
-  if (!searchTerm.trim()) return items;
+  if (!searchTerm.trim()) {
+    return items;
+  }
+
+  // Convert search term to lowercase
   const term = searchTerm.toLowerCase();
+
+  // Filter items
   return items.filter((item) =>
     fields.some((field) => {
       const value = item[field];
@@ -50,7 +57,9 @@ function filterBySearch<T>(items: T[], searchTerm: string, fields: (keyof T)[]):
  * @returns {JSX.Element} The rendered ContentSection component.
  */
 export function ContentSection({ challenge, resources }: ContentSectionProps): JSX.Element {
+  // State - Search term and GKH health
   const [searchTerm, setSearchTerm] = useState<string>('');
+  const { online: gkhOnline } = useGkhHealth();
 
   // Apply search filter
   const filteredResources = useMemo(() => {
@@ -90,7 +99,7 @@ export function ContentSection({ challenge, resources }: ContentSectionProps): J
         <div className="mt-2 space-y-5 rounded-lg">
           {filteredResources.length > 0 ? (
             filteredResources.map((resource, index) => (
-              <ResourceCard key={index} resource={resource} />
+              <ResourceCard key={index} resource={resource} gkhOnline={gkhOnline} />
             ))
           ) : (
             <p className="text-center text-gray-500">No resources found.</p>

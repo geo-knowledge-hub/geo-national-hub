@@ -1,5 +1,4 @@
 #!/usr/bin/env npx tsx
-
 /*
  * This file is part of GEO-National-Hub.
  *
@@ -34,6 +33,7 @@ import {
   resourcesSchema,
   focusAreasSchema,
   focusAreaChallengesSchema,
+  healthSchema,
 } from '../src/lib/typesense/schemas';
 
 // Parse command line arguments
@@ -126,6 +126,7 @@ interface CountryJsonData {
 interface ResourceJsonData {
   resources: Array<{
     id: string;
+    source?: string;
     country_id: string;
     country: string;
     name: string;
@@ -179,6 +180,7 @@ async function createCollectionIfNotExists(schema: {
 }): Promise<void> {
   try {
     await client.collections(schema.name).retrieve();
+
     console.log(`  Collection '${schema.name}' already exists`);
   } catch (error) {
     if ((error as { httpStatus?: number }).httpStatus === 404) {
@@ -312,16 +314,7 @@ async function seedCountries(): Promise<void> {
     const existingComponentConfigs = existingConfigs.get(country.id);
 
     return {
-      id: country.id,
-      title: country.title,
-      flag: country.flag,
-      theme: country.theme,
-      managed_by: country.managed_by,
-      capacity_building_activities: country.capacity_building_activities,
-      partners: country.partners,
-      representatives: country.representatives,
-      community_of_practice: country.community_of_practice || undefined,
-      mechanisms: country.mechanisms,
+      ...country,
       // Preserve existing configs, otherwise undefined (not included in doc)
       ...(existingComponentConfigs && { component_configs: existingComponentConfigs }),
     };
@@ -345,28 +338,7 @@ async function seedResources(): Promise<void> {
   console.log('\nSeeding resources...');
 
   const resourceData = loadJsonFile<ResourceJsonData>(RESOURCES_JSON_PATH);
-  const documents = resourceData.resources.map((resource) => ({
-    id: resource.id,
-    name: resource.name,
-    overview: resource.overview,
-    description: resource.description,
-    license: resource.license,
-    subjects: resource.subjects,
-    locations: resource.locations,
-    link: resource.link,
-    icon: resource.icon,
-    type: resource.type,
-    uploaded: resource.uploaded,
-    country: resource.country,
-    country_id: resource.country_id,
-    challenges: resource.challenges,
-    extras: resource.extras,
-    geo_gwp: resource.geo_gwp,
-    geo_themes: resource.geo_themes,
-    contributors: resource.contributors,
-    target_audiences: resource.target_audiences,
-    organization: resource.organization,
-  }));
+  const documents = resourceData.resources.map((resource) => resource);
 
   for (const doc of documents) {
     try {
@@ -416,6 +388,7 @@ async function main(): Promise<void> {
     await dropCollectionIfExists('countries');
     await dropCollectionIfExists('focus_area_challenges');
     await dropCollectionIfExists('focus_areas');
+    await dropCollectionIfExists('health');
   }
 
   // Create collections
@@ -424,6 +397,7 @@ async function main(): Promise<void> {
   await createCollectionIfNotExists(focusAreaChallengesSchema);
   await createCollectionIfNotExists(countriesSchema);
   await createCollectionIfNotExists(resourcesSchema);
+  await createCollectionIfNotExists(healthSchema);
 
   // Seed data
   await seedFocusAreas();

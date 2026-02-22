@@ -13,8 +13,9 @@ import React, { useState, useEffect, useRef, useMemo } from 'react';
 
 import Image from 'next/image';
 
-import { ResourceMetadataModal } from '@components/global';
+import { ResourceOverviewModal, GkhMetadataModal, ResourceActions } from '@components/global';
 
+import { useGkhHealth } from '@lib/hooks/use-gkh-health';
 import { searchResourcesAction } from '@lib/typesense/actions';
 
 import logoExplorer from '@public/content/concepts/explorer/explore.svg';
@@ -55,10 +56,20 @@ export function ExplorePageContent({
   challenges,
 }: ExplorePageContentProps) {
   /**
-   * State to manage the metadata modal.
+   * State to manage the overview modal.
    */
   const [isOpen, setIsOpen] = useState(false);
   const [resource, setResource] = useState<Resource | null>(null);
+
+  /**
+   * State to manage the GKH metadata modal.
+   */
+  const [resourceForMetadata, setResourceForMetadata] = useState<Resource | null>(null);
+
+  /**
+   * GKH health - when offline, GKH resources show "View metadata" instead of "Access".
+   */
+  const { online: gkhOnline } = useGkhHealth();
 
   /**
    * States to manage search
@@ -530,28 +541,17 @@ export function ExplorePageContent({
                       </h3>
                       <p className="mt-1 line-clamp-3 text-sm text-gray-600">{item.description}</p>
 
-                      <div className="mt-4 flex items-center gap-4">
-                        {item.overview && (
-                          <button
-                            onClick={() => {
-                              setResource(item);
-                              setIsOpen(true);
-                            }}
-                            className="cursor-pointer text-sm font-medium text-gray-700 transition hover:text-gray-900 focus:outline-none"
-                          >
-                            Overview
-                          </button>
-                        )}
-
-                        <a
-                          href={item.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-sm font-medium text-gray-700 transition hover:text-gray-900 focus:outline-none"
-                        >
-                          Access →
-                        </a>
-                      </div>
+                      <ResourceActions
+                        resource={item}
+                        gkhOnline={gkhOnline}
+                        onOpenOverview={() => {
+                          setResource(item);
+                          setIsOpen(true);
+                        }}
+                        onOpenMetadata={() => setResourceForMetadata(item)}
+                        linkClassName="text-sm font-medium text-gray-700 transition hover:text-gray-900 focus:outline-none"
+                        buttonClassName="cursor-pointer text-sm font-medium text-gray-700 transition hover:text-gray-900 focus:outline-none"
+                      />
                     </div>
                     <div className="hidden shrink-0 rounded-md bg-gray-100 p-5 transition group-hover:bg-gray-200/80 sm:block">
                       {item.icon && (
@@ -647,7 +647,16 @@ export function ExplorePageContent({
       </div>
 
       {resource !== null && (
-        <ResourceMetadataModal open={isOpen} onClose={() => setIsOpen(false)} data={resource} />
+        <ResourceOverviewModal open={isOpen} onClose={() => setIsOpen(false)} data={resource} />
+      )}
+
+      {resourceForMetadata?.sync?.metadata && (
+        <GkhMetadataModal
+          open={!!resourceForMetadata}
+          onClose={() => setResourceForMetadata(null)}
+          data={resourceForMetadata}
+          syncMetadata={resourceForMetadata.sync.metadata}
+        />
       )}
     </div>
   );

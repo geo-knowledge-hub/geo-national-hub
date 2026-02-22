@@ -14,7 +14,7 @@ import React, { useState, JSX } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
-import { ResourceMetadataModal } from '@components/global';
+import { ResourceOverviewModal, GkhMetadataModal, ResourceActions } from '@components/global';
 
 import type { Resource } from '@content-types/content';
 import { getAssetPath } from '@lib/utils';
@@ -24,6 +24,7 @@ import { getAssetPath } from '@lib/utils';
  */
 interface ResourceCardProps {
   resource: Resource;
+  gkhOnline?: boolean;
 }
 
 /**
@@ -33,11 +34,12 @@ interface ResourceCardProps {
  * @param {ResourceCardProps} params Component params.
  * @returns {JSX.Element} The rendered ResourceCard component.
  */
-export function ResourceCard({ resource }: ResourceCardProps): JSX.Element {
+export function ResourceCard({ resource, gkhOnline = true }: ResourceCardProps): JSX.Element {
   /**
    * State to manage the metadata modal.
    */
   const [isOpen, setIsOpen] = useState(false);
+  const [showSyncMetadata, setShowSyncMetadata] = useState(false);
 
   return (
     <>
@@ -60,25 +62,17 @@ export function ResourceCard({ resource }: ResourceCardProps): JSX.Element {
               {resource.name}
             </Link>
           </h3>
+
           <p className="mt-1 line-clamp-3 text-sm text-gray-600">{resource.description}</p>
 
-          <div className="mt-4 flex items-center gap-4">
-            {resource.overview && (
-              <button
-                onClick={() => setIsOpen(true)}
-                className="themed-link cursor-pointer text-sm font-medium text-gray-700 transition focus:outline-none"
-              >
-                Overview
-              </button>
-            )}
-            <Link
-              href={resource.link}
-              target="_blank"
-              className="themed-link text-sm font-medium text-gray-700 transition focus:outline-none"
-            >
-              Access →
-            </Link>
-          </div>
+          <ResourceActions
+            resource={resource}
+            gkhOnline={gkhOnline}
+            onOpenOverview={() => setIsOpen(true)}
+            onOpenMetadata={() => setShowSyncMetadata(true)}
+            linkClassName="themed-link text-sm font-medium text-gray-700 transition focus:outline-none"
+            buttonClassName="themed-link cursor-pointer text-sm font-medium text-gray-700 transition focus:outline-none"
+          />
         </div>
         <div className="hidden rounded-md bg-gray-100 p-5 transition group-hover:bg-gray-200/80 md:block">
           {resource.icon && (
@@ -93,7 +87,18 @@ export function ResourceCard({ resource }: ResourceCardProps): JSX.Element {
         </div>
       </div>
 
-      <ResourceMetadataModal open={isOpen} onClose={() => setIsOpen(false)} data={resource} />
+      {/* Resource overview modal */}
+      <ResourceOverviewModal open={isOpen} onClose={() => setIsOpen(false)} data={resource} />
+
+      {/* GKH metadata modal */}
+      {resource.sync?.metadata && (
+        <GkhMetadataModal
+          open={showSyncMetadata}
+          onClose={() => setShowSyncMetadata(false)}
+          data={resource}
+          syncMetadata={resource.sync.metadata}
+        />
+      )}
     </>
   );
 }
