@@ -219,6 +219,7 @@
       "id": "south-africa",
       "title": "South Africa",
       "flag": "/content/groups/sageo.jpg",
+      "feedback_url": "https://example.com/feedback/south-africa",
       "managed_by": {
         "name": "South African Group on Earth Observations (SA-GEO)",
         "url": "https://neoss.co.za/sa-geo"
@@ -532,7 +533,133 @@
           "profile": "https://www.linkedin.com/in/tshisikhawe-mphaphuli-02b60196/",
           "avatar": "/content/representative/south-africa/tshisikhawe-mphaphuli.jpg"
         }
-      ]
+      ],
+      "marketplace": {
+        "businesses": [
+          {
+            "id": "geospatial-solutions",
+            "name": "Geospatial Solutions",
+            "tagline": "Satellite-based geospatial solutions for Africa",
+            "description": "Geospatial Solutions (GS) is a leading South African geospatial company specialising in satellite imagery analysis and the production of national land cover datasets. GS provides operational Earth Observation services to government, conservation, and agricultural sectors across South Africa.",
+            "logo": "/images/logo-react.svg",
+            "website_url": "https://www.geospatialsolutions.co.za",
+            "focus_areas": ["Agriculture", "Land Cover", "Climate"],
+            "featured": true,
+            "applications": [
+              {
+                "id": "sa-national-land-cover",
+                "title": "National Land Cover",
+                "description": "Comprehensive national land cover dataset derived from satellite imagery, updated regularly to support planning, environmental management, and policy development across South Africa.",
+                "icon": "/images/logo-react.svg",
+                "access_url": "https://www.geospatialsolutions.co.za/national-land-cover",
+                "website_url": "https://www.geospatialsolutions.co.za",
+                "focus_areas": ["Land Cover", "Climate"],
+                "app_type": "Dataset",
+                "access_model": "Subscription",
+                "version": "2022",
+                "last_updated": "2024-06",
+                "data_formats": ["GeoTIFF", "Shapefile"]
+              },
+              {
+                "id": "crop-type-mapping",
+                "title": "Crop Type Mapping Service",
+                "description": "Seasonal crop type classification using multi-temporal satellite imagery, providing field-level mapping of major crop types for agricultural monitoring and food security assessments.",
+                "icon": "/images/logo-react.svg",
+                "access_url": "https://www.geospatialsolutions.co.za/crop-mapping",
+                "focus_areas": ["Agriculture"],
+                "app_type": "Web App",
+                "access_model": "Subscription",
+                "version": "3.1",
+                "last_updated": "2025-01",
+                "data_formats": ["GeoTIFF", "CSV"]
+              }
+            ]
+          },
+          {
+            "id": "earth-observation-solutions",
+            "name": "Earth Observation solutions",
+            "tagline": "National space agency EO data and services",
+            "description": "The Earth Observation Solutions (EOS) directorate provides satellite data, derived products, and decision-support services to government and research institutions.",
+            "logo": "/images/logo-react.svg",
+            "website_url": "https://www.eosolutions.co.za",
+            "established": "2010",
+            "focus_areas": ["EO Infrastructure", "Climate", "Disaster Management"],
+            "applications": [
+              {
+                "id": "earth-observation-portal",
+                "title": "EO Data Portal",
+                "description": "Access and download satellite imagery from South Africa's national EO archive, including Landsat, Sentinel, and SPOT data with full metadata and preview capabilities.",
+                "icon": "/images/logo-react.svg",
+                "access_url": "https://catalogue.eosolutions.co.za",
+                "website_url": "https://www.eosolutions.co.za/earth-observation",
+                "focus_areas": ["EO Infrastructure"],
+                "app_type": "Web App",
+                "access_model": "Free",
+                "version": "2.0",
+                "last_updated": "2024-11",
+                "data_formats": ["GeoTIFF", "NetCDF", "JPEG2000"]
+              },
+              {
+                "id": "fire-monitoring",
+                "title": "Wildfire Monitoring System",
+                "description": "Near real-time wildfire detection and monitoring using MODIS and VIIRS satellite data, providing alerts and burnt area mapping for disaster management and environmental protection.",
+                "icon": "/images/logo-react.svg",
+                "access_url": "https://www.eosolutions.co.za/fire-monitoring",
+                "focus_areas": ["Disaster Management", "Climate"],
+                "app_type": "Web App",
+                "access_model": "Open",
+                "version": "1.5",
+                "last_updated": "2024-08"
+              },
+              {
+                "id": "eos-api",
+                "title": "Earth Observation Solutions API",
+                "description": "REST API for programmatic access to Earth Observation Solutions' satellite data catalogue, enabling integration of EO data into third-party applications and automated workflows.",
+                "icon": "/images/logo-react.svg",
+                "access_url": "https://api.eosolutions.co.za",
+                "website_url": "https://docs.eosolutions.co.za/api",
+                "focus_areas": ["EO Infrastructure"],
+                "app_type": "API",
+                "access_model": "Free (with subscription)",
+                "version": "3.2.0",
+                "last_updated": "2025-02",
+                "data_formats": ["GeoJSON", "GeoTIFF", "COG"]
+              }
+            ]
+          },
+          {
+            "id": "south-africa-gis",
+            "name": "South Africa GIS",
+            "tagline": "Location intelligence for African markets",
+            "description": "South Africa GIS is a South African geospatial technology company providing location intelligence, geocoding, and spatial analytics solutions. Their platforms serve financial services, telecommunications, logistics, and government sectors with accurate African-focused geospatial data.",
+            "logo": "/images/logo-react.svg",
+            "website_url": "https://www.southafrigis.co.za",
+            "established": "2003",
+            "focus_areas": ["Urban Development", "One Health"],
+            "applications": [
+              {
+                "id": "geocoding-api",
+                "title": "Geocoding API",
+                "description": "High-accuracy geocoding and reverse geocoding service optimised for African addresses, supporting address validation, standardisation, and coordinate lookup across the continent.",
+                "icon": "/images/logo-react.svg",
+                "access_url": "https://developers.southafrigis.co.za/geocoding",
+                "website_url": "https://www.southafrigis.co.za/products/geocoding",
+                "focus_areas": ["Urban Development"],
+                "app_type": "API",
+                "access_model": "Free (with subscription)",
+                "version": "4.0",
+                "last_updated": "2025-01",
+                "data_formats": ["GeoJSON", "JSON"]
+              }
+            ]
+          }
+        ],
+        "config": {
+          "section_title": "Marketplace",
+          "intro_text": "Browse solutions from certified organizations delivering Earth Observation tools and services tailored to your priorities.",
+          "featured_business": "geoterraimage"
+        }
+      }
     },
     "switzerland": {
       "id": "switzerland",

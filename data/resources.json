@@ -2,6 +2,7 @@
   "resources": [
     {
       "id": "ghana-monitoring-mangrove-extent-0",
+      "source": "geo-knowledge-hub",
       "country_id": "ghana",
       "country": "Ghana",
       "name": "Monitoring Mangrove Extent in Africa using Digital Earth Africa Data Cube",
@@ -26,6 +27,7 @@
     },
     {
       "id": "ghana-asap-anomaly-hotspots-1",
+      "source": "geo-knowledge-hub",
       "country_id": "ghana",
       "country": "Ghana",
       "name": "ASAP - Anomaly Hotspots of Agricultural Production",
@@ -44,6 +46,7 @@
     },
     {
       "id": "ghana-oemc-temperature-changes-2",
+      "source": "geo-knowledge-hub",
       "country_id": "ghana",
       "country": "Ghana",
       "name": "OEMC project use case: Tool to estimate local temperatures changes following an increase in forest cover",
@@ -62,6 +65,7 @@
     },
     {
       "id": "ghana-urban-area-mapping-3",
+      "source": "geo-knowledge-hub",
       "country_id": "ghana",
       "country": "Ghana",
       "name": "Urban Area Mapping using Sentinel-1 data Using DEA Data Cube",
@@ -80,6 +84,7 @@
     },
     {
       "id": "ghana-wetland-insight-tool-4",
+      "source": "geo-knowledge-hub",
       "country_id": "ghana",
       "country": "Ghana",
       "name": "Wetland Insight Tool Using Digital Earth Africa Data Cube",
@@ -104,6 +109,7 @@
     },
     {
       "id": "ghana-irrigated-cropping-5",
+      "source": "geo-knowledge-hub",
       "country_id": "ghana",
       "country": "Ghana",
       "name": "Identifying Active Irrigated Cropping Using Digital Earth Africa Data Cube",
@@ -122,6 +128,7 @@
     },
     {
       "id": "ghana-water-detection-sentinel-6",
+      "source": "geo-knowledge-hub",
       "country_id": "ghana",
       "country": "Ghana",
       "name": "Water Detection with Sentinel-1 Using Digital Earth Africa Data Cube",
@@ -148,6 +155,7 @@
     },
     {
       "id": "ghana-crop-health-7",
+      "source": "geo-knowledge-hub",
       "country_id": "ghana",
       "country": "Ghana",
       "name": "Measuring Crop Health Using Digital Earth Africa Data Cube",
@@ -166,6 +174,7 @@
     },
     {
       "id": "ghana-vegetation-anomalies-8",
+      "source": "geo-knowledge-hub",
       "country_id": "ghana",
       "country": "Ghana",
       "name": "Monthly Vegetation Condition Anomalies using Digital Earth Africa Data Cube",
@@ -192,6 +201,7 @@
     },
     {
       "id": "ghana-erosion-monitoring-9",
+      "source": "geo-knowledge-hub",
       "country_id": "ghana",
       "country": "Ghana",
       "name": "Monitoring Erosion along Africa's Coastline Using DEA Data Cube",
@@ -218,6 +228,7 @@
     },
     {
       "id": "ghana-cropland-forecast-10",
+      "source": "geo-knowledge-hub",
       "country_id": "ghana",
       "country": "Ghana",
       "name": "Forecasting Cropland Vegetation Condition Using Digital Earth Africa Data Cube",
@@ -236,6 +247,7 @@
     },
     {
       "id": "ghana-rainfall-anomalies-11",
+      "source": "geo-knowledge-hub",
       "country_id": "ghana",
       "country": "Ghana",
       "name": "Rainfall Anomalies from Climate Hazards Group Infrared Precipitation with Station Data (Chirps) using Digital Earth Africa Data Cube",
@@ -254,6 +266,7 @@
     },
     {
       "id": "ghana-ute-platform-12",
+      "source": "geo-knowledge-hub",
       "country_id": "ghana",
       "country": "Ghana",
       "name": "Urban Thematic Exploitation Platform",
@@ -272,6 +285,7 @@
     },
     {
       "id": "ghana-vegetation-change-13",
+      "source": "geo-knowledge-hub",
       "country_id": "ghana",
       "country": "Ghana",
       "name": "Vegetation Change Detection using Digital Earth Africa Data Cube",
@@ -290,6 +304,7 @@
     },
     {
       "id": "ghana-wapor-14",
+      "source": "geo-knowledge-hub",
       "country_id": "ghana",
       "country": "Ghana",
       "name": "WaPOR (Water Productivity through Open access of Remotely sensed derived data)",
@@ -308,6 +323,7 @@
     },
     {
       "id": "ghana-deforestation-monitor-15",
+      "source": "geo-knowledge-hub",
       "country_id": "ghana",
       "country": "Ghana",
       "name": "OEMC project use case: Tropical deforestation monitoring and characterisation tool (Version 1)",
@@ -332,6 +348,7 @@
     },
     {
       "id": "ghana-electricity-mapping-16",
+      "source": "geo-knowledge-hub",
       "country_id": "ghana",
       "country": "Ghana",
       "name": "Mapping Access to Electricity with Global Open Data (SDG Indicator 7.1.1)",
@@ -350,6 +367,7 @@
     },
     {
       "id": "ghana-fishing-monitoring-17",
+      "source": "geo-knowledge-hub",
       "country_id": "ghana",
       "country": "Ghana",
       "name": "e-shape pilot S5-P5 - Monitoring fishing activity",
@@ -368,6 +386,7 @@
     },
     {
       "id": "ghana-chlorophyll-monitoring-18",
+      "source": "geo-knowledge-hub",
       "country_id": "ghana",
       "country": "Ghana",
       "name": "Monitoring Chlorophyll-a in Africa Waterbodies Using DEA Data Cube",
@@ -387,6 +406,7 @@
     },
     {
       "id": "ghana-urban-extent-change-19",
+      "source": "geo-knowledge-hub",
       "country_id": "ghana",
       "country": "Ghana",
       "name": "Detecting Change in Urban Extent Using Digital Earth Africa Data Cube",
@@ -405,6 +425,7 @@
     },
     {
       "id": "south-africa-water-detection-0",
+      "source": "geo-knowledge-hub",
       "country_id": "south-africa",
       "country": "South Africa",
       "name": "Water Detection with Sentinel-1 Using Digital Earth Africa Data Cube",
@@ -423,6 +444,7 @@
     },
     {
       "id": "south-africa-vegetation-change-1",
+      "source": "geo-knowledge-hub",
       "country_id": "south-africa",
       "country": "South Africa",
       "name": "Vegetation Change Detection using Digital Earth Africa Data Cube",
@@ -441,6 +463,7 @@
     },
     {
       "id": "south-africa-wapor-2",
+      "source": "geo-knowledge-hub",
       "country_id": "south-africa",
       "country": "South Africa",
       "name": "WaPOR (Water Productivity through Open access of Remotely sensed derived data)",
@@ -666,6 +689,7 @@
     },
     {
       "id": "south-africa-shiraz-water-stress-12",
+      "source": "geo-knowledge-hub",
       "country_id": "south-africa",
       "country": "South Africa",
       "name": "Modelling Water Stress in a Shiraz Vineyard Using Hyperspectral Imaging and Machine Learning",
@@ -684,6 +708,7 @@
     },
     {
       "id": "south-africa-hyperspectral-feature-selection-13",
+      "source": "geo-knowledge-hub",
       "country_id": "south-africa",
       "country": "South Africa",
       "name": "A feature selection approach for terrestrial hyperspectral image analysis",
@@ -702,6 +727,7 @@
     },
     {
       "id": "global-landform-classification-review-14",
+      "source": "geo-knowledge-hub",
       "country_id": "south-africa",
       "country": "South Africa",
       "name": "A Scoping Review of Landform Classification Using Geospatial Methods",
@@ -720,6 +746,7 @@
     },
     {
       "id": "global-precision-viticulture-optical-rs-15",
+      "source": "geo-knowledge-hub",
       "country_id": "south-africa",
       "country": "South Africa",
       "name": "Scoping the Field: Recent Advances in Optical Remote Sensing for Precision Viticulture",
@@ -738,6 +765,7 @@
     },
     {
       "id": "south-africa-cape-town-land-occupation-16",
+      "source": "geo-knowledge-hub",
       "country_id": "south-africa",
       "country": "South Africa",
       "name": "Mapping the spatial profile and susceptibility of illegal land occupation: A case study of the Cape Town Metropolitan area, South Africa",
@@ -756,6 +784,7 @@
     },
     {
       "id": "south-africa-pretoria-lidar-aerosol-17",
+      "source": "geo-knowledge-hub",
       "country_id": "south-africa",
       "country": "South Africa",
       "name": "Analysis of Ceilometer LiDAR (CL51) Sensor Atmospheric Profile Images for Urban Environmental Monitoring Over Pretoria, South Africa",
@@ -774,6 +803,7 @@
     },
     {
       "id": "global-wildfire-near-infrared-iqa-18",
+      "source": "geo-knowledge-hub",
       "country_id": "south-africa",
       "country": "South Africa",
       "name": "Image Quality Assessment Methods for Near-Infrared Wildfire Imagery",
@@ -792,6 +822,7 @@
     },
     {
       "id": "global-smallholder-farming-fusion-19",
+      "source": "geo-knowledge-hub",
       "country_id": "south-africa",
       "country": "South Africa",
       "name": "Enhanced mapping of a smallholder crop farming landscape through image fusion and model stacking",
@@ -810,6 +841,7 @@
     },
     {
       "id": "south-africa-satellite-correlation-20",
+      "source": "geo-knowledge-hub",
       "country_id": "south-africa",
       "country": "South Africa",
       "name": "Do Satellite Data Correlate with In Situ Rainfall and Smallholder Crop Yields? Implications for Crop Insurance",
@@ -828,6 +860,7 @@
     },
     {
       "id": "south-africa-maize-satellite-insurance-21",
+      "source": "geo-knowledge-hub",
       "country_id": "south-africa",
       "country": "South Africa",
       "name": "A Proposed Satellite-Based Crop Insurance System for Smallholder Maize Farming",
@@ -846,6 +879,7 @@
     },
     {
       "id": "global-maize-rainfall-deficit-insurance-22",
+      "source": "geo-knowledge-hub",
       "country_id": "south-africa",
       "country": "South Africa",
       "name": "A Satellite-Based Crop Insurance That Compensates for Rainfall Deficit",
@@ -864,6 +898,7 @@
     },
     {
       "id": "south-africa-raymond-mhlaba-land-degradation-23",
+      "source": "geo-knowledge-hub",
       "country_id": "south-africa",
       "country": "South Africa",
       "name": "Monitoring changes in land-use and land-cover to ascertain the nature, causes and extent of degradation in the savannahs of Raymond Mhlaba Local Municipality, Eastern Cape, South Africa",
@@ -882,6 +917,7 @@
     },
     {
       "id": "south-africa-keiskamma-groundwater-potential-24",
+      "source": "geo-knowledge-hub",
       "country_id": "south-africa",
       "country": "South Africa",
       "name": "Integration of geospatial-based algorithms for groundwater potential characterization in Keiskamma Catchment of South Africa",
