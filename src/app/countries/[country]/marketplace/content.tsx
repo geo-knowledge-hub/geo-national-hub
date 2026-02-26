@@ -11,7 +11,7 @@
 
 import React, { JSX, useState, useMemo, useCallback } from 'react';
 
-import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
+import { Search } from 'lucide-react';
 
 import type { Country } from '@content-types/content';
 
@@ -27,7 +27,7 @@ interface MarketplaceLandingContentProps {
 }
 
 /**
- * MarketplaceLandingContent Component - Client component for the marketplace landing page
+ * MarketplaceLandingContent Component
  *
  * @component
  * @param {MarketplaceLandingContentProps} props - Component props.
@@ -138,7 +138,7 @@ export function MarketplaceLandingContent({
         {/* Search & filter toolbar */}
         <div className="mb-8">
           <div className="relative w-full">
-            <MagnifyingGlassIcon className="absolute top-1/2 left-3.5 h-4 w-4 -translate-y-1/2 text-gray-400" />
+            <Search className="absolute top-1/2 left-3.5 h-4 w-4 -translate-y-1/2 text-gray-400" />
             <input
               type="text"
               placeholder="Search businesses or applications..."

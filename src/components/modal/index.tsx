@@ -7,5 +7,5 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-export { ResourceCard } from './resource-card';
-export { ContentSection } from './content-section';
+export { ResourceOverviewDialog } from './resource-overview-dialog';
+export { GkhMetadataDialog } from './gkh-metadata-dialog';

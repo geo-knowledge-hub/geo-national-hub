@@ -13,7 +13,7 @@ import React, { JSX, useEffect, useRef, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 
 import Image from 'next/image';
-import { XMarkIcon, LinkIcon, ArrowTopRightOnSquareIcon } from '@heroicons/react/24/solid';
+import { X, Link2, ExternalLink } from 'lucide-react';
 
 import { getAssetPath } from '@lib/utils';
 
@@ -153,7 +153,7 @@ export function ApplicationModal({
           className="absolute top-4 right-4 z-20 flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 text-gray-500 transition hover:bg-gray-200 hover:text-gray-700"
           aria-label="Close modal"
         >
-          <XMarkIcon className="h-5 w-5" />
+          <X className="h-5 w-5" />
         </button>
 
         {/* Scrollable body */}
@@ -258,7 +258,7 @@ export function ApplicationModal({
                     rel="noopener noreferrer"
                     className="themed-bg inline-flex flex-1 items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-medium text-white shadow-md transition hover:opacity-90"
                   >
-                    <LinkIcon className="h-4 w-4" />
+                    <Link2 className="h-4 w-4" />
                     Open Application
                   </a>
                 )}
@@ -270,7 +270,7 @@ export function ApplicationModal({
                     rel="noopener noreferrer"
                     className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl border border-gray-300 px-6 py-3 text-sm font-medium text-gray-700 transition hover:border-gray-400 hover:bg-gray-50"
                   >
-                    <ArrowTopRightOnSquareIcon className="h-4 w-4" />
+                    <ExternalLink className="h-4 w-4" />
                     Visit Website
                   </a>
                 )}

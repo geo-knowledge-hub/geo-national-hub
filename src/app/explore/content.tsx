@@ -13,12 +13,10 @@ import React, { useState, useEffect, useRef, useMemo } from 'react';
 
 import Image from 'next/image';
 
-import { ResourceOverviewModal, GkhMetadataModal, ResourceActions } from '@components/global';
+import { ResourceOverviewDialog, GkhMetadataDialog, ResourceActions } from '@components/global';
 
 import { useGkhHealth } from '@lib/hooks/use-gkh-health';
 import { searchResourcesAction } from '@lib/typesense/actions';
-
-import logoExplorer from '@public/content/concepts/explorer/explore.svg';
 
 import { FacetGroup } from './components';
 import type { FacetItem } from './components';
@@ -283,99 +281,175 @@ export function ExplorePageContent({
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-gray-50 lg:min-h-[40vh]">
-        <div className="pointer-events-none fixed inset-0 h-full w-screen" style={{ zIndex: 0 }}>
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] opacity-40"></div>
-        </div>
-
+    <div className="min-h-screen bg-white">
+      {/* Hero / Search header */}
+      <section className="relative overflow-hidden border-b border-gray-100">
         <div
-          className="relative mx-auto max-w-7xl px-1 py-10 md:px-6 lg:py-20"
-          style={{ zIndex: 1 }}
-        >
-          <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
-            <div className="relative z-10 space-y-6">
-              <div className="space-y-4">
-                <h1 className="font-bold tracking-tight">
-                  <span
-                    className="mt-2 block text-3xl md:text-4xl lg:text-5xl"
-                    style={{ color: '#526479' }}
-                  >
-                    Content Explorer
-                  </span>
-                </h1>
-                <p className="text-xl text-gray-600 md:text-2xl lg:max-w-2xl">
-                  Discover and explore content from diverse countries
-                </p>
-              </div>
-            </div>
+          className="pointer-events-none absolute inset-0 opacity-[0.35]"
+          style={{
+            backgroundImage: 'radial-gradient(#cbd5e1 1px, transparent 1px)',
+            backgroundSize: '28px 28px',
+          }}
+        />
 
-            <div className="relative hidden items-center lg:flex lg:justify-end">
-              <div className="relative">
-                <div className="animate-pulse-glow absolute inset-0 rounded-2xl bg-blue-200/40"></div>
-                <div className="relative rounded-2xl bg-white/90 p-8 shadow-2xl ring-1 ring-gray-200/50 backdrop-blur-sm">
-                  <Image src={logoExplorer} alt="Content Explorer logo" width={180} height={180} />
-                </div>
+        <div className="relative z-10 mx-auto max-w-4xl px-6 pt-14 pb-10 md:pt-20 md:pb-14">
+          {/* Headline */}
+          <div className="mb-8 text-center">
+            <h1 className="text-4xl font-bold tracking-tight text-gray-900 md:text-5xl">
+              Explore <span style={{ color: '#526479' }}>National</span> Knowledge
+            </h1>
+            <p className="mt-3 text-lg text-gray-500">
+              Search across Earth Observation resources from National GEO hubs
+            </p>
+          </div>
+
+          {/* Prominent search bar */}
+          <div className="relative mx-auto max-w-2xl">
+            <div className="relative flex items-center rounded-2xl border border-gray-200 bg-white shadow-lg ring-1 ring-gray-100 transition-all focus-within:border-[#526479]/40 focus-within:ring-2 focus-within:ring-[#526479]/15 hover:shadow-xl">
+              <div className="pointer-events-none flex items-center pl-5">
+                <svg
+                  className="h-5 w-5 text-gray-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  />
+                </svg>
               </div>
+              <input
+                ref={searchInputRef}
+                type="text"
+                placeholder="Search resources, datasets, tools…"
+                value={query}
+                onChange={(e) => {
+                  setQuery(e.target.value);
+                  setCurrentPage(1);
+                }}
+                className="flex-1 border-0 bg-transparent py-4 pr-4 pl-4 text-base text-gray-900 placeholder:text-gray-400 focus:ring-0 focus:outline-none"
+              />
+
+              {/* Keyboard hint / clear */}
+              {query ? (
+                <button
+                  onClick={clearSearch}
+                  className="mr-3 flex h-7 w-7 items-center justify-center rounded-lg bg-gray-100 text-gray-500 transition hover:bg-gray-200"
+                  aria-label="Clear search"
+                >
+                  <svg
+                    className="h-4 w-4"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              ) : (
+                <div className="mr-4 hidden items-center gap-1 sm:flex">
+                  <kbd className="rounded border border-gray-200 bg-gray-50 px-1.5 py-0.5 text-[11px] font-medium text-gray-400">
+                    ⌘K
+                  </kbd>
+                </div>
+              )}
             </div>
           </div>
 
-          {/* Search bar */}
-          <div className="relative z-20 mt-8 flex w-full flex-col items-center md:mt-16">
-            <div className="relative w-full">
-              <div className="relative rounded-2xl border border-gray-200/80 bg-white p-1.5 shadow-sm transition-all hover:border-gray-300 hover:shadow-md">
-                <input
-                  ref={searchInputRef}
-                  type="text"
-                  placeholder="Search by title, description, or tags..."
-                  value={query}
-                  onChange={(e) => {
-                    setQuery(e.target.value);
-                    setCurrentPage(1);
-                  }}
-                  className="text-md block w-full rounded-xl border-0 bg-transparent p-4 pr-14 pl-4 font-medium text-gray-900 placeholder:text-gray-400 focus:ring-0 focus:outline-none"
-                />
-                {query ? (
-                  <button
-                    onClick={clearSearch}
-                    className="absolute inset-y-0 right-0 flex items-center pr-6 text-gray-400 transition-colors hover:text-gray-600"
-                    aria-label="Clear search"
-                  >
-                    <svg
-                      className="h-5 w-5"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      viewBox="0 0 24 24"
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </button>
-                ) : (
-                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-6">
-                    <svg
-                      className="h-6 w-6 text-gray-400"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                      />
-                    </svg>
-                  </div>
-                )}
-              </div>
+          {/* Stats strip */}
+          <div className="mt-8 flex items-center justify-center gap-8">
+            <div className="text-center">
+              <p className="text-2xl font-bold text-gray-900">{totalFound.toLocaleString()}</p>
+              <p className="text-xs font-medium tracking-wide text-gray-400 uppercase">
+                {query || hasActiveFilters ? 'Results found' : 'Resources indexed'}
+              </p>
+            </div>
+            <div className="h-8 w-px bg-gray-200" />
+            <div className="text-center">
+              <p className="text-2xl font-bold text-gray-900">{typeFacetItems.length}</p>
+              <p className="text-xs font-medium tracking-wide text-gray-400 uppercase">
+                Resource types
+              </p>
+            </div>
+            <div className="h-8 w-px bg-gray-200" />
+            <div className="text-center">
+              <p className="text-2xl font-bold text-gray-900">{countryFacetItems.length}</p>
+              <p className="text-xs font-medium tracking-wide text-gray-400 uppercase">Countries</p>
             </div>
           </div>
         </div>
       </section>
 
-      <div className="results-section mx-auto -mt-16 max-w-7xl px-1 pb-12 md:px-6">
-        <div className="mt-8 grid gap-10 md:grid-cols-[230px_1fr]">
+      {/* Filters + results */}
+      <div className="mx-auto max-w-7xl px-6 py-10 pb-16">
+        {/* Active filters */}
+        {hasActiveFilters && (
+          <div className="mb-6 flex flex-wrap items-center gap-2">
+            <span className="text-sm font-medium text-gray-500">Active filters:</span>
+            {query && (
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-[#526479]/20 bg-[#526479]/5 px-3 py-1 text-sm font-medium text-[#526479]">
+                &ldquo;{query}&rdquo;
+                <button onClick={clearSearch} className="ml-0.5 hover:opacity-70">
+                  <svg
+                    className="h-3.5 w-3.5"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </span>
+            )}
+
+            {[...selectedTypes, ...selectedCountries, ...selectedChallenges, ...selectedTags].map(
+              (filter) => (
+                <span
+                  key={filter}
+                  className="inline-flex items-center gap-1.5 rounded-full border border-gray-200 bg-gray-100 px-3 py-1 text-sm font-medium text-gray-700"
+                >
+                  {filter}
+                  <button
+                    onClick={() => {
+                      if (selectedTypes.includes(filter))
+                        toggleSelection(filter, selectedTypes, setSelectedTypes);
+                      else if (selectedCountries.includes(filter))
+                        toggleSelection(filter, selectedCountries, setSelectedCountries);
+                      else if (selectedChallenges.includes(filter))
+                        toggleSelection(filter, selectedChallenges, setSelectedChallenges);
+                      else if (selectedTags.includes(filter))
+                        toggleSelection(filter, selectedTags, setSelectedTags);
+                    }}
+                    className="ml-0.5 hover:opacity-70"
+                  >
+                    <svg
+                      className="h-3.5 w-3.5"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </span>
+              ),
+            )}
+            <button
+              onClick={clearAllFilters}
+              className="text-sm font-medium text-gray-400 transition hover:text-gray-700"
+            >
+              Clear all
+            </button>
+          </div>
+        )}
+
+        <div className="grid gap-8 md:grid-cols-[220px_1fr]">
           {/* Mobile filter toggle */}
           <div className="md:hidden">
             <button
@@ -384,7 +458,7 @@ export function ExplorePageContent({
             >
               <div className="flex items-center gap-2">
                 <svg
-                  className="h-5 w-5 text-gray-500"
+                  className="h-4 w-4 text-gray-500"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -398,13 +472,13 @@ export function ExplorePageContent({
                 </svg>
                 <span className="text-sm font-semibold text-gray-900">Filters</span>
                 {activeFilterCount > 0 && (
-                  <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-gray-900 px-1.5 text-xs font-medium text-white">
+                  <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-[#526479] px-1.5 text-xs font-medium text-white">
                     {activeFilterCount}
                   </span>
                 )}
               </div>
               <svg
-                className={`h-5 w-5 text-gray-400 transition-transform ${showMobileFilters ? 'rotate-180' : ''}`}
+                className={`h-4 w-4 text-gray-400 transition-transform ${showMobileFilters ? 'rotate-180' : ''}`}
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -415,65 +489,85 @@ export function ExplorePageContent({
             </button>
           </div>
 
-          {/* Facets */}
+          {/* Facets sidebar */}
           <aside
-            className={`h-fit rounded-xl border border-gray-200 bg-white p-6 shadow-sm ${showMobileFilters ? 'block' : 'hidden'} md:block`}
+            className={`h-fit rounded-2xl border border-gray-100 bg-gray-50/70 p-5 ${showMobileFilters ? 'block' : 'hidden'} md:block`}
           >
-            <div className="mb-4 flex items-center justify-between">
-              <h2 className="text-lg font-semibold text-gray-900">Filters</h2>
-              <button
-                onClick={clearAllFilters}
-                className="text-sm text-gray-500 transition hover:text-[#526479]"
-              >
-                Clear
-              </button>
+            <div className="mb-5 flex items-center justify-between">
+              <h2 className="text-sm font-semibold tracking-wide text-gray-900 uppercase">
+                Filters
+              </h2>
+              {hasActiveFilters && (
+                <button
+                  onClick={clearAllFilters}
+                  className="rounded-md px-2 py-0.5 text-xs font-medium text-gray-400 transition hover:bg-gray-200 hover:text-gray-700"
+                >
+                  Reset
+                </button>
+              )}
             </div>
 
-            <FacetGroup
-              title="Type"
-              items={typeFacetItems}
-              selected={selectedTypes}
-              onToggle={(val) => toggleSelection(val, selectedTypes, setSelectedTypes)}
-            />
+            <div className="space-y-1">
+              <FacetGroup
+                title="Type"
+                items={typeFacetItems}
+                selected={selectedTypes}
+                onToggle={(val) => toggleSelection(val, selectedTypes, setSelectedTypes)}
+              />
 
-            <FacetGroup
-              title="Country"
-              items={countryFacetItems}
-              selected={selectedCountries}
-              onToggle={(val) => toggleSelection(val, selectedCountries, setSelectedCountries)}
-            />
+              <FacetGroup
+                title="Country"
+                items={countryFacetItems}
+                selected={selectedCountries}
+                onToggle={(val) => toggleSelection(val, selectedCountries, setSelectedCountries)}
+              />
 
-            <FacetGroup
-              title="Challenges"
-              items={challengeFacetItems}
-              selected={selectedChallenges}
-              onToggle={(val) => toggleSelection(val, selectedChallenges, setSelectedChallenges)}
-            />
+              <FacetGroup
+                title="Challenges"
+                items={challengeFacetItems}
+                selected={selectedChallenges}
+                onToggle={(val) => toggleSelection(val, selectedChallenges, setSelectedChallenges)}
+              />
 
-            <FacetGroup
-              title="Tags"
-              items={tagFacetItems}
-              selected={selectedTags}
-              onToggle={(val) => toggleSelection(val, selectedTags, setSelectedTags)}
-            />
+              <FacetGroup
+                title="Tags"
+                items={tagFacetItems}
+                selected={selectedTags}
+                onToggle={(val) => toggleSelection(val, selectedTags, setSelectedTags)}
+              />
+            </div>
           </aside>
 
-          {/* Results */}
-          <section className="relative">
-            {/* Loading overlay */}
-            {isSearching && (
-              <div className="pointer-events-none absolute inset-0 z-10 flex items-start justify-center pt-8">
-                <div className="rounded-full bg-white/90 px-4 py-2 text-sm text-gray-500 shadow-sm">
-                  Searching...
-                </div>
-              </div>
-            )}
+          {/* Results column */}
+          <section className="relative min-w-0">
+            {/* Results header */}
+            <div className="mb-5 flex items-center justify-between">
+              <p className="text-sm font-medium text-gray-500">
+                {isSearching ? (
+                  <span className="animate-pulse">Searching…</span>
+                ) : (
+                  <>
+                    <span className="font-semibold text-gray-900">
+                      {totalFound.toLocaleString()}
+                    </span>{' '}
+                    {totalFound === 1 ? 'result' : 'results'}
+                    {hasActiveFilters && ' for current filters'}
+                  </>
+                )}
+              </p>
+              {totalPages > 1 && (
+                <p className="text-sm text-gray-400">
+                  Page {currentPage} of {totalPages}
+                </p>
+              )}
+            </div>
 
+            {/* Empty state */}
             {resources.length === 0 && !isSearching && (
-              <div className="mt-12 flex flex-col items-center justify-center py-16">
-                <div className="rounded-full bg-gray-100 p-6">
+              <div className="flex flex-col items-center justify-center rounded-2xl border border-gray-100 bg-gray-50/60 py-20">
+                <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-white shadow-sm ring-1 ring-gray-100">
                   <svg
-                    className="h-12 w-12 text-gray-400"
+                    className="h-8 w-8 text-gray-300"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -481,138 +575,181 @@ export function ExplorePageContent({
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      strokeWidth={2}
+                      strokeWidth={1.5}
                       d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                     />
                   </svg>
                 </div>
-                <p className="mt-4 text-lg font-semibold text-gray-900">No results found</p>
-                <p className="mt-2 text-sm text-gray-600">
+                <p className="text-base font-semibold text-gray-700">No results found</p>
+                <p className="mt-1.5 text-sm text-gray-400">
                   {hasActiveFilters ? (
                     <>
-                      Try adjusting your search terms or{' '}
+                      Try adjusting filters or{' '}
                       <button
                         onClick={clearAllFilters}
-                        className="font-medium transition"
+                        className="font-medium underline underline-offset-2 transition hover:text-gray-700"
                         style={{ color: '#526479' }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.color = '#3d4d5f';
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.color = '#526479';
-                        }}
                       >
-                        clear all filters
+                        clear all
                       </button>
                     </>
                   ) : (
-                    'Start typing to search for content'
+                    'Start typing to find resources'
                   )}
                 </p>
               </div>
             )}
 
+            {/* Result cards */}
             {resources.length > 0 && (
               <div
-                className={`flex flex-col gap-6 transition-opacity duration-200 ${isSearching ? 'opacity-50' : 'opacity-100'}`}
+                className={`flex flex-col gap-4 transition-opacity duration-200 ${isSearching ? 'opacity-40' : 'opacity-100'}`}
               >
-                {resources.map((item) => (
-                  <div
-                    key={item.id}
-                    className="glass-card group flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:justify-between"
-                  >
-                    <div className="flex-1 space-y-3">
-                      <div className="mb-2 flex items-center space-x-2 text-sm">
-                        <span className="rounded-full bg-gray-900 px-3 py-1 text-xs font-medium text-white">
-                          Open
-                        </span>
-                        <span className="rounded-full bg-gray-200 px-3 py-1 text-xs font-medium text-gray-700">
-                          {item.uploaded}
-                        </span>
-                        <span className="rounded-full bg-gray-200 px-3 py-1 text-xs font-medium text-gray-700">
-                          {item.type}
-                        </span>
-                      </div>
+                {resources.map((item) => {
+                  // Define if whe must show the link
+                  const isGKHSource = item.source === 'geo-knowledge-hub';
+                  const showLink = (gkhOnline && isGKHSource) || !isGKHSource;
 
-                      <h3 className="text-lg font-semibold text-gray-900">
-                        <a href={item.link} target="_blank" rel="noopener noreferrer">
-                          {item.name}
-                        </a>
-                      </h3>
-                      <p className="mt-1 line-clamp-3 text-sm text-gray-600">{item.description}</p>
-
-                      <ResourceActions
-                        resource={item}
-                        gkhOnline={gkhOnline}
-                        onOpenOverview={() => {
-                          setResource(item);
-                          setIsOpen(true);
-                        }}
-                        onOpenMetadata={() => setResourceForMetadata(item)}
-                        linkClassName="text-sm font-medium text-gray-700 transition hover:text-gray-900 focus:outline-none"
-                        buttonClassName="cursor-pointer text-sm font-medium text-gray-700 transition hover:text-gray-900 focus:outline-none"
+                  return (
+                    <article
+                      key={item.id}
+                      className="group relative overflow-hidden rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition-all hover:border-[#526479]/20 hover:shadow-md"
+                    >
+                      {/* Left accent line on hover */}
+                      <div
+                        className="absolute inset-y-0 left-0 w-0.5 rounded-full opacity-0 transition-all duration-200 group-hover:opacity-100"
+                        style={{ backgroundColor: '#526479' }}
                       />
-                    </div>
-                    <div className="hidden shrink-0 rounded-md bg-gray-100 p-5 transition group-hover:bg-gray-200/80 sm:block">
-                      {item.icon && (
-                        <Image
-                          src={getAssetPath(item.icon)}
-                          alt={`${item.type} icon`}
-                          width={24}
-                          height={24}
-                          className="flex h-6 w-6 items-center justify-center rounded-lg"
-                        />
-                      )}
-                    </div>
-                  </div>
-                ))}
+
+                      <div className="flex items-start gap-5">
+                        {/* Icon column */}
+                        <div className="hidden shrink-0 sm:block">
+                          <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-gray-100 bg-gray-50 transition group-hover:border-[#526479]/20 group-hover:bg-[#526479]/5">
+                            {item.icon ? (
+                              <Image
+                                src={getAssetPath(item.icon)}
+                                alt={`${item.type} icon`}
+                                width={22}
+                                height={22}
+                              />
+                            ) : (
+                              <svg
+                                className="h-5 w-5 text-gray-300"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={1.5}
+                                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                                />
+                              </svg>
+                            )}
+                          </div>
+                        </div>
+
+                        {/* Content */}
+                        <div className="min-w-0 flex-1">
+                          {/* Badges row */}
+                          <div className="mb-2.5 flex flex-wrap items-center gap-1.5">
+                            <span className="rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-0.5 text-[11px] font-semibold tracking-wide text-emerald-700 uppercase">
+                              Open
+                            </span>
+                            {item.type && (
+                              <span className="rounded-full border border-gray-200 bg-gray-50 px-2.5 py-0.5 text-[11px] font-medium text-gray-600">
+                                {item.type}
+                              </span>
+                            )}
+                            {item.uploaded && (
+                              <span className="text-[11px] text-gray-400">{item.uploaded}</span>
+                            )}
+                          </div>
+
+                          {/* Title */}
+                          <h3 className="mb-1.5 text-base leading-snug font-semibold text-gray-900 transition group-hover:text-[#526479]">
+                            {showLink ? (
+                              <a
+                                href={item.link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="after:absolute after:inset-0"
+                              >
+                                {item.name}
+                              </a>
+                            ) : (
+                              <span className="after:absolute after:inset-0">{item.name}</span>
+                            )}
+                          </h3>
+
+                          {/* Description */}
+                          <p className="line-clamp-2 text-sm leading-relaxed text-gray-500">
+                            {item.description}
+                          </p>
+
+                          {/* Actions */}
+                          <div className="relative z-10 mt-4">
+                            <ResourceActions
+                              resource={item}
+                              gkhOnline={gkhOnline}
+                              onOpenOverview={() => {
+                                setResource(item);
+                                setIsOpen(true);
+                              }}
+                              onOpenMetadata={() => setResourceForMetadata(item)}
+                              linkClassName="text-sm font-medium text-[#526479] transition hover:text-[#3d4d5f] focus:outline-none"
+                              buttonClassName="cursor-pointer text-sm font-medium text-[#526479] transition hover:text-[#3d4d5f] focus:outline-none"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </article>
+                  );
+                })}
               </div>
             )}
 
-            {/* Enhanced Pagination */}
+            {/* Pagination */}
             {totalPages > 1 && (
-              <div className="mt-10 flex items-center justify-center gap-1 sm:gap-2">
+              <div className="mt-10 flex items-center justify-center gap-1">
                 <button
                   disabled={currentPage === 1}
                   onClick={() => handlePageChange(currentPage - 1)}
-                  className="flex items-center gap-1 rounded-lg border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-700 transition-all hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-white sm:gap-2 sm:px-4"
+                  className="flex h-9 w-9 items-center justify-center rounded-xl border border-gray-200 bg-white text-gray-500 transition hover:border-gray-300 hover:bg-gray-50 disabled:pointer-events-none disabled:opacity-40"
                 >
-                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M15 19l-7-7 7-7"
-                    />
+                  <svg
+                    className="h-4 w-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
                   </svg>
-                  <span className="hidden sm:inline">Previous</span>
                 </button>
 
-                {/* Page Numbers */}
-                <div className="flex items-center gap-0.5 sm:gap-1">
+                <div className="flex items-center gap-0.5">
                   {Array.from({ length: totalPages }, (_, i) => i + 1)
-                    .filter((page) => {
-                      // Show first page, last page, current page, and pages around current
-                      return (
+                    .filter(
+                      (page) =>
                         page === 1 ||
                         page === totalPages ||
-                        (page >= currentPage - 1 && page <= currentPage + 1)
-                      );
-                    })
+                        (page >= currentPage - 1 && page <= currentPage + 1),
+                    )
                     .map((page, index, array) => {
-                      // Add ellipsis if there's a gap
                       const showEllipsisBefore = index > 0 && page - array[index - 1] > 1;
                       return (
                         <React.Fragment key={page}>
                           {showEllipsisBefore && (
-                            <span className="px-1 text-gray-400 sm:px-2">...</span>
+                            <span className="px-2 text-sm text-gray-400">…</span>
                           )}
                           <button
                             onClick={() => handlePageChange(page)}
-                            className={`h-8 w-8 rounded-lg text-sm font-medium transition-all sm:h-10 sm:w-10 ${
+                            className={`h-9 w-9 rounded-xl text-sm font-medium transition-all ${
                               currentPage === page
-                                ? 'text-white'
-                                : 'bg-white text-gray-700 hover:bg-gray-100'
+                                ? 'text-white shadow-sm'
+                                : 'text-gray-600 hover:bg-gray-100'
                             }`}
                             style={
                               currentPage === page ? { backgroundColor: '#526479' } : undefined
@@ -628,16 +765,16 @@ export function ExplorePageContent({
                 <button
                   disabled={currentPage >= totalPages}
                   onClick={() => handlePageChange(currentPage + 1)}
-                  className="flex items-center gap-1 rounded-lg border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-700 transition-all hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-white sm:gap-2 sm:px-4"
+                  className="flex h-9 w-9 items-center justify-center rounded-xl border border-gray-200 bg-white text-gray-500 transition hover:border-gray-300 hover:bg-gray-50 disabled:pointer-events-none disabled:opacity-40"
                 >
-                  <span className="hidden sm:inline">Next</span>
-                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9 5l7 7-7 7"
-                    />
+                  <svg
+                    className="h-4 w-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                   </svg>
                 </button>
               </div>
@@ -647,11 +784,11 @@ export function ExplorePageContent({
       </div>
 
       {resource !== null && (
-        <ResourceOverviewModal open={isOpen} onClose={() => setIsOpen(false)} data={resource} />
+        <ResourceOverviewDialog open={isOpen} onClose={() => setIsOpen(false)} data={resource} />
       )}
 
       {resourceForMetadata?.sync?.metadata && (
-        <GkhMetadataModal
+        <GkhMetadataDialog
           open={!!resourceForMetadata}
           onClose={() => setResourceForMetadata(null)}
           data={resourceForMetadata}

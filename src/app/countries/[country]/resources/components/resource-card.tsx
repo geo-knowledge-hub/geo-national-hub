@@ -14,13 +14,13 @@ import React, { useState, JSX } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
-import { ResourceOverviewModal, GkhMetadataModal, ResourceActions } from '@components/global';
+import { ResourceOverviewDialog, GkhMetadataDialog, ResourceActions } from '@components/global';
 
 import type { Resource } from '@content-types/content';
 import { getAssetPath } from '@lib/utils';
 
 /**
- * Properties of the ResourceCardProps component.
+ * Properties of the ResourceCard component.
  */
 interface ResourceCardProps {
   resource: Resource;
@@ -35,11 +35,17 @@ interface ResourceCardProps {
  * @returns {JSX.Element} The rendered ResourceCard component.
  */
 export function ResourceCard({ resource, gkhOnline = true }: ResourceCardProps): JSX.Element {
-  /**
-   * State to manage the metadata modal.
-   */
+  // State - Resource overview modal open
   const [isOpen, setIsOpen] = useState(false);
+
+  // State - GKH metadata modal open
   const [showSyncMetadata, setShowSyncMetadata] = useState(false);
+
+  // Check if the resource is from the GKH.
+  const isGkhSource = resource.source === 'geo-knowledge-hub';
+
+  // Check if the resource should show access.
+  const showLink = (gkhOnline && isGkhSource) || !isGkhSource;
 
   return (
     <>
@@ -58,9 +64,13 @@ export function ResourceCard({ resource, gkhOnline = true }: ResourceCardProps):
           </div>
 
           <h3 className="text-lg font-semibold text-gray-900">
-            <Link href={resource.link} target="_blank">
-              {resource.name}
-            </Link>
+            {showLink ? (
+              <Link href={resource.link} target="_blank">
+                {resource.name}
+              </Link>
+            ) : (
+              resource.name
+            )}
           </h3>
 
           <p className="mt-1 line-clamp-3 text-sm text-gray-600">{resource.description}</p>
@@ -88,11 +98,11 @@ export function ResourceCard({ resource, gkhOnline = true }: ResourceCardProps):
       </div>
 
       {/* Resource overview modal */}
-      <ResourceOverviewModal open={isOpen} onClose={() => setIsOpen(false)} data={resource} />
+      <ResourceOverviewDialog open={isOpen} onClose={() => setIsOpen(false)} data={resource} />
 
       {/* GKH metadata modal */}
       {resource.sync?.metadata && (
-        <GkhMetadataModal
+        <GkhMetadataDialog
           open={showSyncMetadata}
           onClose={() => setShowSyncMetadata(false)}
           data={resource}

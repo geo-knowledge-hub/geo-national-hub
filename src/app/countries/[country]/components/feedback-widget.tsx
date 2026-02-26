@@ -10,12 +10,9 @@
 'use client';
 
 import React, { useState, useCallback, useEffect, useRef } from 'react';
-import {
-  ChatBubbleLeftEllipsisIcon,
-  XMarkIcon,
-  ArrowTopRightOnSquareIcon,
-  ShieldCheckIcon,
-} from '@heroicons/react/24/outline';
+import { MessageSquare, X, ExternalLink, ShieldCheck } from 'lucide-react';
+
+import { Button } from '@ui/button';
 
 import { checkAdminAuth } from '@lib/api/admin';
 
@@ -55,7 +52,7 @@ export function FeedbackWidget({ feedbackUrl, countryName }: FeedbackWidgetProps
   // Ref - Modal
   const modalRef = useRef<HTMLDivElement>(null);
 
-  // Effect - Check admin auth on mount — hide widget for admins
+  // Effect - Check admin auth on mount
   useEffect(() => {
     checkAdminAuth().then(setIsAdmin);
   }, []);
@@ -69,6 +66,7 @@ export function FeedbackWidget({ feedbackUrl, countryName }: FeedbackWidgetProps
     if (feedbackUrl) {
       window.open(feedbackUrl, '_blank', 'noopener,noreferrer');
     }
+
     setIsModalOpen(false);
   }, [feedbackUrl]);
 
@@ -105,14 +103,16 @@ export function FeedbackWidget({ feedbackUrl, countryName }: FeedbackWidgetProps
     <>
       {/* Floating trigger button */}
       <div className="fixed right-6 bottom-6 z-60">
-        <button
+        <Button
+          variant="glass"
+          size="auto"
           onClick={openModal}
           aria-label="Provide feedback"
-          className="glass-button flex items-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold text-gray-700 transition-all hover:scale-105"
+          className="rounded-xl px-5 py-3 text-sm font-semibold text-gray-700 hover:scale-105"
         >
-          <ChatBubbleLeftEllipsisIcon className="h-4 w-4 text-gray-500" />
+          <MessageSquare className="h-4 w-4 text-gray-500" />
           Feedback
-        </button>
+        </Button>
       </div>
 
       {/* Confirmation modal overlay */}
@@ -139,7 +139,7 @@ export function FeedbackWidget({ feedbackUrl, countryName }: FeedbackWidgetProps
                       'color-mix(in srgb, var(--theme-primary, #526479) 10%, #ffffff)',
                   }}
                 >
-                  <ShieldCheckIcon
+                  <ShieldCheck
                     className="h-5 w-5"
                     style={{ color: 'var(--theme-primary, #526479)' }}
                   />
@@ -148,13 +148,15 @@ export function FeedbackWidget({ feedbackUrl, countryName }: FeedbackWidgetProps
                   Feedback
                 </h2>
               </div>
-              <button
+              <Button
+                variant="ghost"
+                size="icon"
                 onClick={closeModal}
-                className="rounded-lg p-1.5 text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600"
                 aria-label="Close dialog"
+                className="rounded-lg"
               >
-                <XMarkIcon className="h-5 w-5" />
-              </button>
+                <X className="h-5 w-5" />
+              </Button>
             </div>
 
             {/* Body */}
@@ -177,22 +179,24 @@ export function FeedbackWidget({ feedbackUrl, countryName }: FeedbackWidgetProps
 
             {/* Actions */}
             <div className="flex flex-col-reverse gap-2.5 sm:flex-row sm:justify-end">
-              <button
+              <Button
+                variant="glass"
+                size="auto"
                 onClick={closeModal}
-                className="glass-button rounded-xl px-5 py-2.5 text-sm font-medium text-gray-700 transition-colors hover:text-gray-900"
+                className="rounded-xl px-5 py-2.5 text-sm font-medium text-gray-700"
               >
                 Cancel
-              </button>
-              <button
+              </Button>
+              <Button
+                variant="themed"
+                size="auto"
                 onClick={handleContinue}
-                className="flex cursor-pointer items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-medium text-white shadow-sm transition-all duration-200 hover:shadow-md"
-                style={{
-                  backgroundColor: 'var(--theme-primary, #526479)',
-                }}
+                className="rounded-xl px-5 py-2.5 text-sm font-medium"
+                style={{ backgroundColor: 'var(--theme-primary, #526479)' }}
               >
                 Access
-                <ArrowTopRightOnSquareIcon className="h-4 w-4" />
-              </button>
+                <ExternalLink className="h-4 w-4" />
+              </Button>
             </div>
 
             {/* Mobile drag indicator */}

@@ -13,7 +13,7 @@ import React, { JSX } from 'react';
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRightIcon } from '@heroicons/react/24/solid';
+import { ArrowRight } from 'lucide-react';
 
 import { getAssetPath } from '@lib/utils';
 
@@ -93,7 +93,7 @@ export function BusinessCard({ business, countryId }: BusinessCardProps): JSX.El
           <span>
             {appCount === 0 ? 'Coming soon' : `${appCount} ${appCount === 1 ? 'app' : 'apps'}`}
           </span>
-          <ArrowRightIcon className="h-3.5 w-3.5" />
+          <ArrowRight className="h-3.5 w-3.5" />
         </div>
       </div>
     </Link>

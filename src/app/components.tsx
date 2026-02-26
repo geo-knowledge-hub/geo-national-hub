@@ -11,10 +11,12 @@
 
 import React, { JSX, useState, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image';
 import { usePathname } from 'next/navigation';
+import { LogIn, LogOut, Menu, X } from 'lucide-react';
 
 import logoGKH from '@public/images/logo-blue.svg';
+import { Button } from '@ui/button';
 
 /**
  * Properties of the ``NavItem`` .
@@ -29,7 +31,7 @@ type NavItem = {
  * Properties expected for the ``Header`` component.
  */
 interface HeaderProps {
-  logoSrc: string;
+  logoSrc: string | StaticImageData;
   logoAlt: string;
   navItems: NavItem[];
 }
@@ -56,13 +58,16 @@ export const HeroSearch: React.FC<{
   const [showInfo, setShowInfo] = useState(false);
 
   return (
-    <section className="relative min-h-[85vh] overflow-hidden bg-gradient-to-br from-blue-50 via-white to-gray-50">
+    <section className="relative overflow-hidden">
       <div className="pointer-events-none fixed inset-0 h-full w-screen" style={{ zIndex: 0 }}>
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] opacity-40"></div>
       </div>
 
-      <div className="relative mx-auto max-w-7xl px-2 py-10 md:px-6 lg:py-20" style={{ zIndex: 1 }}>
-        <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
+      <div
+        className="relative mx-auto flex max-w-7xl flex-col px-4 py-10 md:px-6 lg:min-h-[calc(100vh-80px)] lg:justify-between lg:py-14"
+        style={{ zIndex: 1 }}
+      >
+        <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-16">
           {/* Left side  */}
           <div className="relative z-10 space-y-8">
             {/* Badge */}
@@ -77,13 +82,13 @@ export const HeroSearch: React.FC<{
             <div className="space-y-4">
               <h1 className="font-bold tracking-tight">
                 <span
-                  className="mt-2 block text-5xl md:text-3xl lg:text-4xl"
+                  className="mt-2 block text-5xl md:text-4xl lg:text-5xl"
                   style={{ color: '#526479' }}
                 >
                   National
                 </span>
                 <span
-                  className="block text-5xl md:text-3xl lg:text-4xl"
+                  className="block text-5xl md:text-3xl lg:text-5xl"
                   style={{ color: '#526479' }}
                 >
                   GEO Knowledge Hub
@@ -94,21 +99,33 @@ export const HeroSearch: React.FC<{
               </p>
             </div>
 
-            {/* CTA Links */}
+            {/* CTA */}
             <div className="flex flex-wrap gap-3">
-              <a
-                href={'https://gkhub.earthobservations.org/'}
-                target={'_blank'}
-                rel="noopener noreferrer"
-                className="glass-button inline-flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-gray-700 transition-all hover:scale-105"
+              <Button
+                variant="glass"
+                size="auto"
+                asChild
+                className="rounded-xl px-4 py-2.5 text-sm font-medium text-gray-700 hover:scale-105"
               >
-                <Image src={logoGKH} alt="Global GKH icon" className="h-4 w-4" />
-                Global GKH
-              </a>
-              <button
+                {/* Global GKH */}
+                <a
+                  href={'https://gkhub.earthobservations.org/'}
+                  target={'_blank'}
+                  rel="noopener noreferrer"
+                >
+                  <Image src={logoGKH} alt="Global GKH icon" className="h-4 w-4" />
+                  Global GKH
+                </a>
+              </Button>
+
+              {/* Learn more */}
+              <Button
+                variant="glass"
+                size="auto"
                 onClick={() => setShowInfo(!showInfo)}
-                className="glass-button inline-flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-gray-700 transition-all hover:scale-105"
+                className="rounded-xl px-4 py-2.5 text-sm font-medium text-gray-700 hover:scale-105"
               >
+                {/* Icon */}
                 <svg
                   className="h-4 w-4 text-gray-500"
                   fill="none"
@@ -123,7 +140,7 @@ export const HeroSearch: React.FC<{
                   />
                 </svg>
                 Learn more
-              </button>
+              </Button>
             </div>
           </div>
 
@@ -374,7 +391,7 @@ export const HeroSearch: React.FC<{
         )}
 
         {/* Explore content */}
-        <div className="relative z-10 mt-20 flex flex-col items-center gap-4">
+        <div className="relative z-10 mt-8 flex flex-col items-center gap-4 lg:mt-0 lg:pb-4">
           <div className="flex flex-col items-center gap-3">
             <span className="text-sm font-medium tracking-wider text-gray-500 uppercase">
               Explore Content
@@ -411,37 +428,6 @@ export const HeroSearch: React.FC<{
             </button>
           </div>
         </div>
-
-        {/* Search bar */}
-        <div className="search-section relative z-10 mt-32 flex flex-col items-center">
-          <div className="w-full max-w-4xl">
-            <div className="relative rounded-2xl border border-gray-200/80 bg-white p-1.5 shadow-sm transition-all hover:border-gray-300 hover:shadow-md">
-              <input
-                type="text"
-                id="search-input"
-                className="text-md block w-full rounded-xl border-0 bg-transparent p-4 pr-10 pl-4 font-medium text-gray-900 placeholder:text-gray-400 focus:ring-0 focus:outline-none"
-                placeholder="Search for a country..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-6">
-                <svg
-                  className="h-6 w-6 text-gray-400"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                  />
-                </svg>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   );
@@ -452,9 +438,9 @@ export const HeroSearch: React.FC<{
  *
  * @component
  * @param {HeaderProps} props - Component props.
- * @param {string} props.logoSrc - Logo image address.
+ * @param {string | StaticImageData} props.logoSrc - Logo image source.
  * @param {string} props.logoAlt - Logo image alternative text.
- * @param {NavItem} props.navItems - Navigation items.
+ * @param {NavItem[]} props.navItems - Navigation items.
  * @returns {JSX.Element} The rendered Header component.
  */
 export const Header: React.FC<HeaderProps> = ({
@@ -487,142 +473,109 @@ export const Header: React.FC<HeaderProps> = ({
     checkAuth();
   }, [pathname]);
 
-  // Close mobile menu when route changes
+  // Close mobile menu on route change
   useEffect(() => {
     setIsMobileMenuOpen(false);
   }, [pathname]);
 
-  // Check if a link is active
-  const isActive = (href: string) => {
-    if (href === '/') {
-      return pathname === '/';
-    }
-    return pathname.startsWith(href);
-  };
+  const isActive = (href: string) => (href === '/' ? pathname === '/' : pathname.startsWith(href));
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-gray-200 bg-white/70 backdrop-blur-md">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-23 items-center justify-between">
+    <header className="fixed inset-x-0 top-0 z-50 bg-white/85 shadow-[0_1px_0_0_rgba(0,0,0,0.06)] backdrop-blur-xl">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+        <div className="flex h-20 items-center justify-between gap-4">
           {/* Logo */}
-          <div className="flex items-center">
-            <Link href="/" passHref>
-              <div className="flex cursor-pointer items-center space-x-2">
-                <Image src={logoSrc} alt={logoAlt} height={72} />
-              </div>
-            </Link>
-          </div>
+          <Link href="/" className="shrink-0">
+            <Image src={logoSrc} alt={logoAlt} height={64} />
+          </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden items-center gap-2 md:flex">
+          {/* Desktop nav */}
+          <nav className="hidden items-center gap-0.5 md:flex">
             {navItems.map((item, index) => (
-              <Link key={index} href={item.href} passHref>
-                <span
-                  className={`relative cursor-pointer rounded-md px-4 py-2 text-base font-medium transition-colors ${
-                    isActive(item.href)
-                      ? 'bg-gray-100 text-gray-900'
-                      : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
-                  }`}
-                >
-                  {item.label}
-                  {isActive(item.href) && (
-                    <span className="absolute bottom-0 left-1/2 h-0.5 w-8 -translate-x-1/2 rounded-full bg-gray-900" />
-                  )}
-                </span>
+              <Link
+                key={index}
+                href={item.href}
+                className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+                  isActive(item.href)
+                    ? 'bg-[#526479]/10 text-[#526479]'
+                    : 'text-gray-600 hover:bg-gray-100 hover:text-gray-800'
+                }`}
+              >
+                {item.label}
               </Link>
             ))}
           </nav>
 
-          {/* Mobile Menu Button */}
-          <div className="flex items-center gap-4 md:hidden">
+          {/* Right side */}
+          <div className="flex items-center gap-2">
+            {/* Auth */}
+            {isAuthenticated === null ? (
+              <div className="h-8 w-16 animate-pulse rounded-full bg-gray-200" />
+            ) : isAuthenticated ? (
+              <Button
+                variant="default"
+                size="auto"
+                asChild
+                className="rounded-full px-3.5 py-2 text-sm"
+              >
+                <a href="/national/admin/logout">
+                  <LogOut className="h-3.5 w-3.5" />
+                  <span className="hidden sm:inline">Logout</span>
+                </a>
+              </Button>
+            ) : (
+              <Button
+                variant="default"
+                size="auto"
+                asChild
+                className="rounded-full px-3.5 py-2 text-sm"
+              >
+                <Link href="/admin/login">
+                  <LogIn className="h-3.5 w-3.5" />
+                  <span className="hidden sm:inline">Login</span>
+                </Link>
+              </Button>
+            )}
+
+            {/* Mobile hamburger */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="rounded-md p-2 text-gray-700 hover:bg-gray-100"
+              className="rounded-lg p-2 text-gray-600 transition-colors hover:bg-gray-100 md:hidden"
               aria-label="Toggle menu"
+              aria-expanded={isMobileMenuOpen}
             >
-              {isMobileMenuOpen ? (
-                <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              ) : (
-                <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                </svg>
-              )}
+              {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
-          </div>
-
-          {/* Auth Button */}
-          <div className="flex items-center space-x-4">
-            {isAuthenticated === null ? (
-              // Loading state
-              <div className="h-10 w-20 animate-pulse rounded-full bg-gray-200" />
-            ) : isAuthenticated ? (
-              // Logged in
-              <a
-                href="/national/admin/logout"
-                className="flex items-center gap-2 rounded-full bg-gray-900 px-4 py-2 text-white transition hover:bg-gray-800"
-              >
-                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-                  />
-                </svg>
-                Logout
-              </a>
-            ) : (
-              // Not logged in - show Login
-              <Link
-                href="/admin/login"
-                className="flex items-center gap-2 rounded-full bg-gray-900 px-4 py-2 text-white transition hover:bg-gray-800"
-              >
-                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
-                  />
-                </svg>
-                Login
-              </Link>
-            )}
           </div>
         </div>
 
-        {/* Mobile Menu */}
-        {isMobileMenuOpen && (
-          <div className="border-t border-gray-200 bg-white md:hidden">
-            <div className="space-y-1 px-2 pt-2 pb-4">
+        {/* Mobile menu */}
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateRows: isMobileMenuOpen ? '1fr' : '0fr',
+            transition: 'grid-template-rows 0.2s ease',
+          }}
+          className="md:hidden"
+        >
+          <div className="overflow-hidden">
+            <nav className="flex flex-col gap-0.5 border-t border-gray-100 py-3">
               {navItems.map((item, index) => (
-                <Link key={index} href={item.href} passHref>
-                  <span
-                    className={`block cursor-pointer rounded-md px-3 py-2 text-sm font-medium ${
-                      isActive(item.href)
-                        ? 'bg-gray-100 text-gray-900'
-                        : 'text-gray-700 hover:bg-gray-50'
-                    }`}
-                  >
-                    {item.label}
-                  </span>
+                <Link
+                  key={index}
+                  href={item.href}
+                  className={`rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
+                    isActive(item.href)
+                      ? 'bg-[#526479]/10 text-[#526479]'
+                      : 'text-gray-600 hover:bg-gray-50 hover:text-gray-800'
+                  }`}
+                >
+                  {item.label}
                 </Link>
               ))}
-            </div>
+            </nav>
           </div>
-        )}
+        </div>
       </div>
     </header>
   );

@@ -9,7 +9,7 @@
 
 import React, { useState, useMemo, JSX } from 'react';
 
-import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
+import { Search } from 'lucide-react';
 
 import { FeatureCard } from '@components/global';
 
@@ -68,7 +68,7 @@ export function EnablingMechanisms({ countryData }: EnablingMechanismsSectionPro
         <section id="mechanisms" className="px-4 py-12">
           <div className="mx-auto max-w-7xl">
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
-              {/* Header & Description */}
+              {/* Header */}
               <div>
                 <h2 className="themed-title mb-2 text-3xl font-bold">Enabling mechanisms</h2>
                 <p className="mb-4 text-gray-600">
@@ -76,10 +76,10 @@ export function EnablingMechanisms({ countryData }: EnablingMechanismsSectionPro
                 </p>
               </div>
 
-              {/* Search Bar aligned with header */}
+              {/* Search bar */}
               <div className="mt-4 lg:mt-0">
                 <div className="relative w-full lg:w-72">
-                  <MagnifyingGlassIcon className="absolute top-1/2 left-3 h-5 w-5 -translate-y-1/2 transform text-gray-400" />
+                  <Search className="absolute top-1/2 left-3 h-5 w-5 -translate-y-1/2 transform text-gray-400" />
                   <input
                     type="text"
                     placeholder="Search..."
@@ -91,7 +91,7 @@ export function EnablingMechanisms({ countryData }: EnablingMechanismsSectionPro
               </div>
             </div>
 
-            {/* Mechanism List */}
+            {/* List */}
             <div className="mt-2 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {filteredMechanisms.length > 0 ? (
                 filteredMechanisms.map((mechanism, index) => {

@@ -7,10 +7,10 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-export { Badge } from './badge';
+export { Badge } from '@ui/badge';
 export { BackButton } from './button';
 export { HeroCountry, HeroSouthAfrica, HeroTopic } from './hero';
-export { RepresentativesTable } from './table';
 export { FeatureCard, CallToActionCard } from './card';
-export { ResourceOverviewModal, GkhMetadataModal } from './modal';
 export { ResourceActions } from './resources';
+
+export { ResourceOverviewDialog, GkhMetadataDialog } from './modal';

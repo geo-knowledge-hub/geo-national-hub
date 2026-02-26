@@ -119,13 +119,13 @@ export function HeroWide({
           </div>
         )}
 
-        {/* Content - Bottom Left Aligned */}
+        {/* Content */}
         <div className="absolute right-0 bottom-0 left-0 z-10 p-4 md:p-12 lg:p-16">
           <div className="mx-auto max-w-7xl px-4 md:px-6">
-            <h1 className="mb-2 text-2xl font-extrabold tracking-tight text-white drop-shadow-xl md:mb-4 md:text-5xl lg:text-6xl xl:text-7xl">
+            <h1 className="mb-2 text-2xl font-bold tracking-tight text-white drop-shadow-xl md:mb-4 md:text-3xl lg:text-4xl xl:text-5xl">
               {title}
             </h1>
-            <p className="max-w-3xl text-sm font-medium text-white/95 drop-shadow-lg md:text-xl lg:text-2xl">
+            <p className="max-w-3xl text-sm font-medium text-white/90 drop-shadow-lg md:text-lg lg:text-xl">
               {description}
             </p>
 

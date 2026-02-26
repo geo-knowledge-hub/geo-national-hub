@@ -12,7 +12,7 @@
 import React, { JSX } from 'react';
 
 import Image from 'next/image';
-import { ArrowRightIcon } from '@heroicons/react/24/solid';
+import { ArrowRight } from 'lucide-react';
 
 import { getAssetPath } from '@lib/utils';
 
@@ -90,7 +90,7 @@ export function ApplicationCard({ application, onClick }: ApplicationCardProps):
         {/* CTA */}
         <div className="themed-title mt-3 flex items-center gap-1 text-sm font-medium opacity-0 transition-opacity duration-200 group-hover:opacity-100">
           Learn more
-          <ArrowRightIcon className="h-3.5 w-3.5" />
+          <ArrowRight className="h-3.5 w-3.5" />
         </div>
       </div>
     </button>

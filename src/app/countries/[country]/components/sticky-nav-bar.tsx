@@ -40,8 +40,8 @@ export function StickyNavBar({ sections, primaryColor }: StickyNavBarProps): JSX
   const placeholderRef = useRef<HTMLDivElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  // Header height (h-23 = 92px, so using 96px for safety)
-  const headerHeight = 96;
+  // Header height (h-20 = 80px)
+  const headerHeight = 80;
 
   // Theme color for active button
   const themeColor = primaryColor || 'var(--theme-primary, #526479)';

@@ -10,7 +10,7 @@
 import React, { JSX } from 'react';
 
 import Link from 'next/link';
-import { ArrowRightIcon, BuildingStorefrontIcon, CubeIcon } from '@heroicons/react/24/solid';
+import { ArrowRight, Store, Box } from 'lucide-react';
 
 import type { Country } from '@content-types/content';
 
@@ -23,7 +23,7 @@ interface MarketplaceSectionProps {
 }
 
 /**
- * MarketplaceSection Component - Teaser section on the country page
+ * MarketplaceSection Component
  *
  * @component
  * @param {MarketplaceSectionProps} props - The properties containing country data.
@@ -66,7 +66,7 @@ export function MarketplaceSection({
             style={{ background: 'radial-gradient(circle, white 0%, transparent 70%)' }}
           />
 
-          {/* Content — centered with wider text */}
+          {/* Content */}
           <div className="relative z-10 flex flex-col items-center px-8 py-10 text-center md:px-12 md:py-12">
             <h2 className="max-w-3xl text-3xl font-extrabold tracking-tight text-white md:text-4xl">
               Want more? Explore the EO Business Marketplace
@@ -78,13 +78,13 @@ export function MarketplaceSection({
               ready to support your priorities.
             </p>
 
-            {/* CTA button */}
+            {/* CTA */}
             <Link
               href={`/countries/${countryId}/marketplace`}
               className="group mt-7 inline-flex items-center gap-3 rounded-xl bg-white px-8 py-3.5 text-base font-bold shadow-lg transition hover:scale-105 hover:shadow-xl"
             >
               <span className="themed-title">Browse Marketplace</span>
-              <ArrowRightIcon className="themed-title h-5 w-5 transition-transform group-hover:translate-x-1" />
+              <ArrowRight className="themed-title h-5 w-5 transition-transform group-hover:translate-x-1" />
             </Link>
           </div>
         </div>

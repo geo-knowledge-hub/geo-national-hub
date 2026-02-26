@@ -10,7 +10,7 @@
 import React, { JSX } from 'react';
 
 import Image from 'next/image';
-import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
+import { ExternalLink } from 'lucide-react';
 
 import { getAssetPath } from '@lib/utils';
 
@@ -45,7 +45,7 @@ export function KeyRepresentativesSection({
   return (
     <section id="representatives" className="px-4 py-12">
       <div className="mx-auto max-w-7xl">
-        {/* Header — left-aligned like other sections */}
+        {/* Header */}
         <div>
           <h2 className="themed-title text-3xl font-bold">Key representatives</h2>
           <p className="mt-2 text-gray-600">
@@ -84,7 +84,7 @@ export function KeyRepresentativesSection({
                 className="themed-title mt-3 inline-flex items-center gap-1 text-xs font-medium transition hover:opacity-80"
               >
                 View profile
-                <ArrowTopRightOnSquareIcon className="h-3 w-3" />
+                <ExternalLink className="h-3 w-3" />
               </a>
             </div>
           ))}

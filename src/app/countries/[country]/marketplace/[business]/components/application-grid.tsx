@@ -11,7 +11,7 @@
 
 import React, { JSX, useState, useMemo } from 'react';
 
-import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
+import { Search } from 'lucide-react';
 import type { MarketplaceApplication } from '@content-types/content';
 
 import { ApplicationCard } from './application-card';
@@ -29,10 +29,11 @@ interface ApplicationGridProps {
 }
 
 /**
- * ApplicationGrid Component - Grid of application cards with local search
+ * ApplicationGrid Component
+ *
  *
  * @component
- * @param {ApplicationGridProps} props - Component props.
+ * @param {ApplicationGridProps} props - The properties containing application data.
  * @returns {JSX.Element} The rendered ApplicationGrid component.
  */
 export function ApplicationGrid({
@@ -76,7 +77,7 @@ export function ApplicationGrid({
 
       {/* Search */}
       <div className="relative mt-4 w-full">
-        <MagnifyingGlassIcon className="absolute top-1/2 left-3.5 h-4 w-4 -translate-y-1/2 text-gray-400" />
+        <Search className="absolute top-1/2 left-3.5 h-4 w-4 -translate-y-1/2 text-gray-400" />
         <input
           type="text"
           placeholder="Search applications..."

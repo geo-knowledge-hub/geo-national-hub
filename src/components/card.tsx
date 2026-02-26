@@ -13,8 +13,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { StaticImageData } from 'next/image';
 
+import { Button } from './ui/button';
+
 import { getAssetPath } from '@lib/utils';
 
+/**
+ * Properties expected for the FeatureCard component.
+ */
 interface FeatureCardProps {
   image: StaticImageData | string;
   imageAlt: string;
@@ -24,6 +29,9 @@ interface FeatureCardProps {
   imageClass?: string;
 }
 
+/**
+ * Properties expected for the CallToActionCard component.
+ */
 interface CallToActionCardProps {
   title: string;
   subtitle?: string;
@@ -35,6 +43,15 @@ interface CallToActionCardProps {
   illustrationAlt?: string;
 }
 
+/**
+ * FeatureCard component
+ *
+ * Displays a feature card with an image, title, and link.
+ *
+ * @component
+ * @param {FeatureCardProps} props - The properties for the ``FeatureCard`` component.
+ * @returns {JSX.Element} The rendered ``FeatureCard`` component.
+ */
 export const FeatureCard: React.FC<FeatureCardProps> = ({
   image,
   imageAlt,
@@ -60,10 +77,8 @@ export const FeatureCard: React.FC<FeatureCardProps> = ({
     </div>
   );
 
-  // Define base content
   let hrefContent = content;
 
-  // If ``href`` and ``external``, use ``a``
   if (href && external) {
     hrefContent = (
       <a href={href} target="_blank" rel="noopener noreferrer" className="h-full">
@@ -71,7 +86,6 @@ export const FeatureCard: React.FC<FeatureCardProps> = ({
       </a>
     );
   } else if (href) {
-    // Otherwise, use next navigation link
     hrefContent = (
       <Link href={href} className="h-full">
         {content}
@@ -93,7 +107,7 @@ export const CallToActionCard: React.FC<CallToActionCardProps> = ({
   illustrationAlt,
 }) => {
   return (
-    <div className="glass-card flex h-full w-full flex-col items-center justify-between p-8">
+    <div className="glass-card flex h-full w-full flex-col items-center justify-between p-5 md:p-8">
       <div className="grid w-full items-center gap-8 md:grid-cols-[2fr_1fr]">
         <div>
           {subtitle && (
@@ -101,15 +115,18 @@ export const CallToActionCard: React.FC<CallToActionCardProps> = ({
           )}
           <h2 className="mt-2 text-2xl font-bold text-gray-900 md:text-2xl">{title}</h2>
           <p className="mt-4 text-gray-700">{description}</p>
-          <a
-            href={buttonLink}
-            target={buttonLinkTarget}
-            className="themed-bg mt-6 inline-block rounded-xl px-6 py-3 text-white shadow-md transition hover:opacity-90"
+          <Button
+            variant="themed"
+            size="auto"
+            asChild
+            className="mt-6 rounded-xl px-6 py-3 text-base font-medium"
           >
-            {buttonText}
-          </a>
+            <a href={buttonLink} target={buttonLinkTarget}>
+              {buttonText}
+            </a>
+          </Button>
         </div>
-        <div className="flex items-center justify-end">
+        <div className="hidden items-center justify-end md:flex">
           {illustration && (
             <Image
               src={typeof illustration === 'string' ? getAssetPath(illustration) : illustration}

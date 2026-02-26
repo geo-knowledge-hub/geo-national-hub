@@ -19,6 +19,7 @@ import logoGEO from '@public/images/logo-geo-full.png';
 import logoGKH from '@public/images/logo-full-blue.svg';
 
 import { Header } from './components';
+import { Toaster } from '@ui/sonner';
 
 /**
  * LayoutProps Interface - Defines the expected properties for the Layout component.
@@ -51,9 +52,12 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps): JSX.Element =
         />
 
         {/* Main Content */}
-        <main className="flex-1 pt-24">
-          <div className="mx-auto max-w-7xl px-6">{children}</div>
+        <main className="flex-1 pt-20">
+          <div className="mx-auto">{children}</div>
         </main>
+
+        {/* Toast notifications */}
+        <Toaster />
 
         {/* Footer */}
         <footer className="bg-gray-900 py-10 text-white">

@@ -23,6 +23,7 @@
       "@content/*": ["./data/*"],
       "@lib/*": ["./src/lib/*"],
       "@public/*": ["./public/*"],
+      "@ui/*": ["./src/components/ui/*"],
       "@components/global": ["./src/components"],
       "@content-types/*": ["./src/types/*"]
     }

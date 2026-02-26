@@ -13,7 +13,7 @@ import React, { JSX } from 'react';
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRightIcon, StarIcon } from '@heroicons/react/24/solid';
+import { ArrowRight, Star } from 'lucide-react';
 
 import { getAssetPath } from '@lib/utils';
 
@@ -70,7 +70,7 @@ export function FeaturedBanner({ business, countryId }: FeaturedBannerProps): JS
           {/* Content */}
           <div className="flex-1">
             <div className="themed-title mb-2 flex items-center gap-1.5 text-xs font-semibold tracking-wider uppercase">
-              <StarIcon className="h-3.5 w-3.5" />
+              <Star className="h-3.5 w-3.5" />
               Featured Partner
             </div>
 
@@ -95,7 +95,7 @@ export function FeaturedBanner({ business, countryId }: FeaturedBannerProps): JS
           {/* CTA */}
           <div className="themed-title flex shrink-0 items-center gap-1.5 text-sm font-medium transition-colors group-hover:underline">
             View solutions
-            <ArrowRightIcon className="h-4 w-4" />
+            <ArrowRight className="h-4 w-4" />
           </div>
         </div>
       </div>

@@ -9,7 +9,7 @@
 
 import React, { useState, useMemo, JSX } from 'react';
 
-import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
+import { Search } from 'lucide-react';
 
 import { FeatureCard } from '@components/global';
 
@@ -54,7 +54,8 @@ export function PartnersSection({ countryData }: PartnersSectionProps): JSX.Elem
   // Apply search filter
   const filteredPartners = useMemo(() => {
     const filtered = filterBySearch(partners, searchTerm, ['name', 'description']);
-    // Reset to page 1 when search changes
+
+    // Reset pagination when search changes
     return filtered;
   }, [partners, searchTerm]);
 
@@ -86,7 +87,7 @@ export function PartnersSection({ countryData }: PartnersSectionProps): JSX.Elem
           </div>
           <div className="mt-4 lg:mt-0">
             <div className="relative w-full lg:w-72">
-              <MagnifyingGlassIcon className="absolute top-1/2 left-3 h-5 w-5 -translate-y-1/2 transform text-gray-400" />
+              <Search className="absolute top-1/2 left-3 h-5 w-5 -translate-y-1/2 transform text-gray-400" />
               <input
                 type="text"
                 placeholder="Search..."

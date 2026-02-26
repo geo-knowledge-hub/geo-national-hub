@@ -9,7 +9,7 @@
 
 import React, { useState, useMemo, JSX } from 'react';
 
-import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
+import { Search } from 'lucide-react';
 
 import { FeatureCard } from '@components/global';
 import type { Country, FocusArea, FocusAreaChallenge, Resource } from '@content-types/content';
@@ -112,7 +112,7 @@ export function GEOFocusAreaSection({
           {/* Search Bar */}
           <div className="mt-4 lg:mt-0">
             <div className="relative w-full lg:w-72">
-              <MagnifyingGlassIcon className="absolute top-1/2 left-3 h-5 w-5 -translate-y-1/2 transform text-gray-400" />
+              <Search className="absolute top-1/2 left-3 h-5 w-5 -translate-y-1/2 transform text-gray-400" />
               <input
                 type="text"
                 placeholder="Search..."
@@ -128,7 +128,7 @@ export function GEOFocusAreaSection({
         <div className="mt-2 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {filteredFocusAreas.length > 0 ? (
             filteredFocusAreas.map((focusArea, index) => {
-              const focusAreaLink = `${countryData.id}/focus/${focusArea.id}`;
+              const focusAreaLink = `${countryData.id}/resources?focus=${focusArea.id}`;
 
               return (
                 <FeatureCard

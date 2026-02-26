@@ -13,9 +13,7 @@ import React, { useState, useMemo, JSX } from 'react';
 
 import Link from 'next/link';
 
-import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
-
-import { ExclamationCircleIcon } from '@heroicons/react/24/outline';
+import { Search, AlertCircle } from 'lucide-react';
 
 import type { Country, FocusAreaChallenge } from '@content-types/content';
 import { getIcon } from '@lib/icons';
@@ -66,7 +64,7 @@ function ChallengeCard({ challenge, basePath }: ChallengeCardProps): JSX.Element
   const linkForResources = `${basePath}/${challenge.id}/resources`;
 
   // Get challenge icon from registry
-  const ChallengeIcon = getIcon(challenge.logo) || ExclamationCircleIcon;
+  const ChallengeIcon = getIcon(challenge.logo) || AlertCircle;
 
   return (
     <div className="glass-card group flex items-center justify-between p-6">
@@ -122,10 +120,10 @@ export function ChallengeSection({
             </p>
           </div>
 
-          {/* Search Bar aligned with header */}
+          {/* Search bar */}
           <div className="mt-4 lg:mt-0">
             <div className="relative w-full lg:w-72">
-              <MagnifyingGlassIcon className="absolute top-1/2 left-3 h-5 w-5 -translate-y-1/2 transform text-gray-400" />
+              <Search className="absolute top-1/2 left-3 h-5 w-5 -translate-y-1/2 transform text-gray-400" />
               <input
                 type="text"
                 placeholder="Search..."

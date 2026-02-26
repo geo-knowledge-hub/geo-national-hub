@@ -15,27 +15,19 @@
  * and resolved to actual components at runtime.
  */
 
-import {
-  GlobeAltIcon,
-  CloudIcon,
-  BugAntIcon,
-  ExclamationTriangleIcon,
-  ScissorsIcon,
-  PercentBadgeIcon,
-  ExclamationCircleIcon,
-} from '@heroicons/react/24/outline';
+import { Globe, Cloud, Bug, AlertTriangle, Scissors, Percent, AlertCircle } from 'lucide-react';
 
 /**
- * Registry mapping icon names to HeroIcon components
+ * Registry mapping icon names to Lucide components.
  */
 export const iconRegistry = {
-  GlobeAltIcon,
-  CloudIcon,
-  BugAntIcon,
-  ExclamationTriangleIcon,
-  ScissorsIcon,
-  PercentBadgeIcon,
-  ExclamationCircleIcon,
+  GlobeAltIcon: Globe,
+  CloudIcon: Cloud,
+  BugAntIcon: Bug,
+  ExclamationTriangleIcon: AlertTriangle,
+  ScissorsIcon: Scissors,
+  PercentBadgeIcon: Percent,
+  ExclamationCircleIcon: AlertCircle,
 } as const;
 
 /**

@@ -9,10 +9,11 @@
 
 'use client';
 
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useMemo } from 'react';
 
 import { useTheme } from '../context/theme-context';
 import { applyThemeStyles } from '../utils/theme';
+import { hexToHslString } from '@lib/utils';
 
 /**
  * ThemeWrapperProps Interface - Props for the ThemeWrapper component
@@ -36,9 +37,22 @@ export function ThemeWrapper({ children }: ThemeWrapperProps) {
   const effectiveTheme = getEffectiveTheme();
   const themeStyles = applyThemeStyles(effectiveTheme);
 
-  // Combined styles with background
+  // Bridge theme colors to shadcn HSL CSS variables
+  const shadcnBridge = useMemo(() => {
+    const primary = effectiveTheme.primary_color || '#526479';
+    const accent = effectiveTheme.accent_color || effectiveTheme.primary_color || '#6b7d9a';
+
+    return {
+      '--primary': hexToHslString(primary),
+      '--ring': hexToHslString(primary),
+      '--accent': hexToHslString(accent),
+    } as React.CSSProperties;
+  }, [effectiveTheme]);
+
+  // Combined styles with background and shadcn bridge
   const wrapperStyles = {
     ...themeStyles,
+    ...shadcnBridge,
     backgroundColor: 'var(--theme-background, #ffffff)',
   };
 

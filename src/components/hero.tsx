@@ -7,12 +7,13 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import React, { useMemo } from 'react';
+import React from 'react';
 import Image, { StaticImageData } from 'next/image';
 import Link from 'next/link';
 
 import type { HeroIcon } from '@content-types/content';
 import { BackButton } from './button';
+import { Button } from './ui/button';
 import { getAssetPath } from '@lib/utils';
 
 // Resource type icons
@@ -373,20 +374,24 @@ export const HeroTopic: React.FC<HeroTopicProps> = ({
             <div className="flex flex-col items-center space-y-3 text-center">
               <p className="text-sm text-gray-600">{ctaMessage}</p>
 
-              <Link
-                href={ctaLink}
-                className="glass-button inline-flex items-center gap-2 rounded-xl border border-gray-300 px-5 py-2.5 text-sm font-medium shadow-sm transition-all hover:border-gray-400 hover:shadow-md"
+              <Button
+                variant="glass"
+                size="auto"
+                asChild
+                className="rounded-xl px-5 py-2.5 text-sm font-medium hover:scale-[1.02]"
               >
-                {ctaLabel}
-                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M14 5l7 7m0 0l-7 7m7-7H3"
-                  />
-                </svg>
-              </Link>
+                <Link href={ctaLink}>
+                  {ctaLabel}
+                  <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M14 5l7 7m0 0l-7 7m7-7H3"
+                    />
+                  </svg>
+                </Link>
+              </Button>
             </div>
           </div>
         ) : (
