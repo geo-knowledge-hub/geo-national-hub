@@ -19,7 +19,7 @@ import { ExplorePageContent } from './content';
 export default async function ExplorePage() {
   // Fetch initial resources and facets server-side
   const [initialResults, facets, challenges] = await Promise.all([
-    searchResources('*', undefined, 1, 6),
+    searchResources('*', undefined, 1, 5),
     getResourceFacets(),
     getChallenges(),
   ]);

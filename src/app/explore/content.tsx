@@ -13,21 +13,32 @@ import React, { useState, useEffect, useRef, useMemo } from 'react';
 
 import Image from 'next/image';
 
-import { ResourceOverviewDialog, GkhMetadataDialog, ResourceActions } from '@components/global';
+import { Search, X, SlidersHorizontal } from 'lucide-react';
+
+import {
+  ResourceOverviewDialog,
+  GkhMetadataDialog,
+  ResourceActions,
+  FacetGroup,
+  PerPageSelector,
+  PaginationRow,
+  PaginationInfo,
+  EmptyState,
+} from '@components/global';
+import type { FacetItem } from '@components/global';
+
+import { Button } from '@ui/button';
+import { Badge } from '@ui/badge';
+
+import { computePageNumbers, computeTotalPages, toggleArrayItem } from '@lib/search/utils';
+import type { PerPageOption } from '@lib/search/utils';
 
 import { useGkhHealth } from '@lib/hooks/use-gkh-health';
 import { searchResourcesAction } from '@lib/typesense/actions';
 
-import { FacetGroup } from './components';
-import type { FacetItem } from './components';
 import type { Resource, FocusAreaChallenge } from '@content-types/content';
 import type { FacetsResult } from '@lib/typesense/queries';
 import { getAssetPath } from '@lib/utils';
-
-/**
- * Constants - Pagination - Number of results per page.
- */
-const RESULTS_PER_PAGE = 6;
 
 /**
  * Debounce delay in milliseconds
@@ -78,14 +89,22 @@ export function ExplorePageContent({
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [selectedCountries, setSelectedCountries] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [perPage, setPerPage] = useState<PerPageOption>(5);
 
   const [resources, setResources] = useState<Resource[]>(initialResources);
   const [totalFound, setTotalFound] = useState(initialTotal);
   const [isSearching, setIsSearching] = useState(false);
   const [currentFacets, setCurrentFacets] = useState<FacetsResult>(facets);
 
-  // Preserve initial country facets so they never disappear when filtering
+  // Preserve initial facets so they never disappear when filtering
+  const [initialTypeFacets] = useState<FacetItem[]>(facets.type || []);
   const [initialCountryFacets] = useState<FacetItem[]>(facets.country || []);
+  const [initialChallengeFacets] = useState<FacetItem[]>(facets.challenges || []);
+
+  // Static stats — computed once on mount
+  const [initialStaticTotal] = useState(initialTotal);
+  const [initialTypeCount] = useState((facets.type || []).length);
+  const [initialCountryCount] = useState((facets.country || []).length);
 
   // Mobile filters toggle
   const [showMobileFilters, setShowMobileFilters] = useState(false);
@@ -111,10 +130,14 @@ export function ExplorePageContent({
     return map;
   }, [challenges]);
 
-  // Dynamic facet items with counts - updated with each search
+  // Facet items with counts
   const typeFacetItems: FacetItem[] = useMemo(() => {
-    return currentFacets.type || [];
-  }, [currentFacets]);
+    const dynamicMap = new Map((currentFacets.type || []).map((f) => [f.value, f.count]));
+    return initialTypeFacets.map((f) => ({
+      value: f.value,
+      count: dynamicMap.get(f.value) ?? 0,
+    }));
+  }, [currentFacets, initialTypeFacets]);
 
   const countryFacetItems: FacetItem[] = useMemo(() => {
     const dynamicMap = new Map((currentFacets.country || []).map((f) => [f.value, f.count]));
@@ -126,13 +149,14 @@ export function ExplorePageContent({
 
   // Map challenge ID facets to titles for display
   const challengeFacetItems: FacetItem[] = useMemo(() => {
-    return (currentFacets.challenges || [])
+    const dynamicMap = new Map((currentFacets.challenges || []).map((f) => [f.value, f.count]));
+    return initialChallengeFacets
       .map((f) => ({
         value: challengeIdToTitle.get(f.value) || f.value,
-        count: f.count,
+        count: dynamicMap.get(f.value) ?? 0,
       }))
       .filter((f) => f.value !== f.value.toLowerCase()); // Filter out unmapped IDs
-  }, [currentFacets, challengeIdToTitle]);
+  }, [currentFacets, initialChallengeFacets, challengeIdToTitle]);
 
   // Get unique tags from challenges with counts (based on how many challenges have each tag)
   const tagFacetItems: FacetItem[] = useMemo(() => {
@@ -153,8 +177,15 @@ export function ExplorePageContent({
       .map((c: FocusAreaChallenge) => c.id);
   }, [selectedTags, challenges]);
 
+  // Derived pagination values
+  const totalPages = computeTotalPages(totalFound, perPage);
+  const pageNumbers = useMemo(
+    () => computePageNumbers(totalPages, currentPage),
+    [totalPages, currentPage],
+  );
+
   /**
-   * Debounced search effect - all filtering now happens server-side via Typesense
+   * Debounced search effect
    */
   useEffect(() => {
     // Clear previous timeout
@@ -183,7 +214,7 @@ export function ExplorePageContent({
             country: selectedCountries.length > 0 ? selectedCountries : undefined,
           },
           currentPage,
-          RESULTS_PER_PAGE,
+          perPage,
         );
 
         if (response.success && response.data) {
@@ -214,20 +245,15 @@ export function ExplorePageContent({
     selectedTags,
     selectedCountries,
     currentPage,
+    perPage,
     challengeMap,
     challengeIdsFromTags,
   ]);
 
-  const toggleSelection = (
-    value: string,
-    state: string[],
-    setState: React.Dispatch<React.SetStateAction<string[]>>,
-  ) => {
-    setState(state.includes(value) ? state.filter((v) => v !== value) : [...state, value]);
+  const applyPerPage = (pp: PerPageOption) => {
+    setPerPage(pp);
     setCurrentPage(1);
   };
-
-  const totalPages = Math.ceil(totalFound / RESULTS_PER_PAGE);
 
   const handlePageChange = (page: number) => {
     if (page >= 1 && page <= totalPages) {
@@ -282,7 +308,7 @@ export function ExplorePageContent({
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Hero / Search header */}
+      {/* Hero */}
       <section className="relative overflow-hidden border-b border-gray-100">
         <div
           className="pointer-events-none absolute inset-0 opacity-[0.35]"
@@ -303,81 +329,26 @@ export function ExplorePageContent({
             </p>
           </div>
 
-          {/* Prominent search bar */}
-          <div className="relative mx-auto max-w-2xl">
-            <div className="relative flex items-center rounded-2xl border border-gray-200 bg-white shadow-lg ring-1 ring-gray-100 transition-all focus-within:border-[#526479]/40 focus-within:ring-2 focus-within:ring-[#526479]/15 hover:shadow-xl">
-              <div className="pointer-events-none flex items-center pl-5">
-                <svg
-                  className="h-5 w-5 text-gray-400"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                  />
-                </svg>
-              </div>
-              <input
-                ref={searchInputRef}
-                type="text"
-                placeholder="Search resources, datasets, tools…"
-                value={query}
-                onChange={(e) => {
-                  setQuery(e.target.value);
-                  setCurrentPage(1);
-                }}
-                className="flex-1 border-0 bg-transparent py-4 pr-4 pl-4 text-base text-gray-900 placeholder:text-gray-400 focus:ring-0 focus:outline-none"
-              />
-
-              {/* Keyboard hint / clear */}
-              {query ? (
-                <button
-                  onClick={clearSearch}
-                  className="mr-3 flex h-7 w-7 items-center justify-center rounded-lg bg-gray-100 text-gray-500 transition hover:bg-gray-200"
-                  aria-label="Clear search"
-                >
-                  <svg
-                    className="h-4 w-4"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                    viewBox="0 0 24 24"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              ) : (
-                <div className="mr-4 hidden items-center gap-1 sm:flex">
-                  <kbd className="rounded border border-gray-200 bg-gray-50 px-1.5 py-0.5 text-[11px] font-medium text-gray-400">
-                    ⌘K
-                  </kbd>
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Stats strip */}
+          {/* Stats strip — static values */}
           <div className="mt-8 flex items-center justify-center gap-8">
             <div className="text-center">
-              <p className="text-2xl font-bold text-gray-900">{totalFound.toLocaleString()}</p>
+              <p className="text-2xl font-bold text-gray-900">
+                {initialStaticTotal.toLocaleString()}
+              </p>
               <p className="text-xs font-medium tracking-wide text-gray-400 uppercase">
-                {query || hasActiveFilters ? 'Results found' : 'Resources indexed'}
+                Resources indexed
               </p>
             </div>
             <div className="h-8 w-px bg-gray-200" />
             <div className="text-center">
-              <p className="text-2xl font-bold text-gray-900">{typeFacetItems.length}</p>
+              <p className="text-2xl font-bold text-gray-900">{initialTypeCount}</p>
               <p className="text-xs font-medium tracking-wide text-gray-400 uppercase">
                 Resource types
               </p>
             </div>
             <div className="h-8 w-px bg-gray-200" />
             <div className="text-center">
-              <p className="text-2xl font-bold text-gray-900">{countryFacetItems.length}</p>
+              <p className="text-2xl font-bold text-gray-900">{initialCountryCount}</p>
               <p className="text-xs font-medium tracking-wide text-gray-400 uppercase">Countries</p>
             </div>
           </div>
@@ -385,163 +356,160 @@ export function ExplorePageContent({
       </section>
 
       {/* Filters + results */}
-      <div className="mx-auto max-w-7xl px-6 py-10 pb-16">
-        {/* Active filters */}
-        {hasActiveFilters && (
-          <div className="mb-6 flex flex-wrap items-center gap-2">
-            <span className="text-sm font-medium text-gray-500">Active filters:</span>
-            {query && (
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-[#526479]/20 bg-[#526479]/5 px-3 py-1 text-sm font-medium text-[#526479]">
-                &ldquo;{query}&rdquo;
-                <button onClick={clearSearch} className="ml-0.5 hover:opacity-70">
-                  <svg
-                    className="h-3.5 w-3.5"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                    viewBox="0 0 24 24"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </span>
-            )}
+      <div className="mx-auto max-w-7xl px-6 py-8 pb-16">
+        {/* Search bar — full-width, matching Resources page */}
+        <div className="mb-6">
+          <div className="relative flex items-center rounded-xl border border-gray-200 bg-white shadow-sm transition-all focus-within:border-[#526479]/50 focus-within:shadow-md focus-within:ring-2 focus-within:ring-[#526479]/10">
+            <div className="pointer-events-none flex items-center pl-4">
+              <Search className="h-4 w-4 text-gray-400" />
+            </div>
+            <input
+              ref={searchInputRef}
+              type="text"
+              placeholder="Search resources, datasets, tools…"
+              value={query}
+              onChange={(e) => {
+                setQuery(e.target.value);
+                setCurrentPage(1);
+              }}
+              className="flex-1 border-0 bg-transparent py-3.5 pr-4 pl-3 text-sm text-gray-900 placeholder:text-gray-400 focus:ring-0 focus:outline-none"
+            />
 
-            {[...selectedTypes, ...selectedCountries, ...selectedChallenges, ...selectedTags].map(
-              (filter) => (
-                <span
-                  key={filter}
-                  className="inline-flex items-center gap-1.5 rounded-full border border-gray-200 bg-gray-100 px-3 py-1 text-sm font-medium text-gray-700"
-                >
-                  {filter}
-                  <button
-                    onClick={() => {
-                      if (selectedTypes.includes(filter))
-                        toggleSelection(filter, selectedTypes, setSelectedTypes);
-                      else if (selectedCountries.includes(filter))
-                        toggleSelection(filter, selectedCountries, setSelectedCountries);
-                      else if (selectedChallenges.includes(filter))
-                        toggleSelection(filter, selectedChallenges, setSelectedChallenges);
-                      else if (selectedTags.includes(filter))
-                        toggleSelection(filter, selectedTags, setSelectedTags);
-                    }}
-                    className="ml-0.5 hover:opacity-70"
-                  >
-                    <svg
-                      className="h-3.5 w-3.5"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth={2}
-                      viewBox="0 0 24 24"
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </button>
-                </span>
-              ),
+            {/* Keyboard hint / clear */}
+            {query ? (
+              <button
+                onClick={clearSearch}
+                className="mr-3 flex h-6 w-6 items-center justify-center rounded-md bg-gray-100 text-gray-500 transition hover:bg-gray-200"
+                aria-label="Clear search"
+              >
+                <X className="h-3.5 w-3.5" />
+              </button>
+            ) : (
+              <div className="mr-4 hidden items-center gap-1 sm:flex">
+                <kbd className="rounded border border-gray-200 bg-gray-50 px-1.5 py-0.5 text-[11px] font-medium text-gray-400">
+                  ⌘K
+                </kbd>
+              </div>
             )}
-            <button
-              onClick={clearAllFilters}
-              className="text-sm font-medium text-gray-400 transition hover:text-gray-700"
-            >
-              Clear all
-            </button>
+          </div>
+        </div>
+
+        {/* Mobile filter toggle */}
+        <div className="mb-4 md:hidden">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setShowMobileFilters(!showMobileFilters)}
+            className="gap-1.5"
+          >
+            <SlidersHorizontal className="h-3.5 w-3.5" />
+            Filters
+            {activeFilterCount > 0 && (
+              <Badge
+                className="flex h-4 w-4 items-center justify-center p-0 text-[10px]"
+                style={{
+                  backgroundColor: '#526479',
+                  borderColor: 'transparent',
+                }}
+              >
+                {activeFilterCount}
+              </Badge>
+            )}
+          </Button>
+        </div>
+
+        {/* Mobile filters panel */}
+        {showMobileFilters && (
+          <div className="mb-6 rounded-xl border border-gray-100 bg-gray-50/50 p-4 md:hidden">
+            <FacetGroup
+              title="Type"
+              items={typeFacetItems}
+              selected={selectedTypes}
+              onToggle={(val) => {
+                setSelectedTypes((prev) => toggleArrayItem(prev, val));
+                setCurrentPage(1);
+              }}
+            />
+            <FacetGroup
+              title="Country"
+              items={countryFacetItems}
+              selected={selectedCountries}
+              onToggle={(val) => {
+                setSelectedCountries((prev) => toggleArrayItem(prev, val));
+                setCurrentPage(1);
+              }}
+            />
+            <FacetGroup
+              title="Challenges"
+              items={challengeFacetItems}
+              selected={selectedChallenges}
+              onToggle={(val) => {
+                setSelectedChallenges((prev) => toggleArrayItem(prev, val));
+                setCurrentPage(1);
+              }}
+            />
+            <FacetGroup
+              title="Tags"
+              items={tagFacetItems}
+              selected={selectedTags}
+              onToggle={(val) => {
+                setSelectedTags((prev) => toggleArrayItem(prev, val));
+                setCurrentPage(1);
+              }}
+            />
           </div>
         )}
 
-        <div className="grid gap-8 md:grid-cols-[220px_1fr]">
-          {/* Mobile filter toggle */}
-          <div className="md:hidden">
-            <button
-              onClick={() => setShowMobileFilters(!showMobileFilters)}
-              className="flex w-full items-center justify-between rounded-xl border border-gray-200 bg-white px-4 py-3 shadow-sm transition hover:border-gray-300"
-            >
-              <div className="flex items-center gap-2">
-                <svg
-                  className="h-4 w-4 text-gray-500"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"
-                  />
-                </svg>
-                <span className="text-sm font-semibold text-gray-900">Filters</span>
-                {activeFilterCount > 0 && (
-                  <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-[#526479] px-1.5 text-xs font-medium text-white">
-                    {activeFilterCount}
-                  </span>
-                )}
-              </div>
-              <svg
-                className={`h-4 w-4 text-gray-400 transition-transform ${showMobileFilters ? 'rotate-180' : ''}`}
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-          </div>
-
-          {/* Facets sidebar */}
-          <aside
-            className={`h-fit rounded-2xl border border-gray-100 bg-gray-50/70 p-5 ${showMobileFilters ? 'block' : 'hidden'} md:block`}
-          >
-            <div className="mb-5 flex items-center justify-between">
-              <h2 className="text-sm font-semibold tracking-wide text-gray-900 uppercase">
-                Filters
-              </h2>
-              {hasActiveFilters && (
-                <button
-                  onClick={clearAllFilters}
-                  className="rounded-md px-2 py-0.5 text-xs font-medium text-gray-400 transition hover:bg-gray-200 hover:text-gray-700"
-                >
-                  Reset
-                </button>
-              )}
-            </div>
-
-            <div className="space-y-1">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-[220px_1fr]">
+          {/* Desktop sidebar */}
+          <aside className="hidden md:block">
+            <div className="sticky top-8">
               <FacetGroup
                 title="Type"
                 items={typeFacetItems}
                 selected={selectedTypes}
-                onToggle={(val) => toggleSelection(val, selectedTypes, setSelectedTypes)}
+                onToggle={(val) => {
+                  setSelectedTypes((prev) => toggleArrayItem(prev, val));
+                  setCurrentPage(1);
+                }}
               />
 
               <FacetGroup
                 title="Country"
                 items={countryFacetItems}
                 selected={selectedCountries}
-                onToggle={(val) => toggleSelection(val, selectedCountries, setSelectedCountries)}
+                onToggle={(val) => {
+                  setSelectedCountries((prev) => toggleArrayItem(prev, val));
+                  setCurrentPage(1);
+                }}
               />
 
               <FacetGroup
                 title="Challenges"
                 items={challengeFacetItems}
                 selected={selectedChallenges}
-                onToggle={(val) => toggleSelection(val, selectedChallenges, setSelectedChallenges)}
+                onToggle={(val) => {
+                  setSelectedChallenges((prev) => toggleArrayItem(prev, val));
+                  setCurrentPage(1);
+                }}
               />
 
               <FacetGroup
                 title="Tags"
                 items={tagFacetItems}
                 selected={selectedTags}
-                onToggle={(val) => toggleSelection(val, selectedTags, setSelectedTags)}
+                onToggle={(val) => {
+                  setSelectedTags((prev) => toggleArrayItem(prev, val));
+                  setCurrentPage(1);
+                }}
               />
             </div>
           </aside>
 
           {/* Results column */}
-          <section className="relative min-w-0">
-            {/* Results header */}
-            <div className="mb-5 flex items-center justify-between">
+          <div>
+            {/* Results bar */}
+            <div className="mb-4 flex items-center justify-between gap-4">
               <p className="text-sm font-medium text-gray-500">
                 {isSearching ? (
                   <span className="animate-pulse">Searching…</span>
@@ -551,53 +519,29 @@ export function ExplorePageContent({
                       {totalFound.toLocaleString()}
                     </span>{' '}
                     {totalFound === 1 ? 'result' : 'results'}
-                    {hasActiveFilters && ' for current filters'}
+                    {hasActiveFilters && (
+                      <>
+                        {' '}
+                        &mdash;{' '}
+                        <button
+                          onClick={clearAllFilters}
+                          className="font-medium underline underline-offset-2 transition hover:text-gray-700"
+                          style={{ color: '#526479' }}
+                        >
+                          clear filters
+                        </button>
+                      </>
+                    )}
                   </>
                 )}
               </p>
-              {totalPages > 1 && (
-                <p className="text-sm text-gray-400">
-                  Page {currentPage} of {totalPages}
-                </p>
-              )}
+
+              <PerPageSelector value={perPage} onChange={applyPerPage} />
             </div>
 
             {/* Empty state */}
             {resources.length === 0 && !isSearching && (
-              <div className="flex flex-col items-center justify-center rounded-2xl border border-gray-100 bg-gray-50/60 py-20">
-                <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-white shadow-sm ring-1 ring-gray-100">
-                  <svg
-                    className="h-8 w-8 text-gray-300"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={1.5}
-                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                    />
-                  </svg>
-                </div>
-                <p className="text-base font-semibold text-gray-700">No results found</p>
-                <p className="mt-1.5 text-sm text-gray-400">
-                  {hasActiveFilters ? (
-                    <>
-                      Try adjusting filters or{' '}
-                      <button
-                        onClick={clearAllFilters}
-                        className="font-medium underline underline-offset-2 transition hover:text-gray-700"
-                        style={{ color: '#526479' }}
-                      >
-                        clear all
-                      </button>
-                    </>
-                  ) : (
-                    'Start typing to find resources'
-                  )}
-                </p>
-              </div>
+              <EmptyState hasActiveFilters={hasActiveFilters} onClearFilters={clearAllFilters} />
             )}
 
             {/* Result cards */}
@@ -711,75 +655,18 @@ export function ExplorePageContent({
             )}
 
             {/* Pagination */}
-            {totalPages > 1 && (
-              <div className="mt-10 flex items-center justify-center gap-1">
-                <button
-                  disabled={currentPage === 1}
-                  onClick={() => handlePageChange(currentPage - 1)}
-                  className="flex h-9 w-9 items-center justify-center rounded-xl border border-gray-200 bg-white text-gray-500 transition hover:border-gray-300 hover:bg-gray-50 disabled:pointer-events-none disabled:opacity-40"
-                >
-                  <svg
-                    className="h-4 w-4"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-                  </svg>
-                </button>
-
-                <div className="flex items-center gap-0.5">
-                  {Array.from({ length: totalPages }, (_, i) => i + 1)
-                    .filter(
-                      (page) =>
-                        page === 1 ||
-                        page === totalPages ||
-                        (page >= currentPage - 1 && page <= currentPage + 1),
-                    )
-                    .map((page, index, array) => {
-                      const showEllipsisBefore = index > 0 && page - array[index - 1] > 1;
-                      return (
-                        <React.Fragment key={page}>
-                          {showEllipsisBefore && (
-                            <span className="px-2 text-sm text-gray-400">…</span>
-                          )}
-                          <button
-                            onClick={() => handlePageChange(page)}
-                            className={`h-9 w-9 rounded-xl text-sm font-medium transition-all ${
-                              currentPage === page
-                                ? 'text-white shadow-sm'
-                                : 'text-gray-600 hover:bg-gray-100'
-                            }`}
-                            style={
-                              currentPage === page ? { backgroundColor: '#526479' } : undefined
-                            }
-                          >
-                            {page}
-                          </button>
-                        </React.Fragment>
-                      );
-                    })}
-                </div>
-
-                <button
-                  disabled={currentPage >= totalPages}
-                  onClick={() => handlePageChange(currentPage + 1)}
-                  className="flex h-9 w-9 items-center justify-center rounded-xl border border-gray-200 bg-white text-gray-500 transition hover:border-gray-300 hover:bg-gray-50 disabled:pointer-events-none disabled:opacity-40"
-                >
-                  <svg
-                    className="h-4 w-4"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                  </svg>
-                </button>
-              </div>
-            )}
-          </section>
+            <PaginationRow
+              currentPage={currentPage}
+              totalPages={totalPages}
+              pageNumbers={pageNumbers}
+              onPageChange={handlePageChange}
+            />
+            <PaginationInfo
+              currentPage={currentPage}
+              totalPages={totalPages}
+              totalItems={totalFound}
+            />
+          </div>
         </div>
       </div>
 

@@ -10,36 +10,50 @@
 'use client';
 
 import React, { useState, useMemo, JSX } from 'react';
-import { Search, X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Search, X, SlidersHorizontal } from 'lucide-react';
 
 import type { Country } from '@content-types/content';
 
-import { ActivityItem } from './activity-item';
+import {
+  BackButton,
+  FacetGroup,
+  PerPageSelector,
+  PaginationRow,
+  PaginationInfo,
+  EmptyState,
+} from '@components/global';
 
-/**
- * Per-page options for pagination.
- */
-const PER_PAGE_OPTIONS = [5, 10, 20, 50] as const;
+import type { FacetItem } from '@components/global';
+import { Button } from '@ui/button';
+import { Badge } from '@ui/badge';
+import { usePagination } from '@lib/hooks/use-pagination';
+import { filterBySearch, toggleArrayItem } from '@lib/search/utils';
+
+import { ActivityItem } from './activity-item';
 
 /**
  * Properties expected for the CapacityBuildingSection component.
  */
 interface CapacityBuildingSectionProps {
   countryData: Country;
+  /** The rendered capacity-building variant component (from the component registry). */
+  heroContent: JSX.Element;
 }
 
 /**
- * Simple text search filter across string fields.
+ * Returns true if the date is today or in the future.
  */
-function filterBySearch<T>(items: T[], searchTerm: string, fields: (keyof T)[]): T[] {
-  if (!searchTerm.trim()) return items;
-  const term = searchTerm.toLowerCase();
-  return items.filter((item) =>
-    fields.some((field) => {
-      const value = item[field];
-      return typeof value === 'string' && value.toLowerCase().includes(term);
-    }),
-  );
+function isFutureEvent(dateString?: string): boolean {
+  if (!dateString) return false;
+  try {
+    const [year, month, day] = dateString.split('-').map(Number);
+    const eventDate = new Date(year, month - 1, day);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return eventDate >= today;
+  } catch {
+    return false;
+  }
 }
 
 /**
@@ -51,13 +65,16 @@ function filterBySearch<T>(items: T[], searchTerm: string, fields: (keyof T)[]):
  */
 export function CapacityBuildingSection({
   countryData,
+  heroContent,
 }: CapacityBuildingSectionProps): JSX.Element {
   // State - Search term
   const [searchTerm, setSearchTerm] = useState('');
-  // State - Current page
-  const [currentPage, setCurrentPage] = useState(1);
-  // State - Per page
-  const [perPage, setPerPage] = useState<(typeof PER_PAGE_OPTIONS)[number]>(5);
+  // State - Multi-select status filters
+  const [selectedStatuses, setSelectedStatuses] = useState<string[]>([]);
+  // State - Multi-select recurring filters
+  const [selectedRecurring, setSelectedRecurring] = useState<string[]>([]);
+  // State - Mobile filter visibility
+  const [showMobileFilters, setShowMobileFilters] = useState(false);
 
   const activities = countryData.capacity_building_activities ?? [];
 
@@ -73,212 +90,273 @@ export function CapacityBuildingSection({
     [activities],
   );
 
-  // Apply search
-  const filteredActivities = useMemo(
-    () => filterBySearch(sortedActivities, searchTerm, ['title', 'description']),
-    [sortedActivities, searchTerm],
-  );
+  // Status facets
+  const statusFacets: FacetItem[] = useMemo(() => {
+    let upcoming = 0;
+    let past = 0;
+
+    sortedActivities.forEach((a) => {
+      if (isFutureEvent(a.date)) {
+        upcoming++;
+      } else {
+        past++;
+      }
+    });
+
+    const items: FacetItem[] = [];
+
+    // Add upcoming and past facets
+    if (upcoming > 0) items.push({ value: 'Upcoming', count: upcoming });
+    if (past > 0) items.push({ value: 'Past', count: past });
+
+    return items;
+  }, [sortedActivities]);
+
+  // Recurring facets
+  const recurringFacets: FacetItem[] = useMemo(() => {
+    let yes = 0;
+    let no = 0;
+
+    sortedActivities.forEach((a) => {
+      if (a.recurring) {
+        yes++;
+      } else {
+        no++;
+      }
+    });
+
+    const items: FacetItem[] = [];
+
+    // Add yes and no facets
+    if (yes > 0) items.push({ value: 'Yes', count: yes });
+    if (no > 0) items.push({ value: 'No', count: no });
+
+    return items;
+  }, [sortedActivities]);
+
+  // Apply search + status + recurring filters
+  const filteredActivities = useMemo(() => {
+    let result = filterBySearch(sortedActivities, searchTerm, ['title', 'description']);
+
+    if (selectedStatuses.length > 0) {
+      result = result.filter((a) => {
+        const status = isFutureEvent(a.date) ? 'Upcoming' : 'Past';
+        return selectedStatuses.includes(status);
+      });
+    }
+
+    if (selectedRecurring.length > 0) {
+      result = result.filter((a) => {
+        const recurring = a.recurring ? 'Yes' : 'No';
+        return selectedRecurring.includes(recurring);
+      });
+    }
+
+    return result;
+  }, [sortedActivities, searchTerm, selectedStatuses, selectedRecurring]);
 
   // Pagination
-  const totalPages = Math.max(1, Math.ceil(filteredActivities.length / perPage));
+  const {
+    currentPage,
+    perPage,
+    totalPages,
+    paginatedItems: paginatedActivities,
+    pageNumbers,
+    handlePageChange,
+    applyPerPage,
+    resetPage,
+  } = usePagination(filteredActivities);
 
-  const paginatedActivities = useMemo(() => {
-    const start = (currentPage - 1) * perPage;
-    return filteredActivities.slice(start, start + perPage);
-  }, [filteredActivities, currentPage, perPage]);
+  // Toggle helpers
+  const toggleStatus = (status: string) => {
+    setSelectedStatuses((prev) => toggleArrayItem(prev, status));
+    resetPage();
+  };
 
-  // Page number list
-  const pageNumbers = useMemo(() => {
-    const pages: (number | 'ellipsis')[] = [];
-    if (totalPages <= 7) {
-      for (let i = 1; i <= totalPages; i++) pages.push(i);
-    } else {
-      pages.push(1);
-      if (currentPage > 3) pages.push('ellipsis');
-      for (
-        let i = Math.max(2, currentPage - 1);
-        i <= Math.min(totalPages - 1, currentPage + 1);
-        i++
-      )
-        pages.push(i);
-      if (currentPage < totalPages - 2) pages.push('ellipsis');
-      pages.push(totalPages);
-    }
-    return pages;
-  }, [totalPages, currentPage]);
+  const toggleRecurring = (recurring: string) => {
+    setSelectedRecurring((prev) => toggleArrayItem(prev, recurring));
+    resetPage();
+  };
 
   // Apply search
   function applySearch(term: string) {
     setSearchTerm(term);
-    setCurrentPage(1);
+    resetPage();
   }
 
-  // Apply per page
-  function applyPerPage(pp: (typeof PER_PAGE_OPTIONS)[number]) {
-    setPerPage(pp);
-    setCurrentPage(1);
+  // Clear filters
+  function clearFilters() {
+    setSearchTerm('');
+    setSelectedStatuses([]);
+    setSelectedRecurring([]);
+    resetPage();
   }
 
-  // Handle page change
-  function handlePageChange(page: number) {
-    if (page >= 1 && page <= totalPages) setCurrentPage(page);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
+  // Has active filters
+  const hasActiveFilters =
+    !!searchTerm || selectedStatuses.length > 0 || selectedRecurring.length > 0;
+
+  // Sidebar content (shared between desktop and mobile)
+  const sidebarContent = (
+    <>
+      {statusFacets.length > 0 && (
+        <FacetGroup
+          title="Status"
+          items={statusFacets}
+          selected={selectedStatuses}
+          onToggle={toggleStatus}
+        />
+      )}
+      {recurringFacets.length > 0 && (
+        <FacetGroup
+          title="Recurring"
+          items={recurringFacets}
+          selected={selectedRecurring}
+          onToggle={toggleRecurring}
+        />
+      )}
+    </>
+  );
 
   // Render!
   return (
-    <section className="mt-10 px-4 py-12">
-      <div className="mx-auto max-w-7xl">
-        {/* Header */}
-        <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-          <div>
-            <h2 className="themed-title mb-1 text-3xl font-bold">List of activities</h2>
-            <p className="text-sm text-gray-500">
-              Explore capacity building activities in {countryData.title}.
-            </p>
+    <div className="min-h-screen">
+      {/* Hero — renders the user-configured capacity building variant */}
+      <div className="border-b border-gray-100">
+        <div className="mx-auto max-w-7xl px-6 pt-10 pb-10">
+          <div className="mb-4">
+            <BackButton />
           </div>
-
-          {/* Search bar */}
-          <div className="w-full lg:w-72">
-            <div className="relative flex items-center rounded-xl border border-gray-200 bg-white shadow-sm transition-all focus-within:border-[color:var(--theme-primary,#526479)]/50 focus-within:shadow-md focus-within:ring-2 focus-within:ring-[color:var(--theme-primary,#526479)]/10">
-              <div className="pointer-events-none flex items-center pl-4">
-                <Search className="h-4 w-4 text-gray-400" />
-              </div>
-              <input
-                type="text"
-                placeholder="Search activities…"
-                value={searchTerm}
-                onChange={(e) => applySearch(e.target.value)}
-                className="flex-1 border-0 bg-transparent py-2.5 pr-3 pl-3 text-sm text-gray-900 placeholder:text-gray-400 focus:ring-0 focus:outline-none"
-              />
-              {searchTerm && (
-                <button
-                  onClick={() => applySearch('')}
-                  className="mr-3 flex h-5 w-5 items-center justify-center rounded-md bg-gray-100 text-gray-500 transition hover:bg-gray-200"
-                  aria-label="Clear search"
-                >
-                  <X className="h-3 w-3" />
-                </button>
-              )}
-            </div>
-          </div>
+          {heroContent}
         </div>
+      </div>
 
-        {/* Results bar */}
-        <div className="mb-4 flex items-center justify-between gap-4">
-          <p className="text-sm font-medium text-gray-500">
-            <span className="font-semibold text-gray-900">
-              {filteredActivities.length.toLocaleString()}
-            </span>{' '}
-            {filteredActivities.length === 1 ? 'activity' : 'activities'}
-          </p>
-
-          <div className="flex items-center gap-2">
-            <span className="hidden text-xs text-gray-400 sm:inline">Show</span>
-            <div className="flex rounded-lg border border-gray-200 bg-white">
-              {PER_PAGE_OPTIONS.map((n, i) => (
-                <button
-                  key={n}
-                  onClick={() => applyPerPage(n)}
-                  className={`px-3 py-1.5 text-xs font-medium transition-colors ${
-                    i > 0 ? 'border-l border-gray-200' : ''
-                  } ${perPage === n ? 'text-white' : 'text-gray-500 hover:bg-gray-50'}`}
-                  style={
-                    perPage === n ? { backgroundColor: 'var(--theme-primary, #526479)' } : undefined
-                  }
-                >
-                  {n}
-                </button>
-              ))}
+      {/* Search bar + Sidebar Filters + Results */}
+      <div className="mx-auto max-w-7xl px-6 py-8 pb-16">
+        {/* Search bar */}
+        <div className="mb-6">
+          <div className="relative flex items-center rounded-xl border border-gray-200 bg-white shadow-sm transition-all focus-within:border-[color:var(--theme-primary,#526479)]/50 focus-within:shadow-md focus-within:ring-2 focus-within:ring-[color:var(--theme-primary,#526479)]/10">
+            <div className="pointer-events-none flex items-center pl-4">
+              <Search className="h-4 w-4 text-gray-400" />
             </div>
-            <span className="hidden text-xs text-gray-400 sm:inline">per page</span>
-          </div>
-        </div>
-
-        {/* Activity list */}
-        {filteredActivities.length === 0 ? (
-          <div className="flex flex-col items-center justify-center rounded-2xl border border-gray-100 bg-gray-50/60 py-20">
-            <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-white shadow-sm ring-1 ring-gray-100">
-              <Search className="h-8 w-8 text-gray-300" />
-            </div>
-            <p className="text-base font-semibold text-gray-700">No activities found</p>
+            <input
+              type="text"
+              placeholder="Search activities…"
+              value={searchTerm}
+              onChange={(e) => applySearch(e.target.value)}
+              className="flex-1 border-0 bg-transparent py-3.5 pr-4 pl-3 text-sm text-gray-900 placeholder:text-gray-400 focus:ring-0 focus:outline-none"
+            />
             {searchTerm && (
-              <p className="mt-1.5 text-sm text-gray-400">
-                Try a different search term or{' '}
-                <button
-                  onClick={() => applySearch('')}
-                  className="font-medium underline underline-offset-2"
-                  style={{ color: 'var(--theme-primary, #526479)' }}
-                >
-                  clear search
-                </button>
-              </p>
+              <button
+                onClick={() => applySearch('')}
+                className="mr-3 flex h-6 w-6 items-center justify-center rounded-md bg-gray-100 text-gray-500 transition hover:bg-gray-200"
+                aria-label="Clear search"
+              >
+                <X className="h-3.5 w-3.5" />
+              </button>
             )}
           </div>
-        ) : (
-          <div className="flex flex-col gap-4">
-            {paginatedActivities.map((activity, index) => (
-              <ActivityItem key={index} activity={activity} />
-            ))}
+        </div>
+
+        {/* Mobile filter toggle */}
+        <div className="mb-4 md:hidden">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setShowMobileFilters(!showMobileFilters)}
+            className="gap-1.5"
+          >
+            <SlidersHorizontal className="h-3.5 w-3.5" />
+            Filters
+            {selectedStatuses.length + selectedRecurring.length > 0 && (
+              <Badge
+                className="flex h-4 w-4 items-center justify-center p-0 text-[10px]"
+                style={{
+                  backgroundColor: 'var(--theme-primary, #526479)',
+                  borderColor: 'transparent',
+                }}
+              >
+                {selectedStatuses.length + selectedRecurring.length}
+              </Badge>
+            )}
+          </Button>
+        </div>
+
+        {/* Mobile filters panel */}
+        {showMobileFilters && (
+          <div className="mb-6 rounded-xl border border-gray-100 bg-gray-50/50 p-4 md:hidden">
+            {sidebarContent}
           </div>
         )}
 
-        {/* Pagination */}
-        {totalPages > 1 && (
-          <div className="mt-10 flex items-center justify-center gap-1">
-            <button
-              disabled={currentPage === 1}
-              onClick={() => handlePageChange(currentPage - 1)}
-              className="flex h-9 w-9 items-center justify-center rounded-xl border border-gray-200 bg-white text-gray-500 transition hover:border-gray-300 hover:bg-gray-50 disabled:pointer-events-none disabled:opacity-40"
-              aria-label="Previous page"
-            >
-              <ChevronLeft className="h-4 w-4" />
-            </button>
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-[220px_1fr]">
+          {/* Desktop sidebar */}
+          <aside className="hidden md:block">
+            <div className="sticky top-8">{sidebarContent}</div>
+          </aside>
 
-            <div className="flex items-center gap-0.5">
-              {pageNumbers.map((p, i) =>
-                p === 'ellipsis' ? (
-                  <span key={`e-${i}`} className="px-2 text-sm text-gray-400">
-                    …
-                  </span>
-                ) : (
-                  <button
-                    key={p}
-                    onClick={() => handlePageChange(p)}
-                    className={`h-9 w-9 rounded-xl text-sm font-medium transition-all ${
-                      currentPage === p ? 'text-white shadow-sm' : 'text-gray-600 hover:bg-gray-100'
-                    }`}
-                    style={
-                      currentPage === p
-                        ? { backgroundColor: 'var(--theme-primary, #526479)' }
-                        : undefined
-                    }
-                    aria-current={currentPage === p ? 'page' : undefined}
-                  >
-                    {p}
-                  </button>
-                ),
-              )}
+          {/* Results column */}
+          <div>
+            {/* Results bar */}
+            <div className="mb-4 flex items-center justify-between gap-4">
+              <p className="text-sm font-medium text-gray-500">
+                <span className="font-semibold text-gray-900">
+                  {filteredActivities.length.toLocaleString()}
+                </span>{' '}
+                {filteredActivities.length === 1 ? 'activity' : 'activities'}
+                {hasActiveFilters && (
+                  <>
+                    {' '}
+                    &mdash;{' '}
+                    <button
+                      onClick={clearFilters}
+                      className="font-medium underline underline-offset-2 transition hover:text-gray-700"
+                      style={{ color: 'var(--theme-primary, #526479)' }}
+                    >
+                      clear filters
+                    </button>
+                  </>
+                )}
+              </p>
+
+              <PerPageSelector
+                value={perPage}
+                onChange={applyPerPage}
+                prefixLabel="Show"
+                suffixLabel="per page"
+              />
             </div>
 
-            <button
-              disabled={currentPage >= totalPages}
-              onClick={() => handlePageChange(currentPage + 1)}
-              className="flex h-9 w-9 items-center justify-center rounded-xl border border-gray-200 bg-white text-gray-500 transition hover:border-gray-300 hover:bg-gray-50 disabled:pointer-events-none disabled:opacity-40"
-              aria-label="Next page"
-            >
-              <ChevronRight className="h-4 w-4" />
-            </button>
-          </div>
-        )}
+            {/* Activity list */}
+            {filteredActivities.length === 0 ? (
+              <EmptyState
+                heading="No activities found"
+                hasActiveFilters={hasActiveFilters}
+                onClearFilters={clearFilters}
+              />
+            ) : (
+              <div className="flex flex-col gap-4">
+                {paginatedActivities.map((activity, index) => (
+                  <ActivityItem key={index} activity={activity} />
+                ))}
+              </div>
+            )}
 
-        {totalPages > 1 && (
-          <p className="mt-3 text-center text-xs text-gray-400">
-            Page {currentPage} of {totalPages} &mdash; {filteredActivities.length.toLocaleString()}{' '}
-            total
-          </p>
-        )}
+            {/* Pagination */}
+            <PaginationRow
+              currentPage={currentPage}
+              totalPages={totalPages}
+              pageNumbers={pageNumbers}
+              onPageChange={handlePageChange}
+            />
+            <PaginationInfo
+              currentPage={currentPage}
+              totalPages={totalPages}
+              totalItems={filteredActivities.length}
+            />
+          </div>
+        </div>
       </div>
-    </section>
+    </div>
   );
 }

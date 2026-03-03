@@ -14,3 +14,6 @@ export { FeatureCard, CallToActionCard } from './card';
 export { ResourceActions } from './resources';
 
 export { ResourceOverviewDialog, GkhMetadataDialog } from './modal';
+
+export { FacetGroup, PerPageSelector, PaginationRow, PaginationInfo, EmptyState } from './search';
+export type { FacetItem } from './search';

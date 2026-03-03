@@ -9,6 +9,8 @@
 
 import React, { JSX } from 'react';
 
+import { Button } from '@ui/button';
+
 /**
  * FacetItem - Represents a single facet option with its count.
  */
@@ -32,10 +34,6 @@ interface FacetGroupProps {
  *
  * @component
  * @param {FacetGroupProps} props - Component props.
- * @param {string} props.title - Facet button title.
- * @param {FacetItem[]} props.items - Facet options with counts for this group.
- * @param {string[]} props.selected - Selected facet items.
- * @param {Function} props.onToggle - Callback called when one facet item is selected.
  * @returns {JSX.Element} The rendered FacetGroup component.
  */
 export const FacetGroup: React.FC<FacetGroupProps> = ({
@@ -52,18 +50,26 @@ export const FacetGroup: React.FC<FacetGroupProps> = ({
         const isEmpty = item.count === 0 && !isSelected;
 
         return (
-          <button
+          <Button
             key={item.value}
+            variant="ghost"
+            size="auto"
             onClick={() => onToggle(item.value)}
-            className={`group flex w-full items-center gap-2.5 rounded-lg px-2 py-2 text-left transition-colors hover:bg-gray-50 ${isEmpty ? 'opacity-40' : ''}`}
+            className={`group flex w-full items-start gap-2.5 rounded-lg px-2 py-2 text-left whitespace-normal ${isEmpty ? 'opacity-40' : ''}`}
           >
             {/* Checkbox indicator */}
             <div
-              className={`flex h-4 w-4 shrink-0 items-center justify-center rounded border transition-all ${
-                isSelected
-                  ? 'border-gray-900 bg-gray-900'
-                  : 'border-gray-300 bg-white group-hover:border-gray-400'
+              className={`mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded border transition-all ${
+                isSelected ? '' : 'border-gray-300 bg-white group-hover:border-gray-400'
               }`}
+              style={
+                isSelected
+                  ? {
+                      borderColor: 'var(--theme-primary, #526479)',
+                      backgroundColor: 'var(--theme-primary, #526479)',
+                    }
+                  : undefined
+              }
             >
               {isSelected && (
                 <svg
@@ -83,8 +89,8 @@ export const FacetGroup: React.FC<FacetGroupProps> = ({
             >
               {item.value}
             </span>
-            <span className="text-xs text-gray-400">{item.count}</span>
-          </button>
+            <span className="mt-0.5 shrink-0 text-xs text-gray-400">{item.count}</span>
+          </Button>
         );
       })}
     </div>

@@ -203,90 +203,97 @@ export function CapacityBuildingShowcase({
     return null;
   }
 
-  return (
-    <section id="learn" className="px-4 py-12">
-      <div className="mx-auto max-w-7xl">
-        {/* Two-column layout — text left, honeycomb right */}
-        <div className="grid items-center gap-12 md:grid-cols-[1fr_1.2fr] lg:gap-20">
-          {/* Left column — unified text block */}
-          <div>
-            <span className="themed-muted text-xs font-semibold tracking-widest uppercase">
-              Learn. Engage. Create.
-            </span>
+  const innerContent = (
+    <div className="grid items-center gap-12 md:grid-cols-[1fr_1.2fr] lg:gap-20">
+      {/* Left column — unified text block */}
+      <div>
+        <span className="themed-muted text-xs font-semibold tracking-widest uppercase">
+          Learn. Engage. Create.
+        </span>
 
-            <h2 className="themed-title mt-3 text-3xl leading-tight font-bold lg:text-4xl">
-              Capacity building in {countryTitle}
-            </h2>
+        <h2 className="themed-title mt-3 text-3xl leading-tight font-bold lg:text-4xl">
+          Capacity building in {countryTitle}
+        </h2>
 
-            <p className="mt-4 max-w-md text-base leading-relaxed text-gray-600">
-              Join capacity-building activities in {countryTitle} to learn, connect, and drive
-              change with Earth Observation.
-            </p>
+        <p className="mt-4 max-w-md text-base leading-relaxed text-gray-600">
+          Join capacity-building activities in {countryTitle} to learn, connect, and drive change
+          with Earth Observation.
+        </p>
 
-            <div className="mt-8 flex items-center gap-3">
-              <span className="themed-title text-5xl font-extrabold">{activities.length}</span>
-              <span className="text-sm leading-snug text-gray-500">
-                {activities.length === 1 ? 'activity' : 'activities'}
-                <br />
-                available
-              </span>
-            </div>
+        <div className="mt-8 flex items-center gap-3">
+          <span className="themed-title text-5xl font-extrabold">{activities.length}</span>
+          <span className="text-sm leading-snug text-gray-500">
+            {activities.length === 1 ? 'activity' : 'activities'}
+            <br />
+            available
+          </span>
+        </div>
 
-            {showExploreLink && (
-              <Link
-                href={capacityBuildingPageLink}
-                className="themed-bg mt-8 inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-medium text-white shadow-sm transition-all hover:shadow-md hover:brightness-110"
-              >
-                Explore Activities
-                <span aria-hidden="true">→</span>
-              </Link>
-            )}
-          </div>
+        {showExploreLink && (
+          <Link
+            href={capacityBuildingPageLink}
+            className="themed-bg mt-8 inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-medium text-white shadow-sm transition-all hover:shadow-md hover:brightness-110"
+          >
+            Explore Activities
+            <span aria-hidden="true">→</span>
+          </Link>
+        )}
+      </div>
 
-          {/* Right column — Honeycomb image grid */}
-          <div className="hidden pe-6 md:flex md:justify-end">
-            <div
-              className="relative overflow-visible"
-              style={{ width: GRID_WIDTH, height: GRID_HEIGHT }}
-            >
-              {loadedImages.length > 0
-                ? loadedImages.map((src, index) => {
-                    const cell = hexCells[index];
-                    if (!cell) return null;
-                    const pos = getHexPosition(cell);
+      {/* Right column — Honeycomb image grid */}
+      <div className="hidden md:flex md:justify-end">
+        <div
+          className="relative overflow-visible"
+          style={{ width: GRID_WIDTH, height: GRID_HEIGHT }}
+        >
+          {loadedImages.length > 0
+            ? loadedImages.map((src, index) => {
+                const cell = hexCells[index];
+                if (!cell) return null;
+                const pos = getHexPosition(cell);
 
-                    return (
-                      <HexImage
-                        key={index}
-                        src={src}
-                        alt={`${countryTitle} capacity building ${index + 1}`}
-                        x={pos.x}
-                        y={pos.y}
-                      />
-                    );
-                  })
-                : hexCells.map((cell, index) => {
-                    const pos = getHexPosition(cell);
-                    return (
-                      <div
-                        key={index}
-                        className="absolute animate-pulse"
-                        style={{
-                          left: pos.x,
-                          top: pos.y,
-                          width: BASE_W,
-                          height: BASE_H,
-                          clipPath: hexClip,
-                          backgroundColor: 'var(--theme-accent, #e5e7eb)',
-                          opacity: 0.2,
-                        }}
-                      />
-                    );
-                  })}
-            </div>
-          </div>
+                return (
+                  <HexImage
+                    key={index}
+                    src={src}
+                    alt={`${countryTitle} capacity building ${index + 1}`}
+                    x={pos.x}
+                    y={pos.y}
+                  />
+                );
+              })
+            : hexCells.map((cell, index) => {
+                const pos = getHexPosition(cell);
+                return (
+                  <div
+                    key={index}
+                    className="absolute animate-pulse"
+                    style={{
+                      left: pos.x,
+                      top: pos.y,
+                      width: BASE_W,
+                      height: BASE_H,
+                      clipPath: hexClip,
+                      backgroundColor: 'var(--theme-accent, #e5e7eb)',
+                      opacity: 0.2,
+                    }}
+                  />
+                );
+              })}
         </div>
       </div>
+    </div>
+  );
+
+  // Dedicated CB page
+  if (!showExploreLink) {
+    return <div id="learn">{innerContent}</div>;
+  }
+
+  // Country overview page
+  return (
+    <section id="learn" className="px-6 py-12">
+      <div className="mx-auto max-w-7xl">{innerContent}</div>
     </section>
   );
 }

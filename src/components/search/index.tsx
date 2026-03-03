@@ -7,5 +7,8 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-export { FacetGroup } from './facet-group';
-export type { FacetItem } from './facet-group';
+export { FacetGroup } from './facets';
+export type { FacetItem } from './facets';
+
+export { PerPageSelector, PaginationRow, PaginationInfo } from './pagination';
+export { EmptyState } from './empty';
