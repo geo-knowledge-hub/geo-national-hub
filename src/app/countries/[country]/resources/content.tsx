@@ -35,6 +35,11 @@ import { getAssetPath } from '@lib/utils';
 import type { Country, FocusArea, FocusAreaChallenge, Resource } from '@content-types/content';
 
 /**
+ * Knowledge Package value
+ */
+const KNOWLEDGE_PACKAGE = 'Knowledge Package';
+
+/**
  * Properties expected for the ResourcesPageContent component.
  */
 interface ResourcesPageContentProps {
@@ -63,6 +68,9 @@ export function ResourcesPageContent({
 }: ResourcesPageContentProps): JSX.Element {
   // State - Search term
   const [searchTerm, setSearchTerm] = useState('');
+
+  // State - Multi-select record type filters
+  const [selectedRecordTypes, setSelectedRecordTypes] = useState<string[]>([]);
 
   // State - Multi-select type filters
   const [selectedTypes, setSelectedTypes] = useState<string[]>(initialType ? [initialType] : []);
@@ -114,12 +122,35 @@ export function ResourcesPageContent({
     );
   }, [resources, initialFocus, challengeFocusMap]);
 
-  // Type facets (computed from base resources)
+  // Record type facets (Knowledge Package vs Knowledge Resource)
+  const recordTypeFacets: FacetItem[] = useMemo(() => {
+    let kpCount = 0;
+    let krCount = 0;
+    const items: FacetItem[] = [];
+
+    baseResources.forEach((r) => {
+      if (r.type === KNOWLEDGE_PACKAGE) kpCount++;
+      else krCount++;
+    });
+
+    if (kpCount > 0) {
+      items.push({ value: 'Knowledge Package', count: kpCount });
+    }
+
+    if (krCount > 0) {
+      items.push({ value: 'Knowledge Resource', count: krCount });
+    }
+
+    // Return the items
+    return items;
+  }, [baseResources]);
+
+  // Type facets (computed from base resources, excluding Knowledge Package)
   const typeFacets: FacetItem[] = useMemo(() => {
     const counts = new Map<string, number>();
 
     baseResources.forEach((r) => {
-      if (r.type) counts.set(r.type, (counts.get(r.type) ?? 0) + 1);
+      if (r.type && r.type !== KNOWLEDGE_PACKAGE) counts.set(r.type, (counts.get(r.type) ?? 0) + 1);
     });
 
     return Array.from(counts.entries())
@@ -183,6 +214,26 @@ export function ResourcesPageContent({
 
     result = filterBySearch(result, searchTerm, ['name', 'description', 'type', 'organization']);
 
+    if (selectedRecordTypes.length > 0) {
+      result = result.filter((r) => {
+        const isKP = r.type === KNOWLEDGE_PACKAGE;
+
+        if (selectedRecordTypes.includes('Knowledge Package') && isKP) {
+          return true;
+        }
+
+        if (selectedRecordTypes.includes('Knowledge Resource') && !isKP) {
+          return true;
+        }
+
+        // Return false if no match
+        return false;
+      });
+    } else {
+      // If no record type filters are selected, filter out Knowledge Package
+      result = result.filter((r) => r.type !== KNOWLEDGE_PACKAGE);
+    }
+
     if (selectedTypes.length > 0) {
       result = result.filter((r) => r.type && selectedTypes.includes(r.type));
     }
@@ -204,7 +255,15 @@ export function ResourcesPageContent({
     }
 
     return result;
-  }, [baseResources, searchTerm, selectedTypes, selectedChallenges, selectedThemes, challenges]);
+  }, [
+    baseResources,
+    searchTerm,
+    selectedRecordTypes,
+    selectedTypes,
+    selectedChallenges,
+    selectedThemes,
+    challenges,
+  ]);
 
   // Pagination
   const {
@@ -219,6 +278,11 @@ export function ResourcesPageContent({
   } = usePagination(filteredResources);
 
   // Toggle helpers
+  const toggleRecordType = (val: string) => {
+    setSelectedRecordTypes((prev) => toggleArrayItem(prev, val));
+    resetPage();
+  };
+
   const toggleType = (type: string) => {
     setSelectedTypes((prev) => toggleArrayItem(prev, type));
     resetPage();
@@ -243,6 +307,7 @@ export function ResourcesPageContent({
   // Function - Clear filters
   const clearFilters = () => {
     setSearchTerm('');
+    setSelectedRecordTypes([]);
     setSelectedTypes([]);
     setSelectedChallenges([]);
     setSelectedThemes([]);
@@ -252,20 +317,32 @@ export function ResourcesPageContent({
   // Has active filters
   const hasActiveFilters =
     !!searchTerm ||
+    selectedRecordTypes.length > 0 ||
     selectedTypes.length > 0 ||
     selectedChallenges.length > 0 ||
     selectedThemes.length > 0;
 
   // Active filter count (for mobile badge)
   const activeFilterCount =
-    selectedTypes.length + selectedChallenges.length + selectedThemes.length;
+    selectedRecordTypes.length +
+    selectedTypes.length +
+    selectedChallenges.length +
+    selectedThemes.length;
 
   // Sidebar content (shared between desktop and mobile)
   const sidebarContent = (
     <>
+      {recordTypeFacets.length > 0 && (
+        <FacetGroup
+          title="Record Type"
+          items={recordTypeFacets}
+          selected={selectedRecordTypes}
+          onToggle={toggleRecordType}
+        />
+      )}
       {typeFacets.length > 0 && (
         <FacetGroup
-          title="Type"
+          title="Resource Type"
           items={typeFacets}
           selected={selectedTypes}
           onToggle={toggleType}

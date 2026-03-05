@@ -41,6 +41,11 @@ import type { FacetsResult } from '@lib/typesense/queries';
 import { getAssetPath } from '@lib/utils';
 
 /**
+ * Knowledge Package value
+ */
+const KNOWLEDGE_PACKAGE = 'Knowledge Package';
+
+/**
  * Debounce delay in milliseconds
  */
 const DEBOUNCE_DELAY = 400;
@@ -84,6 +89,7 @@ export function ExplorePageContent({
    * States to manage search
    */
   const [query, setQuery] = useState('');
+  const [selectedRecordTypes, setSelectedRecordTypes] = useState<string[]>([]);
   const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
   const [selectedChallenges, setSelectedChallenges] = useState<string[]>([]);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
@@ -97,6 +103,26 @@ export function ExplorePageContent({
   const [currentFacets, setCurrentFacets] = useState<FacetsResult>(facets);
 
   // Preserve initial facets so they never disappear when filtering
+  const [initialRecordTypeFacets] = useState<FacetItem[]>(() => {
+    let kpCount = 0;
+    let krCount = 0;
+    const items: FacetItem[] = [];
+
+    (facets.type || []).forEach((f) => {
+      if (f.value === KNOWLEDGE_PACKAGE) kpCount += f.count;
+      else krCount += f.count;
+    });
+
+    if (kpCount > 0) {
+      items.push({ value: 'Knowledge Package', count: kpCount });
+    }
+
+    if (krCount > 0) {
+      items.push({ value: 'Knowledge Resource', count: krCount });
+    }
+
+    return items;
+  });
   const [initialTypeFacets] = useState<FacetItem[]>(facets.type || []);
   const [initialCountryFacets] = useState<FacetItem[]>(facets.country || []);
   const [initialChallengeFacets] = useState<FacetItem[]>(facets.challenges || []);
@@ -130,13 +156,38 @@ export function ExplorePageContent({
     return map;
   }, [challenges]);
 
-  // Facet items with counts
+  // Record type facet items
+  const recordTypeFacetItems: FacetItem[] = useMemo(() => {
+    let kpCount = 0;
+    let krCount = 0;
+    const items: FacetItem[] = [];
+
+    (currentFacets.type || []).forEach((f) => {
+      if (f.value === KNOWLEDGE_PACKAGE) kpCount += f.count;
+      else krCount += f.count;
+    });
+
+    if (kpCount > 0 || initialRecordTypeFacets.some((f) => f.value === 'Knowledge Package')) {
+      items.push({ value: 'Knowledge Package', count: kpCount });
+    }
+    if (krCount > 0 || initialRecordTypeFacets.some((f) => f.value === 'Knowledge Resource')) {
+      items.push({ value: 'Knowledge Resource', count: krCount });
+    }
+
+    // Return the items
+    return items;
+  }, [currentFacets, initialRecordTypeFacets]);
+
+  // Facet items with counts (excluding Knowledge Package)
   const typeFacetItems: FacetItem[] = useMemo(() => {
     const dynamicMap = new Map((currentFacets.type || []).map((f) => [f.value, f.count]));
-    return initialTypeFacets.map((f) => ({
-      value: f.value,
-      count: dynamicMap.get(f.value) ?? 0,
-    }));
+
+    return initialTypeFacets
+      .filter((f) => f.value !== KNOWLEDGE_PACKAGE)
+      .map((f) => ({
+        value: f.value,
+        count: dynamicMap.get(f.value) ?? 0,
+      }));
   }, [currentFacets, initialTypeFacets]);
 
   const countryFacetItems: FacetItem[] = useMemo(() => {
@@ -205,11 +256,35 @@ export function ExplorePageContent({
         // Combine challenge filters: from direct selection + from tag selection
         const allChallengeIds = [...new Set([...challengeIdsToFilter, ...challengeIdsFromTags])];
 
+        // Compute type filter combining record type + resource type
+        let effectiveTypes: string[] | undefined;
+
+        if (selectedRecordTypes.length > 0 || selectedTypes.length > 0) {
+          let recordTypeSet: string[] | null = null;
+
+          if (selectedRecordTypes.length > 0 && selectedRecordTypes.length < 2) {
+            if (selectedRecordTypes.includes('Knowledge Package')) {
+              recordTypeSet = [KNOWLEDGE_PACKAGE];
+            } else {
+              recordTypeSet = initialTypeFacets
+                .filter((f) => f.value !== KNOWLEDGE_PACKAGE)
+                .map((f) => f.value);
+            }
+          }
+
+          if (selectedTypes.length > 0 && recordTypeSet) {
+            effectiveTypes = recordTypeSet.filter((t) => selectedTypes.includes(t));
+          } else if (selectedTypes.length > 0) {
+            effectiveTypes = selectedTypes;
+          } else if (recordTypeSet) {
+            effectiveTypes = recordTypeSet;
+          }
+        }
+
         const response = await searchResourcesAction(
           query || '*',
           {
-            // Pass arrays directly - Typesense handles multi-select filtering
-            type: selectedTypes.length > 0 ? selectedTypes : undefined,
+            type: effectiveTypes && effectiveTypes.length > 0 ? effectiveTypes : undefined,
             challenges: allChallengeIds.length > 0 ? allChallengeIds : undefined,
             country: selectedCountries.length > 0 ? selectedCountries : undefined,
           },
@@ -240,6 +315,7 @@ export function ExplorePageContent({
     };
   }, [
     query,
+    selectedRecordTypes,
     selectedTypes,
     selectedChallenges,
     selectedTags,
@@ -248,6 +324,7 @@ export function ExplorePageContent({
     perPage,
     challengeMap,
     challengeIdsFromTags,
+    initialTypeFacets,
   ]);
 
   const applyPerPage = (pp: PerPageOption) => {
@@ -263,6 +340,7 @@ export function ExplorePageContent({
 
   const clearAllFilters = () => {
     setQuery('');
+    setSelectedRecordTypes([]);
     setSelectedTypes([]);
     setSelectedChallenges([]);
     setSelectedTags([]);
@@ -277,12 +355,14 @@ export function ExplorePageContent({
 
   const hasActiveFilters =
     query.trim() !== '' ||
+    selectedRecordTypes.length > 0 ||
     selectedTypes.length > 0 ||
     selectedChallenges.length > 0 ||
     selectedTags.length > 0 ||
     selectedCountries.length > 0;
 
   const activeFilterCount =
+    selectedRecordTypes.length +
     selectedTypes.length +
     selectedChallenges.length +
     selectedTags.length +
@@ -422,7 +502,16 @@ export function ExplorePageContent({
         {showMobileFilters && (
           <div className="mb-6 rounded-xl border border-gray-100 bg-gray-50/50 p-4 md:hidden">
             <FacetGroup
-              title="Type"
+              title="Record Type"
+              items={recordTypeFacetItems}
+              selected={selectedRecordTypes}
+              onToggle={(val) => {
+                setSelectedRecordTypes((prev) => toggleArrayItem(prev, val));
+                setCurrentPage(1);
+              }}
+            />
+            <FacetGroup
+              title="Resource Type"
               items={typeFacetItems}
               selected={selectedTypes}
               onToggle={(val) => {
@@ -465,7 +554,17 @@ export function ExplorePageContent({
           <aside className="hidden md:block">
             <div className="sticky top-8">
               <FacetGroup
-                title="Type"
+                title="Record Type"
+                items={recordTypeFacetItems}
+                selected={selectedRecordTypes}
+                onToggle={(val) => {
+                  setSelectedRecordTypes((prev) => toggleArrayItem(prev, val));
+                  setCurrentPage(1);
+                }}
+              />
+
+              <FacetGroup
+                title="Resource Type"
                 items={typeFacetItems}
                 selected={selectedTypes}
                 onToggle={(val) => {
