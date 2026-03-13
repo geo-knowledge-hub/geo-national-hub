@@ -10,6 +10,7 @@
 import type { ComponentRegistry, ComponentRegistryEntry } from '../types/component-registry';
 import { HeroClassic, HeroConnections, HeroBackground, HeroWide } from '../components/hero';
 import { CapacityBuildingClassic, CapacityBuildingShowcase } from '../components/capacity-building';
+import { StakeholdersGrid, StakeholdersDirectory } from '../components/stakeholders';
 
 /**
  * Hero component registry entry
@@ -80,11 +81,38 @@ export const capacityBuildingRegistry: ComponentRegistryEntry = {
 };
 
 /**
+ * Stakeholders component registry
+ */
+export const stakeholdersRegistry: ComponentRegistryEntry = {
+  componentId: 'stakeholders',
+  componentName: 'Stakeholders',
+  category: 'stakeholders',
+  defaultVariant: 'grid',
+  variants: [
+    {
+      id: 'grid',
+      name: 'Grid',
+      description: 'Logo card grid with search and pagination',
+      category: 'stakeholders',
+      component: StakeholdersGrid,
+    },
+    {
+      id: 'directory',
+      name: 'Directory',
+      description: 'Compact horizontal directory list',
+      category: 'stakeholders',
+      component: StakeholdersDirectory,
+    },
+  ],
+};
+
+/**
  * Main component registry
  */
 export const componentRegistry: ComponentRegistry = {
   hero: heroRegistry,
   'capacity-building': capacityBuildingRegistry,
+  stakeholders: stakeholdersRegistry,
 };
 
 /**

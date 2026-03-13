@@ -16,6 +16,7 @@ import { useTheme } from './context/theme-context';
 import { componentRegistry } from './registry/components';
 import { renderHeroComponent } from './utils/hero-renderer';
 import { renderCapacityBuildingComponent } from './utils/capacity-building-renderer';
+import { renderStakeholdersComponent } from './utils/stakeholders-renderer';
 import { getAvailableSections } from './utils/sections';
 
 import type { Country, Resource, FocusArea, FocusAreaChallenge } from '@content-types/content';
@@ -24,7 +25,6 @@ import {
   EditableSection,
   EditModeToggle,
   GEOFocusAreaSection,
-  PartnersSection,
   CommunityOfPracticeSection,
   MarketplaceSection,
   KeyRepresentativesSection,
@@ -75,6 +75,10 @@ export function CountryPageContent({
   const cbPreviewVariant =
     previewVariant?.componentId === 'capacity-building' ? previewVariant.variantId : undefined;
 
+  // Get preview variant for stakeholders if it's being previewed
+  const stakeholdersPreviewVariant =
+    previewVariant?.componentId === 'stakeholders' ? previewVariant.variantId : undefined;
+
   // Calculate available sections for quick access navigation
   const hasResources = resources.length > 0;
   const quickAccessSections = getAvailableSections(countryData, hasResources);
@@ -103,6 +107,12 @@ export function CountryPageContent({
     activities: countryData.capacity_building_activities,
     componentConfigs: activeComponentConfigs,
     overrideVariant: cbPreviewVariant,
+  });
+
+  const stakeholdersComponent = renderStakeholdersComponent({
+    countryData,
+    componentConfigs: activeComponentConfigs,
+    overrideVariant: stakeholdersPreviewVariant,
   });
 
   return (
@@ -138,9 +148,6 @@ export function CountryPageContent({
           resources={resources}
         />
 
-        {/* GEO Partners in the country */}
-        <PartnersSection countryData={countryData} />
-
         {/* Enabling mechanisms */}
         <EnablingMechanisms countryData={countryData} />
 
@@ -155,6 +162,17 @@ export function CountryPageContent({
             componentRegistry={componentRegistry['capacity-building']}
           >
             {capacityBuildingComponent}
+          </EditableSection>
+        )}
+
+        {/* GEO Partners / Stakeholders in the country */}
+        {(countryData.partners?.length ?? 0) > 0 && (
+          <EditableSection
+            componentId="stakeholders"
+            componentName="Stakeholders"
+            componentRegistry={componentRegistry['stakeholders']}
+          >
+            {stakeholdersComponent}
           </EditableSection>
         )}
 

@@ -156,6 +156,13 @@ export interface ManagedBy {
 }
 
 /**
+ * External hub configuration — when set, this country's hub is hosted externally.
+ */
+export interface ExternalHub {
+  url: string;
+}
+
+/**
  * Marketplace application offered by a business
  */
 export interface MarketplaceApplication {
@@ -218,6 +225,7 @@ export interface Country {
   flag: string;
   theme?: CountryTheme;
   managed_by?: ManagedBy;
+  external_hub?: ExternalHub;
   partners: Partner[];
   representatives: Representative[];
   community_of_practice?: CommunityOfPractice;

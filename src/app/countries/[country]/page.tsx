@@ -7,7 +7,7 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import { getCountry, getResourcesByCountry, getFocusAreas, getChallenges } from '@lib/typesense';
 import { CountryPageContent } from './content';
 
@@ -34,6 +34,11 @@ export default async function CountryPage({ params }: CountryPageProps) {
   // If not found return user to an error page
   if (!countryData) {
     return notFound();
+  }
+
+  // If the country operates an external hub, redirect there
+  if (countryData.external_hub?.url) {
+    redirect(countryData.external_hub.url);
   }
 
   // Fetch additional data needed for the page

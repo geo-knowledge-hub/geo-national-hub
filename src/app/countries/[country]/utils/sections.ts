@@ -28,10 +28,10 @@ export interface SectionInfo {
  */
 export const sectionConfig: Record<string, SectionInfo> = {
   explore: { id: 'explore', label: 'Explore', order: 1 },
-  stakeholders: { id: 'stakeholders', label: 'Stakeholders', order: 2 },
-  mechanisms: { id: 'mechanisms', label: 'Mechanisms', order: 3 },
-  community: { id: 'community', label: 'Community', order: 4 },
-  learn: { id: 'learn', label: 'Learn', order: 5 },
+  mechanisms: { id: 'mechanisms', label: 'Mechanisms', order: 2 },
+  community: { id: 'community', label: 'Community', order: 3 },
+  learn: { id: 'learn', label: 'Learn', order: 4 },
+  stakeholders: { id: 'stakeholders', label: 'Stakeholders', order: 5 },
   representatives: { id: 'representatives', label: 'Representatives', order: 6 },
   marketplace: { id: 'marketplace', label: 'Marketplace', order: 7 },
 };

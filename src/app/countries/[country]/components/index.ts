@@ -20,6 +20,9 @@ export { HeroClassic, HeroConnections } from './hero';
 // Capacity building variants
 export { CapacityBuildingClassic, CapacityBuildingShowcase } from './capacity-building';
 
+// Stakeholders variants
+export { StakeholdersGrid, StakeholdersDirectory } from './stakeholders';
+
 // Section components
 export { GEOFocusAreaSection } from './section-focus-areas';
 export { CommunityOfPracticeSection } from './section-community';

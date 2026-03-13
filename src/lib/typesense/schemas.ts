@@ -40,6 +40,10 @@ export const countriesSchema = {
     { name: 'managed_by.name', type: 'string' as const, optional: true },
     { name: 'managed_by.url', type: 'string' as const, index: false, optional: true },
 
+    // External hub
+    { name: 'external_hub', type: 'object' as const, optional: true },
+    { name: 'external_hub.url', type: 'string' as const, index: false, optional: true },
+
     // Partners (embedded array)
     { name: 'partners', type: 'object[]' as const, optional: true },
     { name: 'partners.name', type: 'string[]' as const, optional: true },
