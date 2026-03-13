@@ -151,9 +151,6 @@ export function CountryPageContent({
         {/* Enabling mechanisms */}
         <EnablingMechanisms countryData={countryData} />
 
-        {/* Community of practice section */}
-        <CommunityOfPracticeSection countryData={countryData} />
-
         {/* Capacity building activities in the country */}
         {countryData.capacity_building_activities?.length > 0 && (
           <EditableSection
@@ -164,6 +161,9 @@ export function CountryPageContent({
             {capacityBuildingComponent}
           </EditableSection>
         )}
+
+        {/* Community of practice section */}
+        <CommunityOfPracticeSection countryData={countryData} />
 
         {/* GEO Partners / Stakeholders in the country */}
         {(countryData.partners?.length ?? 0) > 0 && (
