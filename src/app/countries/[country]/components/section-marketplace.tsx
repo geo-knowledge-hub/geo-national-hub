@@ -45,6 +45,28 @@ export function MarketplaceSection({
   return (
     <section id="marketplace" className="px-4 py-16">
       <div className="mx-auto max-w-7xl">
+        {/* Transition divider */}
+        <div className="mb-10 flex items-center gap-4">
+          <div
+            className="h-px flex-1"
+            style={{
+              background:
+                'linear-gradient(to right, transparent, color-mix(in srgb, var(--theme-primary, #526479) 30%, transparent))',
+            }}
+          />
+          <Store
+            className="h-4 w-4 opacity-25"
+            style={{ color: 'var(--theme-primary, #526479)' }}
+          />
+          <div
+            className="h-px flex-1"
+            style={{
+              background:
+                'linear-gradient(to left, transparent, color-mix(in srgb, var(--theme-primary, #526479) 30%, transparent))',
+            }}
+          />
+        </div>
+
         <div
           className="relative overflow-hidden rounded-2xl shadow-lg"
           style={{ background: 'color-mix(in srgb, var(--theme-primary, #526479) 80%, #6b7280)' }}

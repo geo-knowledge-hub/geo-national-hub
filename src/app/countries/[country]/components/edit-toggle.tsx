@@ -16,6 +16,7 @@ import { useEditMode } from '../context/edit-mode';
 import { useTheme } from '../context/theme-context';
 import { checkAdminAuth } from '@lib/api/admin';
 import { EditThemePanel } from './edit-theme-panel';
+import { EditLayoutPanel } from './edit-layout-panel';
 import type { Country, CountryComponentConfig } from '@content-types/content';
 
 interface EditModeToggleProps {
@@ -40,6 +41,9 @@ export function EditModeToggle({ countryId, countryTheme, componentConfig }: Edi
     setPreviewVariant,
     isEditingTheme,
     setIsEditingTheme,
+    isEditingLayout,
+    setIsEditingLayout,
+    availableSectionIds,
   } = useEditMode();
 
   // Get preview theme setter from ThemeContext
@@ -61,6 +65,7 @@ export function EditModeToggle({ countryId, countryTheme, componentConfig }: Edi
       setEditingComponent(null);
       setPreviewVariant(null);
       setIsEditingTheme(false);
+      setIsEditingLayout(false);
       setPreviewTheme(null);
 
       // Remove edit param from URL
@@ -76,10 +81,20 @@ export function EditModeToggle({ countryId, countryTheme, componentConfig }: Edi
 
   // Handle opening theme editor
   const handleOpenThemeEditor = () => {
-    // Close any component editor first
+    // Close other panels first
     setEditingComponent(null);
     setPreviewVariant(null);
+    setIsEditingLayout(false);
     setIsEditingTheme(true);
+  };
+
+  // Handle opening layout editor
+  const handleOpenLayoutEditor = () => {
+    // Close other panels first
+    setEditingComponent(null);
+    setPreviewVariant(null);
+    setIsEditingTheme(false);
+    setIsEditingLayout(true);
   };
 
   // Initialize country data and check for edit mode query param
@@ -123,7 +138,7 @@ export function EditModeToggle({ countryId, countryTheme, componentConfig }: Edi
     <>
       <div className="fixed right-6 bottom-6 z-60">
         {/* Edit mode help tooltip */}
-        {isEditMode && !isEditingTheme && (
+        {isEditMode && !isEditingTheme && !isEditingLayout && (
           <div className="absolute right-0 bottom-full mb-3 w-56 rounded-lg bg-gray-900 p-3 text-xs text-white shadow-xl">
             <p className="font-medium">Live Edit Mode</p>
             <p className="mt-1 text-gray-300">
@@ -134,6 +149,26 @@ export function EditModeToggle({ countryId, countryTheme, componentConfig }: Edi
         )}
 
         <div className="flex items-center gap-2">
+          {/* Layout button - only shown in edit mode */}
+          {isEditMode && (
+            <button
+              onClick={handleOpenLayoutEditor}
+              className={`flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold transition-all hover:scale-105 ${
+                isEditingLayout ? 'bg-gray-900 text-white shadow-lg' : 'glass-button text-gray-700'
+              }`}
+            >
+              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"
+                />
+              </svg>
+              Layout
+            </button>
+          )}
+
           {/* Theme button - only shown in edit mode */}
           {isEditMode && (
             <button
@@ -192,6 +227,14 @@ export function EditModeToggle({ countryId, countryTheme, componentConfig }: Edi
 
       {/* Theme editor panel */}
       {isEditingTheme && <EditThemePanel onClose={() => setIsEditingTheme(false)} />}
+
+      {/* Layout editor panel */}
+      {isEditingLayout && (
+        <EditLayoutPanel
+          onClose={() => setIsEditingLayout(false)}
+          availableSectionIds={availableSectionIds}
+        />
+      )}
     </>
   );
 }

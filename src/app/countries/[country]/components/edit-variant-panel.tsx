@@ -38,8 +38,11 @@ export function EditVariantPanel({ component, onClose }: EditVariantPanelProps) 
   // Get theme from ThemeContext
   const { theme } = useTheme();
 
+  // Get the current config
   const currentConfig = componentConfigs.find((c) => c.componentId === component.componentId);
   const savedVariant = currentConfig?.variantId || component.defaultVariant;
+
+  // State - Selected variant, is saving, show success
   const [selectedVariant, setSelectedVariant] = useState(savedVariant);
   const [isSaving, setIsSaving] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
@@ -59,7 +62,7 @@ export function EditVariantPanel({ component, onClose }: EditVariantPanelProps) 
     });
   }
 
-  // Clear preview when mouse leaves the variant options
+  // Function - Clear preview when mouse leaves the variant options
   function handleVariantLeave() {
     // If user has selected a variant, keep showing it
     if (selectedVariant !== savedVariant) {
@@ -72,7 +75,7 @@ export function EditVariantPanel({ component, onClose }: EditVariantPanelProps) 
     }
   }
 
-  // Handle selecting a variant (click)
+  // Function - Handle selecting a variant
   function handleVariantSelect(variantId: string) {
     setSelectedVariant(variantId);
     setPreviewVariant({
@@ -81,14 +84,14 @@ export function EditVariantPanel({ component, onClose }: EditVariantPanelProps) 
     });
   }
 
-  // Handle cancel - revert to saved state
+  // Function - Handle cancel
   function handleCancel() {
     setPreviewVariant(null);
     setEditingComponent(null);
     onClose();
   }
 
-  // Handle apply - save the selected variant
+  // Function - Handle apply
   async function handleApply() {
     if (!countryId) {
       alert('Country ID is required');
@@ -98,6 +101,7 @@ export function EditVariantPanel({ component, onClose }: EditVariantPanelProps) 
     setIsSaving(true);
 
     try {
+      // Update the component configs
       const updatedConfigs = currentConfig
         ? componentConfigs.map((c) =>
             c.componentId === component.componentId ? { ...c, variantId: selectedVariant } : c,
@@ -163,9 +167,13 @@ export function EditVariantPanel({ component, onClose }: EditVariantPanelProps) 
       <div className="max-h-[50vh] overflow-y-auto p-3">
         <div className="space-y-2">
           {component.variants.map((variant) => {
+            // Check if the variant is selected
             const isSelected = selectedVariant === variant.id;
+
+            // Check if the variant is the current variant
             const isCurrent = savedVariant === variant.id;
 
+            // Return!
             return (
               <button
                 key={variant.id}

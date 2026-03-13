@@ -9,12 +9,12 @@
 
 import React, { useState, useMemo, JSX } from 'react';
 
-import { Search, ExternalLink } from 'lucide-react';
+import { Search } from 'lucide-react';
 
 import { Button } from '@ui/button';
-import { Card, CardContent } from '@ui/card';
 
-import { getAssetPath } from '@lib/utils';
+import { FeatureCard } from '@components/global';
+
 import { filterBySearch } from '@lib/search/utils';
 import type { Partner } from '@content-types/content';
 
@@ -76,44 +76,17 @@ export function StakeholdersGrid({ partners, countryTitle }: StakeholdersGridPro
         </div>
 
         {/* Grid */}
-        <div className="mt-2 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-2 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {paginated.length > 0 ? (
             paginated.map((partner, i) => (
-              <Card key={i} className="glass-card group border-0 shadow-none">
-                <CardContent className="flex flex-col items-center p-6 text-center">
-                  {/* Logo */}
-                  <div className="mb-4 flex h-24 w-24 items-center justify-center">
-                    <img
-                      src={getAssetPath(partner.logo)}
-                      alt={partner.name}
-                      className="h-full w-full object-contain"
-                    />
-                  </div>
-
-                  {/* Name */}
-                  <h3 className="text-sm font-semibold text-gray-900">{partner.name}</h3>
-
-                  {/* Description */}
-                  {partner.description && (
-                    <p className="mt-1 line-clamp-2 text-xs text-gray-500">{partner.description}</p>
-                  )}
-
-                  {/* Link */}
-                  {partner.link && partner.link !== '#' && (
-                    <Button variant="ghost" size="sm" asChild className="mt-3 h-auto px-2 py-1">
-                      <a
-                        href={partner.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="themed-title text-xs font-medium"
-                      >
-                        Visit website
-                        <ExternalLink className="h-3 w-3" />
-                      </a>
-                    </Button>
-                  )}
-                </CardContent>
-              </Card>
+              <FeatureCard
+                key={i}
+                image={partner.logo}
+                imageAlt={partner.name}
+                title={partner.name}
+                href={partner.link && partner.link !== '#' ? partner.link : undefined}
+                external={true}
+              />
             ))
           ) : (
             <p className="col-span-full py-12 text-center text-sm text-gray-400">

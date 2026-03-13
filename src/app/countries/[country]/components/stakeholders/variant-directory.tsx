@@ -9,13 +9,12 @@
 
 import React, { useState, useMemo, JSX } from 'react';
 
-import { Search, ExternalLink } from 'lucide-react';
+import { Search } from 'lucide-react';
 
 import { Button } from '@ui/button';
-import { Card, CardContent } from '@ui/card';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@ui/tooltip';
 
-import { getAssetPath } from '@lib/utils';
+import { FeatureCard } from '@components/global';
+
 import { filterBySearch } from '@lib/search/utils';
 import type { Partner } from '@content-types/content';
 
@@ -81,55 +80,23 @@ export function StakeholdersDirectory({
         </div>
 
         {/* Directory list */}
-        <div className="mt-6 flex flex-col gap-2">
+        <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {paginated.length > 0 ? (
             paginated.map((partner, i) => (
-              <Card key={i} className="glass-card border-0 shadow-none">
-                <CardContent className="flex items-center gap-4 p-4">
-                  {/* Logo thumbnail */}
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center sm:h-14 sm:w-14">
-                    <img
-                      src={getAssetPath(partner.logo)}
-                      alt={partner.name}
-                      className="h-full w-full object-contain"
-                    />
-                  </div>
-
-                  {/* Text */}
-                  <div className="min-w-0 flex-1">
-                    <p className="truncate text-sm font-semibold text-gray-900">{partner.name}</p>
-                    {partner.description && (
-                      <p className="mt-0.5 line-clamp-1 text-xs text-gray-500 sm:line-clamp-2">
-                        {partner.description}
-                      </p>
-                    )}
-                  </div>
-
-                  {/* External link */}
-                  {partner.link && partner.link !== '#' && (
-                    <TooltipProvider>
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <Button variant="ghost" size="icon" asChild className="shrink-0">
-                            <a
-                              href={partner.link}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              aria-label={`Visit ${partner.name}`}
-                            >
-                              <ExternalLink className="h-4 w-4 text-gray-400" />
-                            </a>
-                          </Button>
-                        </TooltipTrigger>
-                        <TooltipContent side="left">Visit {partner.name}</TooltipContent>
-                      </Tooltip>
-                    </TooltipProvider>
-                  )}
-                </CardContent>
-              </Card>
+              <FeatureCard
+                key={i}
+                image={partner.logo}
+                imageAlt={partner.name}
+                title={partner.name}
+                href={partner.link && partner.link !== '#' ? partner.link : undefined}
+                external={true}
+                imageClass="mb-4 h-14 w-14"
+              />
             ))
           ) : (
-            <p className="py-12 text-center text-sm text-gray-400">No stakeholders found.</p>
+            <p className="col-span-full py-12 text-center text-sm text-gray-400">
+              No stakeholders found.
+            </p>
           )}
         </div>
 

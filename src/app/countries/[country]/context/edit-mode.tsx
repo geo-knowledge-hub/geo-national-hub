@@ -12,6 +12,7 @@
 import React, { createContext, useContext, useState, ReactNode, useCallback } from 'react';
 
 import type { CountryComponentConfig } from '@content-types/content';
+import type { SectionId } from '../utils/section-order';
 
 /**
  * Represents a temporary preview variant - used when hovering over options
@@ -35,6 +36,10 @@ interface EditModeContextValue {
   isEditingTheme: boolean;
   setIsEditingTheme: (value: boolean) => void;
 
+  // Currently editing layout (section order)
+  isEditingLayout: boolean;
+  setIsEditingLayout: (value: boolean) => void;
+
   // Preview variant - temporary state for real-time preview on hover
   previewVariant: PreviewVariant | null;
   setPreviewVariant: (variant: PreviewVariant | null) => void;
@@ -47,6 +52,10 @@ interface EditModeContextValue {
   countryId: string | null;
   setCountryId: (id: string | null) => void;
 
+  // Available section IDs (sections that have data for the current country)
+  availableSectionIds: SectionId[];
+  setAvailableSectionIds: (ids: SectionId[]) => void;
+
   // Helper to get effective variant for a component (preview or saved)
   getEffectiveVariant: (componentId: string, defaultVariant: string) => string;
 }
@@ -57,18 +66,20 @@ export function EditModeProvider({ children }: { children: ReactNode }) {
   const [isEditMode, setIsEditMode] = useState(false);
   const [editingComponent, setEditingComponent] = useState<string | null>(null);
   const [isEditingTheme, setIsEditingTheme] = useState(false);
+  const [isEditingLayout, setIsEditingLayout] = useState(false);
   const [previewVariant, setPreviewVariant] = useState<PreviewVariant | null>(null);
   const [componentConfigs, setComponentConfigs] = useState<CountryComponentConfig[]>([]);
   const [countryId, setCountryId] = useState<string | null>(null);
+  const [availableSectionIds, setAvailableSectionIds] = useState<SectionId[]>([]);
 
-  // Helper function to get the effective variant for a component
-  // Priority: preview variant > saved config > default
+  // Function - Get the effective variant for a component
   const getEffectiveVariant = useCallback(
     (componentId: string, defaultVariant: string): string => {
-      // If there's a preview variant for this component, use it
+      // Check if there's a preview variant for this component
       if (previewVariant && previewVariant.componentId === componentId) {
         return previewVariant.variantId;
       }
+
       // Otherwise use saved config
       const config = componentConfigs.find((c) => c.componentId === componentId);
       return config?.variantId || defaultVariant;
@@ -76,6 +87,7 @@ export function EditModeProvider({ children }: { children: ReactNode }) {
     [previewVariant, componentConfigs],
   );
 
+  // Return!
   return (
     <EditModeContext.Provider
       value={{
@@ -85,12 +97,16 @@ export function EditModeProvider({ children }: { children: ReactNode }) {
         setEditingComponent,
         isEditingTheme,
         setIsEditingTheme,
+        isEditingLayout,
+        setIsEditingLayout,
         previewVariant,
         setPreviewVariant,
         componentConfigs,
         setComponentConfigs,
         countryId,
         setCountryId,
+        availableSectionIds,
+        setAvailableSectionIds,
         getEffectiveVariant,
       }}
     >

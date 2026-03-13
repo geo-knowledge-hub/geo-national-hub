@@ -9,7 +9,7 @@
 
 'use client';
 
-import React, { JSX, Suspense } from 'react';
+import React, { JSX, ReactNode, Suspense, useEffect, useMemo } from 'react';
 
 import { useEditMode } from './context/edit-mode';
 import { useTheme } from './context/theme-context';
@@ -17,7 +17,8 @@ import { componentRegistry } from './registry/components';
 import { renderHeroComponent } from './utils/hero-renderer';
 import { renderCapacityBuildingComponent } from './utils/capacity-building-renderer';
 import { renderStakeholdersComponent } from './utils/stakeholders-renderer';
-import { getAvailableSections } from './utils/sections';
+import { getAvailableSections, getAvailableSectionIds } from './utils/sections';
+import { getOrderedSectionIds, type SectionId } from './utils/section-order';
 
 import type { Country, Resource, FocusArea, FocusAreaChallenge } from '@content-types/content';
 
@@ -58,7 +59,7 @@ export function CountryPageContent({
   focusAreas,
   challenges,
 }: CountryPageContentProps): JSX.Element {
-  const { componentConfigs, previewVariant } = useEditMode();
+  const { componentConfigs, previewVariant, setAvailableSectionIds } = useEditMode();
   const { getEffectiveTheme } = useTheme();
 
   // Get the effective theme (preview > saved > default)
@@ -81,10 +82,28 @@ export function CountryPageContent({
 
   // Calculate available sections for quick access navigation
   const hasResources = resources.length > 0;
-  const quickAccessSections = getAvailableSections(countryData, hasResources);
+  const quickAccessSections = getAvailableSections(
+    countryData,
+    hasResources,
+    activeComponentConfigs,
+  );
+
+  // Compute which section IDs are available (have data) for the layout panel
+  const computedAvailableSectionIds = useMemo<SectionId[]>(
+    () => getAvailableSectionIds(countryData, hasResources),
+    [countryData, hasResources],
+  );
+
+  // Keep context in sync with available sections
+  useEffect(() => {
+    setAvailableSectionIds(computedAvailableSectionIds);
+  }, [computedAvailableSectionIds, setAvailableSectionIds]);
 
   // Get theme primary color for sticky nav
   const primaryColor = effectiveTheme?.primary_color || '#526479';
+
+  // Get section order from configs
+  const sectionOrder = getOrderedSectionIds(activeComponentConfigs);
 
   // Render hero based on configuration or preview variant
   // The overrideVariant takes precedence when user is hovering over options
@@ -115,6 +134,68 @@ export function CountryPageContent({
     overrideVariant: stakeholdersPreviewVariant,
   });
 
+  /**
+   * Renders a section by its ID. Returns null if the section has no data.
+   */
+  function renderSection(sectionId: SectionId): ReactNode {
+    switch (sectionId) {
+      case 'explore':
+        return hasResources ? (
+          <GEOFocusAreaSection
+            countryData={countryData}
+            focusAreas={focusAreas}
+            challenges={challenges}
+            resources={resources}
+          />
+        ) : null;
+
+      case 'mechanisms':
+        return countryData.mechanisms?.length > 0 ? (
+          <EnablingMechanisms countryData={countryData} />
+        ) : null;
+
+      case 'capacity-building':
+        return countryData.capacity_building_activities?.length > 0 ? (
+          <EditableSection
+            componentId="capacity-building"
+            componentName="Capacity Building"
+            componentRegistry={componentRegistry['capacity-building']}
+          >
+            {capacityBuildingComponent}
+          </EditableSection>
+        ) : null;
+
+      case 'community':
+        return countryData.community_of_practice ? (
+          <CommunityOfPracticeSection countryData={countryData} />
+        ) : null;
+
+      case 'stakeholders':
+        return (countryData.partners?.length ?? 0) > 0 ? (
+          <EditableSection
+            componentId="stakeholders"
+            componentName="Stakeholders"
+            componentRegistry={componentRegistry['stakeholders']}
+          >
+            {stakeholdersComponent}
+          </EditableSection>
+        ) : null;
+
+      case 'representatives':
+        return countryData.representatives?.length > 0 ? (
+          <KeyRepresentativesSection countryData={countryData} />
+        ) : null;
+
+      case 'marketplace':
+        return (countryData.marketplace?.businesses?.length ?? 0) > 0 ? (
+          <MarketplaceSection countryId={countryId} countryData={countryData} />
+        ) : null;
+
+      default:
+        return null;
+    }
+  }
+
   return (
     <div className="relative -mt-24 min-h-screen pt-24">
       {/* Feedback widget */}
@@ -140,47 +221,11 @@ export function CountryPageContent({
         {/* Quick Access Navigation Bar */}
         <StickyNavBar sections={quickAccessSections} primaryColor={primaryColor} />
 
-        {/* GEO Focus Areas section */}
-        <GEOFocusAreaSection
-          countryData={countryData}
-          focusAreas={focusAreas}
-          challenges={challenges}
-          resources={resources}
-        />
-
-        {/* Enabling mechanisms */}
-        <EnablingMechanisms countryData={countryData} />
-
-        {/* Capacity building activities in the country */}
-        {countryData.capacity_building_activities?.length > 0 && (
-          <EditableSection
-            componentId="capacity-building"
-            componentName="Capacity Building"
-            componentRegistry={componentRegistry['capacity-building']}
-          >
-            {capacityBuildingComponent}
-          </EditableSection>
-        )}
-
-        {/* Community of practice section */}
-        <CommunityOfPracticeSection countryData={countryData} />
-
-        {/* GEO Partners / Stakeholders in the country */}
-        {(countryData.partners?.length ?? 0) > 0 && (
-          <EditableSection
-            componentId="stakeholders"
-            componentName="Stakeholders"
-            componentRegistry={componentRegistry['stakeholders']}
-          >
-            {stakeholdersComponent}
-          </EditableSection>
-        )}
-
-        {/* Key GEO representatives in the country */}
-        <KeyRepresentativesSection countryData={countryData} />
-
-        {/* Marketplace section */}
-        <MarketplaceSection countryId={countryId} countryData={countryData} />
+        {/* Dynamic section rendering based on configured order */}
+        {sectionOrder.map((id) => {
+          const section = renderSection(id);
+          return section ? <React.Fragment key={id}>{section}</React.Fragment> : null;
+        })}
 
         {/* Bottom spacing to ensure last section can be scrolled to properly */}
         <div className="h-28" aria-hidden="true" />

@@ -7,7 +7,9 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import type { Country } from '@content-types/content';
+import type { Country, CountryComponentConfig } from '@content-types/content';
+
+import { getOrderedSectionIds, type SectionId } from './section-order';
 
 /**
  * Section information for quick access navigation
@@ -22,9 +24,7 @@ export interface SectionInfo {
 }
 
 /**
- * Configuration for all available page sections
- * Maps section keys to their metadata
- * ToDo: Any better way to do this?
+ * Configuration for all page sections
  */
 export const sectionConfig: Record<string, SectionInfo> = {
   explore: { id: 'explore', label: 'Explore', order: 1 },
@@ -37,53 +37,75 @@ export const sectionConfig: Record<string, SectionInfo> = {
 };
 
 /**
+ * Maps section-order IDs to sectionConfig keys.
+ */
+const sectionIdToConfigKey: Record<string, string> = {
+  explore: 'explore',
+  mechanisms: 'mechanisms',
+  'capacity-building': 'learn',
+  community: 'community',
+  stakeholders: 'stakeholders',
+  representatives: 'representatives',
+  marketplace: 'marketplace',
+};
+
+/**
+ * Get available section IDs
+ *
+ * @param countryData - The country data object
+ * @param hasResources - Whether the country has resources
+ * @returns Array of SectionId values that have data
+ */
+export function getAvailableSectionIds(countryData: Country, hasResources: boolean): SectionId[] {
+  const checks: [SectionId, boolean][] = [
+    ['explore', hasResources],
+    ['mechanisms', (countryData.mechanisms?.length ?? 0) > 0],
+    ['capacity-building', (countryData.capacity_building_activities?.length ?? 0) > 0],
+    ['community', !!countryData.community_of_practice],
+    ['stakeholders', (countryData.partners?.length ?? 0) > 0],
+    ['representatives', (countryData.representatives?.length ?? 0) > 0],
+    ['marketplace', (countryData.marketplace?.businesses?.length ?? 0) > 0],
+  ];
+
+  return checks.filter(([, available]) => available).map(([id]) => id);
+}
+
+/**
  * Determines which sections are available based on country data
  *
  * @param countryData - The country data object
  * @param hasResources - Whether the country has resources (for Focus Areas section)
+ * @param componentConfigs - Optional component configs for custom ordering
  * @returns Array of available sections sorted by display order
  */
-export function getAvailableSections(countryData: Country, hasResources: boolean): SectionInfo[] {
+export function getAvailableSections(
+  countryData: Country,
+  hasResources: boolean,
+  componentConfigs?: CountryComponentConfig[],
+): SectionInfo[] {
+  const availableIds = new Set<SectionId>(getAvailableSectionIds(countryData, hasResources));
+
+  // Map SectionIds to their sectionConfig keys
+  const availableConfigKeys = new Set<string>();
+  for (const id of availableIds) {
+    const configKey = sectionIdToConfigKey[id];
+
+    if (configKey) {
+      availableConfigKeys.add(configKey);
+    }
+  }
+
+  // Get ordered section IDs and map to config keys
+  const orderedIds = getOrderedSectionIds(componentConfigs);
   const available: SectionInfo[] = [];
 
-  // Focus Areas (Explore) - requires resources to be meaningful
-  if (hasResources) {
-    available.push(sectionConfig.explore);
+  for (let i = 0; i < orderedIds.length; i++) {
+    const configKey = sectionIdToConfigKey[orderedIds[i]];
+
+    if (configKey && availableConfigKeys.has(configKey) && sectionConfig[configKey]) {
+      available.push({ ...sectionConfig[configKey], order: i });
+    }
   }
 
-  // Stakeholders/Partners
-  if (countryData.partners && countryData.partners.length > 0) {
-    available.push(sectionConfig.stakeholders);
-  }
-
-  // Enabling Mechanisms
-  if (countryData.mechanisms && countryData.mechanisms.length > 0) {
-    available.push(sectionConfig.mechanisms);
-  }
-
-  // Community of Practice
-  if (countryData.community_of_practice) {
-    available.push(sectionConfig.community);
-  }
-
-  // Capacity Building (Learn)
-  if (
-    countryData.capacity_building_activities &&
-    countryData.capacity_building_activities.length > 0
-  ) {
-    available.push(sectionConfig.learn);
-  }
-
-  // Marketplace
-  if (countryData.marketplace?.businesses && countryData.marketplace.businesses.length > 0) {
-    available.push(sectionConfig.marketplace);
-  }
-
-  // Key Representatives
-  if (countryData.representatives && countryData.representatives.length > 0) {
-    available.push(sectionConfig.representatives);
-  }
-
-  // Sort by display order
-  return available.sort((a, b) => a.order - b.order);
+  return available;
 }
