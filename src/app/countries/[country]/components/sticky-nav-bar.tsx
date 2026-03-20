@@ -10,7 +10,10 @@
 'use client';
 
 import React, { JSX, useEffect, useState, useRef } from 'react';
+import Image from 'next/image';
 
+import { getAssetPath } from '@lib/utils';
+import type { Supporter } from '@content-types/content';
 import type { SectionInfo } from '../utils/sections';
 
 /**
@@ -21,6 +24,8 @@ interface StickyNavBarProps {
   sections: SectionInfo[];
   /** Primary color for active/hover states (uses theme primary if not provided) */
   primaryColor?: string;
+  /** Supporter organizations to display when sticky */
+  supporters?: Supporter[];
 }
 
 /**
@@ -33,7 +38,11 @@ interface StickyNavBarProps {
  * @param {StickyNavBarProps} props - Component props.
  * @returns {JSX.Element | null} The rendered sticky nav bar or null if no sections.
  */
-export function StickyNavBar({ sections, primaryColor }: StickyNavBarProps): JSX.Element | null {
+export function StickyNavBar({
+  sections,
+  primaryColor,
+  supporters,
+}: StickyNavBarProps): JSX.Element | null {
   const [isSticky, setIsSticky] = useState(false);
   const [activeSection, setActiveSection] = useState<string | null>(null);
   const barRef = useRef<HTMLDivElement>(null);
@@ -172,6 +181,43 @@ export function StickyNavBar({ sections, primaryColor }: StickyNavBarProps): JSX
               );
             })}
           </div>
+
+          {/* Supported by strip - only visible when sticky */}
+          {isSticky && supporters && supporters.length > 0 && (
+            <div className="flex items-center justify-center gap-4 border-t border-gray-200/50 py-2.5">
+              <span className="text-xs font-medium tracking-wide text-gray-400 uppercase">
+                Supported by
+              </span>
+              {supporters.map((supporter) => {
+                const logo = (
+                  <Image
+                    src={getAssetPath(supporter.logo)}
+                    alt={supporter.name}
+                    width={120}
+                    height={36}
+                    className="h-10 w-auto object-contain"
+                  />
+                );
+
+                return supporter.url ? (
+                  <a
+                    key={supporter.name}
+                    href={supporter.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="transition-opacity hover:opacity-80"
+                    title={supporter.name}
+                  >
+                    {logo}
+                  </a>
+                ) : (
+                  <span key={supporter.name} title={supporter.name}>
+                    {logo}
+                  </span>
+                );
+              })}
+            </div>
+          )}
         </div>
       </div>
     </>

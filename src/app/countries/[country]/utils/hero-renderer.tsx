@@ -10,7 +10,7 @@
 import React, { JSX, createElement } from 'react';
 import { StaticImageData } from 'next/image';
 
-import type { CountryComponentConfig } from '@content-types/content';
+import type { CountryComponentConfig, Supporter } from '@content-types/content';
 import { ComponentRegistryEntry } from '../types/component-registry';
 import { componentRegistry, getVariant } from '../registry/components';
 import { getDefaultTheme } from './theme';
@@ -59,6 +59,7 @@ interface HeroRendererProps {
   theme?: { primary_color?: string };
   managedBy?: string;
   managedByLink?: string;
+  supporters?: Supporter[];
   /** Override variant - used for live preview when hovering over options */
   overrideVariant?: string;
 }
@@ -77,6 +78,7 @@ export function renderHeroComponent({
   theme,
   managedBy,
   managedByLink,
+  supporters,
   overrideVariant,
 }: HeroRendererProps): JSX.Element {
   // Get hero config from country configuration
@@ -100,6 +102,7 @@ export function renderHeroComponent({
     primaryColor,
     managedBy,
     managedByLink,
+    supporters,
     // Include any custom props from configuration
     ...heroConfig?.customProps,
   };

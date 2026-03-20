@@ -14,6 +14,7 @@ import Image, { StaticImageData } from 'next/image';
 
 import { BackButton } from '@components/global';
 import { getAssetPath } from '@lib/utils';
+import type { Supporter } from '@content-types/content';
 
 // Resource type icons
 import iconKnowledgePackage from '@public/content/resources/knowledge-package.svg';
@@ -64,6 +65,7 @@ interface HeroConnectionsProps {
   primaryColor?: string;
   managedBy?: string;
   managedByLink?: string;
+  supporters?: Supporter[];
   hideBackButton?: boolean;
 }
 
@@ -81,6 +83,7 @@ export function HeroConnections({
   imageClass = 'h-full w-full object-contain',
   managedBy,
   managedByLink,
+  supporters,
   hideBackButton = false,
 }: HeroConnectionsProps) {
   return (
@@ -100,35 +103,45 @@ export function HeroConnections({
             </h1>
             <p className="text-xl text-gray-700 md:text-2xl">{description}</p>
 
-            {/* Managed by */}
-            {managedBy && (
+            {/* Supporters */}
+            {supporters && supporters.length > 0 && (
               <div
                 className="border-t border-gray-200/80 pt-4"
                 style={{ borderColor: 'var(--theme-accent, rgba(229, 231, 235, 0.8))' }}
               >
-                <p className="mb-2 text-sm font-medium tracking-wide text-gray-500 uppercase">
-                  Managed by
-                </p>
-                {managedByLink ? (
-                  <a
-                    href={managedByLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-sm font-semibold text-gray-900 transition-colors hover:text-[var(--theme-primary)]"
-                  >
-                    {managedBy}
-                    <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                <div className="flex items-center gap-3">
+                  <span className="text-xs font-medium tracking-wide text-gray-400 uppercase">
+                    Supported by
+                  </span>
+                  {supporters.map((supporter) => {
+                    const logo = (
+                      <Image
+                        src={getAssetPath(supporter.logo)}
+                        alt={supporter.name}
+                        width={100}
+                        height={32}
+                        className="h-10 w-auto object-contain"
                       />
-                    </svg>
-                  </a>
-                ) : (
-                  <p className="text-lg font-semibold text-gray-900">{managedBy}</p>
-                )}
+                    );
+
+                    return supporter.url ? (
+                      <a
+                        key={supporter.name}
+                        href={supporter.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="transition-opacity hover:opacity-70"
+                        title={supporter.name}
+                      >
+                        {logo}
+                      </a>
+                    ) : (
+                      <span key={supporter.name} title={supporter.name}>
+                        {logo}
+                      </span>
+                    );
+                  })}
+                </div>
               </div>
             )}
           </div>

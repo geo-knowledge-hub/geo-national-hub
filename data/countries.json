@@ -202,18 +202,18 @@
       "id": "china",
       "title": "People's Republic of China",
       "flag": "/content/flags/flag-china.png",
+      "theme": {
+        "primary_color": "#a84242",
+        "hero_variant": "default"
+      },
+      "external_hub": {
+        "url": "https://chinageoss.cn"
+      },
       "community_of_practice": null,
       "mechanisms": [],
       "capacity_building_activities": [],
       "partners": [],
-      "representatives": [
-        {
-          "name": "Representative Contact A",
-          "role": "Capacity Building manager",
-          "profile": "#",
-          "avatar": "/content/representative/placeholder.svg"
-        }
-      ]
+      "representatives": []
     },
     "south-africa": {
       "id": "south-africa",
@@ -224,6 +224,23 @@
         "name": "South African Group on Earth Observations (SA-GEO)",
         "url": "https://neoss.co.za/sa-geo"
       },
+      "supporters": [
+        {
+          "name": "SA-GEO",
+          "logo": "/content/groups/sageo.jpg",
+          "url": "https://neoss.co.za/sa-geo"
+        },
+        {
+          "name": "NEOSS",
+          "logo": "/content/groups/neoss.jpg",
+          "url": "https://neoss.co.za/"
+        },
+        {
+          "name": "DSTI",
+          "logo": "/content/groups/dsti.jpg",
+          "url": "https://www.dsti.gov.za/"
+        }
+      ],
       "community_of_practice": {
         "name": "SA-GEO Community of Practice",
         "description": "The South African Group on Earth Observations (SA-GEO) is a forum which aims to mobilise the South African observations communities to advocate the use of Earth observations for societal benefit.",

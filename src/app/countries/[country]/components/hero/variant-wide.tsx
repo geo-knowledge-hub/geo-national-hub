@@ -14,6 +14,7 @@ import Image from 'next/image';
 
 import { BackButton } from '@components/global';
 import { getAssetPath } from '@lib/utils';
+import type { Supporter } from '@content-types/content';
 
 interface HeroWideProps {
   title: string;
@@ -23,6 +24,7 @@ interface HeroWideProps {
   hideBackButton?: boolean;
   managedBy?: string;
   managedByLink?: string;
+  supporters?: Supporter[];
 }
 
 /**
@@ -38,6 +40,7 @@ export function HeroWide({
   hideBackButton = false,
   managedBy,
   managedByLink,
+  supporters,
 }: HeroWideProps) {
   const [backgroundSrc, setBackgroundSrc] = useState<string | null>(null);
   const [imageError, setImageError] = useState(false);
@@ -129,32 +132,42 @@ export function HeroWide({
               {description}
             </p>
 
-            {/* Managed by - hidden on mobile to prevent overlap */}
-            {managedBy && (
+            {/* Supporters - hidden on mobile to prevent overlap */}
+            {supporters && supporters.length > 0 && (
               <div className="mt-3 hidden border-t border-white/20 pt-3 md:mt-5 md:block md:pt-4">
-                <p className="mb-1 text-sm font-medium tracking-wide text-white/60 uppercase">
-                  Managed by
-                </p>
-                {managedByLink ? (
-                  <a
-                    href={managedByLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-base font-semibold text-white transition-colors hover:text-white/80 md:text-lg"
-                  >
-                    {managedBy}
-                    <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                <div className="flex items-center gap-3">
+                  <span className="text-xs font-medium tracking-wide text-white/60 uppercase">
+                    Supported by
+                  </span>
+                  {supporters.map((supporter) => {
+                    const logo = (
+                      <Image
+                        src={getAssetPath(supporter.logo)}
+                        alt={supporter.name}
+                        width={100}
+                        height={32}
+                        className="h-10 w-auto rounded bg-white/90 object-contain p-1"
                       />
-                    </svg>
-                  </a>
-                ) : (
-                  <p className="text-base font-semibold text-white md:text-lg">{managedBy}</p>
-                )}
+                    );
+
+                    return supporter.url ? (
+                      <a
+                        key={supporter.name}
+                        href={supporter.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="transition-opacity hover:opacity-80"
+                        title={supporter.name}
+                      >
+                        {logo}
+                      </a>
+                    ) : (
+                      <span key={supporter.name} title={supporter.name}>
+                        {logo}
+                      </span>
+                    );
+                  })}
+                </div>
               </div>
             )}
           </div>

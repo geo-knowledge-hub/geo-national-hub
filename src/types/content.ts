@@ -156,6 +156,15 @@ export interface ManagedBy {
 }
 
 /**
+ * Supporter organization for a country page
+ */
+export interface Supporter {
+  name: string;
+  url?: string;
+  logo: string;
+}
+
+/**
  * External hub configuration — when set, this country's hub is hosted externally.
  */
 export interface ExternalHub {
@@ -225,6 +234,7 @@ export interface Country {
   flag: string;
   theme?: CountryTheme;
   managed_by?: ManagedBy;
+  supporters?: Supporter[];
   external_hub?: ExternalHub;
   partners: Partner[];
   representatives: Representative[];

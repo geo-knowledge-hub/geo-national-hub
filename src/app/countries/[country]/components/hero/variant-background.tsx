@@ -14,6 +14,7 @@ import Image from 'next/image';
 
 import { BackButton } from '@components/global';
 import { getAssetPath } from '@lib/utils';
+import type { Supporter } from '@content-types/content';
 
 interface HeroBackgroundProps {
   title: string;
@@ -23,6 +24,7 @@ interface HeroBackgroundProps {
   hideBackButton?: boolean;
   managedBy?: string;
   managedByLink?: string;
+  supporters?: Supporter[];
 }
 
 /**
@@ -38,6 +40,7 @@ export function HeroBackground({
   hideBackButton = false,
   managedBy,
   managedByLink,
+  supporters,
 }: HeroBackgroundProps) {
   const [backgroundSrc, setBackgroundSrc] = useState<string | null>(null);
   const [imageError, setImageError] = useState(false);
@@ -121,37 +124,42 @@ export function HeroBackground({
           </h1>
           <p className="max-w-2xl text-sm text-white/90 drop-shadow-md md:text-xl">{description}</p>
 
-          {/* Managed by - hidden on mobile */}
-          {managedBy && (
+          {/* Supporters - hidden on mobile */}
+          {supporters && supporters.length > 0 && (
             <div className="mt-3 hidden border-t border-white/20 pt-3 md:mt-4 md:block">
-              <p className="mb-1 text-xs font-medium tracking-wide text-white/60 uppercase">
-                Managed by
-              </p>
-              {managedByLink ? (
-                <a
-                  href={managedByLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-sm font-semibold text-white transition-colors hover:text-white/80"
-                >
-                  {managedBy}
-                  <svg
-                    className="h-3.5 w-3.5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+              <div className="flex items-center gap-3">
+                <span className="text-xs font-medium tracking-wide text-white/60 uppercase">
+                  Supported by
+                </span>
+                {supporters.map((supporter) => {
+                  const logo = (
+                    <Image
+                      src={getAssetPath(supporter.logo)}
+                      alt={supporter.name}
+                      width={100}
+                      height={32}
+                      className="h-10 w-auto rounded bg-white/90 object-contain p-1"
                     />
-                  </svg>
-                </a>
-              ) : (
-                <p className="text-sm font-semibold text-white">{managedBy}</p>
-              )}
+                  );
+
+                  return supporter.url ? (
+                    <a
+                      key={supporter.name}
+                      href={supporter.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="transition-opacity hover:opacity-80"
+                      title={supporter.name}
+                    >
+                      {logo}
+                    </a>
+                  ) : (
+                    <span key={supporter.name} title={supporter.name}>
+                      {logo}
+                    </span>
+                  );
+                })}
+              </div>
             </div>
           )}
         </div>

@@ -118,6 +118,7 @@ export function CountryPageContent({
     overrideVariant: heroPreviewVariant,
     managedBy: countryData.managed_by?.name,
     managedByLink: countryData.managed_by?.url,
+    supporters: countryData.supporters,
   });
 
   const capacityBuildingComponent = renderCapacityBuildingComponent({
@@ -219,7 +220,11 @@ export function CountryPageContent({
         </EditableSection>
 
         {/* Quick Access Navigation Bar */}
-        <StickyNavBar sections={quickAccessSections} primaryColor={primaryColor} />
+        <StickyNavBar
+          sections={quickAccessSections}
+          primaryColor={primaryColor}
+          supporters={countryData.supporters}
+        />
 
         {/* Dynamic section rendering based on configured order */}
         {sectionOrder.map((id) => {
