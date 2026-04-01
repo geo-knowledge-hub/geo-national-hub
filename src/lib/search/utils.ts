@@ -18,17 +18,42 @@ export const PER_PAGE_OPTIONS = [5, 10, 20, 50] as const;
 export type PerPageOption = (typeof PER_PAGE_OPTIONS)[number];
 
 /**
+ * Retrieve a value from a nested object by a dot-separated path.
+ *
+ * For a flat key (no dot) the function behaves like a plain property access.
+ * Returns `undefined` when any segment along the path is absent.
+ *
+ * @param obj - The source object to traverse.
+ * @param path - Dot-separated property path (e.g. `"resource_type.name"`).
+ * @returns The resolved value, or `undefined` if the path cannot be followed.
+ */
+export function getNestedValue(obj: Record<string, unknown>, path: string): unknown {
+  return path.split('.').reduce<unknown>((current, segment) => {
+
+    if (current !== null && typeof current === 'object' && !Array.isArray(current)) {
+      return (current as Record<string, unknown>)[segment];
+    }
+
+    return undefined;
+  }, obj);
+}
+
+/**
  * Filter items by a search term across one or more string fields.
  *
  * Performs a case-insensitive substring match. Returns all items when the
  * search term is empty or whitespace-only.
  *
+ * Field paths may use dot notation to reach nested properties
+ * (e.g. `"resource_type.name"`). For plain (non-dot) keys the behaviour is
+ * identical to a direct property access.
+ *
  * @param items - The array of items to filter.
  * @param term - The search term to match against.
- * @param fields - The keys of `T` whose string values should be searched.
+ * @param fields - The keys (or dot-paths) of `T` whose string values should be searched.
  * @returns A new array containing only the matching items.
  */
-export function filterBySearch<T>(items: T[], term: string, fields: (keyof T)[]): T[] {
+export function filterBySearch<T>(items: T[], term: string, fields: (keyof T | string)[]): T[] {
   if (!term.trim()) {
     return items;
   }
@@ -37,7 +62,11 @@ export function filterBySearch<T>(items: T[], term: string, fields: (keyof T)[])
 
   return items.filter((item) =>
     fields.some((field) => {
-      const v = item[field];
+      const fieldStr = field as string;
+      const v = fieldStr.includes('.')
+        ? getNestedValue(item as Record<string, unknown>, fieldStr)
+        : item[field as keyof T];
+
       return typeof v === 'string' && v.toLowerCase().includes(q);
     }),
   );
@@ -88,11 +117,17 @@ export function computePageNumbers(
   const pages: (number | 'ellipsis')[] = [];
 
   if (totalPages <= 7) {
-    for (let i = 1; i <= totalPages; i++) pages.push(i);
+
+    for (let i = 1; i <= totalPages; i++) {
+      pages.push(i);
+    }
+
   } else {
     pages.push(1);
 
-    if (currentPage > 3) pages.push('ellipsis');
+    if (currentPage > 3) {
+      pages.push('ellipsis');
+    }
 
     for (
       let i = Math.max(2, currentPage - 1);

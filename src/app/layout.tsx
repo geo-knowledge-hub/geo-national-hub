@@ -12,6 +12,7 @@
 import React, { JSX, ReactNode } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { NuqsAdapter } from 'nuqs/adapters/next/app';
 
 import './globals.css';
 
@@ -41,100 +42,102 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps): JSX.Element =
   return (
     <html lang="en">
       <body className="flex min-h-screen flex-col bg-gray-50 font-sans antialiased">
-        {/* Header */}
-        <Header
-          logoSrc={logoGKH}
-          logoAlt={'GEO Knowledge Hub logo'}
-          navItems={[
-            { label: 'Countries', href: '/' },
-            { label: 'Explore', href: '/explore' },
-          ]}
-        />
+        <NuqsAdapter>
+          {/* Header */}
+          <Header
+            logoSrc={logoGKH}
+            logoAlt={'GEO Knowledge Hub logo'}
+            navItems={[
+              { label: 'Countries', href: '/' },
+              { label: 'Explore', href: '/explore' },
+            ]}
+          />
 
-        {/* Main Content */}
-        <main className="flex-1 pt-20">
-          <div className="mx-auto">{children}</div>
-        </main>
+          {/* Main Content */}
+          <main className="flex-1 pt-20">
+            <div className="mx-auto">{children}</div>
+          </main>
 
-        {/* Toast notifications */}
-        <Toaster />
+          {/* Toast notifications */}
+          <Toaster />
 
-        {/* Footer */}
-        <footer className="bg-gray-900 py-10 text-white">
-          <div className="mx-auto flex max-w-7xl flex-col justify-between gap-12 px-6 lg:flex-row">
-            {/* Footer Links */}
-            <div className="grid grid-cols-2 gap-16 md:grid-cols-3 lg:grid-cols-4">
-              {/* Global GKH */}
-              <div className="flex flex-col gap-2">
-                <h4 className="mb-3 text-lg font-semibold">Global GKH</h4>
-                <a
-                  href="https://gkhub.earthobservations.org"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm hover:text-gray-300"
-                >
-                  Access Knowledge
-                </a>
-                <a
-                  href="https://gkhub.earthobservations.org/marketplace"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm hover:text-gray-300"
-                >
-                  Marketplace
-                </a>
+          {/* Footer */}
+          <footer className="bg-gray-900 py-10 text-white">
+            <div className="mx-auto flex max-w-7xl flex-col justify-between gap-12 px-6 lg:flex-row">
+              {/* Footer Links */}
+              <div className="grid grid-cols-2 gap-16 md:grid-cols-3 lg:grid-cols-4">
+                {/* Global GKH */}
+                <div className="flex flex-col gap-2">
+                  <h4 className="mb-3 text-lg font-semibold">Global GKH</h4>
+                  <a
+                    href="https://gkhub.earthobservations.org"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm hover:text-gray-300"
+                  >
+                    Access Knowledge
+                  </a>
+                  <a
+                    href="https://gkhub.earthobservations.org/marketplace"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm hover:text-gray-300"
+                  >
+                    Marketplace
+                  </a>
+                </div>
+
+                {/* Communication */}
+                <div className="flex flex-col gap-2">
+                  <h4 className="mb-3 text-lg font-semibold">Communication</h4>
+                  <Link
+                    href="https://www.linkedin.com/company/geo-knowledge-hub"
+                    className="text-sm hover:text-gray-300"
+                  >
+                    LinkedIn
+                  </Link>
+                  <Link
+                    href="https://gkhub.earthobservations.org/feed/"
+                    className="text-sm hover:text-gray-300"
+                  >
+                    Feed
+                  </Link>
+                </div>
+
+                {/* Help */}
+                <div className="flex flex-col gap-2">
+                  <h4 className="mb-3 text-lg font-semibold">Help</h4>
+                  <Link
+                    href="https://gkhub.earthobservations.org/doc"
+                    className="text-sm hover:text-gray-300"
+                  >
+                    About
+                  </Link>
+                  <Link
+                    href="https://gkhub.earthobservations.org/doc/docs/why"
+                    className="text-sm hover:text-gray-300"
+                  >
+                    FAQ
+                  </Link>
+                  <Link
+                    href="https://gkhub.earthobservations.org/doc/docs/introduction/"
+                    className="text-sm hover:text-gray-300"
+                  >
+                    Documentation
+                  </Link>
+                </div>
               </div>
 
-              {/* Communication */}
-              <div className="flex flex-col gap-2">
-                <h4 className="mb-3 text-lg font-semibold">Communication</h4>
-                <Link
-                  href="https://www.linkedin.com/company/geo-knowledge-hub"
-                  className="text-sm hover:text-gray-300"
-                >
-                  LinkedIn
-                </Link>
-                <Link
-                  href="https://gkhub.earthobservations.org/feed/"
-                  className="text-sm hover:text-gray-300"
-                >
-                  Feed
-                </Link>
-              </div>
-
-              {/* Help */}
-              <div className="flex flex-col gap-2">
-                <h4 className="mb-3 text-lg font-semibold">Help</h4>
-                <Link
-                  href="https://gkhub.earthobservations.org/doc"
-                  className="text-sm hover:text-gray-300"
-                >
-                  About
-                </Link>
-                <Link
-                  href="https://gkhub.earthobservations.org/doc/docs/why"
-                  className="text-sm hover:text-gray-300"
-                >
-                  FAQ
-                </Link>
-                <Link
-                  href="https://gkhub.earthobservations.org/doc/docs/introduction/"
-                  className="text-sm hover:text-gray-300"
-                >
-                  Documentation
+              {/* Footer Logo */}
+              <div className="flex flex-col items-center lg:items-end">
+                <h4 className="mb-3 text-lg font-semibold">Brought to you by</h4>
+                <Link href="https://earthobservations.org/">
+                  <Image src={logoGEO} alt="GEO Logo" width={230} height={80} priority />
                 </Link>
               </div>
             </div>
-
-            {/* Footer Logo */}
-            <div className="flex flex-col items-center lg:items-end">
-              <h4 className="mb-3 text-lg font-semibold">Brought to you by</h4>
-              <Link href="https://earthobservations.org/">
-                <Image src={logoGEO} alt="GEO Logo" width={230} height={80} priority />
-              </Link>
-            </div>
-          </div>
-        </footer>
+          </footer>
+        </NuqsAdapter>
       </body>
     </html>
   );

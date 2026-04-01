@@ -22,7 +22,6 @@ export {
   // Countries
   getCountry,
   getAllCountries,
-  searchCountries,
   // Resources
   getResourcesByCountry,
   getResourcesByCountryAndChallenge,
@@ -39,6 +38,3 @@ export {
 } from './queries';
 
 export type { SearchResult, FacetCount, FacetsResult, ResourceFilters } from './queries';
-
-// Server Actions
-export * from './actions';

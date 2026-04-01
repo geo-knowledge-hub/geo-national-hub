@@ -31,6 +31,8 @@ interface ResourceActionsProps {
   linkClassName?: string;
   /** Class name for the button. */
   buttonClassName?: string;
+  /** Extra action elements rendered after the primary actions. */
+  extraActions?: React.ReactNode;
 }
 
 /**
@@ -58,28 +60,27 @@ export function ResourceActions({
   onOpenMetadata,
   linkClassName = defaultLinkClassName,
   buttonClassName = defaultButtonClassName,
+  extraActions,
 }: ResourceActionsProps): JSX.Element {
   // Check if the resource is from the GKH.
   const isGkhSource = resource.source === 'geo-knowledge-hub';
-
-  // Check if the resource has sync metadata.
-  const hasSyncMetadata = !!resource.sync?.metadata;
 
   // Check if the resource should show access.
   const showAccess = gkhOnline || !isGkhSource;
 
   // Check if the resource should show view metadata.
-  const showViewMetadata = !showAccess && hasSyncMetadata;
+  const showViewMetadata = !showAccess && isGkhSource;
 
   // Render
   return (
-    <div className="mt-4 flex items-center gap-4">
+    <div className="mt-4 flex items-center gap-5">
       {/* Overview button */}
-      {resource.overview && onOpenOverview && (
+      {onOpenOverview && (!isGkhSource || !gkhOnline) && (
         <button onClick={onOpenOverview} type="button" className={buttonClassName}>
           Overview
         </button>
       )}
+      {extraActions}
       {/* Access link */}
       {showAccess ? (
         <Link

@@ -206,31 +206,119 @@ export const resourcesSchema = {
   name: 'resources',
   enable_nested_fields: true,
   fields: [
+    // Core identity
     { name: 'id', type: 'string' as const },
+    { name: 'name', type: 'string' as const },
+    { name: 'description', type: 'string' as const },
+    { name: 'link', type: 'string' as const, index: false },
+    { name: 'icon', type: 'string' as const, index: false },
+    { name: 'uploaded', type: 'string' as const },
+
+    // Country
     { name: 'country_id', type: 'string' as const, facet: true },
     { name: 'country', type: 'string' as const, facet: true },
-    { name: 'name', type: 'string' as const },
-    { name: 'overview', type: 'string' as const, optional: true },
-    { name: 'description', type: 'string' as const },
-    { name: 'license', type: 'string' as const, optional: true },
-    { name: 'subjects', type: 'string' as const, optional: true },
-    { name: 'locations', type: 'string' as const, optional: true },
-    { name: 'link', type: 'string' as const },
-    { name: 'icon', type: 'string' as const, index: false },
-    { name: 'type', type: 'string' as const, facet: true },
-    { name: 'uploaded', type: 'string' as const },
-    { name: 'challenges', type: 'string[]' as const, facet: true },
-    { name: 'extras', type: 'string[]' as const, optional: true },
-    { name: 'geo_gwp', type: 'string' as const, facet: true, optional: true },
-    { name: 'geo_themes', type: 'string[]' as const, facet: true, optional: true },
-    { name: 'contributors', type: 'string[]' as const, optional: true },
-    { name: 'target_audiences', type: 'string[]' as const, facet: true, optional: true },
+
+    // Organization and source
     { name: 'organization', type: 'string' as const, facet: true, optional: true },
     { name: 'source', type: 'string' as const, facet: true, optional: true },
+
+    // Resource type
+    { name: 'resource_type', type: 'object' as const },
+    { name: 'resource_type.id', type: 'string' as const, facet: true },
+    { name: 'resource_type.name', type: 'string' as const },
+
+    // GEO Work Programme Activity
+    { name: 'geo_work_programme_activity', type: 'object' as const, optional: true },
+    {
+      name: 'geo_work_programme_activity.id',
+      type: 'string' as const,
+      facet: true,
+      optional: true,
+    },
+    {
+      name: 'geo_work_programme_activity.name',
+      type: 'string' as const,
+      facet: true,
+      optional: true,
+    },
+
+    // Engagement priorities
+    { name: 'engagement_priorities', type: 'object[]' as const, optional: true },
+    {
+      name: 'engagement_priorities.id',
+      type: 'string[]' as const,
+      facet: true,
+      optional: true,
+    },
+    { name: 'engagement_priorities.name', type: 'string[]' as const, facet: true, optional: true },
+
+    // Target audiences
+    { name: 'target_audiences', type: 'object[]' as const, optional: true },
+    { name: 'target_audiences.id', type: 'string[]' as const, facet: true, optional: true },
+    { name: 'target_audiences.name', type: 'string[]' as const, facet: true, optional: true },
+
+    // Challenges
+    { name: 'challenges', type: 'string[]' as const, facet: true },
+
+    // Subject keywords
+    { name: 'subjects', type: 'string[]' as const, optional: true },
+
+    // Creators
+    { name: 'creators', type: 'object[]' as const, optional: true },
+    { name: 'creators.person_or_org', type: 'object[]' as const, optional: true },
+    { name: 'creators.person_or_org.type', type: 'string[]' as const, optional: true },
+    { name: 'creators.person_or_org.name', type: 'string[]' as const, optional: true },
+    {
+      name: 'creators.person_or_org.given_name',
+      type: 'string[]' as const,
+      index: false,
+      optional: true,
+    },
+    {
+      name: 'creators.person_or_org.family_name',
+      type: 'string[]' as const,
+      index: false,
+      optional: true,
+    },
+    { name: 'creators.affiliations', type: 'object[]' as const, optional: true },
+    { name: 'creators.affiliations.id', type: 'string[]' as const, optional: true },
+    { name: 'creators.affiliations.name', type: 'string[]' as const, optional: true },
+    { name: 'creators.role', type: 'object[]' as const, optional: true },
+    { name: 'creators.role.id', type: 'string[]' as const, optional: true },
+    { name: 'creators.role.name', type: 'string[]' as const, optional: true },
+
+    // Rights / licenses
+    { name: 'rights', type: 'object[]' as const, optional: true },
+    { name: 'rights.id', type: 'string[]' as const, optional: true },
+    { name: 'rights.title', type: 'object[]' as const, optional: true },
+    { name: 'rights.link', type: 'string[]' as const, index: false, optional: true },
+
+    // Spatial locations
+    { name: 'has_location', type: 'bool' as const, optional: true, facet: true },
+    { name: 'locations', type: 'object' as const, optional: true },
+    { name: 'locations.centroid', type: 'geopoint' as const, optional: true },
+    { name: 'locations.bbox', type: 'geopolygon' as const, optional: true },
+    { name: 'locations.features', type: 'object[]' as const, optional: true },
+    { name: 'locations.features.place', type: 'string[]' as const, optional: true },
+    {
+      name: 'locations.features.description',
+      type: 'string[]' as const,
+      optional: true,
+    },
+
+    // Publication metadata
+    { name: 'publication_date', type: 'string' as const, optional: true },
+    { name: 'publisher', type: 'string' as const, optional: true },
+
+    // Sync operational fields (no metadata blob)
     { name: 'sync', type: 'object' as const, optional: true },
     { name: 'sync.synced_at', type: 'string' as const, optional: true },
     { name: 'sync.sync_status', type: 'string' as const, optional: true, facet: true },
     { name: 'sync.metadata_hash', type: 'string' as const, optional: true },
+    { name: 'sync.sync_error', type: 'string' as const, optional: true },
+
+    // Embedding field for future hybrid search
+    { name: 'embedding', type: 'float[]' as const, optional: true, num_dim: 384 },
   ],
 };
 

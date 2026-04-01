@@ -28,14 +28,22 @@ interface CapacityBuildingShowcaseProps {
   showExploreLink?: boolean;
 }
 
-// ---------------------------------------------------------------------------
-// Honeycomb geometry
-// ---------------------------------------------------------------------------
+/** 
+ * Hex cell interface
+ */
+interface HexCell {
+  row: number;
+  col: number;
+}
 
-/** Pointy-top hexagon clip-path. */
+/** 
+ * Pointy-top hexagon clip-path
+ */
 const hexClip = 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)';
 
-/** Height-to-width ratio for a regular pointy-top hexagon (2 / sqrt(3)). */
+/** 
+ * Height-to-width ratio for a regular pointy-top hexagon (2 / sqrt(3))
+ */
 const HEX_RATIO = 1.155;
 
 /**
@@ -48,15 +56,6 @@ const GAP = 5; // px gap between adjacent hexagons
 const COL_STEP = BASE_W + GAP; // 120
 const ROW_STEP = Math.round(BASE_H * 0.75) + GAP; // ≈ 105
 const ODD_OFFSET = Math.round(COL_STEP / 2); // ≈ 60
-
-// ---------------------------------------------------------------------------
-// Grid definition — 4-3-4-3 honeycomb = 14 cells
-// ---------------------------------------------------------------------------
-
-interface HexCell {
-  row: number;
-  col: number;
-}
 
 const hexCells: HexCell[] = [
   // Row 0 — even (4 hexagons)
@@ -79,7 +78,9 @@ const hexCells: HexCell[] = [
   { row: 3, col: 2 },
 ];
 
-/** Derive pixel position for a hex cell on the honeycomb grid. */
+/** 
+ * Derive pixel position for a hex cell on the honeycomb grid
+ */
 function getHexPosition(cell: HexCell) {
   const isOddRow = cell.row % 2 === 1;
   return {
@@ -88,16 +89,14 @@ function getHexPosition(cell: HexCell) {
   };
 }
 
-/** Overall grid bounding box (used for the container). */
+/** 
+ * Overall grid bounding box (used for the container)
+ */
 const GRID_WIDTH = 3 * COL_STEP + BASE_W; // 475
 const GRID_HEIGHT = 3 * ROW_STEP + BASE_H; // 448
 
-// ---------------------------------------------------------------------------
-// HexImage — single honeycomb cell with hover effect
-// ---------------------------------------------------------------------------
-
 /**
- * HexImage Component
+ * HexImage component
  */
 function HexImage({ src, alt, x, y }: { src: string; alt: string; x: number; y: number }) {
   const borderWidth = 2;
@@ -146,10 +145,6 @@ function HexImage({ src, alt, x, y }: { src: string; alt: string; x: number; y: 
     </div>
   );
 }
-
-// ---------------------------------------------------------------------------
-// Main component
-// ---------------------------------------------------------------------------
 
 /**
  * Capacity Building Variant: Showcase

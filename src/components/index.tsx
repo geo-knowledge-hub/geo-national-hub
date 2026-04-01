@@ -12,6 +12,7 @@ export { BackButton } from './button';
 export { HeroCountry, HeroSouthAfrica, HeroTopic } from './hero';
 export { FeatureCard, CallToActionCard } from './card';
 export { ResourceActions } from './resources';
+export { ResourceIcon } from './resource-icon';
 
 export { ResourceOverviewDialog, GkhMetadataDialog } from './modal';
 

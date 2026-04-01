@@ -8,26 +8,56 @@
  */
 
 /**
- * Content Types
+ * Vocabulary reference
  *
- * App-wide type definitions for content data structures.
- * All field names use snake_case convention for consistency with the data layer.
+ * Used for resource_type, geo_work_programme_activity, target_audiences,
+ * engagement_priorities, affiliations, roles, etc.
  */
-
-/**
- * Metadata synced from GKH for a Knowledge Package or Knowledge Resource.
- */
-export interface SyncMetadata {
-  package?: Record<string, unknown>;
-  resources?: Record<string, unknown>[];
-  record?: Record<string, unknown>;
+export interface VocabRef {
+  id: string;
+  name: string;
 }
 
 /**
- * Sync field stored alongside each resource in Typesense.
+ * Structured creator
+ */
+export interface ResourceCreator {
+  person_or_org: {
+    type: 'personal' | 'organizational';
+    name: string;
+    given_name?: string;
+    family_name?: string;
+  };
+  affiliations?: VocabRef[];
+  role?: VocabRef;
+}
+
+/**
+ * License / rights entry
+ */
+export interface ResourceRight {
+  id: string;
+  title: { [lang: string]: string };
+  link?: string;
+}
+
+/**
+ * Spatial locations
+ */
+export interface ResourceLocations {
+  features?: Array<{
+    geometry?: Record<string, unknown>;
+    place?: string;
+    description?: string;
+  }>;
+  centroid?: [number, number];
+  bbox?: [number, number][];
+}
+
+/**
+ * Sync field
  */
 export interface SyncField {
-  metadata: SyncMetadata;
   metadata_hash: string;
   synced_at: string;
   sync_status: 'ok' | 'error' | 'partial';
@@ -35,7 +65,12 @@ export interface SyncField {
 }
 
 /**
- * Health status returned by the GKH health check.
+ * Combined payload
+ */
+export type SyncPayload = Partial<Resource> & { sync: SyncField };
+
+/**
+ * Health status
  */
 export interface HealthStatus {
   online: boolean;
@@ -44,35 +79,72 @@ export interface HealthStatus {
 }
 
 /**
- * Resource item representing knowledge packages, platforms, etc.
+ * Resource item
  */
 export interface Resource {
   id: string;
   name: string;
-  overview: string;
   description: string;
-  license: string;
-  subjects: string;
-  locations: string;
   link: string;
   icon: string;
-  type: string;
   uploaded: string;
   country: string;
   country_id: string;
-  challenges: string[];
-  extras: string[];
-  geo_gwp?: string;
-  geo_themes?: string[];
-  contributors?: string[];
-  target_audiences?: string[];
   organization?: string;
   source?: string;
+
+  /** Resource type */
+  resource_type: VocabRef;
+
+  /** GEO Work Programme Activity */
+  geo_work_programme_activity?: VocabRef;
+
+  /** GEO Engagement Priorities (SDGs, conventions, etc.) */
+  engagement_priorities?: VocabRef[];
+
+  /** Target audiences */
+  target_audiences?: VocabRef[];
+
+  /** Challenges */
+  challenges: string[];
+
+  /** Subject keywords */
+  subjects?: string[];
+
+  /** Structured creators */
+  creators?: ResourceCreator[];
+
+  /** License / rights entries */
+  rights?: ResourceRight[];
+
+  /** Whether this resource has spatial location data */
+  has_location?: boolean;
+
+  /** Spatial locations */
+  locations?: ResourceLocations;
+
+  /** Publication date */
+  publication_date?: string;
+
+  /** Publisher name */
+  publisher?: string;
+
+  /** Extra fields */
+  extras?: {
+    doi?: string;
+    cstr?: string;
+    temporal_start?: string;
+    temporal_end?: string;
+    contact_email?: string;
+    citation?: string;
+  };
+
+  /** Operational sync state */
   sync?: SyncField;
 }
 
 /**
- * Capacity building activity (workshops, training materials, etc.)
+ * Capacity building activity
  */
 export interface CapacityBuildingActivity {
   title: string;
@@ -105,7 +177,7 @@ export interface Mechanism {
 }
 
 /**
- * Key representative contact
+ * Representative contact
  */
 export interface Representative {
   name: string;
@@ -270,6 +342,6 @@ export interface FocusAreaChallenge {
 }
 
 /**
- * Icon type for React components (HeroIcons)
+ * Icon type for React components
  */
 export type HeroIcon = React.ComponentType<React.SVGProps<SVGSVGElement>>;

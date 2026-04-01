@@ -8,7 +8,7 @@
  */
 
 import { notFound } from 'next/navigation';
-import { getCountry, getResourcesByCountry, getChallenges, getFocusAreas } from '@lib/typesense';
+import { getCountry, getChallenges, getFocusAreas } from '@lib/typesense';
 import { ResourcesPageContent } from './content';
 
 /**
@@ -23,38 +23,25 @@ interface ResourcesPageProps {
  * Resources page component.
  *
  * @component
- * @param {ResourcesPageProps} props - Component props.
- * @returns {Promise<JSX.Element>} The rendered ResourcesPage component.
  */
 export default async function ResourcesPage({ params, searchParams }: ResourcesPageProps) {
-  // Get the country
   const { country } = await params;
-
-  // Get the search params
   const resolvedSearch = searchParams ? await searchParams : {};
 
-  // Fetch the data
-  const [countryData, resources, challenges, focusAreas] = await Promise.all([
+  const [countryData, challenges, focusAreas] = await Promise.all([
     getCountry(country),
-    getResourcesByCountry(country),
     getChallenges(),
     getFocusAreas(),
   ]);
 
-  // If the country is not found, return not found
   if (!countryData) {
-    return notFound();
-  }
-
-  // If the resources are not found, return not found
-  if (resources.length === 0) {
     return notFound();
   }
 
   return (
     <ResourcesPageContent
+      countryId={country}
       countryData={countryData}
-      resources={resources}
       challenges={challenges}
       focusAreas={focusAreas}
       initialFocus={resolvedSearch.focus}

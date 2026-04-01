@@ -15,13 +15,8 @@ import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@ui/dialo
 
 import { cn } from '@lib/utils';
 import type { GkhMetadataDialogProps } from './types';
-import { extractMetadataFields } from './utils';
 import { MetadataHeader } from './metadata-header';
 import { MetadataBody } from './metadata-body';
-import { ResourceBrowser } from './resource-browser';
-import { ResourceNavbar } from './resource-navbar';
-
-const ALL_CATEGORY = 'all';
 
 /**
  * Properties expected for the PackageStickyHeader component.
@@ -39,8 +34,6 @@ interface PackageStickyHeaderProps {
  * Sticky header for the package / standalone view.
  *
  * @component
- * @param {PackageStickyHeaderProps} props - The properties for the ``PackageStickyHeader`` component.
- * @returns {JSX.Element} The rendered ``PackageStickyHeader`` component.
  */
 const PackageStickyHeader: React.FC<PackageStickyHeaderProps> = ({
   title,
@@ -86,37 +79,25 @@ const PackageStickyHeader: React.FC<PackageStickyHeaderProps> = ({
 /**
  * Dialog for the GKH metadata.
  *
- * @param {GkhMetadataDialogProps} props - The properties for the ``GkhMetadataDialog`` component.
- * @returns {JSX.Element} The rendered ``GkhMetadataDialog`` component.
+ * @component
  */
 export function GkhMetadataDialog({
   open,
   onClose,
   data,
-  syncMetadata,
 }: GkhMetadataDialogProps): JSX.Element | null {
-  const [activeView, setActiveView] = useState<'package' | 'resource'>('package');
-  const [activeResourceIdx, setActiveResourceIdx] = useState<number | null>(null);
-  const [activeCategory, setActiveCategory] = useState(ALL_CATEGORY);
   const [headerScrolledOut, setHeaderScrolledOut] = useState(false);
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const headerSentinelRef = useRef<HTMLDivElement>(null);
   const observerRef = useRef<IntersectionObserver | null>(null);
 
-  // Effect - Reset state when the modal opens
+  // Effect - Reset scroll state when the modal opens
   useEffect(() => {
     if (open) {
-      setActiveView('package');
-      setActiveResourceIdx(null);
-      setActiveCategory(ALL_CATEGORY);
+      setHeaderScrolledOut(false);
     }
   }, [open]);
-
-  // Effect - Reset scroll state on every view/resource change
-  useEffect(() => {
-    setHeaderScrolledOut(false);
-  }, [activeView, activeResourceIdx]);
 
   useEffect(() => {
     if (!open) {
@@ -157,106 +138,35 @@ export function GkhMetadataDialog({
       observerRef.current?.disconnect();
       observerRef.current = null;
     };
-  }, [open, activeView, activeResourceIdx]);
+  }, [open]);
 
   // If the dialog is not open, return null
   if (!open) {
     return null;
   }
 
-  // Get the package metadata
-  const packageMeta = syncMetadata.package ?? syncMetadata.record ?? null;
-  if (!packageMeta) {
-    return null;
-  }
-
-  // Extract the package fields
-  const packageFields = extractMetadataFields(packageMeta);
-  const packageResources = syncMetadata.resources ?? [];
-  const isPackage = !!syncMetadata.package && packageResources.length > 0;
-  const packageTitle = packageFields.title ?? data.name;
-
-  // Resource detail view
-  if (activeView === 'resource' && activeResourceIdx !== null) {
-    const resourceMeta = packageResources[activeResourceIdx];
-
-    if (!resourceMeta) {
-      return null;
-    }
-
-    // Extract the resource fields
-    const resourceFields = extractMetadataFields(resourceMeta);
-    const resourceTitle = resourceFields.title ?? `Resource ${activeResourceIdx + 1}`;
-
-    // Render!
-    return (
-      <Dialog open={open} onOpenChange={(isOpen) => !isOpen && onClose()}>
-        <DialogContent
-          className="flex max-h-[90vh] max-w-5xl flex-col overflow-hidden p-0"
-          hideClose
-        >
-          <DialogTitle className="sr-only">{resourceTitle}</DialogTitle>
-          <DialogDescription className="sr-only">Metadata for {resourceTitle}</DialogDescription>
-
-          <ResourceNavbar
-            resourceTitle={resourceTitle}
-            resources={packageResources}
-            activeResourceIdx={activeResourceIdx}
-            titleScrolledOut={headerScrolledOut}
-            onBackToPackage={() => {
-              setActiveView('package');
-              setActiveResourceIdx(null);
-            }}
-            onResourceSelect={(idx) => setActiveResourceIdx(idx)}
-            onClose={onClose}
-          />
-
-          <div ref={scrollContainerRef} className="flex-1 overflow-y-auto p-5 md:p-7">
-            <MetadataHeader fields={resourceFields} fallbackTitle={resourceTitle} />
-
-            <div ref={headerSentinelRef} aria-hidden="true" />
-
-            <MetadataBody fields={resourceFields} />
-          </div>
-        </DialogContent>
-      </Dialog>
-    );
-  }
-
-  // Package / standalone view
+  // Render
   return (
     <Dialog open={open} onOpenChange={(isOpen) => !isOpen && onClose()}>
       <DialogContent className="flex max-h-[90vh] max-w-5xl flex-col overflow-hidden p-0" hideClose>
-        <DialogTitle className="sr-only">{packageTitle}</DialogTitle>
+        <DialogTitle className="sr-only">{data.name}</DialogTitle>
         <DialogDescription className="sr-only">GKH metadata for {data.name}</DialogDescription>
 
         {/* Sticky header */}
         <PackageStickyHeader
-          title={packageTitle}
-          resourceTypeTitle={packageFields.resourceTypeTitle}
+          title={data.name}
+          resourceTypeTitle={data.resource_type?.name}
           scrolledOut={headerScrolledOut}
           onClose={onClose}
         />
 
         <div ref={scrollContainerRef} className="flex-1 overflow-y-auto p-5 md:p-7">
-          <MetadataHeader fields={packageFields} fallbackTitle={data.name} />
+          <MetadataHeader resource={data} fallbackTitle={data.name} />
 
           {/* Sentinel */}
           <div ref={headerSentinelRef} aria-hidden="true" />
 
-          <MetadataBody fields={packageFields}>
-            {isPackage && (
-              <ResourceBrowser
-                resources={packageResources}
-                activeCategory={activeCategory}
-                onCategoryChange={setActiveCategory}
-                onResourceSelect={(idx) => {
-                  setActiveResourceIdx(idx);
-                  setActiveView('resource');
-                }}
-              />
-            )}
-          </MetadataBody>
+          <MetadataBody resource={data} />
         </div>
       </DialogContent>
     </Dialog>

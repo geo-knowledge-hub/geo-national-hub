@@ -89,7 +89,7 @@ function matchesRule(resource: Resource, rule: FilterRule): boolean {
 
       // Check if the field value is an array
       if (Array.isArray(fieldValue)) {
-        return fieldValue.some((v) => values.includes(v));
+        return fieldValue.some((v) => values.includes(v as string));
       }
 
       return values.includes(fieldValue as string);
@@ -102,7 +102,7 @@ function matchesRule(resource: Resource, rule: FilterRule): boolean {
 
       // Check if the field value is an array
       if (Array.isArray(fieldValue)) {
-        return !fieldValue.some((v) => values.includes(v));
+        return !fieldValue.some((v) => values.includes(v as string));
       }
 
       // Return the result

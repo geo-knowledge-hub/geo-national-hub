@@ -10,7 +10,7 @@
 import Typesense from 'typesense';
 import type { Client } from 'typesense';
 import type { SyncConfig } from './config';
-import type { Resource, SyncField } from '@content-types/content';
+import type { Resource, SyncPayload } from '@content-types/content';
 import { logger } from './logger';
 
 /**
@@ -340,24 +340,26 @@ export async function fetchSyncableResources(config: SyncConfig): Promise<Resour
 }
 
 /**
- * Write sync metadata back to a Typesense document.
+ * Write a combined sync payload back to a Typesense document.
+ *
+ * The payload contains both the extracted top-level Resource fields (e.g.
+ * `resource_type`, `subjects`, `creators`, …) and the operational `sync`
+ * state. Typesense performs a partial update so fields absent from the payload
+ * are left untouched.
  *
  * @param {string} recordId - Typesense document ID.
- * @param {SyncField} syncData - Sync field value to store.
+ * @param {SyncPayload} payload - Extracted Resource fields plus sync state.
  * @param {SyncConfig} config - Sync configuration.
  * @returns {Promise<void>} Void.
  */
 export async function writeSyncMetadata(
   recordId: string,
-  syncData: SyncField,
+  payload: SyncPayload,
   config: SyncConfig,
 ): Promise<void> {
   // Create the client
   const client = createTypesenseClient(config);
 
-  // Update the document
-  await client
-    .collections(config.typesense.collectionName)
-    .documents(recordId)
-    .update({ sync: syncData });
+  // Partial-update the document with all extracted fields and sync state
+  await client.collections(config.typesense.collectionName).documents(recordId).update(payload);
 }

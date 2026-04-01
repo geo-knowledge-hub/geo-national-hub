@@ -7,13 +7,6 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-/**
- * Typesense Query Functions
- *
- * Provides typed query functions for fetching data from Typesense collections.
- * These functions are designed for server-side usage in Server Components and Server Actions.
- */
-
 import { getTypesenseClient, COLLECTIONS } from './client';
 import type { Country, Resource, FocusArea, FocusAreaChallenge } from '@content-types/content';
 
@@ -59,10 +52,15 @@ export interface FacetsResult {
 export interface ResourceFilters {
   country_id?: string | string[];
   country?: string | string[];
-  type?: string | string[];
+  /** Filters on `resource_type.id` */
+  resource_type_id?: string | string[];
   challenges?: string[];
-  geo_gwp?: string;
-  geo_themes?: string[];
+  /** Filters on `geo_work_programme_activity.id` */
+  geo_work_programme_activity_id?: string;
+  /** Filters on `engagement_priorities.id` */
+  engagement_priority_ids?: string[];
+  /** Filters on `target_audiences.id` */
+  target_audience_ids?: string[];
   organization?: string;
 }
 
@@ -91,21 +89,6 @@ export async function getAllCountries(): Promise<Country[]> {
   const result = await client.collections(COLLECTIONS.COUNTRIES).documents().search({
     q: '*',
     per_page: 250,
-  });
-
-  const hits = result.hits as SearchHit<Country>[] | undefined;
-  return (hits || []).map((hit) => hit.document);
-}
-
-/**
- * Searches countries by query string
- */
-export async function searchCountries(query: string): Promise<Country[]> {
-  const client = getTypesenseClient();
-  const result = await client.collections(COLLECTIONS.COUNTRIES).documents().search({
-    q: query,
-    query_by: 'title,partners.name,representatives.name',
-    per_page: 50,
   });
 
   const hits = result.hits as SearchHit<Country>[] | undefined;
@@ -185,22 +168,40 @@ export async function searchResources(
     }
   }
 
-  // Handle type (supports single or multiple)
-  if (filters?.type) {
-    const types = Array.isArray(filters.type) ? filters.type : [filters.type];
+  // Handle resource_type_id (supports single or multiple)
+  if (filters?.resource_type_id) {
+    const types = Array.isArray(filters.resource_type_id)
+      ? filters.resource_type_id
+      : [filters.resource_type_id];
+    
     if (types.length === 1) {
-      filterParts.push(`type:=${types[0]}`);
-    } else if (types.length > 1) {
-      filterParts.push(`type:[${types.join(',')}]`);
+      filterParts.push(`resource_type.id:=${types[0]}`);
+    } 
+    
+    else if (types.length > 1) {
+      filterParts.push(`resource_type.id:[${types.join(',')}]`);
     }
   }
 
-  // Handle challenges (always array)
+  // Handle challenges
   if (filters?.challenges?.length) {
     filterParts.push(`challenges:[${filters.challenges.join(',')}]`);
   }
 
-  if (filters?.geo_gwp) filterParts.push(`geo_gwp:${filters.geo_gwp}`);
+  if (filters?.geo_work_programme_activity_id) {
+    filterParts.push(`geo_work_programme_activity.id:=${filters.geo_work_programme_activity_id}`);
+  }
+
+  // Handle engagement_priority_ids
+  if (filters?.engagement_priority_ids?.length) {
+    filterParts.push(`engagement_priorities.id:[${filters.engagement_priority_ids.join(',')}]`);
+  }
+
+  // Handle target_audience_ids
+  if (filters?.target_audience_ids?.length) {
+    filterParts.push(`target_audiences.id:[${filters.target_audience_ids.join(',')}]`);
+  }
+
   if (filters?.organization) filterParts.push(`organization:${filters.organization}`);
 
   const result = await client
@@ -208,9 +209,10 @@ export async function searchResources(
     .documents()
     .search({
       q: query || '*',
-      query_by: 'name,description,overview,organization',
+      query_by: 'name,description,organization,subjects,creators.person_or_org.name',
       filter_by: filterParts.length > 0 ? filterParts.join(' && ') : undefined,
-      facet_by: 'type,country,challenges',
+      facet_by:
+        'resource_type.id,country,challenges,engagement_priorities.id,target_audiences.id,geo_work_programme_activity.id,organization,source',
       max_facet_values: 50,
       page,
       per_page: perPage,
@@ -239,7 +241,7 @@ export async function searchResources(
 }
 
 /**
- * Gets facet counts for resources (optionally filtered by country)
+ * Gets facet counts for resources
  */
 export async function getResourceFacets(countryId?: string): Promise<FacetsResult> {
   const client = getTypesenseClient();
@@ -249,8 +251,9 @@ export async function getResourceFacets(countryId?: string): Promise<FacetsResul
     .search({
       q: '*',
       filter_by: countryId ? `country_id:${countryId}` : undefined,
-      facet_by: 'type,challenges,geo_gwp,organization,country',
-      per_page: 0, // Only need facets, not documents
+      facet_by:
+        'resource_type.id,challenges,geo_work_programme_activity.id,organization,country,engagement_priorities.id,target_audiences.id',
+      per_page: 0,
     });
 
   const facets: FacetsResult = {};
@@ -267,7 +270,7 @@ export async function getResourceFacets(countryId?: string): Promise<FacetsResul
 }
 
 /**
- * Gets the count of resources for a country
+ * Gets the count of resources
  */
 export async function getResourceCountByCountry(countryId: string): Promise<number> {
   const client = getTypesenseClient();
@@ -284,7 +287,7 @@ export async function getResourceCountByCountry(countryId: string): Promise<numb
 }
 
 /**
- * Gets unique challenges used by a country's resources
+ * Gets unique challenges
  */
 export async function getChallengesByCountry(countryId: string): Promise<string[]> {
   const facets = await getResourceFacets(countryId);
@@ -371,75 +374,3 @@ export async function getChallengesByFocusArea(focusAreaId: string): Promise<Foc
   const hits = result.hits as SearchHit<FocusAreaChallenge>[] | undefined;
   return (hits || []).map((hit) => hit.document);
 }
-
-/**
- * Gets search suggestions based on prefix matching
- * Uses Typesense's prefix search for autocomplete functionality
- */
-export async function getSuggestions(prefix: string, limit: number = 5): Promise<string[]> {
-  if (!prefix || prefix.trim().length < 2) {
-    return [];
-  }
-
-  const client = getTypesenseClient();
-  const result = await client.collections(COLLECTIONS.RESOURCES).documents().search({
-    q: prefix,
-    query_by: 'name',
-    prefix: true,
-    per_page: limit,
-    num_typos: 1,
-  });
-
-  const hits = result.hits as SearchHit<Resource>[] | undefined;
-  // Return unique resource names
-  const names = (hits || []).map((hit) => hit.document.name);
-  return [...new Set(names)];
-}
-
-/**
- * Attempts to find a typo-corrected query when the original search returns no results
- * Returns the corrected query or null if no correction found
- */
-export async function getTypoCorrectedQuery(query: string): Promise<string | null> {
-  if (!query || query.trim().length < 2) {
-    return null;
-  }
-
-  const client = getTypesenseClient();
-  const result = await client.collections(COLLECTIONS.RESOURCES).documents().search({
-    q: query,
-    query_by: 'name,description',
-    num_typos: 2,
-    per_page: 1,
-  });
-
-  if (result.found > 0 && result.hits && result.hits.length > 0) {
-    // Return the name of the first matching document as the suggestion
-    const firstHit = result.hits[0] as SearchHit<Resource>;
-    return firstHit.document.name;
-  }
-
-  return null;
-}
-
-export default {
-  // Countries
-  getCountry,
-  getAllCountries,
-  searchCountries,
-  // Resources
-  getResourcesByCountry,
-  getResourcesByCountryAndChallenge,
-  searchResources,
-  getResourceFacets,
-  getResourceCountByCountry,
-  getChallengesByCountry,
-  getSuggestions,
-  getTypoCorrectedQuery,
-  // Reference data
-  getFocusAreas,
-  getFocusArea,
-  getChallenges,
-  getChallenge,
-  getChallengesByFocusArea,
-};

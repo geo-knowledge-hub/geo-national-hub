@@ -7,29 +7,31 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import { searchResources, getResourceFacets, getChallenges } from '@lib/typesense';
+import { Suspense } from 'react';
+
+import { getChallenges, getResourceFacets } from '@lib/typesense';
 import { ExplorePageContent } from './content';
 
 /**
- * ExplorePage Component - Server component that fetches initial data
+ * ExplorePage Component
  *
  * @component
- * @returns {Promise<JSX.Element>} The rendered ExplorePage component.
  */
 export default async function ExplorePage() {
-  // Fetch initial resources and facets server-side
-  const [initialResults, facets, challenges] = await Promise.all([
-    searchResources('*', undefined, 1, 5),
-    getResourceFacets(),
-    getChallenges(),
-  ]);
+  const [challenges, facets] = await Promise.all([getChallenges(), getResourceFacets()]);
+
+  const resourceTypeFacet = facets['resource_type.id'] ?? [];
+  const countryFacet = facets['country'] ?? [];
+
+  const heroStats = {
+    totalResources: resourceTypeFacet.reduce((sum, f) => sum + f.count, 0),
+    totalResourceTypes: resourceTypeFacet.length,
+    totalCountries: countryFacet.length,
+  };
 
   return (
-    <ExplorePageContent
-      initialResources={initialResults.hits}
-      initialTotal={initialResults.found}
-      facets={facets}
-      challenges={challenges}
-    />
+    <Suspense>
+      <ExplorePageContent challenges={challenges} heroStats={heroStats} />
+    </Suspense>
   );
 }

@@ -12,3 +12,23 @@ export type { FacetItem } from './facets';
 
 export { PerPageSelector, PaginationRow, PaginationInfo } from './pagination';
 export { EmptyState } from './empty';
+
+export {
+  InstantSearchFacetGroup,
+  SearchInput,
+  ResultsStats,
+  SearchPagination,
+  HitsList,
+  FacetPanel,
+  InitialQuerySync,
+} from './instantsearch';
+
+export type {
+  InstantSearchFacetGroupProps,
+  SearchInputProps,
+  ResultsStatsProps,
+  SearchPaginationProps,
+  HitsListProps,
+  FacetConfig,
+  FacetPanelProps,
+} from './instantsearch';
