@@ -130,22 +130,22 @@ interface ResourceJsonData {
     country_id: string;
     country: string;
     name: string;
-    type: string;
+    resource_type: { id: string; name: string };
     uploaded: string;
     description: string;
     link: string;
     icon: string;
     challenges: string[];
-    extras: string[];
-    overview: string;
-    license: string;
-    subjects: string;
-    organization: string;
-    locations: string;
-    geo_gwp?: string;
-    geo_themes?: string[];
-    target_audiences?: string[];
-    contributors?: string[];
+    subjects?: string[];
+    organization?: string;
+    locations?: Record<string, unknown>;
+    creators?: Array<Record<string, unknown>>;
+    rights?: Array<Record<string, unknown>>;
+    engagement_priorities?: Array<{ id: string; name: string }>;
+    target_audiences?: Array<{ id: string; name: string }>;
+    geo_work_programme_activity?: { id: string; name: string } | null;
+    publication_date?: string;
+    publisher?: string;
   }>;
 }
 
@@ -338,7 +338,20 @@ async function seedResources(): Promise<void> {
   console.log('\nSeeding resources...');
 
   const resourceData = loadJsonFile<ResourceJsonData>(RESOURCES_JSON_PATH);
-  const documents = resourceData.resources.map((resource) => resource);
+  
+  // Generate has_location flag from spatial data
+  const documents = resourceData.resources.map((resource) => {
+  
+    // Get locations data
+    const locations = resource.locations as { centroid?: unknown; bbox?: unknown } | undefined;
+
+    // If centroid or bbox is available, set has_location to true
+    const hasLocation = !!(
+      (Array.isArray(locations?.centroid) && (locations!.centroid as unknown[]).length === 2) ||
+      (Array.isArray(locations?.bbox) && (locations!.bbox as unknown[]).length >= 3)
+    );
+    return { ...resource, has_location: hasLocation };
+  });
 
   for (const doc of documents) {
     try {
