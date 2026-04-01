@@ -21,12 +21,12 @@ const typesenseAdapter = new TypesenseInstantSearchAdapter({
   server: {
     nodes: [
       {
-        host: process.env.NEXT_PUBLIC_TYPESENSE_HOST || 'localhost',
-        port: parseInt(process.env.NEXT_PUBLIC_TYPESENSE_PORT || '8108', 10),
-        protocol: (process.env.NEXT_PUBLIC_TYPESENSE_PROTOCOL || 'http') as 'http' | 'https',
+        host: process.env.TYPESENSE_HOST || 'localhost',
+        port: parseInt(process.env.TYPESENSE_PORT || '8108', 10),
+        protocol: (process.env.TYPESENSE_PROTOCOL || 'http') as 'http' | 'https',
       },
     ],
-    apiKey: process.env.NEXT_PUBLIC_TYPESENSE_SEARCH_API_KEY || 'xyz',
+    apiKey: process.env.TYPESENSE_API_KEY || 'xyz',
     connectionTimeoutSeconds: 5,
   },
   additionalSearchParameters: {
