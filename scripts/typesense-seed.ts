@@ -338,10 +338,9 @@ async function seedResources(): Promise<void> {
   console.log('\nSeeding resources...');
 
   const resourceData = loadJsonFile<ResourceJsonData>(RESOURCES_JSON_PATH);
-  
+
   // Generate has_location flag from spatial data
   const documents = resourceData.resources.map((resource) => {
-  
     // Get locations data
     const locations = resource.locations as { centroid?: unknown; bbox?: unknown } | undefined;
 
