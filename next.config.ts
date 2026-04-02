@@ -4,7 +4,16 @@ const nextConfig: NextConfig = {
   basePath: '/national',
   assetPrefix: '/national',
   images: {
-    domains: ['earthobservations.org', 'gkhub.earthobservations.org'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'earthobservations.org',
+      },
+      {
+        protocol: 'https',
+        hostname: 'gkhub.earthobservations.org',
+      },
+    ],
   },
   experimental: {
     serverActions: {
