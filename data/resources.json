@@ -1478,7 +1478,7 @@
       "id": "china-dataset-of-spatial-distribution-of-rainfallrunoff-and-water-area-of-typical-lakes-and-reservoirs-in-the-lancangmekong-river-basin-0",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Dataset of Spatial Distribution of Rainfall–Runoff and Water Area of Typical Lakes and Reservoirs in the Lancang–Mekong River Basin",
       "resource_type": {
         "id": "dataset",
@@ -1604,7 +1604,7 @@
       "id": "china-global-vegetation-net-primary-production-npp-data-from-vegas-model-1",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Global vegetation net primary production (NPP) data from VEGAS model",
       "resource_type": {
         "id": "dataset",
@@ -1698,7 +1698,7 @@
       "id": "china-dataset-of-5-km-resolution-solar-total-radiation-in-the-belt-and-road-region-and-adjacent-areas-2015-2",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Dataset of 5 km Resolution Solar Total Radiation in the Belt and Road Region and Adjacent Areas （2015）",
       "resource_type": {
         "id": "dataset",
@@ -1821,7 +1821,7 @@
       "id": "china-fire-risk-index-3",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Fire risk index",
       "resource_type": {
         "id": "dataset",
@@ -1925,7 +1925,7 @@
       "id": "china-china-asean-500m-4-day-vegetation-net-primary-productivity-dataset-2016-2019-4",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "China-ASEAN 500m 4-day Vegetation Net Primary Productivity Dataset (2016-2019)",
       "resource_type": {
         "id": "dataset",
@@ -2018,7 +2018,7 @@
       "id": "china-global-1km-light-temperature-potential-productivity-dataset-2015-2020-5",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Global 1km Light-temperature Potential Productivity Dataset (2015-2020)",
       "resource_type": {
         "id": "dataset",
@@ -2116,7 +2116,7 @@
       "id": "china-antarctic-and-arctic-5km-monthly-sea-ice-thickness-dataset-2001-2020-6",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Antarctic and Arctic 5km monthly sea ice thickness dataset (2001-2020)",
       "resource_type": {
         "id": "dataset",
@@ -2204,7 +2204,7 @@
       "id": "china-long-term-water-area-level-dataset-of-global-lakes-2000-2020-7",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Long-term water area-level dataset of global lakes (2000-2020)",
       "resource_type": {
         "id": "dataset",
@@ -2295,7 +2295,7 @@
       "id": "china-global-500m-4-day-vegetation-leaf-area-index-dataset-2010-2020-8",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Global 500m 4-day Vegetation Leaf Area Index Dataset (2010-2020)",
       "resource_type": {
         "id": "dataset",
@@ -2390,7 +2390,7 @@
       "id": "china-utilization-intensity-index-of-the-main-grazing-grasslands-in-eurasia-2000-2020-9",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Utilization intensity index of the main grazing grasslands in Eurasia (2000-2020)",
       "resource_type": {
         "id": "dataset",
@@ -2483,7 +2483,7 @@
       "id": "china-dataset-of-major-global-forest-fire-disasters-10",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Dataset of major global forest fire disasters",
       "resource_type": {
         "id": "dataset",
@@ -2608,7 +2608,7 @@
       "id": "china-global-urban-land-composite-and-expansion-in-2000-2020-11",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Global Urban Land Composite and Expansion in 2000-2020",
       "resource_type": {
         "id": "dataset",
@@ -2707,7 +2707,7 @@
       "id": "china-aboveground-standing-biomass-of-the-main-grazing-grasslands-in-eurasia-2000-2020-12",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Aboveground standing biomass of the main grazing grasslands in Eurasia (2000-2020)",
       "resource_type": {
         "id": "dataset",
@@ -2800,7 +2800,7 @@
       "id": "china-belt-and-road-1km-resolution-light-temperature-water-stress-factor-anomaly-dataset-2015-13",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Belt and Road 1km Resolution Light-Temperature-Water Stress Factor Anomaly Dataset (2015)",
       "resource_type": {
         "id": "dataset",
@@ -2884,7 +2884,7 @@
       "id": "china-theoretical-carrying-capacity-of-eurasia-grassland-2000-2020-14",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Theoretical carrying capacity of Eurasia grassland (2000-2020)",
       "resource_type": {
         "id": "dataset",
@@ -2977,7 +2977,7 @@
       "id": "china-edible-forage-yield-of-eurasia-grassland-2000-2020-15",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Edible forage yield of Eurasia grassland (2000-2020)",
       "resource_type": {
         "id": "dataset",
@@ -3070,7 +3070,7 @@
       "id": "china-global-500m-4-day-vegetation-net-primary-productivity-dataset-2010-2020-16",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Global 500m 4-day Vegetation Net Primary Productivity Dataset (2010-2020)",
       "resource_type": {
         "id": "dataset",
@@ -3164,7 +3164,7 @@
       "id": "china-circum-antarctic-emperor-penguin-habitat-dataset-2000-2014-2018-17",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Circum-Antarctic Emperor Penguin Habitat Dataset (2000, 2014, 2018)",
       "resource_type": {
         "id": "dataset",
@@ -3268,7 +3268,7 @@
       "id": "china-annual-integrated-method-mass-balance-dataset-for-the-antarctic-ice-sheet-region-2001-2020-18",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Annual Integrated Method Mass Balance Dataset for the Antarctic Ice Sheet Region (2001-2020)",
       "resource_type": {
         "id": "dataset",
@@ -3362,7 +3362,7 @@
       "id": "china-2014-african-land-cover-mapping-19",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "2014 African Land Cover Mapping",
       "resource_type": {
         "id": "dataset",
@@ -3470,7 +3470,7 @@
       "id": "china-the-vegetation-coverage-datasets-covering-ten-interconnection-projects-of-the-belt-and-road-initiative-20",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "The Vegetation Coverage Datasets Covering Ten Interconnection Projects of the Belt and Road Initiative",
       "resource_type": {
         "id": "dataset",
@@ -3560,7 +3560,7 @@
       "id": "china-global-large-terrestrial-surface-water-areas-spatially-distributed-update-dataset-2018-2019-21",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Global Large Terrestrial Surface Water Areas Spatially Distributed Update Dataset (2018-2019)",
       "resource_type": {
         "id": "dataset",
@@ -3658,7 +3658,7 @@
       "id": "china-the-belt-and-road-005-solar-resource-dataset-2016-2019-22",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "The Belt and Road 0.05° Solar Resource Dataset (2016-2019)",
       "resource_type": {
         "id": "dataset",
@@ -3742,7 +3742,7 @@
       "id": "china-boundaries-and-remote-sensing-classification-dataset-for-major-international-wetlands-2001-2013-23",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Boundaries and Remote Sensing Classification Dataset for Major International Wetlands (2001, 2013)",
       "resource_type": {
         "id": "dataset",
@@ -3886,7 +3886,7 @@
       "id": "china-global-time-series-product-of-annual-maximum-bloom-area-of-cyanobacterial-blooms-in-eutrophic-lakes-2000-2020-24",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Global Time-Series Product of Annual Maximum Bloom Area of Cyanobacterial Blooms in Eutrophic Lakes (2000-2020)",
       "resource_type": {
         "id": "dataset",
@@ -3984,7 +3984,7 @@
       "id": "china-glacier-frontal-line-in-greenland-from-2002-to-2021-using-multi-source-satellite-remote-sensing-data-25",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Glacier frontal line in Greenland from 2002 to 2021 using multi-source satellite remote sensing data",
       "resource_type": {
         "id": "dataset",
@@ -4078,7 +4078,7 @@
       "id": "china-china-asean-005-solar-power-potential-dataset-2016-2019-26",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "China-ASEAN 0.05° Solar Power Potential Dataset (2016-2019)",
       "resource_type": {
         "id": "dataset",
@@ -4162,7 +4162,7 @@
       "id": "china-dataset-of-the-effects-of-typical-major-droughts-on-terrestrial-vegetation-27",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Dataset of the effects of typical major droughts on terrestrial vegetation",
       "resource_type": {
         "id": "dataset",
@@ -4254,7 +4254,7 @@
       "id": "china-the-monthly-resolution-gravity-method-material-balance-dataset-for-the-greenland-ice-sheet-at-300km-from-2001-to-2020-28",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "The Monthly Resolution Gravity Method Material Balance Dataset for the Greenland Ice Sheet at 300km from 2001 to 2020",
       "resource_type": {
         "id": "dataset",
@@ -4348,7 +4348,7 @@
       "id": "china-solar-radiation-dataset-at-5km-resolution-in-the-belt-and-road-and-surround-region-2015-29",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Solar Radiation Dataset at 5km Resolution in the Belt and Road and Surround Region (2015)",
       "resource_type": {
         "id": "dataset",
@@ -4432,7 +4432,7 @@
       "id": "china-arctic-sea-ice-type-product-from-active-and-passive-microwave-remote-sensing-2002--2021-30",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Arctic sea ice type product from active and passive microwave remote sensing (2002- 2021)",
       "resource_type": {
         "id": "dataset",
@@ -4527,7 +4527,7 @@
       "id": "china-land-cover-dataset-within-40km-from-coastline-along-chabahar-iran-to-ormara-pakistan-31",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Land Cover Dataset within 40km from Coastline along Chabahar (Iran) to Ormara (Pakistan)",
       "resource_type": {
         "id": "dataset",
@@ -4610,7 +4610,7 @@
       "id": "china-1-km-annual-maximum-fractional-vegetation-cover-dataset-for-the-chinaasean-region-32",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "1 km Annual Maximum Fractional Vegetation Cover Dataset for the China–ASEAN Region",
       "resource_type": {
         "id": "dataset",
@@ -4753,7 +4753,7 @@
       "id": "china-global-1-km-leaf-area-index-dataset-2013-glass-lai-33",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Global 1-km Leaf Area Index Dataset 2013 (GLASS-LAI)",
       "resource_type": {
         "id": "dataset",
@@ -4856,7 +4856,7 @@
       "id": "china-global-5km-photosynthetically-active-radiation-dataset-34",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Global 5km Photosynthetically Active Radiation Dataset",
       "resource_type": {
         "id": "dataset",
@@ -4944,7 +4944,7 @@
       "id": "china-from-glc-2017-30m-global-land-cover-map-2017-35",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "FROM-GLC 2017: 30m global land cover map (2017)",
       "resource_type": {
         "id": "dataset",
@@ -5033,7 +5033,7 @@
       "id": "china-belt-and-road-and-adjacent-regions-025-resolution-solar-power-potential-dataset-2015-36",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Belt and Road and Adjacent Regions 0.25° Resolution Solar Power Potential Dataset (2015)",
       "resource_type": {
         "id": "dataset",
@@ -5118,7 +5118,7 @@
       "id": "china-global-typhoon-path-dataset-2018-37",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Global Typhoon Path Dataset (2018)",
       "resource_type": {
         "id": "dataset",
@@ -5229,7 +5229,7 @@
       "id": "china-dataset-of-global-land-degrading-and-improving-assessment-at-500-m-2000-2018-38",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Dataset of Global Land Degrading and Improving Assessment at 500 m (2000-2018)",
       "resource_type": {
         "id": "dataset",
@@ -5613,7 +5613,7 @@
       "id": "china-global-1-km-leaf-area-index-dataset-2012-glass-lai-39",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Global 1-km Leaf Area Index Dataset 2012 (GLASS-LAI)",
       "resource_type": {
         "id": "dataset",
@@ -5707,7 +5707,7 @@
       "id": "china-global-500m-4-day-fractional-vegetation-cover-dataset-2010-2020-40",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Global 500m 4-day Fractional Vegetation Cover Dataset (2010-2020)",
       "resource_type": {
         "id": "dataset",
@@ -5802,7 +5802,7 @@
       "id": "china-global-1km-3-hour-photosynthetically-active-radiation-dataset-2015-2020-41",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Global 1km 3-hour Photosynthetically Active Radiation Dataset (2015-2020)",
       "resource_type": {
         "id": "dataset",
@@ -5890,7 +5890,7 @@
       "id": "china-greenland-ice-sheet-freezing-and-thawing-data-set-based-on-ssmi-ssmis-microwave-radiometer-data-2002-2021-42",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Greenland Ice Sheet Freezing and Thawing Data Set Based on SSMI-SSMIS Microwave Radiometer Data (2002-2021)",
       "resource_type": {
         "id": "dataset",
@@ -5984,7 +5984,7 @@
       "id": "china-the-belt-and-road-500m-4-day-vegetation-net-primary-productivity-dataset-2016-2019-43",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "The Belt and Road 500m 4-day Vegetation Net Primary Productivity Dataset (2016-2019)",
       "resource_type": {
         "id": "dataset",
@@ -6077,7 +6077,7 @@
       "id": "china-global-drought-intensity-and-major-meteorological-factors-anomaly-dataset-44",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Global drought intensity and major meteorological factors anomaly dataset",
       "resource_type": {
         "id": "dataset",
@@ -6194,7 +6194,7 @@
       "id": "china-global-crop-water-productivity-dataset-at-5km-resolution-from-2000-to-2022-45",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Global Crop Water Productivity Dataset at 5km Resolution from 2000 to 2022",
       "resource_type": {
         "id": "dataset",
@@ -6292,7 +6292,7 @@
       "id": "china-china-asean-1km-5-day-fractional-vegetation-cover-dataset-2016-2019-46",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "China-ASEAN 1km 5-day Fractional Vegetation Cover Dataset (2016-2019)",
       "resource_type": {
         "id": "dataset",
@@ -6386,7 +6386,7 @@
       "id": "china-typical-case-dataset-of-major-global-flood-disasters-2018-47",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Typical Case Dataset of Major Global Flood Disasters (2018)",
       "resource_type": {
         "id": "dataset",
@@ -6505,7 +6505,7 @@
       "id": "china-global-spatiotemporal-distribution-dataset-of-strong-earthquakes-1989-2018-48",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Global Spatiotemporal Distribution Dataset of Strong Earthquakes (1989-2018)",
       "resource_type": {
         "id": "dataset",
@@ -6618,7 +6618,7 @@
       "id": "china-global-typical-lake-dynamic-change-dataset-2012-2013-49",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Global Typical Lake Dynamic Change Dataset (2012-2013)",
       "resource_type": {
         "id": "dataset",
@@ -6715,7 +6715,7 @@
       "id": "china-dataset-of-tropical-cyclone-idai-and-subsequent-floods-in-southern-africa-2019-50",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Dataset of Tropical Cyclone Idai and Subsequent Floods in Southern Africa (2019)",
       "resource_type": {
         "id": "dataset",
@@ -6826,7 +6826,7 @@
       "id": "china-antarctic-ice-sheet-300km-monthly-resolution-mass-balance-dataset-based-on-gravimetry-method-2001-2020-51",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Antarctic Ice Sheet 300km monthly resolution mass balance dataset based on gravimetry method (2001-2020)",
       "resource_type": {
         "id": "dataset",
@@ -6914,7 +6914,7 @@
       "id": "china-global-30m-land-cover-dataset-2015-52",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Global 30m Land Cover Dataset (2015)",
       "resource_type": {
         "id": "dataset",
@@ -6997,7 +6997,7 @@
       "id": "china-china-asean-5km-resolution-par-dataset-2013-53",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "China ASEAN 5km resolution PAR dataset (2013)",
       "resource_type": {
         "id": "dataset",
@@ -7130,7 +7130,7 @@
       "id": "china-global-1-km-leaf-area-index-dataset-for-2015-2016-glass-lai-54",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Global 1 km Leaf Area Index Dataset for 2015-2016 (GLASS-LAI)",
       "resource_type": {
         "id": "dataset",
@@ -7233,7 +7233,7 @@
       "id": "china-the-belt-and-road-1km-5-day-fractional-vegetation-cover-dataset-2016-2019-55",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "The Belt and Road 1km 5-day Fractional Vegetation Cover Dataset (2016-2019)",
       "resource_type": {
         "id": "dataset",
@@ -7328,7 +7328,7 @@
       "id": "china-global-dynamic-change-dataset-of-typical-lakes-2012-56",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Global Dynamic Change Dataset of Typical Lakes (2012)",
       "resource_type": {
         "id": "dataset",
@@ -7425,7 +7425,7 @@
       "id": "china-global-30m-land-cover-dataset-2020-57",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Global 30m Land Cover Dataset (2020)",
       "resource_type": {
         "id": "dataset",
@@ -7508,7 +7508,7 @@
       "id": "china-global-1-km-fractional-vegetation-cover-dataset-58",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Global 1 km Fractional Vegetation Cover Dataset",
       "resource_type": {
         "id": "dataset",
@@ -7602,7 +7602,7 @@
       "id": "china-global-1km-anthropogenic-stressor-index-change-dataset-2010-2020-59",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Global 1km Anthropogenic Stressor Index Change Dataset (2010-2020)",
       "resource_type": {
         "id": "dataset",
@@ -7696,7 +7696,7 @@
       "id": "china-the-drought-degree-and-its-impacts-on-vegetation-dataset-in-north-china-2011-60",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "The Drought Degree and Its Impacts on Vegetation Dataset in North China (2011)",
       "resource_type": {
         "id": "dataset",
@@ -7794,7 +7794,7 @@
       "id": "china-grid-dataset-of-global-land-degradation-trend-at-500-m-2000-2018-61",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Grid Dataset of Global Land Degradation Trend at 500 m (2000-2018)",
       "resource_type": {
         "id": "dataset",
@@ -8179,7 +8179,7 @@
       "id": "china-terra-modis-based-product-of-greenness-dynamics-of-arctic-terrestrial-vegetation-from-2002-2021-62",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Terra MODIS-based product of greenness dynamics of Arctic terrestrial vegetation from 2002-2021",
       "resource_type": {
         "id": "dataset",
@@ -8267,7 +8267,7 @@
       "id": "china-road-railway-network-density-dataset-in-the-belt-and-road-and-surround-region-in-1km-resolution-2016-63",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Road & Railway Network Density Dataset in the Belt and Road and Surround Region in 1km Resolution (2016)",
       "resource_type": {
         "id": "dataset",
@@ -8356,7 +8356,7 @@
       "id": "china-the-belt-and-road-1km-5-day-normalized-difference-vegetation-index-dataset-2016-2019-64",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "The Belt and Road 1km 5-day Normalized Difference Vegetation Index Dataset (2016-2019)",
       "resource_type": {
         "id": "dataset",
@@ -8450,7 +8450,7 @@
       "id": "china-global-500m-land-surface-satellite-glass-vegetation-net-primary-production-npp-dataset2000-2018-65",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Global 500m land surface satellite (GLASS) vegetation net primary production (NPP) dataset，2000-2018",
       "resource_type": {
         "id": "dataset",
@@ -9039,7 +9039,7 @@
       "id": "china-global-30-m-resolution-forest-burned-area-dataset-66",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Global 30 m Resolution Forest Burned Area Dataset",
       "resource_type": {
         "id": "dataset",
@@ -9628,7 +9628,7 @@
       "id": "china-global-evaportranspiration-dataset-in-the-farmland-at-1km-resolution-from-2000-to-2022-67",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Global Evaportranspiration Dataset in the Farmland at 1km Resolution from 2000 to 2022",
       "resource_type": {
         "id": "dataset",
@@ -9726,7 +9726,7 @@
       "id": "china-the-belt-and-road-1km-5-day-light-temperature-potential-productivity-dataset-2016-2019-68",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "The Belt and Road 1km 5-day Light-temperature Potential Productivity Dataset (2016-2019)",
       "resource_type": {
         "id": "dataset",
@@ -9800,7 +9800,7 @@
       "id": "china-remote-sensing-carbon-sequestration-estimation-dataset-from-global-forest-gain-during-19852020-69",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Remote sensing carbon sequestration estimation dataset from global forest gain during 1985–2020",
       "resource_type": {
         "id": "dataset",
@@ -9894,7 +9894,7 @@
       "id": "china-global-solar-induced-chlorophyll-fluorescence-sif-product-70",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Global solar-induced chlorophyll fluorescence (SIF) product",
       "resource_type": {
         "id": "dataset",
@@ -9988,7 +9988,7 @@
       "id": "china-evapotranspiration-dataset-in-the-belt-and-road-and-surround-region-2015-71",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Evapotranspiration Dataset in the Belt and Road and Surround Region (2015)",
       "resource_type": {
         "id": "dataset",
@@ -10088,7 +10088,7 @@
       "id": "china-global-2012-large-inland-water-body-spatial-distribution-dataset-72",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Global 2012 Large Inland Water Body Spatial Distribution Dataset",
       "resource_type": {
         "id": "dataset",
@@ -10185,7 +10185,7 @@
       "id": "china-long-term-water-area-level-dataset-of-chinese-lakes-2000-2020-73",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Long-term water area-level dataset of Chinese lakes (2000-2020)",
       "resource_type": {
         "id": "dataset",
@@ -10276,7 +10276,7 @@
       "id": "china-dataset-of-the-effects-of-typical-major-forest-fires-on-terrestrial-vegetation-74",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Dataset of the effects of typical major forest fires on terrestrial vegetation",
       "resource_type": {
         "id": "dataset",
@@ -10370,7 +10370,7 @@
       "id": "china-forest-biomass-remote-sensing-retrieval-data-product-for-the-greater-mekong-subregion-75",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Forest Biomass Remote Sensing Retrieval Data Product for the Greater Mekong Subregion",
       "resource_type": {
         "id": "dataset",
@@ -10485,7 +10485,7 @@
       "id": "china-annual-maximum-vegetation-aboveground-biomass-dataset-of-global-major-deserts-and-surroundings-1985-2023-76",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Annual maximum vegetation aboveground biomass dataset of global major deserts and surroundings (1985-2023)",
       "resource_type": {
         "id": "dataset",
@@ -10579,7 +10579,7 @@
       "id": "china-belt-and-road-port-cities-and-their-surrounding-areas-land-cover-classification-dataset-77",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Belt and Road Port Cities and Their Surrounding Areas Land Cover Classification Dataset",
       "resource_type": {
         "id": "dataset",
@@ -10677,7 +10677,7 @@
       "id": "china-30m-resolution-global-forest-cover-and-forest-change-map-78",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "30m resolution Global forest cover and forest change map",
       "resource_type": {
         "id": "dataset",
@@ -11267,7 +11267,7 @@
       "id": "china-500-m-annual-maximum-vegetation-coverage-dataset-for-major-global-deserts-and-surrounding-areas-19852023-79",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "500 m Annual Maximum Vegetation Coverage Dataset for Major Global Deserts and Surrounding Areas (1985–2023)",
       "resource_type": {
         "id": "dataset",
@@ -11361,7 +11361,7 @@
       "id": "china-antarctic-and-arctic-5km-daily-sea-ice-concentration-dataset-2001-2020-80",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Antarctic and Arctic 5km daily sea ice concentration dataset (2001-2020)",
       "resource_type": {
         "id": "dataset",
@@ -11456,7 +11456,7 @@
       "id": "china-global-1km-5-day-normalized-difference-vegetation-index-dataset-2010-2020-81",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Global 1km 5-day Normalized Difference Vegetation Index Dataset (2010-2020)",
       "resource_type": {
         "id": "dataset",
@@ -11550,7 +11550,7 @@
       "id": "china-china-asean-1km-5-day-normalized-difference-vegetation-index-dataset-2016-2019-82",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "China-ASEAN 1km 5-day Normalized Difference Vegetation Index Dataset (2016-2019)",
       "resource_type": {
         "id": "dataset",
@@ -11638,7 +11638,7 @@
       "id": "china-global-gridded-crop-production-dataset-at-5km-resolution-from-2000-to-2022-83",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Global Gridded Crop Production Dataset at 5km Resolution from 2000 to 2022",
       "resource_type": {
         "id": "dataset",
@@ -11723,7 +11723,7 @@
       "id": "china-dynamic-change-dataset-of-typical-lakes-worldwide-2014-84",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Dynamic Change Dataset of Typical Lakes Worldwide (2014)",
       "resource_type": {
         "id": "dataset",
@@ -11820,7 +11820,7 @@
       "id": "china-2007-10km-chinas-co2-emission-data-from-chred-85",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "2007 10km China's CO2 emission data from CHRED",
       "resource_type": {
         "id": "dataset",
@@ -11905,7 +11905,7 @@
       "id": "china-global-500m-vegetation-growth-index-dataset-2010-2020-86",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Global 500m Vegetation Growth Index Dataset (2010-2020)",
       "resource_type": {
         "id": "dataset",
@@ -12000,7 +12000,7 @@
       "id": "china-30m-annual-maximum-vegetation-coverage-dataset-for-the-greater-mekong-subregion-87",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "30m Annual Maximum Vegetation Coverage Dataset for the Greater Mekong Subregion",
       "resource_type": {
         "id": "dataset",
@@ -12121,7 +12121,7 @@
       "id": "china-annual-moisture-index-dataset-for-major-global-deserts-and-surrounding-areas-19852023-88",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Annual Moisture Index Dataset for Major Global Deserts and Surrounding Areas (1985–2023)",
       "resource_type": {
         "id": "dataset",
@@ -12209,7 +12209,7 @@
       "id": "china-global-250-meter-land-cover-dataset-89",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Global 250-meter Land Cover Dataset",
       "resource_type": {
         "id": "dataset",
@@ -12292,7 +12292,7 @@
       "id": "china-remote-sensing-carbon-loss-estimation-dataset-from-global-impervious-surfaces-expansion-during-1985-2020-90",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Remote sensing carbon loss estimation dataset from global impervious surfaces expansion during 1985-2020",
       "resource_type": {
         "id": "dataset",
@@ -12380,7 +12380,7 @@
       "id": "china-global-1km-8-day-vegetation-leaf-area-index-dataset-2018-2019-91",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Global 1km 8-day Vegetation Leaf Area Index Dataset (2018-2019)",
       "resource_type": {
         "id": "dataset",
@@ -12468,7 +12468,7 @@
       "id": "china-global-time-series-product-of-annual-bloom-frequency-of-cyanobacterial-blooms-in-eutrophic-lakes-2000-2020-92",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Global Time-Series Product of Annual Bloom Frequency of Cyanobacterial Blooms in Eutrophic Lakes (2000-2020)",
       "resource_type": {
         "id": "dataset",
@@ -12566,7 +12566,7 @@
       "id": "china-long-term-water-storage-dataset-of-global-lakes-2000-2020-93",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Long-term water storage dataset of global lakes (2000-2020)",
       "resource_type": {
         "id": "dataset",
@@ -12657,7 +12657,7 @@
       "id": "china-global-1km-forest-aboveground-biomass-dataset-94",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Global 1km Forest Aboveground Biomass Dataset",
       "resource_type": {
         "id": "dataset",
@@ -12751,7 +12751,7 @@
       "id": "china-1-km-resolution-vegetation-growing-season-length-dataset-for-the-chinaasean-region-95",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "1 km Resolution Vegetation Growing Season Length Dataset for the China–ASEAN Region",
       "resource_type": {
         "id": "dataset",
@@ -12890,7 +12890,7 @@
       "id": "china-tibetan-plateau-mountain-glacier-mass-balance-dataset-based-on-zy-3-dems-2001-2020-96",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Tibetan Plateau mountain glacier mass balance dataset based on ZY-3 DEMs (2001-2020)",
       "resource_type": {
         "id": "dataset",
@@ -12978,7 +12978,7 @@
       "id": "china-china-asean-1km-annual-cumulative-vegetation-net-primary-productivity-data-set-97",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "China ASEAN 1km Annual Cumulative Vegetation Net Primary Productivity Data Set",
       "resource_type": {
         "id": "dataset",
@@ -13135,7 +13135,7 @@
       "id": "china-based-on-the-global-agricultural-remote-sensing-monitoring-system-growth-status-dataset-for-major-grain-and-oil-crops-98",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Based on the Global Agricultural Remote Sensing Monitoring System: Growth Status Dataset for Major Grain and Oil Crops",
       "resource_type": {
         "id": "dataset",
@@ -13219,7 +13219,7 @@
       "id": "china-global-30-meter-representative-area-land-cover-classification-product-dataset-99",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Global 30-meter Representative Area Land Cover Classification Product Dataset",
       "resource_type": {
         "id": "dataset",
@@ -13313,7 +13313,7 @@
       "id": "china-global-10-km-land-use-intensity-dataset-100",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Global 10 km Land Use Intensity Dataset",
       "resource_type": {
         "id": "dataset",
@@ -13391,7 +13391,7 @@
       "id": "china-belt-and-road-region-25km-destructive-wave-annual-frequency-dataset-2010-2015-101",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "\"Belt and Road\" Region 25km Destructive Wave Annual Frequency Dataset (2010-2015)",
       "resource_type": {
         "id": "dataset",
@@ -13471,7 +13471,7 @@
       "id": "china-1km-resolution-land-surface-evapotranspiration-dataset-for-china-and-asean-total-evapotranspiration-2013-102",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "1km Resolution Land Surface Evapotranspiration Dataset for China and ASEAN （Total Evapotranspiration 2013）",
       "resource_type": {
         "id": "dataset",
@@ -13569,7 +13569,7 @@
       "id": "china-greenland-ice-water-system-products-based-on-sentinel-2-satellite-2017-2021-103",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Greenland ice water system products based on Sentinel-2 satellite (2017-2021)",
       "resource_type": {
         "id": "dataset",
@@ -13664,7 +13664,7 @@
       "id": "china-urban-thermal-environment-and-heat-island-effect-104",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Urban thermal environment and heat island effect",
       "resource_type": {
         "id": "dataset",
@@ -13748,7 +13748,7 @@
       "id": "china-global-005-vegetation-anomaly-index-dataset-during-enso-events-2010-2020-105",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Global 0.05° Vegetation Anomaly Index Dataset during ENSO Events (2010-2020)",
       "resource_type": {
         "id": "dataset",
@@ -13844,7 +13844,7 @@
       "id": "china-china-asean-005-solar-resource-dataset-2016-2019-106",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "China-ASEAN 0.05° Solar Resource Dataset (2016-2019)",
       "resource_type": {
         "id": "dataset",
@@ -13928,7 +13928,7 @@
       "id": "china-1km-resolution-forest-aboveground-biomass-dataset-in-the-belt-and-road-2010-2015-107",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "1km resolution forest aboveground biomass dataset in the Belt and Road (2010, 2015)",
       "resource_type": {
         "id": "dataset",
@@ -14023,7 +14023,7 @@
       "id": "china-annual-mean-leaf-area-index-dataset-at-1km-resolution-in-the-belt-and-road-and-surround-region-2015-108",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Annual Mean Leaf Area Index dataset at 1km Resolution in the Belt and Road and Surround Region (2015)",
       "resource_type": {
         "id": "dataset",
@@ -14118,7 +14118,7 @@
       "id": "china-global-1km-land-cover-change-dataset-2015-2020-109",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Global 1km Land Cover Change Dataset (2015-2020)",
       "resource_type": {
         "id": "dataset",
@@ -14201,7 +14201,7 @@
       "id": "china-global-1km-leaf-area-index-dataset-19822011-glass-lai-110",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Global 1km Leaf Area Index Dataset 1982–2011 (GLASS-LAI)",
       "resource_type": {
         "id": "dataset",
@@ -14295,7 +14295,7 @@
       "id": "china-land-cover-dataset-within-40km-from-coastline-along-the-straits-of-malacca-111",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Land Cover Dataset within 40km from Coastline along the Straits of Malacca",
       "resource_type": {
         "id": "dataset",
@@ -14385,7 +14385,7 @@
       "id": "china-plant-production-potential-dataset-at-025-resolution-in-the-belt-and-road-and-surround-region-2015-112",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Plant Production Potential Dataset at 0.25° Resolution in the Belt and Road and Surround Region (2015)",
       "resource_type": {
         "id": "dataset",
@@ -14469,7 +14469,7 @@
       "id": "china-global-typical-lake-dynamic-change-dataset-2001-2011-113",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Global Typical Lake Dynamic Change Dataset (2001-2011)",
       "resource_type": {
         "id": "dataset",
@@ -14568,7 +14568,7 @@
       "id": "china-coastline-classification-dataset-for-port-cities-and-surrounding-areas-along-the-belt-and-road-initiative-114",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Coastline Classification Dataset for Port Cities and Surrounding Areas along the Belt and Road Initiative",
       "resource_type": {
         "id": "dataset",
@@ -14664,7 +14664,7 @@
       "id": "china-the-belt-and-road-005-solar-power-potential-dataset-2016-2019-115",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "The Belt and Road 0.05° Solar Power Potential Dataset (2016-2019)",
       "resource_type": {
         "id": "dataset",
@@ -14748,7 +14748,7 @@
       "id": "china-april-and-july-2017-global-xco2-data-from-geoarcen-nadir-mode-116",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "April and July, 2017 Global XCO2 data from geoarc/en nadir mode",
       "resource_type": {
         "id": "dataset",
@@ -14826,7 +14826,7 @@
       "id": "china-max-fractional-vegetation-cover-dataset-in-the-belt-and-road-and-surround-region-2015-117",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Max Fractional Vegetation Cover Dataset in the Belt and Road and Surround Region (2015)",
       "resource_type": {
         "id": "dataset",
@@ -14920,7 +14920,7 @@
       "id": "china-remote-sensing-carbon-loss-estimation-dataset-from-global-forest-loss-during-19852020-118",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Remote sensing carbon loss estimation dataset from global forest loss during 1985–2020",
       "resource_type": {
         "id": "dataset",
@@ -15008,7 +15008,7 @@
       "id": "china-land-cover-dataset-within-40km-from-coastline-along-chittagong-bangladeshi-to-kyaukpyu-myanmar-119",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Land Cover Dataset within 40km from Coastline along Chittagong (Bangladeshi) to Kyaukpyu (Myanmar)",
       "resource_type": {
         "id": "dataset",
@@ -15091,7 +15091,7 @@
       "id": "china-dataset-of-the-impact-of-typical-major-earthquake-disasters-on-terrestrial-vegetation-120",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Dataset of the impact of typical major earthquake disasters on terrestrial vegetation",
       "resource_type": {
         "id": "dataset",
@@ -15185,7 +15185,7 @@
       "id": "china-daily-surface-melting-dataset-of-the-antarctic-ice-sheet-1999-2019-121",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Daily Surface Melting Dataset of the Antarctic Ice Sheet (1999-2019)",
       "resource_type": {
         "id": "dataset",
@@ -15307,7 +15307,7 @@
       "id": "china-global-inventory-of-eutrophic-lakes-2000-2020-122",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Global Inventory of Eutrophic Lakes (2000-2020)",
       "resource_type": {
         "id": "dataset",
@@ -15404,7 +15404,7 @@
       "id": "china-long-term-water-storage-dataset-of-chinese-lakes-2000-2020-123",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Long-term water storage dataset of Chinese lakes (2000-2020)",
       "resource_type": {
         "id": "dataset",
@@ -15495,7 +15495,7 @@
       "id": "china-monthly-iceberg-calving-dataset-of-the-antarctic-ice-shelves-2010-2019-124",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Monthly Iceberg Calving Dataset of the Antarctic Ice Shelves (2010-2019)",
       "resource_type": {
         "id": "dataset",
@@ -15590,7 +15590,7 @@
       "id": "china-30-m-land-cover-dataset-of-built-up-areas-in-major-cities-along-the-belt-and-road-125",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "30 m Land Cover Dataset of Built-up Areas in Major Cities along the Belt and Road",
       "resource_type": {
         "id": "dataset",
@@ -15678,7 +15678,7 @@
       "id": "china-dataset-of-the-impact-of-typical-major-floods-on-terrestrial-vegetation-126",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Dataset of the impact of typical major floods on terrestrial vegetation",
       "resource_type": {
         "id": "dataset",
@@ -15766,7 +15766,7 @@
       "id": "china-arctic-sea-ice-concentration-product-20022021-based-on-mwri-and-ssmis-measurements2002-2021-127",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Arctic Sea Ice Concentration Product, 2002–2021, Based on MWRI and SSMIS Measurements(2002-2021)",
       "resource_type": {
         "id": "dataset",
@@ -15854,7 +15854,7 @@
       "id": "china-500-m-8-day-cloud-free-snow-cover-fraction-dataset-over-the-qinghai-tibet-plateau-20012020-128",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "500 m 8-Day Cloud-Free Snow Cover Fraction Dataset over the Qinghai-Tibet Plateau (2001–2020)",
       "resource_type": {
         "id": "dataset",
@@ -15942,7 +15942,7 @@
       "id": "china-500-m-annual-maximum-vegetation-index-dataset-for-major-global-deserts-and-surrounding-areas-19852023-129",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "500 m Annual Maximum Vegetation Index Dataset for Major Global Deserts and Surrounding Areas (1985–2023)",
       "resource_type": {
         "id": "dataset",
@@ -16036,7 +16036,7 @@
       "id": "china-global-1-km-net-primary-productivity-dataset-excluding-north-america-130",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Global 1 km Net Primary Productivity Dataset (Excluding North America)",
       "resource_type": {
         "id": "dataset",
@@ -16130,7 +16130,7 @@
       "id": "china-china-asean-1km-5-day-light-temperature-potential-productivity-dataset-2016-2019-131",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "China-ASEAN 1km 5-day Light-temperature Potential Productivity Dataset (2016-2019)",
       "resource_type": {
         "id": "dataset",
@@ -16213,7 +16213,7 @@
       "id": "china-remote-sensing-dataset-of-ecological-environment-in-the-belt-and-road-marine-areas-132",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Remote Sensing Dataset of Ecological Environment in the \"Belt and Road\" Marine Areas",
       "resource_type": {
         "id": "dataset",
@@ -16307,7 +16307,7 @@
       "id": "china-global-1-km-leaf-area-index-dataset-2014-glass-lai-133",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Global 1-km Leaf Area Index Dataset 2014 (GLASS-LAI)",
       "resource_type": {
         "id": "dataset",
@@ -16410,7 +16410,7 @@
       "id": "china-finer-resolution-observation-and-monitoring-global-land-cover-from-glc-2015-134",
       "source": "",
       "country_id": "china",
-      "country": "People's Republic of China",
+      "country": "China",
       "name": "Finer Resolution Observation and Monitoring – Global Land Cover (FROM-GLC) 2015",
       "resource_type": {
         "id": "dataset",
