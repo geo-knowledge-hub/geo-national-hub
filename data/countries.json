@@ -70,7 +70,7 @@
     },
     "ghana": {
       "id": "ghana",
-      "title": "Ghana",
+      "title": "Ghana GEO",
       "flag": "/content/flags/flag-ghana.png",
       "community_of_practice": null,
       "mechanisms": [],
@@ -200,7 +200,7 @@
     },
     "china": {
       "id": "china",
-      "title": "People's Republic of China",
+      "title": "China GEO",
       "flag": "/content/flags/flag-china.png",
       "theme": {
         "primary_color": "#a84242",
@@ -217,7 +217,7 @@
     },
     "south-africa": {
       "id": "south-africa",
-      "title": "South Africa",
+      "title": "South Africa GEO",
       "flag": "/content/groups/sageo.jpg",
       "feedback_url": "https://example.com/feedback/south-africa",
       "managed_by": {
@@ -226,19 +226,14 @@
       },
       "supporters": [
         {
-          "name": "SA-GEO",
-          "logo": "/content/groups/sageo.jpg",
-          "url": "https://neoss.co.za/sa-geo"
+          "name": "DSTI",
+          "logo": "/content/groups/dsti.jpg",
+          "url": "https://www.dsti.gov.za/"
         },
         {
           "name": "NEOSS",
           "logo": "/content/groups/neoss.jpg",
           "url": "https://neoss.co.za/"
-        },
-        {
-          "name": "DSTI",
-          "logo": "/content/groups/dsti.jpg",
-          "url": "https://www.dsti.gov.za/"
         }
       ],
       "community_of_practice": {
