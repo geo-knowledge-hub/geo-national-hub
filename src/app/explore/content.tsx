@@ -116,7 +116,6 @@ const MapModeLayout = dynamic(() => import('./map-mode').then((mod) => mod.MapMo
   ssr: false,
 });
 
-
 /**
  * Hero stats component
  */
@@ -476,7 +475,6 @@ export function ExplorePageContent({
         {...({
           hitsPerPage: perPage,
           ...(() => {
-
             const parts = [
               recordTypeFilterStr(recordType),
               viewMode === 'map' ? 'has_location:=true' : '',
@@ -567,14 +565,14 @@ export function ExplorePageContent({
 
               {/* Sidebar + results grid */}
               <div className="grid grid-cols-1 gap-8 md:grid-cols-[220px_1fr]">
-                <aside className="hidden md:block">
+                <aside className="max-md:hidden">
                   <div className="sticky top-8">
                     <RecordTypeFacet value={recordType} onChange={setRecordType} />
                     <FacetPanel facets={facetConfig} transforms={facetTransforms} />
                   </div>
                 </aside>
 
-                <div>
+                <div className="md:col-start-2">
                   <div className="mb-4 flex items-center justify-between gap-4">
                     <ResultsStats onClearQuery={clearUrlQuery} />
                     <PerPageSelector

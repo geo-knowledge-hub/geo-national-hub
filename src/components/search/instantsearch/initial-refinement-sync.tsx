@@ -33,13 +33,11 @@ export function InitialRefinementSync({ attribute, values }: InitialRefinementSy
   const synced = useRef(false);
 
   useEffect(() => {
-
     // If the values are not synced and there are values, refine the values
     if (!synced.current && values.length > 0) {
       values.forEach((v) => refine(v));
       synced.current = true;
     }
-
   }, [values, refine]);
 
   return null;

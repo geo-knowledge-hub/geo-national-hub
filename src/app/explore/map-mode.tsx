@@ -192,7 +192,6 @@ function PerPageDropdown({
 
     document.addEventListener('mousedown', handler);
 
-
     return () => document.removeEventListener('mousedown', handler);
   }, [open]);
 
@@ -385,11 +384,11 @@ function DockedSidebar({
             Filters
             {facetsOpen ? <ChevronUp className="h-3 w-3" /> : <ChevronDown className="h-3 w-3" />}
           </button>
-          {facetsOpen && (
-            <div className="max-h-[40vh] overflow-y-auto px-3 pb-2 [&_.mb-5]:mb-2.5 [&_button]:px-1.5 [&_button]:py-1 [&_button]:text-[11px] [&_p]:mb-1.5 [&_p]:text-[11px] [&_span]:text-[11px]">
-              {facetPanel}
-            </div>
-          )}
+          <div
+            className={`max-h-[40vh] overflow-y-auto px-3 pb-2 [&_.mb-5]:mb-2.5 [&_button]:px-1.5 [&_button]:py-1 [&_button]:text-[11px] [&_p]:mb-1.5 [&_p]:text-[11px] [&_span]:text-[11px] ${facetsOpen ? '' : 'hidden'}`}
+          >
+            {facetPanel}
+          </div>
         </div>
 
         {/* Summary line */}
@@ -497,7 +496,7 @@ export function MapModeLayout({
   // Handle - select from sidebar
   const handleSelectFromSidebar = useCallback((id: string | null) => {
     setSelectedId(id);
-  
+
     if (id) {
       setZoomTargetId(id);
     }
@@ -527,11 +526,7 @@ export function MapModeLayout({
   // Handle - geo filter
   const handleGeoFilter = useCallback((coords: number[][] | null) => {
     setDrawnPolygon(coords);
-
-    if (coords) {
-      setShowResults(true);
-    }
-
+    setShowResults(!!coords);
   }, []);
 
   return (

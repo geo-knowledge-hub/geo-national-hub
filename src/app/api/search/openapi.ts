@@ -25,7 +25,7 @@ export function generateOpenApiSpec() {
   // Register the GET /api/search endpoint
   registry.registerPath({
     method: 'get',
-    path: '/api/search',
+    path: '/national/api/search',
     summary: 'Search resources',
     description:
       'Full-text search endpoint for the National GEO Knowledge Hub with filtering, faceting, spatial queries, and content-negotiated output formats.',
@@ -70,7 +70,8 @@ export function generateOpenApiSpec() {
     info: {
       title: 'National GEO Knowledge Hub API',
       version: '1.0.0',
-      description: 'Public API for searching and retrieving National GEO Knowledge Hub resources from multiple countries.',
+      description:
+        'Public API for searching and retrieving National GEO Knowledge Hub resources from multiple countries.',
     },
     servers: [{ url: '/' }],
   });

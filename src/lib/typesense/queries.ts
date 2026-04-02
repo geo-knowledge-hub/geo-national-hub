@@ -173,12 +173,10 @@ export async function searchResources(
     const types = Array.isArray(filters.resource_type_id)
       ? filters.resource_type_id
       : [filters.resource_type_id];
-    
+
     if (types.length === 1) {
       filterParts.push(`resource_type.id:=${types[0]}`);
-    } 
-    
-    else if (types.length > 1) {
+    } else if (types.length > 1) {
       filterParts.push(`resource_type.id:[${types.join(',')}]`);
     }
   }

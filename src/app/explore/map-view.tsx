@@ -43,12 +43,12 @@ L.Icon.Default.mergeOptions({
   shadowUrl: markerShadow.src,
 });
 
-/** 
+/**
  * Draw state type
  */
 type DrawState = 'idle' | 'drawing' | 'active';
 
-/** 
+/**
  * Fly to resource props
  */
 interface FlyToResourceProps {
@@ -228,7 +228,7 @@ function FlyToResource({ hits, focusResourceId, onDone }: FlyToResourceProps): n
 function layerToCoords(layer: L.Layer): number[][] | null {
   if (layer instanceof L.Polygon) {
     const latlngs = layer.getLatLngs()[0] as L.LatLng[];
-    
+
     if (latlngs.length < 3) {
       return null;
     }
@@ -250,7 +250,7 @@ function Draw({ onGeoFilter, controlRef, onDrawStateChange, hits }: DrawProps): 
   // State - define component state
   const map = useMap();
   const drawnLayerRef = useRef<L.Layer | null>(null);
-  
+
   // Callback - Update the geo filter
   const updateFilter = useCallback(
     (layer: L.Layer | null) => {

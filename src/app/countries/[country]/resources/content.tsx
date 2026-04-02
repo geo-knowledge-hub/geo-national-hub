@@ -268,7 +268,6 @@ export function ResourcesPageContent({
   // Keyboard shortcut - Cmd/Ctrl+K to focus search, Escape to clear
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
         e.preventDefault();
         searchInputRef.current?.focus();
@@ -277,7 +276,6 @@ export function ResourcesPageContent({
       if (e.key === 'Escape' && document.activeElement === searchInputRef.current) {
         searchInputRef.current?.blur();
       }
-
     };
 
     window.addEventListener('keydown', handleKeyDown);
@@ -290,9 +288,12 @@ export function ResourcesPageContent({
   };
 
   // Handle - query change
-  const handleQueryChange = useCallback((q: string) => {
-    setUrlQuery(q || null);
-  }, [setUrlQuery]);
+  const handleQueryChange = useCallback(
+    (q: string) => {
+      setUrlQuery(q || null);
+    },
+    [setUrlQuery],
+  );
 
   // Render hit card
   const renderHit = useCallback(

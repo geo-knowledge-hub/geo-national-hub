@@ -27,7 +27,7 @@ export interface SearchInputProps {
 }
 
 /**
- * Full-width search input 
+ * Full-width search input
  *
  * @component
  */

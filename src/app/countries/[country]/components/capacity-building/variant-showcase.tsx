@@ -28,7 +28,7 @@ interface CapacityBuildingShowcaseProps {
   showExploreLink?: boolean;
 }
 
-/** 
+/**
  * Hex cell interface
  */
 interface HexCell {
@@ -36,12 +36,12 @@ interface HexCell {
   col: number;
 }
 
-/** 
+/**
  * Pointy-top hexagon clip-path
  */
 const hexClip = 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)';
 
-/** 
+/**
  * Height-to-width ratio for a regular pointy-top hexagon (2 / sqrt(3))
  */
 const HEX_RATIO = 1.155;
@@ -78,7 +78,7 @@ const hexCells: HexCell[] = [
   { row: 3, col: 2 },
 ];
 
-/** 
+/**
  * Derive pixel position for a hex cell on the honeycomb grid
  */
 function getHexPosition(cell: HexCell) {
@@ -89,7 +89,7 @@ function getHexPosition(cell: HexCell) {
   };
 }
 
-/** 
+/**
  * Overall grid bounding box (used for the container)
  */
 const GRID_WIDTH = 3 * COL_STEP + BASE_W; // 475

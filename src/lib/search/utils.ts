@@ -29,7 +29,6 @@ export type PerPageOption = (typeof PER_PAGE_OPTIONS)[number];
  */
 export function getNestedValue(obj: Record<string, unknown>, path: string): unknown {
   return path.split('.').reduce<unknown>((current, segment) => {
-
     if (current !== null && typeof current === 'object' && !Array.isArray(current)) {
       return (current as Record<string, unknown>)[segment];
     }
@@ -117,11 +116,9 @@ export function computePageNumbers(
   const pages: (number | 'ellipsis')[] = [];
 
   if (totalPages <= 7) {
-
     for (let i = 1; i <= totalPages; i++) {
       pages.push(i);
     }
-
   } else {
     pages.push(1);
 

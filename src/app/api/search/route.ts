@@ -60,13 +60,11 @@ function buildFilterBy(params: {
 
   // Iterate over filter fields
   for (const [param, tsField] of Object.entries(FILTER_FIELDS)) {
-
     // Get values for param
     const values = (params as Record<string, string[] | undefined>)[param];
 
     // If values are available, add to parts
     if (values?.length) {
-
       // Add to parts
       parts.push(
         values.length === 1 ? `${tsField}:=${values[0]}` : `${tsField}:[${values.join(',')}]`,
@@ -76,7 +74,6 @@ function buildFilterBy(params: {
 
   // Add bbox filter
   if (params.bbox) {
-
     // Parse bbox
     const [west, south, east, north] = params.bbox;
 
@@ -154,7 +151,6 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
     // Extract facets from search result
     const facetCounts: FacetsResult = {};
     for (const facetResult of result.facet_counts ?? []) {
-
       // Add facet count to result
       facetCounts[facetResult.field_name] = facetResult.counts.map(
         (c: { value: string; count: number }) => ({
@@ -162,7 +158,6 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
           count: c.count,
         }),
       );
-
     }
 
     // Build response via chosen exporter
