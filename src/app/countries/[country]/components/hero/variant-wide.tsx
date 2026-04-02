@@ -146,7 +146,7 @@ export function HeroWide({
                         alt={supporter.name}
                         width={100}
                         height={32}
-                        className="h-10 w-auto rounded bg-white/90 object-contain p-1"
+                        className="h-10 w-auto object-contain"
                       />
                     );
 

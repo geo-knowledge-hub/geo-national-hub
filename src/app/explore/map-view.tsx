@@ -315,7 +315,7 @@ function Draw({ onGeoFilter, controlRef, onDrawStateChange, hits }: DrawProps): 
     // Configure global options
     map.pm.setGlobalOptions({
       pathOptions: SEARCH_SHAPE_STYLE,
-    });
+    } as Parameters<typeof map.pm.setGlobalOptions>[0]);
 
     const handleCreate = (e: { layer: L.Layer }) => {
       if (drawnLayerRef.current) {
