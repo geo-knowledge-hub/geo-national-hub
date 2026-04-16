@@ -1,6 +1,163 @@
 {
   "resources": [
     {
+      "id": "ghana-stats-bank-1",
+      "source": "geo-knowledge-hub",
+      "country_id": "ghana",
+      "country": "Ghana",
+      "name": "Ghana Stats Bank (Official Aggregated Data Dissemination Platform)",
+      "resource_type": {
+        "id": "software-webportal",
+        "name": "Web Portal"
+      },
+      "uploaded": "March 23, 2026",
+      "description": "\u003Ch3\u003EWhat You Can Explore in Ghana Stats Bank\u003C/h3\u003E\u003Cp\u003E\u003Ca href=\"https://statsbank.statsghana.gov.gh/index.html\"\u003EGhana Stats Bank\u003C/a\u003E is the country's official platform for accessing aggregated statistical data.&nbsp;\u003C/p\u003E\u003Cp\u003EUsers can easily explore, visualise, and download data across sectors like population, economy, health, and education to support research, planning, and informed decision-making.\u003C/p\u003E",
+      "link": "https://gkhub.earthobservations.org/records/299dp-42w36",
+      "icon": "/content/resources/academic.svg",
+      "challenges": [
+        "land-degradation",
+        "climate-change",
+        "loss-biodiversity",
+        "illegal-mining",
+        "deforestation",
+        "overfishing",
+        "drought",
+        "flood",
+        "pollution"
+      ],
+      "overview": "",
+      "subjects": [],
+      "organization": "",
+      "locations": {},
+      "creators": [],
+      "rights": [],
+      "engagement_priorities": [],
+      "target_audiences": [],
+      "geo_work_programme_activity": null
+    },
+    {
+      "id": "ghana-statistical-service-gridded-data-1",
+      "source": "geo-knowledge-hub",
+      "country_id": "ghana",
+      "country": "Ghana",
+      "name": "Ghana Statistical Service (GSS) Geospatial Portal - Gridded Data",
+      "resource_type": {
+        "id": "software-webportal",
+        "name": "Web Portal"
+      },
+      "uploaded": "March 23, 2026",
+      "description": "\u003Cp\u003EThe \u003Ca href=\"https://ghana-gridded-statistics-platform-statsghana.hub.arcgis.com/\"\u003EGSS Geospatial Portal\u003C/a\u003E is a platform for accessing official geospatial and statistical data from the \u003Ca href=\"https://www.statsghana.gov.gh/\"\u003EGhana Statistical Service\u003C/a\u003E.&nbsp;\u003C/p\u003E\u003Cp\u003EIt offers interactive maps and datasets to support data analysis, research, and informed decision-making across Ghana.\u003C/p\u003E",
+      "link": "https://gkhub.earthobservations.org/records/vb5jx-65496",
+      "icon": "/content/resources/academic.svg",
+      "challenges": [
+        "land-degradation",
+        "climate-change",
+        "loss-biodiversity",
+        "illegal-mining",
+        "deforestation",
+        "overfishing",
+        "drought",
+        "flood",
+        "pollution"
+      ],
+      "overview": "",
+      "subjects": [],
+      "organization": "",
+      "locations": {},
+      "creators": [],
+      "rights": [],
+      "engagement_priorities": [],
+      "target_audiences": [],
+      "geo_work_programme_activity": null
+    },
+    {
+      "id": "ghana-location-biophysical-agronomic-article-1",
+      "source": "geo-knowledge-hub",
+      "country_id": "ghana",
+      "country": "Ghana",
+      "name": "Location, biophysical and agronomic parameters for croplands in northern Ghana",
+      "resource_type": {
+        "id": "publication-article",
+        "name": "Journal article"
+      },
+      "uploaded": "December 14, 2022",
+      "description": "\u003Ch2\u003EAbstract\u003C/h2\u003E\u003Cp\u003E&nbsp; &nbsp; Smallholder agriculture is the bedrock of the food production system in sub-Saharan Africa. Yields in Africa are significantly below potentially attainable yields for a number of reasons, and they are particularly vulnerable to climate change impacts. Monitoring of these highly heterogeneous landscapes is needed to respond to farmer needs, develop an appropriate policy and ensure food security, and Earth observation (EO) must be part of these efforts, but there is a lack of ground data for developing and testing EO methods in western Africa, and in this paper, we present data on\u003Cstrong\u003E (i)\u003C/strong\u003E crop locations,\u003Cstrong\u003E (ii)\u003C/strong\u003E biophysical parameters and \u003Cstrong\u003E(iii)\u003C/strong\u003E crop yield, and biomass was collected in 2020 and 2021 in Ghana and is reported in this paper.&nbsp;\u003C/p\u003E\u003Cp\u003E&nbsp; &nbsp; In 2020, crop type was surveyed in more than \u003Cstrong\u003E1800 fields\u003C/strong\u003E in three different agroecological zones across Ghana (the Guinea Savannah, Transition and Deciduous zones). In 2021, a smaller number of fields were surveyed in the Guinea Savannah zone, and additionally, repeated measurements of leaf area index (LAI) and leaf chlorophyll concentration were made on a set of 56 maize fields. Yield and biomass were also sampled at harvesting. \u003Cstrong\u003ELAI\u003C/strong\u003E in the sampled fields ranged from \u003Ci\u003E0.1 to 5.24 m² m⁻²,\u003C/i\u003E whereas leaf chlorophyll concentration varied between 6.1 and 60.3 µg cm⁻². Yield varied between 190 and 4580 kg ha⁻¹, with an important within-field variability (\u003Cstrong\u003Eaverage per-field standard deviation\u003C/strong\u003E \u003Ci\u003E381 kg ha⁻¹\u003C/i\u003E).&nbsp;\u003C/p\u003E\u003Cp\u003E&nbsp; &nbsp; The data are used in this paper to \u003Cstrong\u003E(i)\u003C/strong\u003E evaluate the Digital Earth Africa 2019 cropland masks, where \u003Ci\u003E61%\u003C/i\u003E of sampled 2020/21 cropland is flagged as cropland by the data set, \u003Cstrong\u003E(ii)\u003C/strong\u003E develop and test an LAI retrieval method from Earth observation Planet surface reflectance data (\u003Cstrong\u003Evalidation correlation coefficient\u003C/strong\u003E \u003Ci\u003ER=0.49\u003C/i\u003E, \u003Cstrong\u003Eroot mean square error\u003C/strong\u003E \u003Ci\u003E(RMSE) 0.44 m² m⁻²\u003C/i\u003E); \u003Cstrong\u003E(iii)\u003C/strong\u003E create a maize classification data set for Ghana for 2021 (\u003Cstrong\u003Eoverall accuracy within the region tested\u003C/strong\u003E: \u003Ci\u003E0.84\u003C/i\u003E), and (iv) explore the relationship between maximum LAI and crop yield using a linear model (\u003Cstrong\u003Ecorrelation coefficient\u003C/strong\u003E \u003Ci\u003ER=0.66 and R=0.53\u003C/i\u003E for in situ and Planet-derived LAI, respectively).&nbsp;\u003C/p\u003E\u003Cp\u003E&nbsp; &nbsp; The data set, made available here within the context of the Group on Earth Observations Global Agricultural Monitoring (GEOGLAM) initiative, is an important contribution to understanding crop evolution and distribution in smallholder farming systems and will be useful for researchers developing/validating methods to monitor these systems using Earth observation data.\u003C/p\u003E",
+      "link": "https://gkhub.earthobservations.org/records/sxhk3-pr060",
+      "icon": "/content/resources/academic.svg",
+      "challenges": [
+        "drought",
+        "land-degradation",
+        "loss-biodiversity"
+      ],
+      "overview": "",
+      "subjects": [],
+      "organization": "",
+      "locations": {},
+      "creators": [],
+      "rights": [],
+      "engagement_priorities": [],
+      "target_audiences": [],
+      "geo_work_programme_activity": null
+    },
+    {
+      "id": "ghana-dataset-lulc-ghana-cocoa-dataset-1",
+      "source": "geo-knowledge-hub",
+      "country_id": "ghana",
+      "country": "Ghana",
+      "name": "Reference Dataset for Land Use Change Mapping in Ghana's Cocoa Landscape (2024–2025)",
+      "resource_type": {
+        "id": "dataset",
+        "name": "Dataset"
+      },
+      "uploaded": "July 29, 2025",
+      "description": "\u003Cp\u003EThis dataset was produced by the Centre for Remote Sensing and Geographic Information Services (CERSGIS) as part of the project Reference Data Collection for Improving Land Use Change Mapping in Ghana. The primary objective was to develop high-quality reference data to enhance the accuracy of remote sensing-based land use and land cover (LULC) change mapping using machine learning methods in Ghana&rsquo;s cocoa production landscapes.\u003Cbr\u003EThe dataset comprises:\u003C/p\u003E\n\u003Cul\u003E\n\u003Cli\u003E\u003Cstrong\u003Ecocoa_farms:\u003C/strong\u003E 21,031 geocoded cocoa farm polygons, including agroforestry and shadeless cocoa plots - collected using \u003Ca href=\"https://openforis.org/solutions/ground/\"\u003EOpenForis Ground\u003C/a\u003E\n\u003Cul\u003E\n\u003Cli\u003E\u003Cstrong\u003Ehomogeneous_cocoa_farm:\u003C/strong\u003E 14,192 homogeneous cocoa polygons (shadeless) digitised from total cocoa plots\u003C/li\u003E\n\u003C/ul\u003E\n\u003C/li\u003E\n\u003Cli\u003E\u003Cstrong\u003Eother_land_uses: \u003C/strong\u003E20,035 additional geocoded points and polygons representing informal gold mining, degraded forest, oil palm (commercial and subsistence), and rubber (commercial and subsistence) - collected with \u003Ca href=\"https://www.collect.earth/\"\u003ECollect Earth Online\u003C/a\u003E\u003C/li\u003E\n\u003Cli\u003E\u003Cstrong\u003Egha_cocoa_hh_public:\u003C/strong\u003E 485 anonymised cluster records derived from 4,444 individual household survey that complement the geospatial data and provide socioeconomic context - collected with \u003Ca href=\"https://www.kobotoolbox.org/\"\u003EKoboToolbox\u003C/a\u003E\u003C/li\u003E\n\u003C/ul\u003E\n\u003Cp\u003EThis dataset provides a critical foundation for automated land cover classification and change detection models in tropical forested regions, where land use is heterogeneous and dynamic. It was developed to support researchers, policymakers, and practitioners across sub-Saharan Africa engaged in monitoring commodity-driven deforestation, landscape restoration, and sustainable land management.\u003Cbr\u003EThis dataset was originally created with support from Lacuna Fund, the world&rsquo;s first collaborative effort to provide data scientists, researchers, and social entrepreneurs in low- and middle-income contexts globally with the resources they need to produce labelled datasets that address urgent problems in their communities. Lacuna Fund is a funder collaborative that includes The Rockefeller Foundation, Google.org, Canada&rsquo;s International Development Research Centre, the German Federal Ministry for Economic Cooperation and Development (BMZ) with GIZ as implementing agency, Wellcome Trust, Gordon and Betty Moore Foundation, Patrick J. McGovern Foundation, and The Robert Wood Johnson Foundation. See https://lacunafund.org/about/ for more information.\u003C/p\u003E\n\u003Cp\u003EPlease contact \u003Ca href=\"fmensah@ug.edu.gh\"\u003Efmensah@ug.edu.gh\u003C/a\u003E with any questions or report an issue on Github \u003Ca href=\"https://github.com/CERSGIS/Lacuna_Reference_Dataset/issues\"\u003Ehere\u003C/a\u003E. Let us know how you plan to use the dataset. We are very interested in potential collaborations.\u003C/p\u003E\n\u003Cp\u003E\u003Cem\u003ENOTE: The cocoa farm geospatial data does not represent property or farm boundaries and should not be used for compliance / legal purposes. This data was collected for the purposes of training remote sensing models for improved mapping of cocoa and other land covers, and not for geolocating specific farms for the purposes of compliance with any regulation. Field data collectors did not trace property boundaries in the field, and field data was checked for quality and potentially edited in GIS. Therefore, these polygons represent only portions of cocoa farms. The sizes of cocoa polygons in this dataset do not necessarily relate to the size of an entire farm for a given location\u003C/em\u003E\u003C/p\u003E\n\u003Cp\u003E\u003Cstrong\u003EVersion History\u003C/strong\u003E\u003Cbr\u003Ev2.0 (2025-07-30): Household survey data now includes additional information in the key and notes tabs of the .xlsx file\u003Cbr\u003Ev1.0 (2025-06-25): Initial release\u003C/p\u003E\n\u003Cp\u003E\u003Cstrong\u003EProject Team:\u003C/strong\u003E\u003C/p\u003E\n\u003Cul\u003E\n\u003Cli\u003ECERSGIS - Foster Mensah, Bashara Abubakari\u003C/li\u003E\n\u003Cli\u003ESERVIR/UAH - Jacob Abramowitz\u003C/li\u003E\n\u003Cli\u003EWRI - James Warburton, Ashleigh Zosel-Harper, Emma Hodoka\u003C/li\u003E\n\u003C/ul\u003E\n\u003Cp\u003E\u003Cstrong\u003EData Collection Team:\u003C/strong\u003E\u003C/p\u003E\n\u003Cp\u003ECERSGIS, University of Ghana (Centre for Climate Change and Sustainability Studies, Department of Geography and Resource Development), YouthMappers (University of Ghana Chapter, University of Cape Coast Chapter).\u003C/p\u003E",
+      "link": "https://gkhub.earthobservations.org/records/fzp91-0nt13",
+      "icon": "/content/resources/academic.svg",
+      "challenges": [
+        "drought",
+        "land-degradation",
+        "loss-biodiversity"
+      ],
+      "overview": "",
+      "subjects": [],
+      "organization": "",
+      "locations": {},
+      "creators": [],
+      "rights": [],
+      "engagement_priorities": [],
+      "target_audiences": [],
+      "geo_work_programme_activity": null
+    },
+    {
+      "id": "ghana-location-biophysical-agronomic-dataset-1",
+      "source": "geo-knowledge-hub",
+      "country_id": "ghana",
+      "country": "Ghana",
+      "name": "Location, biophysical and agronomic parameters for croplands in Northern Ghana",
+      "resource_type": {
+        "id": "dataset-product",
+        "name": "Output Product"
+      },
+      "uploaded": "June 10, 2022",
+      "description": "We present a dataset describing (i) crop locations, (ii) biophysical parameters and (iii) crop yield and biomass was collected in 2020 and 2021 in Ghana, mostly focusing on maize in northern Ghana. The dataset contains repeated multiple measurements of leaf area index (LAI), leaf chlorophyll concentration over a large number of maize fields, as well as associated grain yield, biomass and polygons that delineate the fields.",
+      "link": "https://gkhub.earthobservations.org/records/1vpyh-2zc64",
+      "icon": "/content/resources/academic.svg",
+      "challenges": [
+        "drought",
+        "land-degradation",
+        "loss-biodiversity"
+      ],
+      "overview": "",
+      "subjects": [],
+      "organization": "",
+      "locations": {},
+      "creators": [],
+      "rights": [],
+      "engagement_priorities": [],
+      "target_audiences": [],
+      "geo_work_programme_activity": null
+    },
+    {
       "id": "ghana-monitoring-mangrove-extent-0",
       "source": "geo-knowledge-hub",
       "country_id": "ghana",
@@ -624,7 +781,7 @@
       "country": "South Africa",
       "name": "ARC Data Portal",
       "resource_type": {
-        "id": "web-portal",
+        "id": "software-webportal",
         "name": "Web Portal"
       },
       "uploaded": "April 09, 2025",
@@ -690,7 +847,7 @@
       "country": "South Africa",
       "name": "Greenbook",
       "resource_type": {
-        "id": "web-portal",
+        "id": "software-webportal",
         "name": "Web Portal"
       },
       "uploaded": "April 09, 2025",
@@ -738,7 +895,7 @@
       "country": "South Africa",
       "name": "Chief Directorate: National Geo-spatial Information",
       "resource_type": {
-        "id": "web-portal",
+        "id": "software-webportal",
         "name": "Web Portal"
       },
       "uploaded": "April 09, 2025",
@@ -786,7 +943,7 @@
       "country": "South Africa",
       "name": "eThekwini GIS Portal",
       "resource_type": {
-        "id": "web-portal",
+        "id": "software-webportal",
         "name": "Web Portal"
       },
       "uploaded": "April 09, 2025",
@@ -844,7 +1001,7 @@
       "country": "South Africa",
       "name": "Climate Information Portal (CIP)",
       "resource_type": {
-        "id": "web-portal",
+        "id": "software-webportal",
         "name": "Web Portal"
       },
       "uploaded": "April 09, 2025",
@@ -906,7 +1063,7 @@
       "country": "South Africa",
       "name": "South African Air Quality Information System (SAAQIS)",
       "resource_type": {
-        "id": "web-portal",
+        "id": "software-webportal",
         "name": "Web Portal"
       },
       "uploaded": "April 09, 2025",
@@ -978,7 +1135,7 @@
       "country": "South Africa",
       "name": "AFIS",
       "resource_type": {
-        "id": "web-portal",
+        "id": "software-webportal",
         "name": "Web Portal"
       },
       "uploaded": "April 09, 2025",
@@ -1022,7 +1179,7 @@
       "country": "South Africa",
       "name": "SAEON Open Data Platform (ODP)",
       "resource_type": {
-        "id": "web-portal",
+        "id": "software-webportal",
         "name": "Web Portal"
       },
       "uploaded": "April 09, 2025",
@@ -1084,7 +1241,7 @@
       "country": "South Africa",
       "name": "Biodiversity GIS (BGIS)",
       "resource_type": {
-        "id": "web-portal",
+        "id": "software-webportal",
         "name": "Web Portal"
       },
       "uploaded": "April 09, 2025",

@@ -128,21 +128,81 @@
       ],
       "representatives": [
         {
-          "name": "Joseph Bremang Tandoh",
-          "role": "GEO Principal",
-          "profile": "#",
-          "avatar": "/content/representative/placeholder.svg"
+          "name": "Prof. Dr. Amos T. Kabo-bah",
+          "role": "GEO Principal Alternate",
+          "profile": "https://www.linkedin.com/in/amostkabobah/",
+          "avatar": "https://earthobservations.org/storage/profile-photos/653bedbacb6a3604700075.jpg"
         },
         {
-          "name": "Amos Kabo-Bah",
-          "role": "GEO Principal Alternate",
-          "profile": "#",
-          "avatar": "https://earthobservations.org/storage/profile-photos/653bedbacb6a3604700075.jpg"
+          "name": "Joseph Bremang Tandoh",
+          "role": "GEO Principal",
+          "profile": "https://www.linkedin.com/in/joseph-bremang-tandoh-9209141a4/",
+          "avatar": "/content/representative/ghana/joseph-bremang.jpeg"
         },
         {
           "name": "Kofi Asare",
           "role": "GEO Principal Alternate and GEO Focal Point",
-          "profile": "https://earthobservations.org/profile/13056",
+          "profile": "https://www.linkedin.com/in/kofi-asare-78a0ab35/",
+          "avatar": "/content/representative/ghana/kofi-asare.jpeg"
+        },
+        {
+          "name": "Mr. Omar Seidu",
+          "role": "Deputy Governement Statistician, Head SDGs",
+          "profile": "https://www.linkedin.com/in/omar-seidu-23b874105/",
+          "avatar": "/content/representative/ghana/omar-seidu.jpeg"
+        },
+        {
+          "name": "Dr. Martin Addi",
+          "role": "Key Representative",
+          "profile": "https://scholar.google.com/citations?user=byCMjDUAAAAJ&hl=en",
+          "avatar": "/content/representative/ghana/martin-addi.jpeg"
+        },
+        {
+          "name": "Dr. Foster Mensah",
+          "role": "Key Representative",
+          "profile": "https://www.linkedin.com/in/foster-mensah-018414174/",
+          "avatar": "/content/representative/ghana/foster-mensah.jpeg"
+        },
+        {
+          "name": "Prof. Dr. Benjamin Kofi Nyarko",
+          "role": "Key Representative",
+          "profile": "https://www.linkedin.com/in/benjamin-kofi-nyarko-5807a91/",
+          "avatar": "/content/representative/placeholder.svg"
+        },
+        {
+          "name": "Dr. Anita Antwiwaa",
+          "role": "Key Representative",
+          "profile": "https://www.linkedin.com/in/anita-antwiwaa-phd-0a6399178/",
+          "avatar": "/content/representative/ghana/anita-antwiwaa.jpeg"
+        },
+        {
+          "name": "Dr. Kwame Adu Agyekum",
+          "role": "Key Representative",
+          "profile": "https://www.linkedin.com/in/kwame-adu-agyekum-708864201/",
+          "avatar": "/content/representative/ghana/kwame-adu-agyekum.jpeg"
+        },
+        {
+          "name": "Mr. Selase Akaho",
+          "role": "Key Representative",
+          "profile": "https://www.linkedin.com/in/selaseh/",
+          "avatar": "/content/representative/ghana/selaseh-akaho.jpeg"
+        },
+        {
+          "name": "Mr. Daniel Quarshie",
+          "role": "Key Representative",
+          "profile": "#",
+          "avatar": "/content/representative/placeholder.svg"
+        },
+        {
+          "name": "Bright Ankomahene",
+          "role": "Key Representative",
+          "profile": "#",
+          "avatar": "/content/representative/placeholder.svg"
+        },
+        {
+          "name": "Ing. Dr. Martin Kyereh Domfeh",
+          "role": "Key Representative",
+          "profile": "#",
           "avatar": "/content/representative/placeholder.svg"
         }
       ]
