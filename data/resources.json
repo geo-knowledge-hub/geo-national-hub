@@ -1,6 +1,64 @@
 {
   "resources": [
     {
+      "id": "ghana-dataset-bono-east-ghana-1",
+      "source": "geo-knowledge-hub",
+      "country_id": "ghana",
+      "country": "Ghana",
+      "name": "Land use maps Bono East, Ghana (2020 and 2050)",
+      "resource_type": {
+        "id": "dataset",
+        "name": "Dataset"
+      },
+      "uploaded": "November 15, 2023",
+      "description": "<div>\n<div>\n<p>Data resulting from a project undertaken to generate a comprehensive set of crop field boundary labels throughout the continent of Africa, representing the years 2017-2023. The project was funded by the&nbsp;<a title=\"\" href=\"https://lacunafund.org/\">Lacuna Fund</a>, and led by <a title=\"\" href=\"https://farmerline.co/\">Farmerline</a>, in collaboration with <a title=\"\" href=\"https://spatialcollective.com/\">Spatial Collective</a> and the <a title=\"\" href=\"agroimpacts.info\">Agricultural Impacts Research Group</a> at <a title=\"\" href=\"https://www.clarku.edu/departments/geography/\">Clark University</a>.</p>\n<p>Please refer to the technical report in the accompanying repository for more details on the methods used to develop the dataset, an analysis of label quality, and usage guidelines.</p>\n</div>\n</div>",
+      "link": "https://gkhub.earthobservations.org/records/0st2d-zkp69",
+      "icon": "/content/resources/academic.svg",
+      "challenges": [
+        "drought",
+        "land-degradation",
+        "loss-biodiversity"
+      ],
+      "overview": "",
+      "subjects": [],
+      "organization": "",
+      "locations": {},
+      "creators": [],
+      "rights": [],
+      "engagement_priorities": [],
+      "target_audiences": [],
+      "geo_work_programme_activity": null
+    },
+    {
+      "id": "ghana-dataset-region-wide-africa-1",
+      "source": "geo-knowledge-hub",
+      "country_id": "ghana",
+      "country": "Ghana",
+      "name": "A region-wide, multi-year set of crop field boundary labels for Africa",
+      "resource_type": {
+        "id": "dataset",
+        "name": "Dataset"
+      },
+      "uploaded": "April 24, 2024",
+      "description": "<div>\n<div>\n<p>Data resulting from a project undertaken to generate a comprehensive set of crop field boundary labels throughout the continent of Africa, representing the years 2017-2023. The project was funded by the&nbsp;<a title=\"\" href=\"https://lacunafund.org/\">Lacuna Fund</a>, and led by <a title=\"\" href=\"https://farmerline.co/\">Farmerline</a>, in collaboration with <a title=\"\" href=\"https://spatialcollective.com/\">Spatial Collective</a> and the <a title=\"\" href=\"agroimpacts.info\">Agricultural Impacts Research Group</a> at <a title=\"\" href=\"https://www.clarku.edu/departments/geography/\">Clark University</a>.</p>\n<p>Please refer to the technical report in the accompanying repository for more details on the methods used to develop the dataset, an analysis of label quality, and usage guidelines.</p>\n</div>\n</div>",
+      "link": "https://gkhub.earthobservations.org/records/hmbvn-kxf82",
+      "icon": "/content/resources/academic.svg",
+      "challenges": [
+        "drought",
+        "land-degradation",
+        "loss-biodiversity"
+      ],
+      "overview": "",
+      "subjects": [],
+      "organization": "",
+      "locations": {},
+      "creators": [],
+      "rights": [],
+      "engagement_priorities": [],
+      "target_audiences": [],
+      "geo_work_programme_activity": null
+    },
+    {
       "id": "ghana-stats-bank-1",
       "source": "geo-knowledge-hub",
       "country_id": "ghana",
